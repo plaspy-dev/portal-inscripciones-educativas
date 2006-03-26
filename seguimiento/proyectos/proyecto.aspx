@@ -111,8 +111,9 @@
                                             <anthem:CheckBox ID="CheckBox3" runat="server" Checked="True" Visible="False" /></td>
                                         <td >
                                             Institución educativa</td>
-                                        <td ><anthem:TextBox ID="m_ENombre" runat="server" ReadOnly="True">
-                                        </anthem:TextBox></td>
+                                        <td >
+                                            <anthem:Label id="m_SInstitucion" runat="server" UpdateAfterCallBack="False">
+                                            </anthem:Label></td>
                                         <td>
                                         </td>
                                     </tr>
@@ -121,8 +122,8 @@
                                             <anthem:CheckBox ID="CheckBox4" runat="server" Checked="True" Visible="False" /></td>
                                         <td >
                                             Fecha de aprobación proyecto</td>
-                                        <td ><anthem:TextBox ID="m_EFechaAprobacion" runat="server" ReadOnly="True">
-                                        </anthem:TextBox></td>
+                                        <td ><anthem:Label id="m_SFechaAprobacion" runat="server" UpdateAfterCallBack="False">
+                                        </anthem:Label></td>
                                         <td>
                                         </td>
                                     </tr>
@@ -131,7 +132,7 @@
                                                         <anthem:CheckBox ID="CheckBox5" runat="server" Checked="True" Visible="False" /></td>
                                                     <td >
                                                         Observaciones</td>
-                                                    <td ><anthem:TextBox ID="m_EObservaciones" runat="server" ReadOnly="True">
+                                                    <td ><anthem:TextBox ID="m_EObservaciones" runat="server">
                                                     </anthem:TextBox></td>
                                                     <td>
                                                     </td>
@@ -139,29 +140,284 @@
                                             </table>
                                     <div style="text-align: right"><anthem:Button ID="m_BSiguiente" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="false"/></div>
                                 </asp:View>
-                                <asp:View ID="View2" runat="server">
-                                    Contratos<br />
-                                    <div style="text-align: right"><anthem:Button ID="m_BAnterior" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" /></div>
+                                <asp:View ID="View2" runat="server"><table>
+                                    <tr>
+                                        <td >
+                                            </td>
+                                        <td >
+                                            Número de contrato<anthem:HiddenField ID="m_nIdContrato" runat="server" /></td>
+                                        <td ><anthem:TextBox ID="m_EContrato" runat="server">
+                                        </anthem:TextBox></td>
+                                        <td>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="m_EContrato"
+                                                ErrorMessage="Por favor ingrese un número de contrato" SetFocusOnError="True"></asp:RequiredFieldValidator>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            Fecha Suscripcion del contrato</td>
+                                        <td><anthem:TextBox ID="m_EFechaS" runat="server">
+                                        </anthem:TextBox><input id="botonfecha" name="botonfecha"  onclick="setFecha('m_EFechaS')" type="button" value="..." />
+                                        </td>
+                                        <td>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="m_EFechaS"
+                                                ErrorMessage="Por favor ingrese una fecha de suscripción" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                                            <asp:RangeValidator ID="RangeValidator3" runat="server" ControlToValidate="m_EFechaS"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                    SetFocusOnError="True" Type="Date"></asp:RangeValidator>
+                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            Fecha acta de inicio</td>
+                                        <td><anthem:TextBox ID="m_EActaInicio" runat="server">
+                                        </anthem:TextBox><input id="Button1" name="botonfecha"  onclick="setFecha('m_EActaInicio')" type="button" value="..." />                                        
+                                        </td>
+                                        <td>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="m_EActaInicio"
+                                                ErrorMessage="Por favor ingrese una fecha de acta" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                                                <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_EActaInicio"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                    SetFocusOnError="True" Type="Date"></asp:RangeValidator>
+                                                </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            Clase de contrato</td>
+                                        <td><anthem:DropDownList ID="m_CBClaseContrato" runat="server" AutoCallBack="False" >
+                                        </anthem:DropDownList></td>
+                                        <td>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="m_CBClaseContrato"
+                                                ErrorMessage="Por favor seleccione una clase de contrato" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            Objeto del contrato</td>
+                                        <td><anthem:TextBox ID="m_EObjetoContrato" runat="server">
+                                        </anthem:TextBox></td>
+                                        <td>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="m_EObjetoContrato"
+                                                ErrorMessage="Por favor ingrese un objeto" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            Plazo</td>
+                                        <td>
+                                            <anthem:TextBox ID="m_EPlazoContrato" runat="server" CssClass="inputnumerico">
+                                            </anthem:TextBox></td>
+                                        <td>
+                                            <asp:RangeValidator ID="RangeValidator4" runat="server" ControlToValidate="m_EPlazoContrato"
+                                                ErrorMessage="Por favor ingrese un número aqui" MaximumValue="100000000" MinimumValue="1"
+                                                SetFocusOnError="True" Type="Integer"></asp:RangeValidator></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            Valor contratado</td>
+                                        <td>
+                                            <anthem:TextBox ID="m_EValorContratado" runat="server" CssClass="inputnumerico">
+                                            </anthem:TextBox></td>
+                                        <td>
+                                        <asp:RangeValidator ID="RangeValidator2" ControlToValidate="m_EValorContratado" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="10000000" MinimumValue="1"></asp:RangeValidator>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            Estado del contrato</td>
+                                        <td>
+                                            <anthem:DropDownList ID="m_CBEstadoContrato" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_LCProyecto_SelectedIndexChanged">
+                                            </anthem:DropDownList></td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            Observaciones</td>
+                                        <td>
+                                            <anthem:TextBox ID="m_EObservacionesContrato" runat="server">
+                                            </anthem:TextBox></td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" SelectMethod="Select"
+                                                TypeName="CContratos"></asp:ObjectDataSource>
+                                        </td>
+                                        <td>
+                                            <anthem:Button id="m_BInsertarContrato" runat="server" Text="Insertar" OnClick="m_BInsertarContrato_Click">
+                                            </anthem:Button><anthem:Button id="m_BAceptarContrato" runat="server" Text="Aceptar" OnClick="m_BAceptarContrato_Click"></anthem:Button><anthem:Button
+                                                    id="m_BCancelarContrato" runat="server" CausesValidation="false" Text="Cancelar" OnClick="m_BCancelarContrato_Click"></anthem:Button><anthem:Button id="m_BEliminarContrato" runat="server"
+                                                        CausesValidation="False" PreCallBackFunction="Eliminar_PreCallBack"
+                                                        Text="Eliminar" OnClick="m_BEliminarContrato_Click"></anthem:Button></td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </table>
+                                    <anthem:GridView id="m_LCContratos" runat="server" AutoGenerateColumns="False" CellPadding="1"
+                                        CellSpacing="1" DataKeyNames="id" DataSourceID="ObjectDataSource2" EmptyDataText="No hay Contratos"
+                                        UpdateAfterCallBack="False" OnRowDataBound="m_LCContratos_RowDataBound" OnSelectedIndexChanged="m_LCContratos_SelectedIndexChanged">
+                                        <columns>
+<asp:CommandField SelectImageUrl="../../imagenes/edit.jpg" ButtonType="Image" ShowSelectButton="True"></asp:CommandField>
+</columns>
+                                        <rowstyle backcolor="White" cssclass="celda" wrap="True" />
+                                        <selectedrowstyle backcolor="#316AC5" cssclass="celdasel" />
+                                        <pagerstyle backcolor="#E3E4EA" horizontalalign="Right" />
+                                        <headerstyle backcolor="#E3E4EA" cssclass="celdaTitulo" />
+                                    </anthem:GridView>
+                                    <br />
+                                    <div style="text-align: right"><anthem:Button ID="m_BAnterior1" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
+                                        <anthem:Button ID="Button5" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="false"/></div>
                                 </asp:View>
-                                <asp:View ID="View3" runat="server">
-                                    Modificaciones<br />
-                                    <div style="text-align: right"><anthem:Button ID="m_BAnterior" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" /></div>
+                                <asp:View ID="View3" runat="server"><table>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            Número de contrato</td>
+                                        <td>
+                                            <anthem:Label id="m_SContratoModificaciones" runat="server" UpdateAfterCallBack="False">
+                                            </anthem:Label></td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            No. adición</td>
+                                        <td>
+                                            <anthem:Label id="m_SNoAdicion" runat="server" UpdateAfterCallBack="False">
+                                            </anthem:Label></td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            Fecha adición</td>
+                                        <td>
+                                            <anthem:TextBox ID="m_EFechaAdicion" runat="server">
+                                            </anthem:TextBox><input id="Button2" name="botonfecha"  onclick="setFecha('m_EFechaAdicion')" type="button" value="..." /></td>
+                                        <td>
+                                        <asp:RangeValidator ID="RangeValidator5" runat="server" ControlToValidate="m_EFechaAdicion"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                    SetFocusOnError="True" Type="Date"></asp:RangeValidator>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            No. suspención</td>
+                                        <td>
+                                            <anthem:TextBox ID="m_ENoSuspencion" runat="server" CssClass="inputnumerico">
+                                            </anthem:TextBox></td>
+                                        <td>
+                                        <asp:RangeValidator ID="RangeValidator6" runat="server" ControlToValidate="m_ENoSuspencion"
+                                                ErrorMessage="Por favor ingrese un número aqui" MaximumValue="100000000" MinimumValue="1"
+                                                SetFocusOnError="True" Type="Integer"></asp:RangeValidator>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            Fecha suspención</td>
+                                        <td>
+                                            <anthem:TextBox ID="m_EFechaSuspencion" runat="server">
+                                            </anthem:TextBox><input id="Button3" name="botonfecha"  onclick="setFecha('m_EFechaSuspencion')" type="button" value="..." /></td>
+                                        <td>
+                                        <asp:RangeValidator ID="RangeValidator7" runat="server" ControlToValidate="m_EFechaSuspencion"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                    SetFocusOnError="True" Type="Date"></asp:RangeValidator>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            Fecha reinicio</td>
+                                        <td>
+                                            <anthem:TextBox ID="m_EFechaReinicio" runat="server">
+                                            </anthem:TextBox><input id="Button4" name="botonfecha"  onclick="setFecha('m_EFechaReinicio')" type="button" value="..." /></td>
+                                        <td>
+                                        <asp:RangeValidator ID="RangeValidator8" runat="server" ControlToValidate="m_EFechaReinicio"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                    SetFocusOnError="True" Type="Date"></asp:RangeValidator>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            Observaciones</td>
+                                        <td>
+                                            <anthem:TextBox ID="m_EObservacionesModificacion" runat="server">
+                                            </anthem:TextBox></td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            botones</td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                </table>
+                                    <br />
+                                    <div style="text-align: right"><anthem:Button ID="m_BAnterior2" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
+                                        <anthem:Button ID="Button6" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="false"/></div>
                                 </asp:View>
                                 <asp:View ID="View4" runat="server">
                                     Presupuesto<br />
-                                    <div style="text-align: right"><anthem:Button ID="m_BAnterior" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" /></div>
+                                    <div style="text-align: right"><anthem:Button ID="m_BAnterior3" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
+                                        <anthem:Button ID="Button7" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="false"/></div>
                                 </asp:View>
                                 <asp:View ID="View5" runat="server">
                                     Historia<br />
-                                    <div style="text-align: right"><anthem:Button ID="m_BAnterior" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" /></div>
+                                    <div style="text-align: right"><anthem:Button ID="m_BAnterior4" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
+                                        <anthem:Button ID="Button8" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="false"/></div>
                                 </asp:View>
                                 <asp:View ID="View6" runat="server">
                                     Saldos<br />
-                                    <div style="text-align: right"><anthem:Button ID="m_BAnterior" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" /></div>
+                                    <div style="text-align: right"><anthem:Button ID="m_BAnterior5" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
+                                        <anthem:Button ID="Button9" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="false"/></div>
                                 </asp:View>
                                 <asp:View ID="View7" runat="server">
                                     Documentos<br />
-                                    <div style="text-align: right"><anthem:Button ID="m_BAnterior" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" /></div>
+                                    <div style="text-align: right"><anthem:Button ID="m_BAnterior6" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" /></div>
                                 </asp:View>
                             </anthem:MultiView>
                             

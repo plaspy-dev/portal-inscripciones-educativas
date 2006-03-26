@@ -7,7 +7,7 @@
 Archived ASP.NET portal for recording education applications and producing institutional reports
 
 > [!WARNING]
-> **Status: archived.** Source from 2006–2008. The compiler reports duplicate identifier `m_bAnterior` in the surviving markup.
+> **Status: archived.** Source from 2006–2008. This edition precompiled with .NET Framework 4.8.
 
 ### Overview
 
@@ -27,21 +27,25 @@ The portal stores forms and reference lists for education applications. Operator
 | ASP.NET precompiler | 4.8.10001.0 | Compiles the Web Forms pages |
 | IIS Express | 10.0.26013.1000 | Runs the verification site |
 | SQL Server Developer | 2022 | Stores the fictional catalogue |
-| Anthem.NET | Archived assembly | Supports the original page controls |
+| Anthem.NET | 1.0.0.0 | Supports the original page controls |
 
 ### Getting started
 
-The compiler reports duplicate identifier `m_bAnterior` in the surviving markup.
+Run `docker compose -f demo/compose.yaml up -d --pull never` with `PORTAL_DEMO_SA_PASSWORD` set to a newly generated test password in your terminal. The SQL Server 2022 Developer image must already be available locally. Use `127.0.0.1,11433` in the generated configuration. Change the loopback port with `PORTAL_DEMO_PORT` if needed. Run `docker compose -f demo/compose.yaml down -v` to delete the demo database when finished.
+
+From a Windows checkout, run `pwsh -NoProfile -File demo/Build.ps1 -Output <new-folder>`. Serve the resulting `site` folder with IIS Express on `127.0.0.1`. Load [the fictional schema](demo/schema.sql) into a disposable SQL Server instance bound to `127.0.0.1`. Add `servidor`, `db`, `usuario` and `contrasena` to `appSettings` in the generated site configuration. Point them to that instance, the `portal_demo` database and a new test user.
 
 ### Usage
 
-The archived source and its build diagnostic remain useful for reviewing the incomplete edition.
+Copy `demo/CatalogProbe.aspx.example` into the test site as `prueba-catalogo.aspx`. Open that page in the local site. The fictional record is Departamento Ejemplo. The probe reads it through the archived connection adapter.
 
 ### Project structure
 
 - `aplicativo/`. Institutional catalogues. Open the school list in `aplicativo/institucion/ieducativas.aspx`.
 - `App_Code/`. Shared record and data access classes. Start with `App_Code/CConector.cs`.
 - `aprobacion/`. Agreement and project decisions, including proyectos/aprobacion.aspx.
+- `bin/` · Original Anthem.NET assembly
+- `demo/` · Build and fictional SQL scenario
 - `inscripcion/` · Application forms
 - `menu/`. JSCookMenu.js and the visual theme for the menu.
 - `seguimiento/`. Follow-up pages for projects and agreements, including proyectos/proyecto.aspx.
@@ -50,7 +54,11 @@ The archived source and its build diagnostic remain useful for reviewing the inc
 
 ### Verification
 
-The compiler reports duplicate identifier `m_bAnterior` in the surviving markup.
+Docker Compose 5.6.1 starts the disposable service in this verification.
+
+Windows build 10.0.26300, IIS Express 10.0.26013.1000 (WinBuild.160101.0800), SQL Server 16.0.4325.4 and .NET Framework ASP.NET Compiler 4.8.10001.0.
+
+Verified on 20 November 2026. The portal was built in Windows and tested with IIS Express and a disposable SQL Server instance. The catalogue query passed. Registration and reports require further functional verification.
 
 ### History
 
@@ -76,7 +84,7 @@ The original application is available under the [MIT license](LICENSE).
 Archivado — portal ASP.NET para registrar inscripciones educativas y preparar informes de instituciones
 
 > [!WARNING]
-> **Estado: archivado.** Código de 2006 a 2008. El compilador informa que el identificador `m_bAnterior` está duplicado en el marcado conservado.
+> **Estado: archivado.** Código de 2006 a 2008. Esta edición precompiló con .NET Framework 4.8.
 
 ### Descripción general
 
@@ -96,21 +104,25 @@ El portal reúne formularios y catálogos para gestionar inscripciones educativa
 | Precompilador ASP.NET | 4.8.10001.0 | Compila las páginas Web Forms |
 | IIS Express | 10.0.26013.1000 | Ejecuta el sitio de prueba |
 | SQL Server Developer | 2022 | Guarda el catálogo ficticio |
-| Anthem.NET | Ensamblado del respaldo | Permite usar los controles originales de las páginas |
+| Anthem.NET | 1.0.0.0 | Permite usar los controles originales de las páginas |
 
 ### Cómo empezar
 
-El compilador informa que el identificador `m_bAnterior` está duplicado en el marcado conservado.
+Ejecuta `docker compose -f demo/compose.yaml up -d --pull never` con `PORTAL_DEMO_SA_PASSWORD` definida en tu terminal con una contraseña nueva de prueba. La imagen SQL Server 2022 Developer debe estar disponible localmente. Usa `127.0.0.1,11433` en la configuración generada. Si necesitas otro puerto local, defínelo en `PORTAL_DEMO_PORT`. Al terminar, ejecuta `docker compose -f demo/compose.yaml down -v` para borrar la base de prueba.
+
+Desde una copia en Windows, ejecuta `pwsh -NoProfile -File demo/Build.ps1 -Output <new-folder>`. Abre la carpeta `site` resultante con IIS Express en `127.0.0.1`. Carga [el esquema ficticio](demo/schema.sql) en una instancia desechable de SQL Server enlazada a `127.0.0.1`. Agrega `servidor`, `db`, `usuario` y `contrasena` a `appSettings` en la configuración generada del sitio. Indica esa instancia, la base `portal_demo` y un usuario nuevo de prueba.
 
 ### Uso
 
-El código de archivo y su diagnóstico de compilación permiten revisar esta edición incompleta.
+Copia `demo/CatalogProbe.aspx.example` al sitio de prueba como `prueba-catalogo.aspx`. Abre esa página en el sitio local. El registro ficticio se llama Departamento Ejemplo. El probador lo lee mediante el adaptador de conexión del respaldo.
 
 ### Estructura del proyecto
 
 - `aplicativo/`. Catálogos institucionales. Abre la lista de escuelas en `aplicativo/institucion/ieducativas.aspx`.
 - `App_Code/`. Clases compartidas y de acceso a datos. Consulta `App_Code/CConector.cs`.
 - `aprobacion/`. Decisiones de convenios y proyectos, incluida proyectos/aprobacion.aspx.
+- `bin/` · Ensamblado original de Anthem.NET
+- `demo/` · Compilación y escenario ficticio en SQL
 - `inscripcion/` · Formularios de inscripción
 - `menu/`. JSCookMenu.js y el tema visual del menú.
 - `seguimiento/`. Seguimiento de proyectos y convenios, incluido proyectos/proyecto.aspx.
@@ -119,7 +131,11 @@ El código de archivo y su diagnóstico de compilación permiten revisar esta ed
 
 ### Verificación
 
-El compilador informa que el identificador `m_bAnterior` está duplicado en el marcado conservado.
+Docker Compose 5.6.1 inicia el servicio desechable de esta verificación.
+
+Windows compilación 10.0.26300, IIS Express 10.0.26013.1000 (WinBuild.160101.0800), SQL Server 16.0.4325.4 y compilador ASP.NET de .NET Framework 4.8.10001.0.
+
+Verificado el 20 de noviembre de 2026. El portal se compiló en Windows y se probó con IIS Express y una instancia desechable de SQL Server. La consulta del catálogo pasó. Falta verificar el registro de solicitudes y los informes.
 
 ### Historia
 
