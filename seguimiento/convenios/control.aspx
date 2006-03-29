@@ -40,13 +40,13 @@
 					    <table border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <td style="width: 100px; height: 20px;">
-                                <asp:Button ID="m_BTab1" runat="server" Text="Convenios Marco" Width="100px" CssClass="cselected" OnClick="OnTabsClick" UseSubmitBehavior="False"/>
+                                <asp:Button ID="m_BTab1" runat="server" Text="Convenios Marco" Width="150px" CssClass="cselected" OnClick="OnTabsClick" UseSubmitBehavior="False"/>
                             </td>
                             <td style="width: 100px; height: 20px;">
-                                <asp:Button ID="m_BTab2" runat="server" Text="Modificaciones" Width="100px" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False"/>
+                                <asp:Button ID="m_BTab2" runat="server" Text="Modificaciones" Width="120px" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False"/>
                             </td>
                             <td style="width: 100px; height: 20px;">
-                                <asp:Button ID="m_BTab3" runat="server" Text="Actualización de documentos" Width="100px" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False"/>
+                                <asp:Button ID="m_BTab3" runat="server" Text="Actualización de documentos" Width="200px" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False"/>
                             </td>
                             <td style="width: 100px; height: 20px;">
                                 <asp:Button ID="m_BTab4" runat="server" Text="Desembolsos" Width="100px" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False"/>
@@ -71,7 +71,7 @@
                 </tr>
                 <tr>
                     <td class="ccontenido">
-                        <anthem:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
+                        <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
                             <asp:View ID="View1" runat="server">
                                 <table>
                                     <tr>
@@ -132,95 +132,6 @@
                                                     <td>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td >
-                                                        <anthem:CheckBox ID="CheckBox6" runat="server" Checked="True" Visible="False" /></td>
-                                                    <td >
-                                                        Certificado de disponibilidad presupuestal</td>
-                                                    <td ><anthem:TextBox ID="m_ECDP" runat="server" ReadOnly="True">
-                                                    </anthem:TextBox></td>
-                                                    <td>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td >
-                                                        <anthem:CheckBox ID="CheckBox7" runat="server" Checked="True" Visible="False" /></td>
-                                                    <td >
-                                                        Registro presupuestal</td>
-                                                    <td ><anthem:TextBox ID="m_ERDP" runat="server" ReadOnly="True">
-                                                    </anthem:TextBox></td>
-                                                    <td>
-                                                    </td>
-                                                </tr>
-                                    <tr>
-                                        <td>
-                                            <anthem:CheckBox ID="CheckBox8" runat="server" Checked="True" Visible="False" /></td>
-                                        <td>
-                                            Certificado programa de apoyo</td>
-                                        <td><anthem:CheckBox ID="m_CCertificado" runat="server" Checked="True" Enabled="False" /></td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                                <tr>
-                                                    <td >
-                                                        <anthem:CheckBox ID="CheckBox9" runat="server" Checked="True" Visible="False" /></td>
-                                                    <td >
-                                                        Fecha certificado</td>
-                                                    <td ><anthem:TextBox ID="m_EFechaCertificado" runat="server" ReadOnly="True">
-                                                    </anthem:TextBox></td>
-                                                    <td>
-                                                    </td>
-                                                </tr>
-                                    <tr>
-                                        <td>
-                                            <anthem:CheckBox ID="CheckBox10" runat="server" Checked="True" Visible="False" /></td>
-                                        <td>
-                                            Resolución de incorporación de recursos</td>
-                                        <td><anthem:TextBox ID="m_RIR" runat="server" ReadOnly="True">
-                                        </anthem:TextBox></td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <anthem:CheckBox ID="CheckBox11" runat="server" Checked="True" Visible="False" /></td>
-                                        <td>
-                                            Fecha resolución</td>
-                                        <td><anthem:TextBox ID="m_EFechaResolucion" runat="server" ReadOnly="True">
-                                        </anthem:TextBox></td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <anthem:CheckBox ID="CheckBox12" runat="server" Checked="True" Visible="False" /></td>
-                                        <td>
-                                            Nombre banco</td>
-                                        <td><anthem:TextBox ID="m_EBanco" runat="server" ReadOnly="True">
-                                        </anthem:TextBox></td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <anthem:CheckBox ID="CheckBox13" runat="server" Checked="True" Visible="False" /></td>
-                                        <td>
-                                            No. Cuenta</td>
-                                        <td><anthem:TextBox ID="m_ECuenta" runat="server" ReadOnly="True">
-                                        </anthem:TextBox></td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <anthem:CheckBox ID="CheckBox14" runat="server" Checked="True" Visible="False" /></td>
-                                        <td>
-                                            Tipo de cuenta</td>
-                                        <td><anthem:TextBox ID="m_ETipoCuenta" runat="server" ReadOnly="True">
-                                        </anthem:TextBox></td>
-                                        <td>
-                                        </td>
-                                    </tr>
                                     <tr>
                                         <td>
                                         </td>
@@ -229,11 +140,25 @@
                                         <td>
                                         </td>
                                         <td>
-                                            <anthem:Button ID="m_BSiguiente" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="false"/></td>
+                                            <asp:Button ID="m_BSiguiente" runat="server" Text="Siguiente" OnClick="OnNext"/></td>
                                     </tr>
                                             </table>
+                                            <br />
+                                            <anthem:Label ID="m_SMensaje" runat="server"></anthem:Label><br />
+                                            <anthem:Button ID="m_BImprimir" runat="server" Text="Imprimir" OnClick="m_BImprimir_Click" CausesValidation="False" />
+                                            <anthem:DropDownList ID="m_CBImprimir" runat="server">
+                                                <asp:ListItem Value="1">Microsoft Excel</asp:ListItem>
+                                                <asp:ListItem Value="0">En Pantalla</asp:ListItem>
+                                            </anthem:DropDownList>
+                                            <anthem:Button ID="m_BAceptar" runat="server" Text="Aceptar" OnClick="m_BAceptar_Click" /><anthem:Button ID="m_BCancelar" runat="server" Text="Cancelar" OnClick="m_BCancelar_Click" CausesValidation="False" />
+                                            <anthem:Button ID="m_BAceptarP" runat="server" Text="Aceptar" CausesValidation="False" OnClick="m_BAceptarP_Click" PreCallBackFunction="preprintform" /><anthem:Button ID="m_BCancelarP" runat="server" Text="Cancelar" CausesValidation="False" OnClick="m_BCancelarP_Click" />
+                                            <anthem:LinkButton ID="m_LBTodos" runat="server" CausesValidation="False" PreCallBackFunction="checkall">Todos</anthem:LinkButton>
+                                            <anthem:LinkButton ID="m_LBNinguno" runat="server" CausesValidation="False" PreCallBackFunction="uncheckall">Ninguno</anthem:LinkButton>
                                 </asp:View>
                                 <asp:View ID="View2" runat="server">
+                                    &nbsp;<table>
+                                        <tr>
+                                            <td>
                                     <table>
                                         <tr>
                                             <td>
@@ -386,33 +311,31 @@
                                             <td>
                                             </td>
                                         </tr>
+                                    </table>
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td>
-                                            </td>
-                                            <td>
-                                            </td>
-                                            <td>
-                                            </td>
-                                            <td>
-                                                <anthem:Button ID="m_BAnterior1" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
-                                        <anthem:Button ID="Button1" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="false"/></td>
+                                                &nbsp;</td>
                                         </tr>
-                                    </table><anthem:GridView ID="m_LCAdiciones" runat="server" EmptyDataText="No hay Adiciones" UpdateAfterCallBack="False" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" DataKeyNames="id" DataSourceID="ObjectDataSource2" OnSelectedIndexChanged="m_LCAdiciones_SelectedIndexChanged" OnRowDataBound="m_LCAdiciones_RowDataBound">
-                                        <columns>
-<asp:CommandField SelectImageUrl="../../imagenes/edit.jpg" ButtonType="Image" ShowSelectButton="True"></asp:CommandField>
-</columns>
-                                        <RowStyle CssClass="celda" BackColor="White" Wrap="True" />
-                                        <SelectedRowStyle BackColor="#316AC5" CssClass="celdasel" />
-                                        <PagerStyle HorizontalAlign="Right" BackColor="#E3E4EA" />
-                                        <HeaderStyle CssClass="celdaTitulo" BackColor="#E3E4EA" />
-                                    </anthem:GridView>
+                                        <tr>
+                                            <td align="right">
+                                                <asp:Button ID="m_BAnterior1" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
+                                        <asp:Button ID="Button1" runat="server" Text="Siguiente" OnClick="OnNext"/></td>
+                                        </tr>
+                                    </table>
                                     <div style="text-align: right">
                                         &nbsp;</div>
                                 </asp:View>
                                 <asp:View ID="View3" runat="server">
+                                    &nbsp;<table>
+                                        <tr>
+                                            <td>
                                     <table>
                                     <tr>
                                         <td>
+                                                <asp:ObjectDataSource ID="ObjectDataSource3" runat="server" SelectMethod="Select"
+                                                    TypeName="CDocumentosConvenio"></asp:ObjectDataSource>
                                             </td>
                                         <td>
                                             NIT ente territorial</td>
@@ -421,24 +344,24 @@
                                         <td>
                                         </td>
                                     </tr>
-                                        <tr>
-                                            <td>
-                                                <asp:ObjectDataSource ID="ObjectDataSource3" runat="server" SelectMethod="Select"
-                                                    TypeName="CDocumentosConvenio"></asp:ObjectDataSource>
-                                            </td>
-                                            <td>
-                                                </td>
-                                            <td>
-                                            </td>
-                                            <td>
+                                    </table>
                                             </td>
                                         </tr>
-                                    </table>
+                                        <tr>
+                                            <td>
                                             <anthem:DataGrid ID="m_LBDocumentos" Runat="server" AutoGenerateColumns="false" DataSourceID="ObjectDataSource3" OnItemDataBound="m_LBDocumentos_ItemDataBound">
                                                 <HeaderStyle Font-Bold="True" />
-		                                    </anthem:DataGrid>
-                                    <div style="text-align: right"><anthem:Button ID="m_BAnterior2" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
-                                        <anthem:Button ID="Button2" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="false"/></div>
+		                                    </anthem:DataGrid></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">
+                                                <asp:Button ID="m_BAnterior2" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
+                                        <asp:Button ID="Button2" runat="server" Text="Siguiente" OnClick="OnNext"/></td>
+                                        </tr>
+                                    </table>
+                                    <br />
+                                    <div style="text-align: right">
+                                        &nbsp;</div>
                                 </asp:View>
                                 <asp:View ID="View4" runat="server"><table>
                                     <tr>
@@ -558,18 +481,20 @@
                                         <td>
                                         </td>
                                         <td>
-                                            <anthem:GridView ID="m_LCDesembolsos" runat="server" EmptyDataText="No hay Desembolsos" UpdateAfterCallBack="False" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" DataKeyNames="id" DataSourceID="ObjectDataSource4" OnRowDataBound="m_LCDesembolsos_RowDataBound" OnSelectedIndexChanged="m_LCDesembolsos_SelectedIndexChanged" >
-                                                <columns>
-<asp:CommandField SelectImageUrl="../../imagenes/edit.jpg" ButtonType="Image" ShowSelectButton="True"></asp:CommandField>
-</columns>
-                                                <RowStyle CssClass="celda" BackColor="White" Wrap="True" />
-                                                <SelectedRowStyle BackColor="#316AC5" CssClass="celdasel" />
-                                                <PagerStyle HorizontalAlign="Right" BackColor="#E3E4EA" />
-                                                <HeaderStyle CssClass="celdaTitulo" BackColor="#E3E4EA" />
-                                            </anthem:GridView></td>
+                                            </td>
                                         <td>
-                                            <anthem:Button ID="m_BAnterior3" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
-                                        <anthem:Button ID="Button3" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="false"/></td>
+                                            &nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <asp:Button ID="m_BAnterior3" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
+                                        <asp:Button ID="Button3" runat="server" Text="Siguiente" OnClick="OnNext"/></td>
                                     </tr>
                                 </table>
                                     <br />
@@ -673,18 +598,20 @@
                                         </td>
                                         <td>
                                         </td>
-                                        <td><anthem:GridView ID="m_LCRendimientos" runat="server" EmptyDataText="No hay Rendimientos" UpdateAfterCallBack="False" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" DataKeyNames="id" DataSourceID="ObjectDataSource5" OnRowDataBound="m_LCRendimientos_RowDataBound" OnSelectedIndexChanged="m_LCRendimientos_SelectedIndexChanged" >
-                                            <columns>
-<asp:CommandField SelectImageUrl="../../imagenes/edit.jpg" ButtonType="Image" ShowSelectButton="True"></asp:CommandField>
-</columns>
-                                            <RowStyle CssClass="celda" BackColor="White" Wrap="True" />
-                                            <SelectedRowStyle BackColor="#316AC5" CssClass="celdasel" />
-                                            <PagerStyle HorizontalAlign="Right" BackColor="#E3E4EA" />
-                                            <HeaderStyle CssClass="celdaTitulo" BackColor="#E3E4EA" />
-                                        </anthem:GridView></td>
+                                        <td></td>
                                         <td>
-                                            <anthem:Button ID="m_BAnterior4" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
-                                        <anthem:Button ID="Button4" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="false"/></td>
+                                            &nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <asp:Button ID="m_BAnterior4" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
+                                        <asp:Button ID="Button4" runat="server" Text="Siguiente" OnClick="OnNext"/></td>
                                     </tr>
                                 </table>
                                     <br />
@@ -769,14 +696,14 @@
                                         <td>
                                         </td>
                                         <td>
-                                            <anthem:Button ID="m_BAnterior5" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" /></td>
+                                            <asp:Button ID="m_BAnterior5" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" /><asp:Button
+                                                ID="m_BFinalizarE" runat="server" OnClick="m_BAceptar_Click" Text="Finalizar"
+                                                ValidationGroup="tab" />
+                                        </td>
                                     </tr>
                                 </table>
-                                    <br />
-                                    <div style="text-align: right">
-                                        &nbsp;</div>
                                 </asp:View>
-                            </anthem:MultiView>
+                            </asp:MultiView>
                             
                             </td>
                             </tr>
@@ -785,23 +712,39 @@
                                 <table width="100%">
                                     <tr>
                                         <td>
-                                            <br />
-                                            <anthem:Label ID="m_SMensaje" runat="server"></anthem:Label><br />
-                                            <anthem:Button ID="m_BImprimir" runat="server" Text="Imprimir" OnClick="m_BImprimir_Click" CausesValidation="False" />
-                                            <anthem:DropDownList ID="m_CBImprimir" runat="server">
-                                                <asp:ListItem Value="1">Microsoft Excel</asp:ListItem>
-                                                <asp:ListItem Value="0">En Pantalla</asp:ListItem>
-                                            </anthem:DropDownList>
-                                            <anthem:Button ID="m_BAceptar" runat="server" Text="Aceptar" OnClick="m_BAceptar_Click" /><anthem:Button ID="m_BCancelar" runat="server" Text="Cancelar" OnClick="m_BCancelar_Click" CausesValidation="False" />
-                                            <anthem:Button ID="m_BAceptarP" runat="server" Text="Aceptar" CausesValidation="False" OnClick="m_BAceptarP_Click" PreCallBackFunction="preprintform" /><anthem:Button ID="m_BCancelarP" runat="server" Text="Cancelar" CausesValidation="False" OnClick="m_BCancelarP_Click" />
-                                            <anthem:LinkButton ID="m_LBTodos" runat="server" CausesValidation="False" PreCallBackFunction="checkall">Todos</anthem:LinkButton>
-                                            <anthem:LinkButton ID="m_LBNinguno" runat="server" CausesValidation="False" PreCallBackFunction="uncheckall">Ninguno</anthem:LinkButton>
                                             </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             &nbsp;&nbsp;<asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="Select"
                                                 TypeName="CTablaEx"></asp:ObjectDataSource>
+                                                <anthem:GridView ID="m_LCAdiciones" runat="server" EmptyDataText="No hay Adiciones" UpdateAfterCallBack="False" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" DataKeyNames="id" DataSourceID="ObjectDataSource2" OnSelectedIndexChanged="m_LCAdiciones_SelectedIndexChanged" OnRowDataBound="m_LCAdiciones_RowDataBound">
+                                        <columns>
+<asp:CommandField SelectImageUrl="../../imagenes/edit.jpg" ButtonType="Image" ShowSelectButton="True"></asp:CommandField>
+</columns>
+                                        <RowStyle CssClass="celda" BackColor="White" Wrap="True" />
+                                        <SelectedRowStyle BackColor="#316AC5" CssClass="celdasel" />
+                                        <PagerStyle HorizontalAlign="Right" BackColor="#E3E4EA" />
+                                        <HeaderStyle CssClass="celdaTitulo" BackColor="#E3E4EA" />
+                                    </anthem:GridView>
+                                            <anthem:GridView ID="m_LCRendimientos" runat="server" EmptyDataText="No hay Rendimientos" UpdateAfterCallBack="False" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" DataKeyNames="id" DataSourceID="ObjectDataSource5" OnRowDataBound="m_LCRendimientos_RowDataBound" OnSelectedIndexChanged="m_LCRendimientos_SelectedIndexChanged" >
+                                            <columns>
+<asp:CommandField SelectImageUrl="../../imagenes/edit.jpg" ButtonType="Image" ShowSelectButton="True"></asp:CommandField>
+</columns>
+                                            <RowStyle CssClass="celda" BackColor="White" Wrap="True" />
+                                            <SelectedRowStyle BackColor="#316AC5" CssClass="celdasel" />
+                                            <PagerStyle HorizontalAlign="Right" BackColor="#E3E4EA" />
+                                            <HeaderStyle CssClass="celdaTitulo" BackColor="#E3E4EA" />
+                                        </anthem:GridView>
+                                            <anthem:GridView ID="m_LCDesembolsos" runat="server" EmptyDataText="No hay Desembolsos" UpdateAfterCallBack="False" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" DataKeyNames="id" DataSourceID="ObjectDataSource4" OnRowDataBound="m_LCDesembolsos_RowDataBound" OnSelectedIndexChanged="m_LCDesembolsos_SelectedIndexChanged" >
+                                                <columns>
+<asp:CommandField SelectImageUrl="../../imagenes/edit.jpg" ButtonType="Image" ShowSelectButton="True"></asp:CommandField>
+</columns>
+                                                <RowStyle CssClass="celda" BackColor="White" Wrap="True" />
+                                                <SelectedRowStyle BackColor="#316AC5" CssClass="celdasel" />
+                                                <PagerStyle HorizontalAlign="Right" BackColor="#E3E4EA" />
+                                                <HeaderStyle CssClass="celdaTitulo" BackColor="#E3E4EA" />
+                                            </anthem:GridView>
                                             <anthem:GridView ID="m_LCResultados" runat="server" AllowPaging="True" AllowSorting="True" EmptyDataText="No se encontraron resultados"
                                                 Width="100%" DataSourceID="ObjectDataSource1" UpdateAfterCallBack="False" OnSelectedIndexChanged="m_LCResultados_SelectedIndexChanged" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" OnPageIndexChanged="m_LCResultados_PageIndexChanged" OnSorted="m_LCResultados_PageIndexChanged" OnRowDataBound="m_LCResultados_RowDataBound">
                                                 <PagerSettings Mode="NextPreviousFirstLast" Position="Top" FirstPageText="&amp;lt;&amp;lt;  Primera p&#225;gina" LastPageText="&#218;ltima p&#225;gina &amp;gt;&amp;gt;" NextPageText="Siguiente &amp;gt;" PreviousPageText="&amp;lt; Anterior"/>

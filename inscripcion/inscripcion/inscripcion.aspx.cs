@@ -292,8 +292,7 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         ListItem item = m_EEnte.Items.FindByText(row[2].ToString());
         m_EEnte.SelectedIndex = item == null ? 0 : m_EEnte.Items.IndexOf(item);
         FillComboBox(m_EMunicipio, "SELECT id,nombre FROM municipios WHERE eterritorial=" + m_EEnte.SelectedValue + " AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre", true);
-        item = m_EMunicipio.Items.FindByText(row[4].ToString());
-        m_EMunicipio.SelectedIndex = item == null ? 0 : m_EMunicipio.Items.IndexOf(item);
+        SelectInCombo(m_EMunicipio,row[4].ToString());
 
         m_nIdInstitucion.Value = row[5].ToString();
         m_EInstitucion.Text = row[17].ToString();
@@ -525,7 +524,7 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_saDatos[2] = m_EEnte.SelectedValue;
         m_saCampos[3] = "vigencia";
         m_saDatos[3] = m_pUsuario.GetVigenciaActual();
-        m_saDatos[4] = m_EMunicipio.SelectedValue;
+        m_saDatos[4] = GetSeleccion(m_EMunicipio.SelectedValue);
         m_saDatos[5] = m_nIdInstitucion.Value;
         for (int i = 6; i < m_saCampos.Length; i++)
             m_saCampos[i] = "";

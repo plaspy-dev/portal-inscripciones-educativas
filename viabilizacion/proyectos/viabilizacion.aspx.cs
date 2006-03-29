@@ -1012,7 +1012,11 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             if (InsertarResponsable(true) && InsertarPresupuesto(true) && InsertarDocumentos() && InsertarTecnicos()
                 && InsertarInfraestructura(true) && InsertarValores(true) && InsertarAreas(true) && InsertarObservaciones(true)
                 )
+            {
                 base.AfterUpdate("Proyecto " + m_CBProyecto.SelectedItem.Text + " Ingresado");
+                MultiView1.ActiveViewIndex = 0;
+                SetView(0);
+            } 
             else
             {
                 m_SMensaje.Text = m_pConector.GetLastError();
@@ -1041,7 +1045,11 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         {
             if (InsertarResponsable(false) && InsertarPresupuesto(false) && InsertarDocumentos() && InsertarTecnicos()
                 && InsertarInfraestructura(false) && InsertarValores(false) && InsertarAreas(false) && InsertarObservaciones(false))
+            {
                 base.AfterUpdate("Proyecto " + m_CBProyecto.SelectedItem.Text + " Editado");
+                MultiView1.ActiveViewIndex = 0;
+                SetView(0);
+            } 
             else
             {
                 m_SMensaje.Text = m_pConector.GetLastError();
@@ -1257,14 +1265,13 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         {
             inicio = 33;
             fin = m_saTitulos.Length-1;
+            m_BFinalizarE.Style["display"] = m_BAceptar.Style["display"];
+            m_BFinalizar.Style["display"] = m_BAceptar.Style["display"] == "" ? "none" : "";
         } else 
         {
             inicio = 2;
             fin = 18;
         }
-
-        // m_BFinalizarE.Style["display"] = m_BAceptar.Style["display"];
-        // m_BFinalizar.Style["display"] = m_BAceptar.Style["display"] == "" ? "none" : "";
 
         for (int i = 0; i < m_LCResultados.Columns.Count; i++)
         {

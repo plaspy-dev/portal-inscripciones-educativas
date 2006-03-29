@@ -199,6 +199,8 @@ public partial class seguimiento_convenios_control : CPageTemplate
             data.HeaderText = "Observaciones";
             m_LCAdiciones.Columns.Add(data);
 
+            m_LCAdiciones.Style["display"] = "none";
+
             m_SNoAdicion.Text = CAdicionesConvenio.GetNumero().ToString();
         }
         // pestaña 3
@@ -283,6 +285,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
             data.DataField = "observaciones";
             data.HeaderText = "Observaciones";
             m_LCDesembolsos.Columns.Add(data);
+            m_LCDesembolsos.Style["display"] = "none";
         }
         // pestaña 5
         m_EValorRendimiento.Attributes["onKeypress"] = "isfloat(this);";
@@ -324,6 +327,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
             data.DataField = "observaciones";
             data.HeaderText = "Observaciones";
             m_LCRendimientos.Columns.Add(data);
+            m_LCRendimientos.Style["display"]="none";
         }
 
         EndPageLoad();
@@ -338,15 +342,6 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_EValor.UpdateAfterCallBack = true;
         m_CBEstadoConvenio.UpdateAfterCallBack = true;
         m_EObservaciones.UpdateAfterCallBack = true;
-        m_ECDP.UpdateAfterCallBack = true;
-        m_ERDP.UpdateAfterCallBack = true;
-        m_CCertificado.UpdateAfterCallBack = true;
-        m_EFechaCertificado.UpdateAfterCallBack = true;
-        m_RIR.UpdateAfterCallBack = true;
-        m_EFechaResolucion.UpdateAfterCallBack = true;
-        m_EBanco.UpdateAfterCallBack = true;
-        m_ECuenta.UpdateAfterCallBack = true;
-        m_ETipoCuenta.UpdateAfterCallBack = true;
         // pestaña 2
         m_SNoAdicion.UpdateAfterCallBack = true;
         m_EAdicionValor.UpdateAfterCallBack = true;
@@ -401,15 +396,6 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_EValor.Visible = show;
         m_CBEstadoConvenio.Visible = show;
         m_EObservaciones.Visible = show;
-        m_ECDP.Visible = show;
-        m_ERDP.Visible = show;
-        m_CCertificado.Visible = show;
-        m_EFechaCertificado.Visible = show;
-        m_RIR.Visible = show;
-        m_EFechaResolucion.Visible = show;
-        m_EBanco.Visible = show;
-        m_ECuenta.Visible = show;
-        m_ETipoCuenta.Visible = show;
         // pestaña2
         m_SNoAdicion.Visible = show;
         m_EAdicionValor.Visible = show;
@@ -470,17 +456,6 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_EValor.Text = GetFormatDouble(row[5].ToString());
         SelectInCombo(m_CBEstadoConvenio, row[14].ToString());
         m_EObservaciones.Text = row[15].ToString();
-        
-        // agregar estos
-        m_ECDP.Text = "";
-        m_ERDP.Text = "";
-        m_CCertificado.Text = "";
-        m_EFechaCertificado.Text = "";
-        m_RIR.Text = "";
-        m_EFechaResolucion.Text = "";
-        m_EBanco.Text = "";
-        m_ECuenta.Text = "";
-        m_ETipoCuenta.Text = "";
 
         // pestaña 2
         m_BEliminarObjeto.Style["display"] = "none";
@@ -537,15 +512,6 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_CBConvenio.SelectedIndex=0;
         m_EValor.Text = "";
         m_EObservaciones.Text = "";
-        m_ECDP.Text = "";
-        m_ERDP.Text = "";
-        m_CCertificado.Text = "";
-        m_EFechaCertificado.Text = "";
-        m_RIR.Text = "";
-        m_EFechaResolucion.Text = "";
-        m_EBanco.Text = "";
-        m_ECuenta.Text = "";
-        m_ETipoCuenta.Text = "";
         // pestaña 2
         m_SNoAdicion.Text = "";
         m_EAdicionValor.Text = "";
@@ -721,7 +687,11 @@ public partial class seguimiento_convenios_control : CPageTemplate
         else
         {
             if (ActualizarDocumentos() && ActualizarLiquidacion())
+            {
                 base.AfterUpdate("Convenio " + m_CBConvenio.SelectedItem.Text + " Editado");
+                MultiView1.ActiveViewIndex = 0;
+                SetView(0);
+            } 
             else
             {
                 m_SMensaje.Text = m_pConector.GetLastError();
@@ -744,8 +714,16 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_LCResultados_PageIndexChanged(m_LCResultados, e);
         // m_LCResultados.Columns[].Visible = .SelectedIndex == 0;
         m_LCResultados.UpdateAfterCallBack = true;
-        m_LCResultados.SelectedIndex = 0;
-        m_LCResultados_SelectedIndexChanged(m_LCResultados, e);
+        if (m_CBConvenio.SelectedIndex > 0)
+        {
+            m_LCResultados.SelectedIndex = 0;
+            m_LCResultados_SelectedIndexChanged(m_LCResultados, e);
+        }
+        else
+        {
+            m_LCResultados.SelectedIndex = -1;
+            m_BCancelar_Click(sender, e);
+        }
     }
     protected void m_CBEstadoConvenio_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -1175,5 +1153,20 @@ public partial class seguimiento_convenios_control : CPageTemplate
     protected void m_LCRendimientos_RowDataBound(object sender, GridViewRowEventArgs e)
     {
 
+    }
+
+    override protected void SetView(int index)
+    {
+        switch (index)
+        {
+            case 5:
+                m_BFinalizarE.Style["display"] = m_BAceptar.Style["display"];
+                break;
+        }
+        m_LCDesembolsos.Style["display"] = index == 3 ? "" : "none";
+        m_LCAdiciones.Style["display"] = index == 1 ? "" : "none";
+        m_LCRendimientos.Style["display"] = index == 4 ? "" : "none";
+        m_LCResultados.Style["display"] = (index != 1 && index!=3 && index!=4) ? "" : "none";
+        base.SetView(index);
     }
 }

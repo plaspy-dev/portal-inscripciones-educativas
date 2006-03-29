@@ -104,8 +104,6 @@
                                             <anthem:DropDownList ID="m_EMunicipio" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_EMunicipio_SelectedIndexChanged">
                                             </anthem:DropDownList></td>
                                         <td>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="m_EMunicipio"
-                                                ErrorMessage="Por favor ingrese un municipio" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator>
                                             </td>
                                     </tr>
                                     <tr>
@@ -129,8 +127,19 @@
                                             <anthem:Label ID="m_ENombreInstitucion" runat="server"></anthem:Label></td>
                                         <td><anthem:Button ID="m_BVerificar" runat="server" Text="Verificar" CausesValidation="False" OnClick="m_BVerificar_Click" /></td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <asp:Button ID="m_BSiguiente" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="true"/></td>
+                                    </tr>
                                             </table>
-                                    <div style="text-align: right"><asp:Button ID="m_BSiguiente" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="true"/></div>
+                                    <div style="text-align: right">
+                                        &nbsp;</div>
                                     <table width="100%">
                                     <tr>
                                         <td>
@@ -144,12 +153,12 @@
                                             <anthem:Button ID="m_BAceptarP" runat="server" Text="Aceptar" CausesValidation="False" OnClick="m_BAceptarP_Click" PreCallBackFunction="preprintform" /><anthem:Button ID="m_BCancelarP" runat="server" Text="Cancelar" CausesValidation="False" OnClick="m_BCancelarP_Click" />
                                             <anthem:LinkButton ID="m_LBTodos" runat="server" CausesValidation="False" PreCallBackFunction="checkall">Todos</anthem:LinkButton>
                                             <anthem:LinkButton ID="m_LBNinguno" runat="server" CausesValidation="False" PreCallBackFunction="uncheckall">Ninguno</anthem:LinkButton>
-                                            </td>
+                                        <anthem:Button ID="m_BAceptar" runat="server" Text="Aceptar" OnClick="m_BAceptar_Click" ValidationGroup="tab" /><anthem:Button ID="m_BCancelar" runat="server" Text="Cancelar" OnClick="m_BCancelar_Click" CausesValidation="False" /><anthem:Button ID="m_BEliminar" runat="server" Text="Eliminar" CausesValidation="False" OnClick="m_BEliminar_Click" PreCallBackFunction="Eliminar_PreCallBack"/></td>
                                     </tr>
                                     </table>
                                 </asp:View>
                                 <asp:View ID="View2" runat="server">
-                                    <table width="100%">
+                                    <table>
                                     <tr>
                                         <td>
                                             <anthem:CheckBox ID="CheckBox5" runat="server" Checked="True" Visible="False" />
@@ -301,12 +310,23 @@
                                             <td>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <asp:Button ID="m_BAnterior" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
+                                        <asp:Button ID="Button1" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="true"/></td>
+                                        </tr>
                                             </table>
-                                    <div style="text-align: right"><asp:Button ID="m_BAnterior" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
-                                        <asp:Button ID="Button1" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="true"/></div>
+                                    <div style="text-align: right">
+                                        &nbsp;</div>
                                 </asp:View>
                                 <asp:View ID="View3" runat="server">
-                                    <table width="100%">
+                                    <table>
                                     <tr>
                                         <td>
                                             <anthem:CheckBox ID="CheckBox17" runat="server" Checked="True" Visible="False" /></td>
@@ -501,10 +521,22 @@
                                             <td>
                                             </td>
                                         </tr>
-                                            </table>
-                                    <div style="text-align: right"><asp:Button ID="m_BAnterior2" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
+                                        <tr>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <asp:Button ID="m_BAnterior2" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
                                         <asp:Button ID="m_BFinalizarE" runat="server" Text="Finalizar" OnClick="m_BAceptar_Click" ValidationGroup="tab" />
-                                        <asp:Button ID="m_BFinalizar" runat="server" Text="Finalizar" OnClick="m_BInsertar_Click" ValidationGroup="tab" /></div>
+                                        <asp:Button ID="m_BFinalizar" runat="server" Text="Finalizar" OnClick="m_BInsertar_Click" ValidationGroup="tab" /></td>
+                                        </tr>
+                                            </table>
+                                    <div style="text-align: right">
+                                        &nbsp;
+                                    </div>
                                 </asp:View>
                             </asp:MultiView>
                             </td>
@@ -514,8 +546,7 @@
                                 <table width="100%">
                                     <tr>
                                         <td>
-                                        <anthem:Button ID="m_BAceptar" runat="server" Text="Aceptar" OnClick="m_BAceptar_Click" ValidationGroup="tab" /><anthem:Button ID="m_BCancelar" runat="server" Text="Cancelar" OnClick="m_BCancelar_Click" CausesValidation="False" /><anthem:Button ID="m_BEliminar" runat="server" Text="Eliminar" CausesValidation="False" OnClick="m_BEliminar_Click" PreCallBackFunction="Eliminar_PreCallBack"/>
-                                        </td>
+                                            &nbsp;</td>
                                     </tr>
                                     <tr>
                                         <td>

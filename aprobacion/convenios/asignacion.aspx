@@ -36,7 +36,7 @@
                                 <table width="100%">
                                     <tr>
                                         <td>
-                                            <table width="100%">
+                                            <table>
                                                 <tr>
                                                     <td>
                                                         <anthem:CheckBox ID="CheckBox1" runat="server" Checked="True" Visible="False" /></td>
@@ -187,7 +187,7 @@
                                                     <td>
                                                         <anthem:CheckBox ID="CheckBox11" runat="server" Checked="True" Visible="False" /></td>
                                                     <td>
-                                                        Obsevaciones</td>
+                                                        Observaciones</td>
                                                     <td>
                                                         <anthem:TextBox ID="m_EObservaciones" runat="server"></anthem:TextBox></td>
                                                     <td>

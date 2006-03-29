@@ -36,7 +36,7 @@
                                 <table width="100%">
                                     <tr>
                                         <td>
-                                            <table width="100%">
+                                            <table>
                                                 <tr>
                                                     <td>
                                                         <anthem:CheckBox ID="CheckBox1" runat="server" Checked="True" Visible="False" /></td>

@@ -18,6 +18,7 @@ public class CConector
     protected string m_szUsuario;
     protected string m_szContrasena;
     protected string m_szLastError;
+    protected string m_szQuery;
 
     protected SqlConnection m_pSQLConector;
     protected SqlDataReader m_pSQLReader;
@@ -29,6 +30,7 @@ public class CConector
 			m_szBaseDeDatos= GetProfileString("DB", "OrganizationExample22");
 			m_szUsuario= GetProfileString("usuario","sa");
 			m_szContrasena= GetProfileString("contrasena","");
+            m_szQuery = "";
 
 			m_szLastError="";
 			
@@ -110,6 +112,9 @@ public class CConector
 
 		public int QueryMod( string query, bool identity) 
 		{
+            m_szQuery = query;
+            if (query.IndexOf(" WHERE") == 0)
+                return 0;
 			int result=0;
 			if(!IsConect())
 				return -1;
@@ -163,6 +168,7 @@ public class CConector
 		{
 			if(!IsConect() || query==null || query.Length==0)
 				return null;
+            m_szQuery = query;
 			if( m_pSQLReader!=null) 
 			{
 				m_pSQLReader.Close();
@@ -193,7 +199,7 @@ public class CConector
 
 		public string GetLastError()
 		{
-			return m_szLastError;
+			return m_szLastError+ "<br>"+ m_szQuery;
 		}
 
 		public static string GetCondicion(string campo, string dato) 
@@ -312,7 +318,7 @@ public class CConector
 					update+=campos[i] + "=" + datos[i].Substring(1);
 				else update+=campos[i] + "='" + datos[i] + "'";
 			}
-			return update;
+			return primero ? update : "";
 		}
 
 		public static string CrearInsercion(string tabla, string []campos, string condicion) 

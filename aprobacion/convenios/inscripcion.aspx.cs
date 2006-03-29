@@ -257,7 +257,7 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
         m_saDatos[7]=GetFechaCorta(m_EFechaAprobacion.Text);
         m_saCampos[8]="vigencia";
         m_saDatos[8] = m_pUsuario.GetVigenciaActual();
-        m_saDatos[9]=m_CBEstado.SelectedValue;
+        m_saDatos[9]= GetSeleccion(m_CBEstado.SelectedValue);
         m_saDatos[10]=m_EObservaciones.Text;
         m_saDatos[11] = m_EPlazo.Text;
         m_saCampos[12] = "";
@@ -330,6 +330,8 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
                     return;
                 }
             }
+            MultiView1.ActiveViewIndex = 0;
+            SetView(0);
             base.AfterUpdate("Convenio "  + m_ENumero.Text + " Ingresado");
         }
     }
@@ -344,7 +346,7 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
         m_saDatos[6] = m_EObjeto.Text;
         m_saDatos[7] = GetFechaCorta(m_EFechaAprobacion.Text);
         m_saCampos[8] = "";
-        m_saDatos[9] = m_CBEstado.SelectedValue;
+        m_saDatos[9] = GetSeleccion( m_CBEstado.SelectedValue);
         m_saDatos[10] = m_EObservaciones.Text;
         m_saDatos[11] = m_EPlazo.Text;
         m_saCampos[12] = "";
@@ -413,6 +415,8 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
                     return;
                 }
             }
+            MultiView1.ActiveViewIndex = 0;
+            SetView(0);
             base.AfterUpdate("Convenio " + m_ENumero.Text + " Editado");
         }
     }
@@ -452,5 +456,18 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
             TextBox box = (TextBox )e.Item.Cells[3].Controls[0];
             box.Text = GetFechaCorta(box.Text);
         }
+    }
+    override protected void SetView(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                break;
+            case 1:
+                m_BFinalizarE.Style["display"] = m_BAceptar.Style["display"];
+                m_BFinalizar.Style["display"] = m_BAceptar.Style["display"] == "" ? "none" : "";
+                break;
+        }
+        base.SetView(index);
     }
 }

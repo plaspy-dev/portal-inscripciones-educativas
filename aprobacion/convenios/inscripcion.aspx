@@ -59,9 +59,9 @@
                 </tr>
                 <tr>
                     <td class="ccontenido">
-                        <anthem:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
+                        <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
                             <asp:View ID="View1" runat="server">
-                                <table width="100%">
+                                <table>
                                     <tr>
                                         <td>
                                             <anthem:CheckBox ID="CheckBox1" runat="server" Checked="True" Visible="False" />
@@ -137,7 +137,7 @@
                                                     </anthem:TextBox></td>
                                                     <td>
                                                     <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="m_EPlazo"
-                                                            ErrorMessage="Por favor ingrese un número aqui" MaximumValue="1000" MinimumValue="1"
+                                                            ErrorMessage="Por favor ingrese un número aqui" MaximumValue="10000" MinimumValue="1"
                                                             SetFocusOnError="True" Type="Integer"></asp:RangeValidator>
                                                     </td>
                                                 </tr>
@@ -174,8 +174,7 @@
                                                         <anthem:DropDownList ID="m_CBEstado" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBEstado_SelectedIndexChanged">
                                                         </anthem:DropDownList></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="m_CBEstado"
-                                                            ErrorMessage="Por favor seleccione un estado" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
+                                                        </td>
                                                 </tr>
                                     <tr>
                                         <td>
@@ -188,32 +187,56 @@
                                         <td>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <asp:Button ID="m_BSiguiente" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="true"/></td>
+                                    </tr>
                                             </table>
-                                    <div style="text-align: right"><asp:Button ID="m_BSiguiente" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="true"/></div>
+                                    <br />
+                                            <anthem:Label ID="m_SMensaje" runat="server"></anthem:Label><br />
+                                            <anthem:Button ID="m_BInsertar" runat="server" Text="Insertar" OnClick="m_BInsertar_Click" /><anthem:Button ID="m_BImprimir" runat="server" Text="Imprimir" OnClick="m_BImprimir_Click" CausesValidation="False" />
+                                            <anthem:DropDownList ID="m_CBImprimir" runat="server">
+                                                <asp:ListItem Value="1">Microsoft Excel</asp:ListItem>
+                                                <asp:ListItem Value="0">En Pantalla</asp:ListItem>
+                                            </anthem:DropDownList>
+                                            <anthem:Button ID="m_BAceptar" runat="server" Text="Aceptar" OnClick="m_BAceptar_Click" /><anthem:Button ID="m_BCancelar" runat="server" Text="Cancelar" OnClick="m_BCancelar_Click" CausesValidation="False" /><anthem:Button ID="m_BEliminar" runat="server" Text="Eliminar" CausesValidation="False" OnClick="m_BEliminar_Click" PreCallBackFunction="Eliminar_PreCallBack"/>
+                                            <anthem:Button ID="m_BAceptarP" runat="server" Text="Aceptar" CausesValidation="False" OnClick="m_BAceptarP_Click" PreCallBackFunction="preprintform" /><anthem:Button ID="m_BCancelarP" runat="server" Text="Cancelar" CausesValidation="False" OnClick="m_BCancelarP_Click" />
+                                            <anthem:LinkButton ID="m_LBTodos" runat="server" CausesValidation="False" PreCallBackFunction="checkall">Todos</anthem:LinkButton>
+                                            <anthem:LinkButton ID="m_LBNinguno" runat="server" CausesValidation="False" PreCallBackFunction="uncheckall">Ninguno</anthem:LinkButton>
                                 </asp:View>
                                 <asp:View ID="View2" runat="server">
-                                    <table width="100%">
+                                    &nbsp;<table>
+                                        <tr>
+                                            <td>
+                                    <table>
                                     <tr>
                                         <td>
                                             <anthem:CheckBox ID="CheckBox11" runat="server" Checked="True" Visible="False" /></td>
                                         <td>
-                                            NIT ente territorial</td>
-                                        <td><anthem:TextBox ID="m_ENIT" runat="server" ReadOnly="True">
+                                            <strong>
+                                            NIT ente territorial</strong></td>
+                                        <td style="font-weight: bold"><anthem:TextBox ID="m_ENIT" runat="server" ReadOnly="True">
                                         </anthem:TextBox></td>
-                                        <td>
+                                        <td style="font-weight: bold">
                                         </td>
                                     </tr>
-                                        <tr>
+                                        <tr style="font-weight: bold">
                                             <td>
                                             </td>
                                             <td>
-                                                <strong>Ordenador del gasto</strong></td>
+                                                Ordenador del gasto</td>
                                             <td>
                                             </td>
                                             <td>
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <tr style="font-weight: bold">
                                             <td><anthem:CheckBox ID="CheckBox12" runat="server" Checked="True" Visible="False" /></td>
                                             <td>
                                                 Tipo de gasto</td>
@@ -287,16 +310,31 @@
                                             <td>
                                             </td>
                                             <td>
-                                            </td>
+                                        </td>
                                         </tr>
                                     </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
                                             <anthem:DataGrid ID="m_LBDocumentos" Runat="server" AutoGenerateColumns="false" DataSourceID="ObjectDataSource2" OnItemDataBound="m_LBDocumentos_ItemDataBound">
                                                 <HeaderStyle Font-Bold="True" />
-		                                    </anthem:DataGrid>
-		                                    <div style="text-align: right">
-                                        <asp:Button ID="m_BAnterior" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" /></div>
+		                                    </anthem:DataGrid></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: right">
+                                        <asp:Button ID="m_BAnterior" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" /><asp:Button
+                                                    ID="m_BFinalizarE" runat="server" OnClick="m_BAceptar_Click" Text="Finalizar"
+                                                    ValidationGroup="tab" />
+                                                <asp:Button ID="m_BFinalizar" runat="server" OnClick="m_BInsertar_Click" Text="Finalizar"
+                                                    ValidationGroup="tab" /></td>
+                                        </tr>
+                                    </table>
+                                    <br />
+                                    &nbsp;<div style="text-align: right">
+                                                &nbsp;</div>
                                 </asp:View>
-                            </anthem:MultiView>
+                            </asp:MultiView>
                             
                             </td>
                             </tr>
@@ -305,17 +343,6 @@
                                 <table width="100%">
                                     <tr>
                                         <td>
-                                            <br />
-                                            <anthem:Label ID="m_SMensaje" runat="server"></anthem:Label><br />
-                                            <anthem:Button ID="m_BInsertar" runat="server" Text="Insertar" OnClick="m_BInsertar_Click" /><anthem:Button ID="m_BImprimir" runat="server" Text="Imprimir" OnClick="m_BImprimir_Click" CausesValidation="False" />
-                                            <anthem:DropDownList ID="m_CBImprimir" runat="server">
-                                                <asp:ListItem Value="1">Microsoft Excel</asp:ListItem>
-                                                <asp:ListItem Value="0">En Pantalla</asp:ListItem>
-                                            </anthem:DropDownList>
-                                            <anthem:Button ID="m_BAceptar" runat="server" Text="Aceptar" OnClick="m_BAceptar_Click" /><anthem:Button ID="m_BCancelar" runat="server" Text="Cancelar" OnClick="m_BCancelar_Click" CausesValidation="False" /><anthem:Button ID="m_BEliminar" runat="server" Text="Eliminar" CausesValidation="False" OnClick="m_BEliminar_Click" PreCallBackFunction="Eliminar_PreCallBack"/>
-                                            <anthem:Button ID="m_BAceptarP" runat="server" Text="Aceptar" CausesValidation="False" OnClick="m_BAceptarP_Click" PreCallBackFunction="preprintform" /><anthem:Button ID="m_BCancelarP" runat="server" Text="Cancelar" CausesValidation="False" OnClick="m_BCancelarP_Click" />
-                                            <anthem:LinkButton ID="m_LBTodos" runat="server" CausesValidation="False" PreCallBackFunction="checkall">Todos</anthem:LinkButton>
-                                            <anthem:LinkButton ID="m_LBNinguno" runat="server" CausesValidation="False" PreCallBackFunction="uncheckall">Ninguno</anthem:LinkButton>
                                             </td>
                                     </tr>
                                     <tr>

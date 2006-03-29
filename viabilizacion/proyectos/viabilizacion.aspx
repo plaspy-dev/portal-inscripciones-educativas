@@ -39,23 +39,23 @@
                     <td>
 					    <table border="0" cellpadding="0" cellspacing="0" width="100%">
                         <tr>
-                            <td >
-                                <asp:Button ID="m_BTab1" runat="server" Text="Datos Generales" CssClass="cselected" OnClick="OnTabsClick" UseSubmitBehavior="False"/>
+                            <td>
+                                <asp:Button ID="m_BTab1" runat="server" Text="Datos Generales" CssClass="cselected" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="130px"/>
                             </td>
                             <td >
-                                <asp:Button ID="m_BTab2" runat="server" Text="Objeto y presupuesto" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False"/>
+                                <asp:Button ID="m_BTab2" runat="server" Text="Objeto y presupuesto" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="150px"/>
                             </td>
                             <td >
-                                <asp:Button ID="m_BTab3" runat="server" Text="Aspectos Juridicos y formulación" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False"/>
+                                <asp:Button ID="m_BTab3" runat="server" Text="Aspectos Juridicos y formulación" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="200px"/>
                             </td>
                             <td >
-                                <asp:Button ID="m_BTab4" runat="server" Text="Aspectos técnicos" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False"/>
+                                <asp:Button ID="m_BTab4" runat="server" Text="Aspectos técnicos" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="120px"/>
                             </td>
                             <td >
-                                <asp:Button ID="m_BTab5" runat="server" Text="Tipos de intervención y población atendida" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False"/>
+                                <asp:Button ID="m_BTab5" runat="server" Text="Tipos de intervención y población atendida" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="280px"/>
                             </td>
                             <td>
-                                <asp:Button ID="m_BTab6" runat="server" Text="Areas y costos M2" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False"/>
+                                <asp:Button ID="m_BTab6" runat="server" Text="Areas y costos M2" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="150px"/>
                             </td>
                             <td style="width: 100%;" class="cinf">&nbsp;
                             </td>
@@ -71,9 +71,9 @@
                 </tr>
                 <tr>
                     <td class="ccontenido">
-                        <anthem:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
+                        <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
                             <asp:View ID="View1" runat="server">
-                                <table width="100%">
+                                <table>
                                     <tr>
                                         <td>
                                             <anthem:CheckBox ID="CheckBox1" runat="server" Checked="True" Visible="False" />
@@ -243,11 +243,31 @@
                                         <td>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <asp:Button ID="m_BSiguiente" runat="server" Text="Siguiente" OnClick="OnNext"/></td>
+                                    </tr>
                                             </table>
-                                    <div style="text-align: right"><anthem:Button ID="m_BSiguiente" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="false"/></div>
+                                    <br />
+                                            <anthem:Label ID="m_SMensaje" runat="server"></anthem:Label><br />
+                                            <anthem:Button ID="m_BInsertar" runat="server" Text="Insertar" OnClick="m_BInsertar_Click" /><anthem:Button ID="m_BImprimir" runat="server" Text="Imprimir" OnClick="m_BImprimir_Click" CausesValidation="False" />
+                                            <anthem:DropDownList ID="m_CBImprimir" runat="server">
+                                                <asp:ListItem Value="1">Microsoft Excel</asp:ListItem>
+                                                <asp:ListItem Value="0">En Pantalla</asp:ListItem>
+                                            </anthem:DropDownList>
+                                            <anthem:Button ID="m_BAceptar" runat="server" Text="Aceptar" OnClick="m_BAceptar_Click" /><anthem:Button ID="m_BCancelar" runat="server" Text="Cancelar" OnClick="m_BCancelar_Click" CausesValidation="False" /><anthem:Button ID="m_BEliminar" runat="server" Text="Eliminar" CausesValidation="False" OnClick="m_BEliminar_Click" PreCallBackFunction="Eliminar_PreCallBack"/>
+                                            <anthem:Button ID="m_BAceptarP" runat="server" Text="Aceptar" CausesValidation="False" OnClick="m_BAceptarP_Click" PreCallBackFunction="preprintform" /><anthem:Button ID="m_BCancelarP" runat="server" Text="Cancelar" CausesValidation="False" OnClick="m_BCancelarP_Click" />
+                                            <anthem:LinkButton ID="m_LBTodos" runat="server" CausesValidation="False" PreCallBackFunction="checkall">Todos</anthem:LinkButton>
+                                            <anthem:LinkButton ID="m_LBNinguno" runat="server" CausesValidation="False" PreCallBackFunction="uncheckall">Ninguno</anthem:LinkButton>
                                 </asp:View>
                                 <asp:View ID="View2" runat="server">
-                                    <table width="100%">
+                                    <table>
                                     <tr>
                                         <td>
                                         </td>
@@ -441,9 +461,20 @@
                                             <td>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <asp:Button ID="m_BAnterior1" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
+                                        <asp:Button ID="Button1" runat="server" Text="Siguiente" OnClick="OnNext"/></td>
+                                        </tr>
                                     </table>
-                                    <div style="text-align: right"><anthem:Button ID="m_BAnterior1" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
-                                        <anthem:Button ID="Button1" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="false"/></div>
+                                    <div style="text-align: right">
+                                        &nbsp;</div>
                                 </asp:View>
                                 <asp:View ID="View3" runat="server">
                                 <asp:ObjectDataSource ID="ObjectDataSource3" runat="server" SelectMethod="Select"
@@ -451,7 +482,7 @@
                                     <anthem:DataGrid ID="m_LBDocumentos" Runat="server" AutoGenerateColumns="false" DataSourceID="ObjectDataSource3" OnItemDataBound="m_LBDocumentos_ItemDataBound">
                                                 <HeaderStyle Font-Bold="True" />
 		                                    </anthem:DataGrid>
-                                    <table width="100%">
+                                    <table>
                                         <tr>
                                             <td>
                                             </td>
@@ -473,9 +504,20 @@
                                             <td>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <asp:Button ID="m_BAnterior2" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
+                                        <asp:Button ID="Button2" runat="server" Text="Siguiente" OnClick="OnNext"/></td>
+                                        </tr>
                                     </table>
-                                    <div style="text-align: right"><anthem:Button ID="m_BAnterior2" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
-                                        <anthem:Button ID="Button2" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="false"/></div>
+                                    <div style="text-align: right">
+                                        &nbsp;</div>
                                 </asp:View>
                                 <asp:View ID="View4" runat="server">
                                  <asp:ObjectDataSource ID="ObjectDataSource4" runat="server" SelectMethod="Select"
@@ -483,7 +525,7 @@
                                     <anthem:DataGrid ID="m_LBTecnicos" Runat="server" AutoGenerateColumns="false" DataSourceID="ObjectDataSource4">
                                                 <HeaderStyle Font-Bold="True" />
 		                                    </anthem:DataGrid>
-                                    <table width="100%">
+                                    <table>
                                         <tr>
                                             <td>
                                             </td>
@@ -501,14 +543,25 @@
                                             <td><anthem:TextBox ID="m_EObservacionesTecnicas" runat="server">
                                             </anthem:TextBox></td>
                                             <td>
+                                                &nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
                                             </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            <asp:Button ID="m_BAnterior3" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
+                                        <asp:Button ID="Button3" runat="server" Text="Siguiente" OnClick="OnNext"/></td>
                                         </tr>
                                     </table>
-                                    <div style="text-align: right"><anthem:Button ID="m_BAnterior3" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
-                                        <anthem:Button ID="Button3" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="false"/></div>
+                                    <div style="text-align: right">
+                                        &nbsp;</div>
                                 </asp:View>
                                 <asp:View ID="View5" runat="server">
-                                    <table width="100%">
+                                    <table>
                                     <tr>
                                         <td><anthem:CheckBox ID="CheckBox65" runat="server" Checked="True" Visible="False" /></td>
                                         <td>
@@ -694,12 +747,23 @@
                                             <td>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <asp:Button ID="m_BAnterior4" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
+                                        <asp:Button ID="Button4" runat="server" Text="Siguiente" OnClick="OnNext"/></td>
+                                        </tr>
                                     </table>
-                                    <div style="text-align: right"><anthem:Button ID="m_BAnterior4" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
-                                        <anthem:Button ID="Button4" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="false"/></div>
+                                    <div style="text-align: right">
+                                        &nbsp;</div>
                                 </asp:View>
                                 <asp:View ID="View6" runat="server">
-                                    <table width="100%">
+                                    <table>
                                     <tr>
                                         <td><anthem:CheckBox ID="CheckBox79" runat="server" Checked="True" Visible="False" /></td>
                                         <td>
@@ -867,10 +931,21 @@
                                             <td>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                                <asp:Button ID="m_BAnterior5" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" />
+                                                <asp:Button ID="m_BFinalizarE" runat="server" Text="Finalizar" OnClick="m_BAceptar_Click" ValidationGroup="tab" />
+                                        <asp:Button ID="m_BFinalizar" runat="server" Text="Finalizar" OnClick="m_BInsertar_Click" ValidationGroup="tab" /></td>
+                                        </tr>
                                     </table>
-                                    <div style="text-align: right"><anthem:Button ID="m_BAnterior5" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" /></div>
                                 </asp:View>
-                            </anthem:MultiView>
+                            </asp:MultiView>
                             
                             </td>
                             </tr>
@@ -879,17 +954,6 @@
                                 <table width="100%">
                                     <tr>
                                         <td>
-                                            <br />
-                                            <anthem:Label ID="m_SMensaje" runat="server"></anthem:Label><br />
-                                            <anthem:Button ID="m_BInsertar" runat="server" Text="Insertar" OnClick="m_BInsertar_Click" /><anthem:Button ID="m_BImprimir" runat="server" Text="Imprimir" OnClick="m_BImprimir_Click" CausesValidation="False" />
-                                            <anthem:DropDownList ID="m_CBImprimir" runat="server">
-                                                <asp:ListItem Value="1">Microsoft Excel</asp:ListItem>
-                                                <asp:ListItem Value="0">En Pantalla</asp:ListItem>
-                                            </anthem:DropDownList>
-                                            <anthem:Button ID="m_BAceptar" runat="server" Text="Aceptar" OnClick="m_BAceptar_Click" /><anthem:Button ID="m_BCancelar" runat="server" Text="Cancelar" OnClick="m_BCancelar_Click" CausesValidation="False" /><anthem:Button ID="m_BEliminar" runat="server" Text="Eliminar" CausesValidation="False" OnClick="m_BEliminar_Click" PreCallBackFunction="Eliminar_PreCallBack"/>
-                                            <anthem:Button ID="m_BAceptarP" runat="server" Text="Aceptar" CausesValidation="False" OnClick="m_BAceptarP_Click" PreCallBackFunction="preprintform" /><anthem:Button ID="m_BCancelarP" runat="server" Text="Cancelar" CausesValidation="False" OnClick="m_BCancelarP_Click" />
-                                            <anthem:LinkButton ID="m_LBTodos" runat="server" CausesValidation="False" PreCallBackFunction="checkall">Todos</anthem:LinkButton>
-                                            <anthem:LinkButton ID="m_LBNinguno" runat="server" CausesValidation="False" PreCallBackFunction="uncheckall">Ninguno</anthem:LinkButton>
                                             </td>
                                     </tr>
                                     <tr>
