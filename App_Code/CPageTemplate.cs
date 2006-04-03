@@ -98,6 +98,19 @@ public class CPageTemplate : System.Web.UI.Page
             m_saDatos[i] = "";
             m_baHidden[i] = false;
         }
+        DropDownList combo = (DropDownList)FindControl("m_CBVigenciasCombo");
+        if( combo!=null)
+            m_pUsuario.GetVigencias(combo);
+        if (!IsPostBack)
+        {
+            Label lab = (Label)FindControl("m_STituloLargo");
+            if (lab != null)
+                lab.Text = m_szTitulo;
+            if ((lab = (Label)FindControl("m_SUsuarioActual")) != null)
+                lab.Text = m_pUsuario.GetNombre();
+            if ((lab = (Label)FindControl("m_SFechaActual")) != null)
+                lab.Text = DateTime.Now.ToString();
+        }
         return true;
     }
 
@@ -615,4 +628,24 @@ public class CPageTemplate : System.Web.UI.Page
             }
         }
     }
+
+    virtual protected void m_CBVigenciasCombo_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        CUsuarioDatos usuario = (CUsuarioDatos)Session["usuario"];
+        if (usuario.SetVigencia(((DropDownList)sender).SelectedValue))
+        {
+            Response.Redirect(Request.Url.AbsolutePath);
+            Response.End();
+        }
+    }
+    virtual protected void timer_Tick(object sender, EventArgs e)
+    {
+        Anthem.Label lab;
+        if ((lab = (Anthem.Label)FindControl("m_SFechaActual")) != null)
+        {
+            lab.Text = DateTime.Now.ToString();
+            lab.UpdateAfterCallBack = true;
+        }
+    }
 }
+

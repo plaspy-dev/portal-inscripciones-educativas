@@ -19,17 +19,14 @@
     <table width="100%" align="center" border="0">
 			<tr>
 				<td>
-					<div align="center"><IMG height="60" src="../../Imagenes/LogoEntidad.jpg" width="760"><br />
-                        <div style="text-align: left;" class="Titulos">
-                        <%GetTitulo();%>
-                        </div>
-                    </div>
+					<!--#include file="../../imagenes/LogoEntidad.aspx" -->
 				</td>
 			</tr>
 			<tr>
 				<td><table width="100%" border="1">
 						<tr>
-							<td width="150" height="280" align="center" valign="top"><span class="Titulos">VIGENCIA <%GetVigencia();%></span><br />
+							<td width="150" height="280" align="center" valign="top"><span class="Titulos">VIGENCIA <asp:DropDownList ID="m_CBVigenciasCombo" runat="server" AutoPostBack="True" OnSelectedIndexChanged="m_CBVigenciasCombo_SelectedIndexChanged">
+                                </asp:DropDownList></span><br />
 								<div id="menu"><%GetMenu();%></div>
 							</td>
 							<td>&nbsp;

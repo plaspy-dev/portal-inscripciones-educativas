@@ -112,6 +112,7 @@ public partial class sistema_usuarios_usuarios : CPageTemplate
         m_LBVigencias.UpdateAfterCallBack = true;
         m_LBEntes.UpdateAfterCallBack = true;
         m_SDVigencias.UpdateAfterCallBack = true;
+        m_CBVigencias.UpdateAfterCallBack = true;
     }
 
     override protected void ShowControls(bool show)
@@ -126,6 +127,7 @@ public partial class sistema_usuarios_usuarios : CPageTemplate
         m_LBEntes.Visible = show;
         m_SDVigencias.Visible = show;
         Panel1.Visible = show;
+        m_CBVigencias.Visible = show;
         Panel1.UpdateAfterCallBack = true;
     }
 
@@ -191,6 +193,18 @@ public partial class sistema_usuarios_usuarios : CPageTemplate
         }
         else
         {
+            bool continuar = false;
+            for (int i = 0; i < m_LBEntes.Items.Count; i++)
+            {
+                if (((CheckBox)m_LBEntes.Items[i].Cells[0].Controls[0]).Checked)
+                {
+                    continuar = true;
+                    break;
+                }
+            }
+            if (continuar == false)
+                return true;
+
             vigencias = new string[m_CBVigencias.Items.Count - 1];
             for (int i = 1; i < m_CBVigencias.Items.Count; i++)
             {

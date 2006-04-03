@@ -27,7 +27,7 @@ The portal stores forms and reference lists for education applications. Operator
 | ASP.NET precompiler | 4.8.10001.0 | Compiles the Web Forms pages |
 | IIS Express | 10.0.26013.1000 | Runs the verification site |
 | SQL Server Developer | 2022 | Stores the fictional catalogue |
-| Anthem.NET | 1.0.0.0 | Supports the original page controls |
+| Anthem.NET | 1.1.0.0 | Supports the original page controls |
 
 ### Getting started
 
@@ -46,6 +46,7 @@ Copy `demo/CatalogProbe.aspx.example` into the test site as `prueba-catalogo.asp
 - `aprobacion/`. Agreement and project decisions, including proyectos/aprobacion.aspx.
 - `bin/` · Original Anthem.NET assembly
 - `demo/` · Build and fictional SQL scenario
+- `imagenes/`. Menu banners, navigation icons and LogoEntidad.aspx.
 - `inscripcion/` · Application forms
 - `menu/`. JSCookMenu.js and the visual theme for the menu.
 - `seguimiento/`. Follow-up pages for projects and agreements, including proyectos/proyecto.aspx.
@@ -104,7 +105,7 @@ El portal reúne formularios y catálogos para gestionar inscripciones educativa
 | Precompilador ASP.NET | 4.8.10001.0 | Compila las páginas Web Forms |
 | IIS Express | 10.0.26013.1000 | Ejecuta el sitio de prueba |
 | SQL Server Developer | 2022 | Guarda el catálogo ficticio |
-| Anthem.NET | 1.0.0.0 | Permite usar los controles originales de las páginas |
+| Anthem.NET | 1.1.0.0 | Permite usar los controles originales de las páginas |
 
 ### Cómo empezar
 
@@ -123,6 +124,7 @@ Copia `demo/CatalogProbe.aspx.example` al sitio de prueba como `prueba-catalogo.
 - `aprobacion/`. Decisiones de convenios y proyectos, incluida proyectos/aprobacion.aspx.
 - `bin/` · Ensamblado original de Anthem.NET
 - `demo/` · Compilación y escenario ficticio en SQL
+- `imagenes/`. Encabezados del menú, iconos y LogoEntidad.aspx.
 - `inscripcion/` · Formularios de inscripción
 - `menu/`. JSCookMenu.js y el tema visual del menú.
 - `seguimiento/`. Seguimiento de proyectos y convenios, incluido proyectos/proyecto.aspx.

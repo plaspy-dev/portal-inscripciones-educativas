@@ -19,17 +19,14 @@
     <table width="100%" align="center" border="0">
 			<tr>
 				<td>
-					<div align="center"><IMG height="60" src="../../Imagenes/LogoEntidad.jpg" width="760"><br />
-                        <div style="text-align: left;" class="Titulos">
-                        <%GetTitulo();%>
-                        </div>
-                    </div>
+					<!--#include file="../../imagenes/LogoEntidad.aspx" -->
 				</td>
 			</tr>
 			<tr>
 				<td><table width="100%" border="1">
 						<tr>
-							<td width="150" height="280" align="center" valign="top"><span class="Titulos">VIGENCIA <%GetVigencia();%></span><br />
+							<td width="150" height="280" align="center" valign="top"><span class="Titulos">VIGENCIA <asp:DropDownList ID="m_CBVigenciasCombo" runat="server" AutoPostBack="True" OnSelectedIndexChanged="m_CBVigenciasCombo_SelectedIndexChanged">
+                                </asp:DropDownList></span><br />
 								<div id="menu"><%GetMenu();%></div>
 							</td>
 							<td>&nbsp;
@@ -109,7 +106,7 @@
                                                 TypeName="CTablaEx"></asp:ObjectDataSource>
                                             <anthem:GridView ID="m_LCResultados" runat="server" AllowPaging="True" AllowSorting="True" EmptyDataText="No se encontraron resultados"
                                                 Width="100%" DataSourceID="ObjectDataSource1" UpdateAfterCallBack="False" OnSelectedIndexChanged="m_LCResultados_SelectedIndexChanged" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" OnPageIndexChanged="m_LCResultados_PageIndexChanged" OnSorted="m_LCResultados_PageIndexChanged" OnRowDataBound="m_LCResultados_RowDataBound">
-                                                <PagerSettings Mode="NextPreviousFirstLast" Position="Top" FirstPageText="&amp;lt;&amp;lt;  Primera p&#225;gina" LastPageText="&#218;ltima p&#225;gina &amp;gt;&amp;gt;" NextPageText="Siguiente &amp;gt;" PreviousPageText="&amp;lt; Anterior"/>
+                                                <PagerSettings Mode="NextPreviousFirstLast" Position="Top"/>
                                                 <RowStyle CssClass="celda" BackColor="White" Wrap="True" />
                                                 <HeaderStyle CssClass="celdaTitulo" BackColor="#E3E4EA" />
                                                 <PagerStyle HorizontalAlign="Right" BackColor="#E3E4EA" />

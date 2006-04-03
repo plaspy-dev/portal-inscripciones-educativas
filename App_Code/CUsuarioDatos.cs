@@ -82,13 +82,34 @@ public class CUsuarioDatos
         return m_szGrupo;
     }
 
+    public bool GetVigencias(DropDownList lista)
+    {
+        if (m_alVigencias == null)
+        {
+            return false;
+        }
+        if (lista.Items.Count > 0)
+            return true;
+
+        for (int i = 0; i < m_alVigencias.Count; i++)
+        {
+            lista.Items.Add(new ListItem(m_alVigencias[i].ToString()));
+            if (m_szVigencia == m_alVigencias[i].ToString())
+                lista.SelectedIndex = i;
+        }
+        return true;
+    }
+
     public bool SetVigencia(string vigencia)
     {
         if (m_alVigencias == null)
             return false;
         for (int i = 0; i < m_alVigencias.Count; i++)
             if (m_alVigencias[i].ToString() == vigencia)
+            {
+                m_szVigencia = vigencia;
                 return true;
+            }
         return false;
     }
     public void FillComboBox(Anthem.DropDownList lista)
@@ -99,6 +120,6 @@ public class CUsuarioDatos
 
     public string GetCondicion(string nombrecampoente)
     {
-        return nombrecampoente + " IN (SELECT enteterritorial FROM usuariosentes WHERE documento=" + m_szID + " AND vigencia='" + m_szVigencia +"')";
+        return nombrecampoente + " IN (SELECT enteterritorial FROM usuariosentes2 WHERE usuario=" + m_szID + " AND vigencia='" + m_szVigencia +"')";
     }
 }

@@ -303,9 +303,9 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
                 query = "";
                 check = ((CheckBox)m_LBDocumentos.Items[i].Cells[0].Controls[0]).Checked;
                 m_saDatos[1] = m_LBDocumentos.Items[i].Cells[1].Text;
-                m_saDatos[2] = ((TextBox)m_LBDocumentos.Items[i].Cells[3].Controls[0]).Text;
-                m_saDatos[3] = ((TextBox)m_LBDocumentos.Items[i].Cells[4].Controls[0]).Text;
-                m_saDatos[4] = ((TextBox)m_LBDocumentos.Items[i].Cells[5].Controls[0]).Text;
+                m_saDatos[2] = GetDate(((TextBox)m_LBDocumentos.Items[i].Cells[3].Controls[0]).Text);
+                m_saDatos[3] = GetString(((TextBox)m_LBDocumentos.Items[i].Cells[4].Controls[0]).Text);
+                m_saDatos[4] = GetString(((TextBox)m_LBDocumentos.Items[i].Cells[5].Controls[0]).Text);
 
                 DataRow row= tabla.Rows.Find(m_saDatos[1]);
                 if (row != null && row[1].ToString() != "")
@@ -388,9 +388,9 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
                 query = "";
                 check = ((CheckBox)m_LBDocumentos.Items[i].Cells[0].Controls[0]).Checked;
                 m_saDatos[1] = m_LBDocumentos.Items[i].Cells[1].Text;
-                m_saDatos[2] = ((TextBox)m_LBDocumentos.Items[i].Cells[3].Controls[0]).Text;
-                m_saDatos[3] = ((TextBox)m_LBDocumentos.Items[i].Cells[4].Controls[0]).Text;
-                m_saDatos[4] = ((TextBox)m_LBDocumentos.Items[i].Cells[5].Controls[0]).Text;
+                m_saDatos[2] = GetDate(((TextBox)m_LBDocumentos.Items[i].Cells[3].Controls[0]).Text);
+                m_saDatos[3] = GetString( ((TextBox)m_LBDocumentos.Items[i].Cells[4].Controls[0]).Text);
+                m_saDatos[4] = GetString(((TextBox)m_LBDocumentos.Items[i].Cells[5].Controls[0]).Text);
 
                 DataRow row = tabla.Rows.Find(m_saDatos[1]);
                 if (row != null && row[1].ToString() != "")
