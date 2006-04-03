@@ -20,9 +20,7 @@ public class CMenu
     {
         m_szMenu = "";
 
-        CConector conector = (CConector)padre.Session["conector"];
-        if (conector == null)
-            return;
+        CConector conector = new CConector();
         CUsuarioDatos usuario = (CUsuarioDatos)padre.Session["usuario"];
 
         SqlDataReader result = conector.Query("SELECT * FROM Menus WHERE orden=NULL OR orden!=-1 ORDER BY padre,orden", true);
@@ -37,8 +35,7 @@ public class CMenu
             string parent = result[4].ToString();
             if (parent.Length == 0)
                 parent = "0";
-
-            m_pItems.AddMenu(nombre, Convert.ToInt32(id), descripcion, CConector.GetProfileString("path", "/OrganizationExample22") + url, Convert.ToInt32(parent));
+            m_pItems.AddMenu(nombre, Convert.ToInt32(id), descripcion, HttpContext.Current.Request.ApplicationPath + url, Convert.ToInt32(parent));
         }
         if (CConector.GetProfileInt("administrador", 0) == 1)
         {
@@ -52,8 +49,13 @@ public class CMenu
             }
         }
 
-        m_pItems.AddMenu("Limpiar", -1, "Cierra las Ventanas", CConector.GetProfileString("path", "/OrganizationExample22") + "/entrada.aspx", 0);
-        m_pItems.AddMenu("Terminar", -2, "Cierra las Sesión Actual", CConector.GetProfileString("path", "/OrganizationExample22") + "/default.aspx?end=1", 0);
+        m_pItems.AddMenu("Configurar", -5, "Configura la aplicación", "", 0);
+        m_pItems.AddMenu("Contraseña", -4, "Cambia la contraseña", HttpContext.Current.Request.ApplicationPath + "/conf/contrasena/contrasena.aspx", -5);
+        m_pItems.AddMenu("Sistema", -3, "Cambia la configuración del aplicativo", HttpContext.Current.Request.ApplicationPath + "/conf/app/app.aspx", -5);
+        m_pItems.AddMenu("Limpiar", -1, "Cierra las Ventanas", HttpContext.Current.Request.ApplicationPath + "/entrada.aspx", 0);
+        m_pItems.AddMenu("Terminar", -2, "Cierra las Sesión Actual", HttpContext.Current.Request.ApplicationPath + "/default.aspx?end=1", 0);
+        m_pItems.SetPermiso(-3, 1);
+        m_pItems.SetPermiso(-4, 1);
         m_pItems.SetPermiso(-1, 1);
         m_pItems.SetPermiso(-2, 1);
         m_szMenu = m_pItems.GetMenu();

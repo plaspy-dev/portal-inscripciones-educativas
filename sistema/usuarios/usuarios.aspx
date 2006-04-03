@@ -41,22 +41,8 @@
                                                     <td >
                                                         <anthem:CheckBox ID="CheckBox1" runat="server" Checked="True" Visible="False" /></td>
                                                     <td >
-                                                        Identificación<anthem:HiddenField ID="m_nId" runat="server" />
+                                                        Usuario<anthem:HiddenField ID="m_nId" runat="server" />
                                                     </td>
-                                                    <td >
-                                                        <anthem:TextBox ID="m_EDocumento" runat="server" CssClass="inputnumerico"></anthem:TextBox></td>
-                                                    <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_EDocumento"
-                                                            ErrorMessage="Por favor ingrese un documento" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                                                        <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_EDocumento"
-                                                            ErrorMessage="Por favor ingrese un número aqui" MaximumValue="1000000000" MinimumValue="1"
-                                                            SetFocusOnError="True" Type="Integer"></asp:RangeValidator></td>
-                                                </tr>
-                                                <tr>
-                                                    <td >
-                                                        <anthem:CheckBox ID="CheckBox2" runat="server" Checked="True" Visible="False" /></td>
-                                                    <td >
-                                                        Usuario</td>
                                                     <td >
                                                         <anthem:TextBox ID="m_EUsuario" runat="server"></anthem:TextBox></td>
                                                     <td>
@@ -65,7 +51,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td >
-                                                        <anthem:CheckBox ID="CheckBox3" runat="server" Checked="True" Visible="False" /></td>
+                                                        <anthem:CheckBox ID="CheckBox2" runat="server" Checked="True" Visible="False" /></td>
                                                     <td >
                                                         Grupo</td>
                                                     <td >
@@ -77,52 +63,49 @@
                                                 </tr>
                                                 <tr>
                                                     <td >
-                                                        <anthem:CheckBox ID="CheckBox4" runat="server" Checked="True" Visible="False" /></td>
-                                                    <td >
-                                                        Grupo Personas</td>
-                                                    <td >
-                                                        <anthem:DropDownList ID="m_CBGrupoP" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBGrupoP_SelectedIndexChanged">
-                                                        </anthem:DropDownList></td>
-                                                    <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="m_CBGrupoP"
-                                                            ErrorMessage="Por favor seleccione un grupo de personas" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
-                                                </tr>
-                                                <tr>
-                                                    <td >
-                                                        <anthem:CheckBox ID="CheckBox5" runat="server" Checked="True" Visible="False" /></td>
+                                                        <anthem:CheckBox ID="CheckBox3" runat="server" Checked="True" Visible="False" /></td>
                                                     <td >
                                                         Nombre</td>
                                                     <td >
-                                                        <anthem:DropDownList ID="m_CBNombre" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBNombre_SelectedIndexChanged">
-                                                        </anthem:DropDownList></td>
+                                                        <anthem:TextBox ID="m_ENombre" runat="server"></anthem:TextBox></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="m_CBNombre"
-                                                            ErrorMessage="Por favor seleccione un nombre de usuario" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="m_ENombre"
+                                                            ErrorMessage="Por favor ingrese un nombre de usuario" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
                                                     <td >
-                                                        <anthem:CheckBox ID="CheckBox6" runat="server" Checked="True" Visible="False" /></td>
+                                                        <anthem:CheckBox ID="CheckBox4" runat="server" Checked="True" Visible="False" /></td>
                                                     <td >
                                                         Contraseña</td>
                                                     <td >
-                                                        <anthem:TextBox ID="m_EContrasena" runat="server"></anthem:TextBox></td>
+                                                        <anthem:TextBox ID="m_EContrasena" runat="server" CausesValidation="True" TextMode="Password"></anthem:TextBox></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="m_EContrasena"
-                                                            ErrorMessage="Por favor ingrese una contraseña" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
+                                                        <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToCompare="m_EConfirmar"
+                                                            ControlToValidate="m_EContrasena" ErrorMessage="Las contraseñas no coinciden"></asp:CompareValidator></td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <anthem:CheckBox ID="CheckBox7" runat="server" Checked="True" Visible="False" /></td>
+                                                    </td>
+                                                    <td>
+                                                        Contraseña (Confirmar)</td>
+                                                    <td>
+                                                        <anthem:TextBox ID="m_EConfirmar" runat="server" CausesValidation="True" TextMode="Password"></anthem:TextBox></td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <anthem:CheckBox ID="CheckBox5" runat="server" Checked="True" Visible="False" /></td>
                                                     <td>
                                                         Activo</td>
                                                     <td>
-                                                        <anthem:CheckBox ID="m_CActivo" runat="server" /></td>
+                                                        <anthem:CheckBox ID="m_CActivo" runat="server" Checked="True" /></td>
                                                     <td style="height: 22px">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td >
-                                                        <anthem:CheckBox ID="CheckBox8" runat="server" Checked="True" Visible="False" /></td>
+                                                        <anthem:CheckBox ID="CheckBox6" runat="server" Checked="True" Visible="False" /></td>
                                                     <td >
                                                         Vigencias</td>
                                                     <td >
@@ -134,6 +117,18 @@
                                                         <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" SelectMethod="Select"
                                                             TypeName="CTablaVigencias"></asp:ObjectDataSource>
                                                     </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                        Vigencia de los entes
+                                                        <anthem:DropDownList ID="m_CBVigencias" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBVigencias_SelectedIndexChanged">
+                                                        </anthem:DropDownList></td>
+                                                    <td>
+                                                        <anthem:Label ID="m_SDVigencias" runat="server"></anthem:Label></td>
                                                 </tr>
                                                 <tr>
                                                     <td>

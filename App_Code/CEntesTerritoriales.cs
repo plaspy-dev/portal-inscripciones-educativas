@@ -16,21 +16,26 @@ public class CEntesTerritoriales
 {
     protected ArrayList m_pEntes;
     protected ArrayList m_pIds;
+    protected ArrayList m_pVigencias;
 
     public CEntesTerritoriales()
     {
         m_pEntes = null;
         m_pIds = null;
+        m_pVigencias = null;
     }
 
-    public void Add(string ente, int id)
+    public void Add(string ente, int id, string vigencia)
     {
         if (m_pEntes == null)
             m_pEntes = new ArrayList();
         if (m_pIds == null)
             m_pIds = new ArrayList();
+        if (m_pVigencias == null)
+            m_pVigencias = new ArrayList();
         m_pEntes.Add(ente);
         m_pIds.Add(id);
+        m_pVigencias.Add(vigencia);
     }
 
     public int GetCount()
@@ -43,12 +48,12 @@ public class CEntesTerritoriales
         return (int)m_pIds[pos];
     }
 
-    public void FillComboBox(Anthem.DropDownList lista)
+    public void FillComboBox(Anthem.DropDownList lista, string vigencia)
     {
-        FillComboBox(lista, false);
+        FillComboBox(lista, false, vigencia);
     }
 
-    public void FillComboBox(Anthem.DropDownList lista, bool force)
+    public void FillComboBox(Anthem.DropDownList lista, bool force, string vigencia)
     {
         if (lista.Items.Count > 0)
             if (force)
@@ -56,6 +61,9 @@ public class CEntesTerritoriales
             else return;
         lista.Items.Add(new ListItem("(Ninguno)", "-1"));
         for (int i = 0; i < m_pIds.Count; i++)
-            lista.Items.Add(new ListItem(m_pEntes[i].ToString(), m_pIds[i].ToString()));
+        {
+            if( m_pVigencias[i].ToString()==vigencia)
+                lista.Items.Add(new ListItem(m_pEntes[i].ToString(), m_pIds[i].ToString()));
+        }
     }
 }

@@ -41,11 +41,11 @@ public class CUsuarioDatos
         m_pEntes = null;
     }
 
-    public void AddEnte(string nombre, int id)
+    public void AddEnte(string nombre, int id, string vigencia)
     {
         if (m_pEntes == null)
             m_pEntes = new CEntesTerritoriales();
-        m_pEntes.Add(nombre, id);
+        m_pEntes.Add(nombre, id, vigencia);
     }
 
     public void SetVigencias(ArrayList lista)
@@ -94,11 +94,11 @@ public class CUsuarioDatos
     public void FillComboBox(Anthem.DropDownList lista)
     {
         if (m_pEntes != null)
-            m_pEntes.FillComboBox(lista);
+            m_pEntes.FillComboBox(lista, m_szVigencia);
     }
 
     public string GetCondicion(string nombrecampoente)
     {
-        return nombrecampoente + " IN (SELECT enteterritorial FROM usuariosentes WHERE documento=" + m_szID + ")";
+        return nombrecampoente + " IN (SELECT enteterritorial FROM usuariosentes WHERE documento=" + m_szID + " AND vigencia='" + m_szVigencia +"')";
     }
 }

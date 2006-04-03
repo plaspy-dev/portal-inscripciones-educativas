@@ -22,7 +22,7 @@ public class CTablaItems
 
     public CTablaItems()
     {
-        m_pConector = (CConector)HttpContext.Current.Session["conector"];
+        m_pConector = new CConector();
         m_szCurrentID = "";
         m_szQuery = "";
         m_szId = "";
@@ -31,7 +31,7 @@ public class CTablaItems
 
 	public CTablaItems(int columnas)
 	{
-        m_pConector = (CConector)HttpContext.Current.Session["conector"];
+        m_pConector = new CConector();
         m_szCurrentID = "";
         m_szQuery = "";
         m_szId = "";

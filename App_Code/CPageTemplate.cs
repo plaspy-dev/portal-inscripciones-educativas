@@ -57,7 +57,7 @@ public class CPageTemplate : System.Web.UI.Page
 
         if (!CConector.IsLogged(this))
         {
-            Response.Redirect(CConector.GetProfileString("path", "/OrganizationExample22") + "/default.aspx");
+            Response.Redirect(HttpContext.Current.Request.ApplicationPath + "/default.aspx");
             Response.End();
             return false;
         }
@@ -70,13 +70,14 @@ public class CPageTemplate : System.Web.UI.Page
         m_nPermisos = m_pMenu.GetPermisos(verificar ? Request.Url.AbsolutePath : Session["parent"].ToString());
         if (verificar && m_nPermisos < 1)
         {
-            Response.Redirect(CConector.GetProfileString("path", "/OrganizationExample22") + "/Entrada.aspx");
+            Response.Redirect(HttpContext.Current.Request.ApplicationPath + "/Entrada.aspx");
             Response.End();
             return false;
         }
+
         m_szTitulo = m_pMenu.GetFullPath(Request.Url.AbsolutePath);
         m_pUsuario = (CUsuarioDatos)Session["usuario"];
-        m_pConector = (CConector)Session["conector"];
+        m_pConector = new CConector();
 
         m_szJoin = "";
         m_szCondicion = "";
@@ -97,8 +98,6 @@ public class CPageTemplate : System.Web.UI.Page
             m_saDatos[i] = "";
             m_baHidden[i] = false;
         }
-
-        int index = Convert.ToInt32(Request.QueryString["pagina"]);
         return true;
     }
 
@@ -116,28 +115,28 @@ public class CPageTemplate : System.Web.UI.Page
 
         if (!IsPostBack)
         {
-            Anthem.Button boton = (Anthem.Button)FindControl("m_BCancelar");
+            Button boton = (Button)FindControl("m_BCancelar");
             if (boton != null)
             {
                 boton.Style["display"] = "none";
             }
-            if ((boton = (Anthem.Button)FindControl("m_BCancelarP")) != null)
+            if ((boton = (Button)FindControl("m_BCancelarP")) != null)
             {
                 boton.Style["display"] = "none";
             }
-            if ((boton = (Anthem.Button)FindControl("m_BAceptar")) != null)
+            if ((boton = (Button)FindControl("m_BAceptar")) != null)
             {
                 boton.Style["display"] = "none";
             }
-            if ((boton = (Anthem.Button)FindControl("m_BAceptarP")) != null)
+            if ((boton = (Button)FindControl("m_BAceptarP")) != null)
             {
                 boton.Style["display"] = "none";
             }
-            if ((boton = (Anthem.Button)FindControl("m_BEliminar")) != null)
+            if ((boton = (Button)FindControl("m_BEliminar")) != null)
             {
                 boton.Style["display"] = "none";
             }
-            if ((m_nPermisos & 4) == 0 && (boton = (Anthem.Button)FindControl("m_BInsertar")) != null)
+            if ((m_nPermisos & 4) == 0 && (boton = (Button)FindControl("m_BInsertar")) != null)
             {
                 boton.Style["display"]="none";
             }

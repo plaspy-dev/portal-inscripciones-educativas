@@ -24,29 +24,25 @@ public class CConector
     protected SqlDataReader m_pSQLReader;
 
     public CConector()
-		{
-			// cargamos los valores por defect
-			m_szServidor= GetProfileString("Servidor", "localhost");
-			m_szBaseDeDatos= GetProfileString("DB", "OrganizationExample22");
-			m_szUsuario= GetProfileString("usuario","sa");
-			m_szContrasena= GetProfileString("contrasena","");
-            m_szQuery = "";
-
-			m_szLastError="";
-			
-			m_pSQLConector= null;
-			m_pSQLReader= null;
-		}
+	{
+		// cargamos los valores por defect
+		m_szServidor= GetProfileString("Servidor", "localhost");
+		m_szBaseDeDatos= GetProfileString("DB", "OrganizationExample22");
+		m_szUsuario= GetProfileString("usuario","sa");
+		m_szContrasena= GetProfileString("contrasena","");
+        m_szQuery = "";
+		m_szLastError="";			
+		m_pSQLConector= null;
+		m_pSQLReader= null;
+        QueryMod("SET DATEFORMAT dmy");
+	}
 
     public static bool IsLogged(Page pagina)
     {
         if (CConector.GetProfileInt("administrador", 0) == 1)
         {
-            CConector conector;
-            if ((conector = (CConector)pagina.Session["conector"]) == null)
+            if (pagina.Session["usuario"]== null)
             {
-                conector = new CConector();
-                pagina.Session["conector"] = conector;
                 CUsuarioDatos usuario = new CUsuarioDatos("Administrador", "200x", "0", "0");
                 pagina.Session["usuario"] = usuario;
             }

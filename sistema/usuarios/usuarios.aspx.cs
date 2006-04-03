@@ -14,56 +14,46 @@ public partial class sistema_usuarios_usuarios : CPageTemplate
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!PageLoad("usuarios", 9))
+        if (!PageLoad("usuarios2", 8))
             return;
 
-        m_saCampos[0] = "documento";
+        m_saCampos[0] = "id";
         m_saCampos[1] = "login";
         m_saCampos[2] = "grupo";
-        m_saCampos[3] = "grupop";
-        m_saCampos[4] = "nombre";
-        m_saCampos[5] = "clave";
-        m_saCampos[6] = "usesion";
-        m_saCampos[7] = "estado";
-        m_saCampos[8] = "vigencias";
+        m_saCampos[3] = "nombre";
+        m_saCampos[4] = "clave";
+        m_saCampos[5] = "usesion";
+        m_saCampos[6] = "estado";
+        m_saCampos[7] = "vigencias";
 
-        m_saTitulos[0] = "Identificación";
+        m_saTitulos[0] = "id";
         m_saTitulos[1] = "Usuario";
         m_saTitulos[2] = "Grupo";
-        m_saTitulos[3] = "Grupo P";
-        m_saTitulos[4] = "Nombre";
-        m_saTitulos[5] = "Clave";
-        m_saTitulos[6] = "Ultimo Inicio de sesión";
-        m_saTitulos[7] = "Activo";
-        m_saTitulos[8] = "Vigencias";
+        m_saTitulos[3] = "Nombre";
+        m_saTitulos[4] = "Clave";
+        m_saTitulos[5] = "Ultimo Inicio de sesión";
+        m_saTitulos[6] = "Activo";
+        m_saTitulos[7] = "Vigencias";
 
         for (int i = 0; i < m_saCampos.Length; i++)
             m_saCamposAlias[i] = m_szTabla + "." + m_saCampos[i];
 
         m_saCamposAlias[2] = "varios.nombre";
         m_saCamposAlias[3] = "grupos.nombre";
-        m_saCamposAlias[4] = "personas.nombre";
 
-        m_szCondicion = " usuarios.estado!=-1";
+        m_szCondicion = " usuarios2.estado!=-1";
 
-        m_szJoin = " LEFT JOIN varios ON (varios.id=usuarios.grupo) LEFT JOIN personas ON (personas.id=usuarios.nombre) "
-            + " LEFT JOIN varios AS grupos ON (grupos.id=personas.grupop) ";
+        m_szJoin = " LEFT JOIN varios ON (varios.id=usuarios2.grupo)"
+            + " LEFT JOIN varios AS grupos ON (grupos.id=usuarios2.grupo) ";
 
         m_szIndice = m_saTitulos[0];
         // autofiltro
         if (m_CBGrupo.SelectedIndex > 0)
-            m_szCondicion += " AND usuarios.grupo=" + m_CBGrupo.SelectedValue;
-        if (m_CBGrupoP.SelectedIndex > 0)
-            m_szCondicion += " AND personas.grupop=" + m_CBGrupoP.SelectedValue;
-        if (m_CBNombre.SelectedIndex > 0)
-            m_szCondicion += " AND usuarios.nombre=" +  m_CBNombre.SelectedValue;
+            m_szCondicion += " AND usuarios2.grupo=" + m_CBGrupo.SelectedValue;
 
         m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion);
-
-
         FillComboBox(m_CBGrupo, "SELECT id,nombre FROM varios WHERE tipo=1 AND (nReservado!=-1  OR nReservado IS NULL)  ORDER BY nombre");
-        FillComboBox(m_CBGrupoP, "SELECT id,nombre FROM varios WHERE tipo=2 AND (nReservado!=-1  OR nReservado IS NULL) ORDER BY nombre");
-        FillComboBox(m_CBNombre, m_CBGrupoP.SelectedIndex> 0 ? ("SELECT id,nombre FROM Personas WHERE grupop=" + m_CBGrupoP.SelectedValue + " ORDER BY nombre") : "", true);
+        FillComboBox(m_CBVigencias, "SELECT nombre,nombre FROM vigencias");
 
         if (m_LBVigencias.Columns.Count == 0)
         {
@@ -104,7 +94,8 @@ public partial class sistema_usuarios_usuarios : CPageTemplate
             m_LBEntes.DataKeyField = "id";
             m_LBEntes.DataBind();
         }
-        m_EDocumento.Attributes["onKeypress"] = "isnb();";
+        m_baHidden[0] = true;
+        m_baHidden[4]=true;
 
         EndPageLoad();
     }
@@ -112,28 +103,28 @@ public partial class sistema_usuarios_usuarios : CPageTemplate
     override protected void UpdateAll()
     {
         m_nId.UpdateAfterCallBack = true;
-        m_EDocumento.UpdateAfterCallBack = true;
         m_EUsuario.UpdateAfterCallBack = true;
-        m_CBGrupoP.UpdateAfterCallBack = true;
         m_CBGrupo.UpdateAfterCallBack = true;
-        m_CBNombre.UpdateAfterCallBack = true;
+        m_ENombre.UpdateAfterCallBack = true;
         m_EContrasena.UpdateAfterCallBack = true;
+        m_EConfirmar.UpdateAfterCallBack = true;
         m_CActivo.UpdateAfterCallBack = true;
         m_LBVigencias.UpdateAfterCallBack = true;
         m_LBEntes.UpdateAfterCallBack = true;
+        m_SDVigencias.UpdateAfterCallBack = true;
     }
 
     override protected void ShowControls(bool show)
     {
-        m_EDocumento.Visible = show;
         m_EUsuario.Visible = show;
-        m_CBGrupoP.Visible = show;
         m_CBGrupo.Visible = show;
-        m_CBNombre.Visible = show;
+        m_ENombre.Visible = show;
         m_EContrasena.Visible = show;
+        m_EConfirmar.Visible = show;
         m_CActivo.Visible = show;
         m_LBVigencias.Visible = show;
         m_LBEntes.Visible = show;
+        m_SDVigencias.Visible = show;
         Panel1.Visible = show;
         Panel1.UpdateAfterCallBack = true;
     }
@@ -147,21 +138,18 @@ public partial class sistema_usuarios_usuarios : CPageTemplate
             return;
 
         m_nId.Value = gv.SelectedDataKey.Value.ToString();
-        m_EDocumento.Text = row[0].ToString();
+
         m_EUsuario.Text= row[1].ToString();
+        SelectInCombo(m_CBGrupo, row[2].ToString());
+        m_ENombre.Text= row[3].ToString();
+        m_CActivo.Checked = row[6].ToString() == "1";
 
-        ListItem item = m_CBGrupo.Items.FindByText(row[2].ToString());
-        m_CBGrupo.SelectedIndex = item == null ? 0 : m_CBGrupo.Items.IndexOf(item);
-        item = m_CBGrupoP.Items.FindByText(row[3].ToString());
-        m_CBGrupoP.SelectedIndex = item == null ? 0 : m_CBGrupoP.Items.IndexOf(item);
-        FillComboBox(m_CBNombre, m_CBGrupoP.SelectedIndex > 0 ? ("SELECT id,nombre FROM Personas WHERE grupop=" + m_CBGrupoP.SelectedValue + " ORDER BY nombre") : "", true);
-        item = m_CBNombre.Items.FindByText(row[4].ToString());
-        m_CBNombre.SelectedIndex = item == null ? 0 : m_CBNombre.Items.IndexOf(item);
-        m_EContrasena.Text = row[5].ToString();
-        m_CActivo.Checked = row[7].ToString() == "1";
+        m_SDVigencias.Text = "Sobrescribe los entes de todas las vigencias";
+        m_CBVigencias.SelectedIndex = 0;
 
-        Session["idvigencias"] = row[8].ToString();
+        Session["idvigencias"] = row[7].ToString();
         m_LBVigencias.DataBind();
+        Session["identesvigencia"] = "";
         Session["identes"]= m_nId.Value;
         m_LBEntes.DataBind();
 
@@ -172,80 +160,117 @@ public partial class sistema_usuarios_usuarios : CPageTemplate
     {
         // limpiar los campos
         m_nId.Value = "";
-        m_EDocumento.Text = "";
         m_EUsuario.Text = "";
-
+        m_ENombre.Text = "";
         m_EContrasena.Text = "";
+        m_EConfirmar.Text = "";
+        m_SDVigencias.Text = "Sobrescribe los entes de todas las vigencias";
         m_CActivo.Checked = true;
+        m_CBVigencias.SelectedIndex = 0;
 
         Session["idvigencias"] = "";
         m_LBVigencias.DataBind();
+        Session["identesvigencia"] = "";
         Session["identes"] = "";
         m_LBEntes.DataBind();
 
         base.m_BCancelar_Click(sender, e);
     }
 
+    protected bool UpdateEntes()
+    {
+        if (m_nId.Value.Length == 0)
+            return true;
+        string[] vigencias;
+        if (m_CBVigencias.SelectedIndex > 0)
+        {
+            vigencias = new string[1];
+            vigencias[0] = m_CBVigencias.SelectedValue;
+            if (m_pConector.QueryMod("DELETE FROM usuariosentes2 WHERE usuario=" + m_nId.Value + " AND vigencia='" + m_CBVigencias.SelectedValue + "'") == -1)
+                return false;
+        }
+        else
+        {
+            vigencias = new string[m_CBVigencias.Items.Count - 1];
+            for (int i = 1; i < m_CBVigencias.Items.Count; i++)
+            {
+                vigencias[i - 1] = m_CBVigencias.Items[i].Value;
+            }
+            if (m_pConector.QueryMod("DELETE FROM usuariosentes2 WHERE usuario=" + m_nId.Value) == -1)
+                return false;
+        }
+        string[] all = new string[3];
+        all[0] = m_nId.Value;
+
+        for (int j = 0; j < vigencias.Length; j++)
+        {
+            all[2] = vigencias[j];
+            for (int i = 0; i < m_LBEntes.Items.Count; i++)
+            {
+                if (((CheckBox)m_LBEntes.Items[i].Cells[0].Controls[0]).Checked)
+                {
+                    all[1] = m_LBEntes.Items[i].Cells[1].Text;
+                    if (m_pConector.QueryMod(CConector.CrearInsercion("usuariosentes2", all)) == -1)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     protected void m_BInsertar_Click(object sender, EventArgs e)
     {
+        m_saCampos[0] = "";
         // insertar
-        m_saDatos[0]= m_EDocumento.Text;
         m_saDatos[1]= m_EUsuario.Text;
         m_saDatos[2] = m_CBGrupo.SelectedValue;
-        m_saCampos[3] = "";
-        m_saDatos[4] = m_CBNombre.SelectedValue;
-        m_saDatos[5] = m_EContrasena.Text;
-        m_saCampos[6] = "";
-        m_saDatos[7] = m_CActivo.Enabled ? "1" : "0";
+        m_saDatos[3] = m_ENombre.Text;
+        m_saDatos[4] = m_EContrasena.Text;
+        m_saDatos[5] = "";
+        m_saDatos[6] = m_CActivo.Checked ? "1" : "0";
+
         for( int i=0; i<m_LBVigencias.Items.Count; i++) {
             if (((CheckBox)m_LBVigencias.Items[i].Cells[0].Controls[0]).Checked)
-                m_saDatos[8] += m_LBVigencias.Items[i].Cells[1].Text + ",";
+                m_saDatos[7] += m_LBVigencias.Items[i].Cells[1].Text + ",";
         }
 
         // incializar los datos a insertar
         // m_saDatos[1] = m_ENombre.Text;
-        if (m_pConector.QueryMod(CConector.CrearInsercion(m_szTabla, m_saCampos, m_saDatos))== -1)
+        int id=m_pConector.QueryMod(CConector.CrearInsercion(m_szTabla, m_saCampos, m_saDatos), true);
+        if (id== -1)
         {
             m_SMensaje.Text = m_pConector.GetLastError();
             m_SMensaje.UpdateAfterCallBack = true;
         }
         else
         {
-            string[] all = new string[2];
-            all[0] = m_saDatos[0];
-            for (int i = 0; i < m_LBEntes.Items.Count; i++)
+            m_nId.Value = id.ToString();
+            if (UpdateEntes())
+                base.AfterUpdate("Usuario " + m_EUsuario.Text + " Ingresado");
+            else
             {
-                if (((CheckBox)m_LBEntes.Items[i].Cells[0].Controls[0]).Checked)
-                {
-                    all[1] = m_LBEntes.Items[i].Cells[1].Text;
-                    if (m_pConector.QueryMod(CConector.CrearInsercion("usuariosentes", all)) == -1)
-                    {
-                        m_SMensaje.Text = m_pConector.GetLastError();
-                        m_SMensaje.UpdateAfterCallBack = true;
-                        return;
-                    }
-                }
+                m_SMensaje.Text = m_pConector.GetLastError();
+                m_SMensaje.UpdateAfterCallBack = true;
             }
-            base.AfterUpdate("Usuario " + m_EUsuario.Text + " Ingresado");
         }
     }
 
     protected void m_BAceptar_Click(object sender, EventArgs e)
     {
         // campos a actualizar
-        // m_saDatos[1] = m_ENombre.Text;
-        m_saDatos[0] = m_nId.Value;
         m_saDatos[1] = m_EUsuario.Text;
         m_saDatos[2] = m_CBGrupo.SelectedValue;
-        m_saCampos[3] = "";
-        m_saDatos[4] = m_CBNombre.SelectedValue;
-        m_saDatos[5] = m_EContrasena.Text;
-        m_saCampos[6] = "";
-        m_saDatos[7] = m_CActivo.Enabled ? "1" : "0";
+        m_saDatos[3] = m_ENombre.Text;
+        m_saDatos[4] = m_EContrasena.Text;
+        m_saDatos[5] = "";
+        m_saDatos[6] = m_CActivo.Checked ? "1" : "0";
+
         for (int i = 0; i < m_LBVigencias.Items.Count; i++)
         {
             if (((CheckBox)m_LBVigencias.Items[i].Cells[0].Controls[0]).Checked)
-                m_saDatos[8] += m_LBVigencias.Items[i].Cells[1].Text+",";
+                m_saDatos[7] += m_LBVigencias.Items[i].Cells[1].Text + ",";
         }
         // editar
         string query = CConector.CreateUpdate(m_szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion(m_saCampos[0], m_nId.Value);
@@ -256,46 +281,20 @@ public partial class sistema_usuarios_usuarios : CPageTemplate
         }
         else
         {
-            string[] all = new string[2];
-            string[] campos = new string[2];
-            bool existe = false;
-            SqlDataReader reader;
-
-            campos[0]="documento";
-            campos[1]="enteterritorial";
-            all[0] = m_saDatos[0];
-
-            for (int i = 0; i < m_LBEntes.Items.Count; i++)
+            if (UpdateEntes())
+                base.AfterUpdate("Usuario " + m_EUsuario.Text + " Modificado");
+            else
             {
-                all[1] = m_LBEntes.Items[i].Cells[1].Text;
-                query = "SELECT documento FROM usuariosentes " + CConector.GetCondiciones(campos, all, "=");
-                reader = m_pConector.Query(query);
-                existe = (reader!=null && reader.Read());
-                query = "";
-                if (((CheckBox)m_LBEntes.Items[i].Cells[0].Controls[0]).Checked)
-                {
-                    if(!existe)
-                        query = CConector.CrearInsercion("usuariosentes", all);
-                }
-                else if (existe)
-                {
-                    query = "DELETE FROM usuariosentes " + CConector.GetCondiciones(campos, all, "=");
-                }
-                if (query.Length>0 && m_pConector.QueryMod(query) == -1)
-                {
-                    m_SMensaje.Text = m_pConector.GetLastError();
-                    m_SMensaje.UpdateAfterCallBack = true;
-                    return;
-                }
+                m_SMensaje.Text = m_pConector.GetLastError();
+                m_SMensaje.UpdateAfterCallBack = true;
             }
-            base.AfterUpdate("Usuario " + m_EUsuario.Text + " Modificado");
         }
     }
 
     protected void m_BEliminar_Click(object sender, EventArgs e)
     {
         // eliminar
-        if (m_pConector.QueryMod("UPDATE usuarios SET estado=-1 WHERE id=" + m_nId.Value) == -1)
+        if (m_pConector.QueryMod("UPDATE usuarios2 SET estado=-1 WHERE id=" + m_nId.Value) == -1)
         {
             m_SMensaje.Text = m_pConector.GetLastError();
             m_SMensaje.UpdateAfterCallBack = true;
@@ -310,17 +309,30 @@ public partial class sistema_usuarios_usuarios : CPageTemplate
         m_LCResultados.DataBind();
         m_LCResultados_PageIndexChanged(m_LCResultados, e);
         m_LCResultados.Columns[3].Visible = m_CBGrupo.SelectedIndex == 0;
-        m_LCResultados.Columns[4].Visible = m_CBGrupoP.SelectedIndex == 0;
-        m_LCResultados.Columns[5].Visible = m_CBNombre.SelectedIndex == 0;
         m_LCResultados.UpdateAfterCallBack = true;
     }
-    protected void m_CBGrupoP_SelectedIndexChanged(object sender, EventArgs e)
+    protected void m_CBVigencias_SelectedIndexChanged(object sender, EventArgs e)
     {
-        m_CBGrupo_SelectedIndexChanged(sender, e);
-        m_CBNombre.UpdateAfterCallBack = true;
+        string vigencia = Session["identesvigencia"] == null ? "" : Session["identesvigencia"].ToString();
+        if (vigencia.Length > 0)
+        {
+            int old = m_CBVigencias.SelectedIndex;
+            SelectInCombo(m_CBVigencias, vigencia);
+            UpdateEntes();
+            m_CBVigencias.SelectedIndex = old;
+        }
+        m_SDVigencias.Text = m_CBVigencias.SelectedIndex>0 ? "" : "Sobrescribe los entes de todas las vigencias";
+        m_SDVigencias.UpdateAfterCallBack = true;
+        Session["identesvigencia"] = m_CBVigencias.SelectedIndex>0 ? m_CBVigencias.SelectedValue : "";
+        m_LBEntes.DataBind();
+        m_LBEntes.UpdateAfterCallBack = true;
     }
-    protected void m_CBNombre_SelectedIndexChanged(object sender, EventArgs e)
+
+    override protected void m_LCResultados_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        m_CBGrupo_SelectedIndexChanged(sender, e);
+        if (e.Row.DataItemIndex != -1)
+        {
+            e.Row.Cells[7].Text = e.Row.Cells[7].Text == "1" ? "Si" : "No";
+        }
     }
 }
