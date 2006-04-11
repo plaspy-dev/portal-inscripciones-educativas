@@ -80,10 +80,7 @@
                                         </anthem:TextBox></td>
                                         <td>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="m_ENumero"
-                                                ErrorMessage="Por favor ingrese un número"></asp:RequiredFieldValidator>
-                                            <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_ENumero"
-                                                            ErrorMessage="Por favor ingrese un número aqui" MaximumValue="999" MinimumValue="100"
-                                                            SetFocusOnError="True" Type="Integer"></asp:RangeValidator>
+                                                ErrorMessage="Por favor ingrese un número"></asp:RequiredFieldValidator>&nbsp;
                                         </td>
                                     </tr>
                                     <tr>
@@ -93,7 +90,7 @@
                                         </anthem:TextBox></td>
                                         <td>
                                         <asp:RangeValidator ID="RangeValidator3" runat="server" ControlToValidate="m_EValor"
-                                                            ErrorMessage="Por favor ingrese un número aqui" MaximumValue="100000000000" MinimumValue="1"
+                                                            ErrorMessage="Por favor ingrese un número aqui" MaximumValue="900000000000000" MinimumValue="1"
                                                             SetFocusOnError="True" Type="Currency"></asp:RangeValidator>
                                         </td>
                                     </tr>

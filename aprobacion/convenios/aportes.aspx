@@ -82,7 +82,7 @@
                                                         <anthem:TextBox ID="m_EValor" runat="server" CssClass="inputnumerico"></anthem:TextBox></td>
                                                     <td>
                                                     <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="m_EValor"
-                                                            ErrorMessage="Por favor ingrese un número aqui" MaximumValue="100000000000" MinimumValue="1"
+                                                            ErrorMessage="Por favor ingrese un número aqui" MaximumValue="900000000000000" MinimumValue="1"
                                                             SetFocusOnError="True" Type="Currency"></asp:RangeValidator>
                                                     </td>
                                                 </tr>

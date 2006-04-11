@@ -249,7 +249,7 @@
                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="m_ECantidad"
                                                     ErrorMessage="Por favor ingrese una cantidad" SetFocusOnError="True" ValidationGroup="objeto"></asp:RequiredFieldValidator>
                                                 <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="m_ECantidad"
-                                                    ErrorMessage="Por favor ingrese un número aqui" MaximumValue="100000000000" MinimumValue="1"
+                                                    ErrorMessage="Por favor ingrese un número aqui" MaximumValue="900000000000000" MinimumValue="1"
                                                     SetFocusOnError="True" Type="Currency" ValidationGroup="objeto"></asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -272,7 +272,7 @@
                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="m_EValor"
                                                     ErrorMessage="Por favor ingrese un valor" SetFocusOnError="True" ValidationGroup="objeto"></asp:RequiredFieldValidator>
                                                 <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_EValor"
-                                                    ErrorMessage="Por favor ingrese un número aqui" MaximumValue="100000000000" MinimumValue="1"
+                                                    ErrorMessage="Por favor ingrese un número aqui" MaximumValue="900000000000000" MinimumValue="1"
                                                     SetFocusOnError="True" Type="Currency" ValidationGroup="objeto"></asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -331,7 +331,7 @@
                                             </anthem:TextBox></td>
                                             <td>
                                                 <asp:RangeValidator ID="RangeValidator3" runat="server" ControlToValidate="m_EValorPartidaMEN"
-                                                    ErrorMessage="Por favor ingrese un número aqui" MaximumValue="100000000000" MinimumValue="1"
+                                                    ErrorMessage="Por favor ingrese un número aqui" MaximumValue="900000000000000" MinimumValue="1"
                                                     SetFocusOnError="True" Type="Currency"></asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -610,7 +610,7 @@
                                                 <anthem:TextBox ID="m_EValorTotalD" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
                                             <td>
-                                            <asp:RangeValidator ID="RangeValidator14" ControlToValidate="m_EValorTotalD" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="10000000" MinimumValue="1">
+                                            <asp:RangeValidator ID="RangeValidator14" ControlToValidate="m_EValorTotalD" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -660,7 +660,7 @@
                                         <td><anthem:TextBox ID="m_EAulas" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
-                                        <asp:RangeValidator ID="RangeValidator8" ControlToValidate="m_EAulas" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="10000000" MinimumValue="1">
+                                        <asp:RangeValidator ID="RangeValidator8" ControlToValidate="m_EAulas" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -670,7 +670,7 @@
                                         <td><anthem:TextBox ID="m_EBanosV" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
-                                        <asp:RangeValidator ID="RangeValidator9" ControlToValidate="m_EBanosV" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="10000000" MinimumValue="1">
+                                        <asp:RangeValidator ID="RangeValidator9" ControlToValidate="m_EBanosV" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
 
                                         </td>
@@ -681,7 +681,7 @@
                                         <td><anthem:TextBox ID="m_ECirculaciones" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
-                                        <asp:RangeValidator ID="RangeValidator10" ControlToValidate="m_ECirculaciones" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="10000000" MinimumValue="1">
+                                        <asp:RangeValidator ID="RangeValidator10" ControlToValidate="m_ECirculaciones" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -699,7 +699,7 @@
                                         <td><anthem:TextBox ID="m_EM2Aulas" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
-                                        <asp:RangeValidator ID="RangeValidator15" ControlToValidate="m_EM2Aulas" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="10000000" MinimumValue="1">
+                                        <asp:RangeValidator ID="RangeValidator15" ControlToValidate="m_EM2Aulas" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
 
                                         </td>
@@ -710,7 +710,7 @@
                                         <td><anthem:TextBox ID="m_EM2Banos" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
-                                        <asp:RangeValidator ID="RangeValidator16" ControlToValidate="m_EM2Banos" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="10000000" MinimumValue="1">
+                                        <asp:RangeValidator ID="RangeValidator16" ControlToValidate="m_EM2Banos" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -720,7 +720,7 @@
                                         <td><anthem:TextBox ID="m_EM2Circulaciones" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
-                                        <asp:RangeValidator ID="RangeValidator17" ControlToValidate="m_EM2Circulaciones" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="10000000" MinimumValue="1">
+                                        <asp:RangeValidator ID="RangeValidator17" ControlToValidate="m_EM2Circulaciones" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -738,7 +738,7 @@
                                         <td><anthem:TextBox ID="m_EValorM2Aula" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
-                                        <asp:RangeValidator ID="RangeValidator18" ControlToValidate="m_EValorM2Aula" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="10000000" MinimumValue="1">
+                                        <asp:RangeValidator ID="RangeValidator18" ControlToValidate="m_EValorM2Aula" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -748,7 +748,7 @@
                                         <td><anthem:TextBox ID="m_EValorM2Banos" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
-                                        <asp:RangeValidator ID="RangeValidator19" ControlToValidate="m_EValorM2Banos" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="10000000" MinimumValue="1">
+                                        <asp:RangeValidator ID="RangeValidator19" ControlToValidate="m_EValorM2Banos" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -759,7 +759,7 @@
                                                 <anthem:TextBox ID="m_EValorM2Circulaciones" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
                                             <td>
-                                            <asp:RangeValidator ID="RangeValidator20" ControlToValidate="m_EValorM2Circulaciones" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="10000000" MinimumValue="1">
+                                            <asp:RangeValidator ID="RangeValidator20" ControlToValidate="m_EValorM2Circulaciones" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -770,7 +770,7 @@
                                                 <anthem:TextBox ID="m_EIndiceOcupacion" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
                                             <td>
-                                            <asp:RangeValidator ID="RangeValidator21" ControlToValidate="m_EIndiceOcupacion" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="10000000" MinimumValue="1">
+                                            <asp:RangeValidator ID="RangeValidator21" ControlToValidate="m_EIndiceOcupacion" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -781,7 +781,7 @@
                                                 <anthem:TextBox ID="m_EIndiceConstruccion2" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
                                             <td>
-                                            <asp:RangeValidator ID="RangeValidator22" ControlToValidate="m_EIndiceConstruccion2" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="10000000" MinimumValue="1">
+                                            <asp:RangeValidator ID="RangeValidator22" ControlToValidate="m_EIndiceConstruccion2" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                             </td>
                                         </tr>

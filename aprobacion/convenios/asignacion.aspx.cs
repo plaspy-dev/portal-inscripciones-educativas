@@ -182,7 +182,7 @@ public partial class aprobacion_convenios_asignacion : CPageTemplate
         m_saCampos[8]="";
         m_saCampos[9]="";
         m_saCampos[10]="";
-        m_saDatos[11]=m_EObservaciones.Text;
+        m_saDatos[11]=GetString(m_EObservaciones.Text);
 
         if (m_pConector.QueryMod(CConector.CrearInsercion(m_szTabla, m_saCampos, m_saDatos)) == -1)
         {
@@ -208,7 +208,7 @@ public partial class aprobacion_convenios_asignacion : CPageTemplate
         m_saCampos[8] = "";
         m_saCampos[9] = "";
         m_saCampos[10] = "";
-        m_saDatos[11] = m_EObservaciones.Text;
+        m_saDatos[11] = GetString(m_EObservaciones.Text);
 
         // editar
         string query = CConector.CreateUpdate(m_szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion(m_saCampos[0], m_nId.Value);

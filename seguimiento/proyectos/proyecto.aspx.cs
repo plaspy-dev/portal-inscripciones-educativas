@@ -561,7 +561,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         datos[6] = GetDouble(m_EPlazoContrato.Text);
         datos[7] = GetDouble(m_EValorContratado.Text);
         datos[8] = GetSeleccion(m_CBEstadoContrato.SelectedValue);
-        datos[9] = m_EObservacionesContrato.Text;
+        datos[9] = GetString(m_EObservacionesContrato.Text);
         datos[10]=m_EContratista.Text;
         datos[11]=m_ERepresentante.Text;
         datos[12]=m_EHistorial.Text;
@@ -622,7 +622,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         datos[6] = GetDouble(m_EPlazoContrato.Text);
         datos[7] = GetDouble(m_EValorContratado.Text);
         datos[8] = GetSeleccion(m_CBEstadoContrato.SelectedValue);
-        datos[9] = m_EObservacionesContrato.Text;
+        datos[9] = GetString(m_EObservacionesContrato.Text);
         datos[10] = m_EContratista.Text;
         datos[11] = m_ERepresentante.Text;
         datos[12] = m_EHistorial.Text;

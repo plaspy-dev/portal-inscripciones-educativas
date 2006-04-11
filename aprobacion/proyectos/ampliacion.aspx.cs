@@ -154,7 +154,7 @@ public partial class aprobacion_proyectos_ampliacion : CPageTemplate
         m_saCampos[2] = "alumnos";
         m_saDatos[2] = m_EActual.Text;
         m_saCampos[3] = "observaciones";
-        m_saDatos[3] = m_EObservaciones.Text;
+        m_saDatos[3] = GetString(m_EObservaciones.Text);
 
         // editar
         string query = "";

@@ -87,7 +87,7 @@ public partial class aplicativo_mapa_departamento : CPageTemplate
         m_saDatos[1]=m_ENombre.Text;
         m_saDatos[2]=m_EMapa.Text;
         m_saDatos[3]=m_EColor.Text;
-        m_saDatos[4] = m_EObservaciones.Text;
+        m_saDatos[4] = GetString(m_EObservaciones.Text);
 
         if (m_pConector.QueryMod(CConector.CrearInsercion(m_szTabla, m_saCampos, m_saDatos)) == -1)
         {
@@ -106,7 +106,7 @@ public partial class aplicativo_mapa_departamento : CPageTemplate
         m_saDatos[1] = m_ENombre.Text;
         m_saDatos[2] = m_EMapa.Text;
         m_saDatos[3] = m_EColor.Text;
-        m_saDatos[4] = m_EObservaciones.Text;
+        m_saDatos[4] = GetString(m_EObservaciones.Text);
 
         // editar
         string query = CConector.CreateUpdate(m_szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion(m_saCampos[0], m_nId.Value);

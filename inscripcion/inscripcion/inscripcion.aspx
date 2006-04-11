@@ -71,10 +71,7 @@
                                             <anthem:TextBox ID="m_ECodigo" runat="server" CssClass="inputnumerico"></anthem:TextBox></td>
                                         <td>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_ECodigo"
-                                            ErrorMessage="Por favor ingrese un código" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                                            <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_ECodigo"
-                                                            ErrorMessage="Por favor ingrese un número aqui" MaximumValue="1000000000" MinimumValue="1"
-                                                            SetFocusOnError="True" Type="Integer"></asp:RangeValidator>
+                                            ErrorMessage="Por favor ingrese un código" SetFocusOnError="True"></asp:RequiredFieldValidator>&nbsp;
                                         </td>
                                     </tr>
 						            <tr>
@@ -336,7 +333,7 @@
                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="m_ECantidad"
                                                     ErrorMessage="Por favor ingrese una cantidad" SetFocusOnError="True" ValidationGroup="objeto"></asp:RequiredFieldValidator>
                                                 <asp:RangeValidator ID="RangeValidator3" runat="server" ControlToValidate="m_ECantidad"
-                                                            ErrorMessage="Por favor ingrese un número aqui" MaximumValue="100000000000" MinimumValue="1"
+                                                            ErrorMessage="Por favor ingrese un número aqui" MaximumValue="900000000000000" MinimumValue="1"
                                                             SetFocusOnError="True" Type="Currency" ValidationGroup="objeto"></asp:RangeValidator>
                                                     </td>
                                         </tr>
@@ -360,7 +357,7 @@
                                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="m_EValor"
                                                     ErrorMessage="Por favor ingrese un valor" SetFocusOnError="True" ValidationGroup="objeto"></asp:RequiredFieldValidator>
                                                 <asp:RangeValidator ID="RangeValidator4" runat="server" ControlToValidate="m_EValor"
-                                                            ErrorMessage="Por favor ingrese un número aqui" MaximumValue="100000000000" MinimumValue="1"
+                                                            ErrorMessage="Por favor ingrese un número aqui" MaximumValue="900000000000000" MinimumValue="1"
                                                             SetFocusOnError="True" Type="Currency" ValidationGroup="objeto"></asp:RangeValidator>
                                             </td>
                                         </tr>

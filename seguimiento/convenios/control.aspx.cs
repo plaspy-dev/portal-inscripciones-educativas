@@ -67,8 +67,8 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_saCamposAlias[7] = "SUM(adicionesconvenio.valor)";
         m_saCamposAlias[9] = "conveniosm.plazo+ISNULL(SUM(adicionesconvenio.plazo),0)";
         m_saCamposAlias[11] = "SUM(adicionesconvenio.plazo)";
-        m_saCamposAlias[12] = "SUM(desembolsosconvenio.valor)";
-        m_saCamposAlias[13] = "DATEADD(dd,conveniosm.plazo+ISNULL(SUM(adicionesconvenio.plazo),0),conveniosm.fechaaprobacion)";
+        m_saCamposAlias[12] = "(SELECT SUM(desembolsosconvenio.valor) FROM desembolsosconvenio WHERE desembolsosconvenio.convenio=conveniosm.id)";
+        m_saCamposAlias[13] = "DATEADD(dd,conveniosm.plazo+ISNULL(SUM(adicionesconvenio.plazo),0)-1,conveniosm.fechaaprobacion)";
         m_saCamposAlias[14] = "estados.nombre";
         // pestaña 6
         m_saCamposAlias[16] = "liquidacionconvenio.convenio";
@@ -86,7 +86,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
             + " LEFT JOIN varios AS tipos ON (tipos.id=conveniosm.tipo)"
             + " LEFT JOIN varios AS estados ON (estados.id=conveniosm.estado)"
             + " LEFT JOIN adicionesconvenio ON (adicionesconvenio.convenio=conveniosm.id)"
-            + " LEFT JOIN desembolsosconvenio ON (desembolsosconvenio.convenio=conveniosm.id)"
+            // + " LEFT JOIN desembolsosconvenio ON (desembolsosconvenio.convenio=conveniosm.id)"
             + " LEFT JOIN liquidacionconvenio ON (liquidacionconvenio.convenio=conveniosm.id)"
             ;
         m_szCondicion = " (conveniosm.vigencia='" + m_pUsuario.GetVigenciaActual() + "' ) ";
@@ -715,7 +715,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         datos[6] = m_ERDPAdicion.Text;
         datos[7] = m_EFechaRDP.Text;
         datos[8] = m_CBEstado.SelectedValue;
-        datos[9] = m_EObservacionesAdicion.Text;
+        datos[9] = GetString(m_EObservacionesAdicion.Text);
 
         m_pConector.QueryMod(CConector.CrearInsercion("adicionesconvenio", campos, datos));
         m_BCancelarObjeto_Click(sender, e);
@@ -746,7 +746,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         datos[6] = m_ERDPAdicion.Text;
         datos[7] = m_EFechaRDP.Text;
         datos[8] = m_CBEstado.SelectedValue;
-        datos[9] = m_EObservacionesAdicion.Text;
+        datos[9] = GetString(m_EObservacionesAdicion.Text);
 
         m_pConector.QueryMod(CConector.CreateUpdate("adicionesconvenio", campos, datos) + CConector.GetCondicion("id", m_nIdAdicion.Value));
         m_BCancelarObjeto_Click(sender, e);
@@ -879,7 +879,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         datos[3] = m_EFechaDesembolso.Text;
         datos[4] = m_EComprobanteDesembolso.Text;
         datos[5] = m_EFechaComprobanteDesembolso.Text;
-        datos[6] = m_EObservacionesDesembolso.Text;
+        datos[6] = GetString(m_EObservacionesDesembolso.Text);
 
         m_pConector.QueryMod(CConector.CrearInsercion("desembolsosconvenio", campos, datos));
         m_BCancelarDesembolso_Click(sender, e);
@@ -997,7 +997,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         datos[3] = m_LCAno.SelectedValue;
         datos[4] = m_EFechaComprobanteRendimiento.Text;
         datos[5] = m_CBEstadoRendimiento.SelectedValue;
-        datos[6] = m_EObservacionesRendimiento.Text;
+        datos[6] = GetString(m_EObservacionesRendimiento.Text);
 
         m_pConector.QueryMod(CConector.CrearInsercion("rendimientosconvenio", campos, datos));
         m_BCancelarRendimiento_Click(sender, e);

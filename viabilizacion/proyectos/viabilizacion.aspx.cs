@@ -934,7 +934,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_saDatos[6] = m_nIdInstitucion.Value;
         m_saDatos[13] = GetSeleccion(m_CBConceptoViablizacion.SelectedValue);
         m_saDatos[15] = "%GETDATE()";
-        m_saDatos[16] = m_EObservaciones.Text;
+        m_saDatos[16] = GetString(m_EObservaciones.Text);
         m_saDatos[17] = m_EFechaAprobacion.Text;
         m_saDatos[18] = GetSeleccion(m_CBTipo.SelectedValue);
 
@@ -969,7 +969,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         // campos a actualizar
         m_saDatos[13] = GetSeleccion(m_CBConceptoViablizacion.SelectedValue);
         m_saDatos[15] = "%GETDATE()";
-        m_saDatos[16] = m_EObservaciones.Text;
+        m_saDatos[16] = GetString(m_EObservaciones.Text);
         m_saDatos[17] = m_EFechaAprobacion.Text;
         m_saDatos[18] = GetSeleccion(m_CBTipo.SelectedValue);
 

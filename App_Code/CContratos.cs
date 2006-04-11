@@ -64,7 +64,7 @@ public class CContratos : CTablaItems
         m_szCampos[11] = "clases.nombre";
         m_szCampos[12] = "objetos.nombre";
         m_szCampos[13] = "contratos.plazo";
-        m_szCampos[14] = "DATEADD(dd,contratos.plazo,contratos.fechainicio)";
+        m_szCampos[14] = "DATEADD(dd,contratos.plazo-1,contratos.fechainicio)";
         m_szCampos[15] = "contratos.valor";
         m_szCampos[16] = "contratos.valor*(presupuesto.valormen/SUM(objeto.valor))";
         m_szCampos[17] = "contratos.valor-(contratos.valor*(presupuesto.valormen/SUM(objeto.valor)))";

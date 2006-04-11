@@ -59,9 +59,9 @@ public partial class aprobacion_convenios_aportes : CPageTemplate
             + " LEFT JOIN varios AS varios1 ON (varios1.id=aportes.origen) "
             + " LEFT JOIN varios AS estados ON (estados.id=aportes.estado) "
             ;
-        // m_szCondicion += " tipo.nombre LIKE '%marco%'";
-        // m_szCondicion += " conveniosm.vigencia='" + m_pUsuario.GetVigenciaActual() +"'";
-        m_szCondicion += m_pUsuario.GetCondicion("aportes.eterritorial");
+        m_szCondicion += " tipo.nombre LIKE '%marco%'";
+        m_szCondicion += " AND conveniosm.vigencia='" + m_pUsuario.GetVigenciaActual() +"'";
+        m_szCondicion += " AND " + m_pUsuario.GetCondicion("aportes.eterritorial");
 
         if (m_CBEnte.SelectedIndex > 0)
             m_szCondicionEx += " AND aportes.eterritorial=" + m_CBEnte.SelectedValue;
@@ -144,7 +144,7 @@ public partial class aprobacion_convenios_aportes : CPageTemplate
         m_saDatos[6] = GetFechaCorta(m_EFecha.Text);
         m_saDatos[7] = GetDouble(m_EValor.Text);
         m_saDatos[8] = GetSeleccion(m_CBEstado.SelectedValue);
-        m_saDatos[9] = m_EObservaciones.Text;
+        m_saDatos[9] = GetString(m_EObservaciones.Text);
         m_saDatos[10] = m_CCertificado.Checked ? "1" : "0";
 
         // incializar los datos a insertar
@@ -172,7 +172,7 @@ public partial class aprobacion_convenios_aportes : CPageTemplate
         m_saDatos[6] = GetFechaCorta(m_EFecha.Text);
         m_saDatos[7] = GetDouble(m_EValor.Text);
         m_saDatos[8] = GetSeleccion(m_CBEstado.SelectedValue);
-        m_saDatos[9] = m_EObservaciones.Text;
+        m_saDatos[9] = GetString(m_EObservaciones.Text);
         m_saDatos[10] = m_CCertificado.Checked ? "1" : "0";
 
         // editar

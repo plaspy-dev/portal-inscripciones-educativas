@@ -56,7 +56,7 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
         m_saCamposAlias[1]="varios.nombre";
         m_saCamposAlias[2]="eterritoriales.nombre";
         m_saCamposAlias[5]="varios1.nombre";
-        m_saCamposAlias[8] = "DATEADD(dd, conveniosm.plazo,conveniosm.fechaaprobacion)";
+        m_saCamposAlias[8] = "DATEADD(dd, conveniosm.plazo-1,conveniosm.fechaaprobacion)";
         m_saCamposAlias[9]="varios2.nombre";
         m_saCamposAlias[12] = "eterritoriales.nit";
         
@@ -239,7 +239,7 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
         m_saCampos[8]="vigencia";
         m_saDatos[8] = m_pUsuario.GetVigenciaActual();
         m_saDatos[9]= GetSeleccion(m_CBEstado.SelectedValue);
-        m_saDatos[10]=m_EObservaciones.Text;
+        m_saDatos[10]=GetString(m_EObservaciones.Text);
         m_saDatos[11] = m_EPlazo.Text;
         m_saCampos[12] = "";
         m_saDatos[13] = m_ECDP.Text;
@@ -328,7 +328,7 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
         m_saDatos[7] = GetFechaCorta(m_EFechaAprobacion.Text);
         m_saCampos[8] = "";
         m_saDatos[9] = GetSeleccion( m_CBEstado.SelectedValue);
-        m_saDatos[10] = m_EObservaciones.Text;
+        m_saDatos[10] = GetString(m_EObservaciones.Text);
         m_saDatos[11] = m_EPlazo.Text;
         m_saCampos[12] = "";
         m_saDatos[13] = m_ECDP.Text;
