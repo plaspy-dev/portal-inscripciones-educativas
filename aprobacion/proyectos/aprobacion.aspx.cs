@@ -90,28 +90,31 @@ public partial class aprobacion_proyectos_aprobacion : CPageTemplate
         FillComboBox(m_CBConcepto, "SELECT id,nombre FROM varios WHERE tipo=49 AND (nReservado IS NULL OR nReservado!=-1)");
 
         m_szCondicion += " (proyectosi.priorizacion>0 AND proyectosi.vigencia='"+m_pUsuario.GetVigenciaActual() + "' ) ";
+        m_szCondicion += " AND " + m_pUsuario.GetCondicion("proyectosi.eterritorial");
+
         if(m_CBEstado.SelectedIndex>0)
-            m_szCondicion+=" AND proyectosi.estado="+ m_CBEstado.SelectedValue;
+            m_szCondicionEx+=" AND proyectosi.estado="+ m_CBEstado.SelectedValue;
         if( m_CBProyecto.SelectedIndex>0)
-            m_szCondicion+= " AND proyectosi.id=" + m_CBProyecto.SelectedValue;
+            m_szCondicionEx+= " AND proyectosi.id=" + m_CBProyecto.SelectedValue;
         if (m_CBConcepto.SelectedIndex > 0)
-            m_szCondicion += " AND proyectosi.conceptomen=" + m_CBConcepto.SelectedValue;
+            m_szCondicionEx += " AND proyectosi.conceptomen=" + m_CBConcepto.SelectedValue;
         if (m_CBEnte.SelectedIndex > 0)
-            m_szCondicion += " AND proyectosi.eterritorial=" + m_CBEnte.SelectedValue;
-        else m_szCondicion += " AND " + m_pUsuario.GetCondicion("proyectosi.eterritorial");
-
-        m_szCondicion += " GROUP BY ";
+            m_szCondicionEx += " AND proyectosi.eterritorial=" + m_CBEnte.SelectedValue;
+        
+        string grupo= " GROUP BY ";
         for (int i = 0; i < 10; i++)
-            m_szCondicion += m_saCamposAlias[i] +",";
-        m_szCondicion += m_saCamposAlias[12];
+            grupo += m_saCamposAlias[i] + ",";
+        grupo += m_saCamposAlias[12];
         for( int i=15; i<m_saCamposAlias.Length; i++)
-            m_szCondicion += ","+ m_saCamposAlias[i];
+            grupo += "," + m_saCamposAlias[i];
 
-        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion);
+        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx + grupo);
+        m_szCondicion += grupo;
         m_baHidden[0] = true;
 
         m_nPermisos &= ~16;
         m_nPermisos &= ~4;
+        m_szMensaje = "No se encontraron proyectos";
 
         EndPageLoad();
     }
@@ -124,15 +127,6 @@ public partial class aprobacion_proyectos_aprobacion : CPageTemplate
         m_CBEstado.UpdateAfterCallBack = true;
         m_CBConcepto.UpdateAfterCallBack = true;
         m_EObservaciones.UpdateAfterCallBack = true;
-    }
-
-    override protected void ShowControls(bool show)
-    {
-        m_CBEnte.Visible = show;
-        m_CBProyecto.Visible = show;
-        m_CBEstado.Visible = show;
-        m_CBConcepto.Visible = show;
-        m_EObservaciones.Visible = show;
     }
 
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)
@@ -161,6 +155,9 @@ public partial class aprobacion_proyectos_aprobacion : CPageTemplate
         m_nId.Value = "";
         m_EObservaciones.Text = "";
         m_CBProyecto.SelectedIndex = 0;
+        m_CBEnte.SelectedIndex = 0;
+        m_CBEstado.SelectedIndex = 0;
+        m_CBConcepto.SelectedIndex = 0;
 
         base.m_BCancelar_Click(sender, e);
     }

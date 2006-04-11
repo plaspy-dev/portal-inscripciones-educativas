@@ -41,6 +41,7 @@ public partial class sistema_vigencias_vigencias : CPageTemplate
 
         m_EMaximo.Attributes["onKeypress"] = "isnb();";
 
+        m_szMensaje = "No se encontraron vigencias";
         EndPageLoad();
     }
 
@@ -51,14 +52,6 @@ public partial class sistema_vigencias_vigencias : CPageTemplate
         m_EMaximo.UpdateAfterCallBack = true;
         m_EPresupuesto.UpdateAfterCallBack = true;
         m_EFecha.UpdateAfterCallBack = true;
-    }
-
-    override protected void ShowControls(bool show)
-    {
-        m_EVigencia.Visible = show;
-        m_EMaximo.Visible = show;
-        m_EPresupuesto.Visible = show;
-        m_EFecha.Visible = show;
     }
 
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)

@@ -6,12 +6,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="Head1" runat="server">
      <title>Portal de inscripciones e informes educativos</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
 		<link href="../../estilos/estilos.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" language="JavaScript1.2" src="../../menu/JSCookMenu.js"></script>
 		<script type="text/javascript" language="JavaScript1.2" src="../../menu/ThemeMiniBlack/theme.js"></script>
-		<LINK REL="stylesheet" HREF="../../menu/ThemeMiniBlack/theme.css" TYPE="text/css">
-		<style>body { background-color: #E3E4EA; };</style>
+		<link rel="stylesheet" href="../../menu/ThemeMiniBlack/theme.css" type="text/css" />
+		<style type="text/css">body { background-color: #E3E4EA; };</style>
 		<script type="text/javascript" language="JavaScript" src="../../scripts/comun.js"></script>
 </head>
 <body>
@@ -33,10 +33,8 @@
                                 <table width="100%">
                                     <tr>
                                         <td>
-                                            <table width="100%">
+                                            <table cellspacing="0">
                                                 <tr>
-                                                    <td>
-                                                        <anthem:CheckBox ID="CheckBox1" runat="server" Checked="True" Visible="False" /></td>
                                                     <td>
                                                         Nombre&nbsp;<anthem:HiddenField ID="m_nId" runat="server" />
                                                     </td>
@@ -47,7 +45,6 @@
                                                             ErrorMessage="Por favor ingrese un nombre" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><anthem:CheckBox ID="CheckBox2" runat="server" Checked="True" Visible="False" /></td>
                                                     <td>
                                                         Tipo</td>
                                                     <td>
@@ -58,7 +55,6 @@
                                                             ErrorMessage="Por favor seleccione un tipo" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><anthem:CheckBox ID="CheckBox3" runat="server" Checked="True" Visible="False" /></td>
                                                     <td>
                                                         Grupo</td>
                                                     <td><anthem:DropDownList ID="m_CBGrupo" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBGrupo_SelectedIndexChanged">
@@ -68,70 +64,62 @@
                                                             ErrorMessage="Por favor seleccione un grupo" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><anthem:CheckBox ID="CheckBox4" runat="server" Checked="True" Visible="False" /></td>
                                                     <td>
                                                         Dirección</td>
                                                     <td>
-                                                        <anthem:TextBox ID="m_EDireccion" runat="server"></anthem:TextBox></td>
+                                                        <anthem:TextBox ID="m_EDireccion" runat="server" CssClass="editcomun"></anthem:TextBox></td>
                                                     <td>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><anthem:CheckBox ID="CheckBox5" runat="server" Checked="True" Visible="False" /></td>
                                                     <td>
                                                         Teléfono</td>
                                                     <td>
-                                                        <anthem:TextBox ID="m_ETelefono" runat="server"></anthem:TextBox></td>
+                                                        <anthem:TextBox ID="m_ETelefono" runat="server" CssClass="editcomun"></anthem:TextBox></td>
                                                     <td>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><anthem:CheckBox ID="CheckBox6" runat="server" Checked="True" Visible="False" /></td>
                                                     <td>
                                                         Celular</td>
                                                     <td>
-                                                        <anthem:TextBox ID="m_ECelular" runat="server"></anthem:TextBox></td>
+                                                        <anthem:TextBox ID="m_ECelular" runat="server" CssClass="editcomun"></anthem:TextBox></td>
                                                     <td>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><anthem:CheckBox ID="CheckBox7" runat="server" Checked="True" Visible="False" /></td>
                                                     <td>
                                                         E-Mail</td>
                                                     <td>
-                                                        <anthem:TextBox ID="m_EMail" runat="server"></anthem:TextBox></td>
+                                                        <anthem:TextBox ID="m_EMail" runat="server" CssClass="editcomun"></anthem:TextBox></td>
                                                     <td>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><anthem:CheckBox ID="CheckBox8" runat="server" Checked="True" Visible="False" /></td>
                                                     <td>
                                                         Cargo</td>
                                                     <td>
-                                                        <anthem:TextBox ID="m_ECargo" runat="server"></anthem:TextBox></td>
+                                                        <anthem:TextBox ID="m_ECargo" runat="server" CssClass="editcomun"></anthem:TextBox></td>
                                                     <td>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><anthem:CheckBox ID="CheckBox9" runat="server" Checked="True" Visible="False" /></td>
                                                     <td>
                                                         Cedula</td>
                                                     <td>
-                                                        <anthem:TextBox ID="m_ECedula" runat="server"></anthem:TextBox></td>
+                                                        <anthem:TextBox ID="m_ECedula" runat="server" CssClass="editcomun"></anthem:TextBox></td>
                                                     <td>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><anthem:CheckBox ID="CheckBox10" runat="server" Checked="True" Visible="False" /></td>
                                                     <td>
                                                         Empresa</td>
                                                     <td>
-                                                        <anthem:TextBox ID="m_EEmpresa" runat="server"></anthem:TextBox></td>
+                                                        <anthem:TextBox ID="m_EEmpresa" runat="server" CssClass="editcomun"></anthem:TextBox></td>
                                                     <td>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><anthem:CheckBox ID="CheckBox11" runat="server" Checked="True" Visible="False" /></td>
                                                     <td>
                                                         Municipio</td>
                                                     <td><anthem:DropDownList ID="m_CBMunicipio" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBGrupo_SelectedIndexChanged">
@@ -147,15 +135,15 @@
                                         <td>
                                             <br />
                                             <anthem:Label ID="m_SMensaje" runat="server"></anthem:Label><br />
-                                            <anthem:Button ID="m_BInsertar" runat="server" Text="Insertar" OnClick="m_BInsertar_Click" /><anthem:Button ID="m_BImprimir" runat="server" Text="Imprimir" OnClick="m_BImprimir_Click" CausesValidation="False" />
+                                            <anthem:ImageButton ID="m_BInsertar" ToolTip="Insertar" runat="server" ImageUrl="~/imagenes/save.gif" OnClick="m_BInsertar_Click" /><anthem:ImageButton ID="m_BImprimir" runat="server" ToolTip="Imprimir" ImageUrl="~/imagenes/print.gif" OnClick="m_BImprimir_Click" CausesValidation="False" />
                                             <anthem:DropDownList ID="m_CBImprimir" runat="server">
                                                 <asp:ListItem Value="1">Microsoft Excel</asp:ListItem>
                                                 <asp:ListItem Value="0">En Pantalla</asp:ListItem>
                                             </anthem:DropDownList>
-                                            <anthem:Button ID="m_BAceptar" runat="server" Text="Aceptar" OnClick="m_BAceptar_Click" /><anthem:Button ID="m_BCancelar" runat="server" Text="Cancelar" OnClick="m_BCancelar_Click" CausesValidation="False" /><anthem:Button ID="m_BEliminar" runat="server" Text="Eliminar" CausesValidation="False" OnClick="m_BEliminar_Click" PreCallBackFunction="Eliminar_PreCallBack"/>
-                                            <anthem:Button ID="m_BAceptarP" runat="server" Text="Aceptar" CausesValidation="False" OnClick="m_BAceptarP_Click" PreCallBackFunction="preprintform" /><anthem:Button ID="m_BCancelarP" runat="server" Text="Cancelar" CausesValidation="False" OnClick="m_BCancelarP_Click" />
-                                            <anthem:LinkButton ID="m_LBTodos" runat="server" CausesValidation="False" PreCallBackFunction="checkall">Todos</anthem:LinkButton>
-                                            <anthem:LinkButton ID="m_LBNinguno" runat="server" CausesValidation="False" PreCallBackFunction="uncheckall">Ninguno</anthem:LinkButton>
+                                            <anthem:ImageButton ID="m_BAceptar" runat="server" ImageUrl="~/imagenes/save.gif" ToolTip="Guardar" OnClick="m_BAceptar_Click" /><anthem:ImageButton ID="m_BCancelar" ToolTip="Cancelar" runat="server" ImageUrl="~/imagenes/stop.gif" OnClick="m_BCancelar_Click" CausesValidation="False" /><anthem:ImageButton ID="m_BEliminar" runat="server" ImageUrl="~/imagenes/trash.gif" ToolTip="Eliminar" CausesValidation="False" OnClick="m_BEliminar_Click" PreCallBackFunction="Eliminar_PreCallBack"/>
+                                            <anthem:ImageButton ID="m_BAceptarP" runat="server" ImageUrl="~/imagenes/print.gif" ToolTip="Imprimir" CausesValidation="False" OnClick="m_BAceptarP_Click" /><anthem:ImageButton ID="m_BCancelarP" runat="server" ToolTip="Cancelar" ImageUrl="~/imagenes/stop.gif" CausesValidation="False" OnClick="m_BCancelarP_Click" />
+                                            
+                                            
                                             </td>
                                     </tr>
                                     <tr>
@@ -164,12 +152,12 @@
                                                 TypeName="CTablaEx"></asp:ObjectDataSource>
                                             <anthem:GridView ID="m_LCResultados" runat="server" AllowPaging="True" AllowSorting="True" EmptyDataText="No se encontraron resultados"
                                                 Width="100%" DataSourceID="ObjectDataSource1" UpdateAfterCallBack="False" OnSelectedIndexChanged="m_LCResultados_SelectedIndexChanged" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" OnPageIndexChanged="m_LCResultados_PageIndexChanged" OnSorted="m_LCResultados_PageIndexChanged" OnRowDataBound="m_LCResultados_RowDataBound">
-                                                <PagerSettings Mode="NextPreviousFirstLast" Position="Top" FirstPageText="&amp;lt;&amp;lt;  Primera p&#225;gina" LastPageText="&#218;ltima p&#225;gina &amp;gt;&amp;gt;" NextPageText="Siguiente &amp;gt;" PreviousPageText="&amp;lt; Anterior"/>
+                                                <PagerSettings Mode="NextPreviousFirstLast" Position="Top" FirstPageImageUrl="~/imagenes/inicio.gif" LastPageImageUrl="~/imagenes/final.gif" NextPageImageUrl="~/imagenes/adelante.gif" PreviousPageImageUrl="~/imagenes/atras.gif" FirstPageText="Primera p&#225;gina" LastPageText="&#218;ltima p&#225;gina" NextPageText="P&#225;gina siguiente" PreviousPageText="P&#225;gina anterior"/>
                                                 <RowStyle CssClass="celda" BackColor="White" Wrap="True" />
                                                 <HeaderStyle CssClass="celdaTitulo" BackColor="#E3E4EA" />
                                                 <PagerStyle HorizontalAlign="Right" BackColor="#E3E4EA" />
                                                 <Columns>
-                                                <asp:CommandField ButtonType="Image" ShowSelectButton="True" SelectImageUrl="../../imagenes/edit.jpg" />
+                                                <asp:CommandField ButtonType="Image" ShowSelectButton="True" SelectImageUrl="../../imagenes/edit.gif" />
                                                 </Columns>
                                                 <SelectedRowStyle BackColor="#316AC5" CssClass="celdasel" />
                                             </anthem:GridView>

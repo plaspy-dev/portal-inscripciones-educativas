@@ -39,14 +39,15 @@ public partial class sistema_parametros_menus : CPageTemplate
         m_szCondicion = " (menus.orden!=-1 ) ";
         if (m_CBPadre.SelectedIndex > 0)
         {
-            m_szCondicion += " AND menus.padre=" + m_CBPadre.SelectedValue;
+            m_szCondicionEx += " AND menus.padre=" + m_CBPadre.SelectedValue;
         }
 
-        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin +" WHERE " + m_szCondicion);
+        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx);
         m_baHidden[0] = true;
         
         FillComboBox(m_CBPadre, "SELECT id,nombre FROM menus WHERE url='' OR url IS NULL ORDER BY nombre");
         m_EOrden.Attributes["onKeypress"] = "isnb();";
+        m_szMensaje = "No se encontraron menus";
         EndPageLoad();
     }
 
@@ -121,6 +122,7 @@ public partial class sistema_parametros_menus : CPageTemplate
         m_EDescripcion.UpdateAfterCallBack = true;
         m_EURL.Text = "";
         m_EURL.UpdateAfterCallBack = true;
+        m_CBPadre.SelectedIndex = 0;
         m_EOrden.Text = "";
         m_EOrden.UpdateAfterCallBack = true;
         

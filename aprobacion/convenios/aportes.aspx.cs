@@ -48,6 +48,7 @@ public partial class aprobacion_convenios_aportes : CPageTemplate
         m_saCamposAlias[3]="conveniosm.codigo";
         m_saCamposAlias[4]="DATEPART(mm,aportes.fecha)";
         m_saCamposAlias[5]="varios1.nombre";
+        m_saCamposAlias[8] = "estados.nombre";
 
         m_szIndice = m_saTitulos[0];
         m_szJoin = " LEFT JOIN conveniosm ON (conveniosm.eterritorial=aportes.eterritorial) "
@@ -56,24 +57,31 @@ public partial class aprobacion_convenios_aportes : CPageTemplate
             + " LEFT JOIN varios AS tipo ON (tipo.id=conveniosm.tipo) "
             + " LEFT JOIN eterritoriales ON (eterritoriales.codigo=aportes.eterritorial) "
             + " LEFT JOIN varios AS varios1 ON (varios1.id=aportes.origen) "
+            + " LEFT JOIN varios AS estados ON (estados.id=aportes.estado) "
             ;
-        m_szCondicion += " tipo.nombre LIKE '%marco%'";
-        if (m_CBEnte.SelectedIndex > 0)
-            m_szCondicion += " AND aportes.eterritorial=" + m_CBEnte.SelectedValue;
-        else m_szCondicion += " AND " + m_pUsuario.GetCondicion("aportes.eterritorial");
-        if (m_CBOrigen.SelectedIndex > 0)
-            m_szCondicion += " AND aportes.origen=" + m_CBOrigen.SelectedValue;
+        // m_szCondicion += " tipo.nombre LIKE '%marco%'";
+        // m_szCondicion += " conveniosm.vigencia='" + m_pUsuario.GetVigenciaActual() +"'";
+        m_szCondicion += m_pUsuario.GetCondicion("aportes.eterritorial");
 
-        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion);
+        if (m_CBEnte.SelectedIndex > 0)
+            m_szCondicionEx += " AND aportes.eterritorial=" + m_CBEnte.SelectedValue;
+        if (m_CBOrigen.SelectedIndex > 0)
+            m_szCondicionEx += " AND aportes.origen=" + m_CBOrigen.SelectedValue;
+        if( m_CBEstado.SelectedIndex>0)
+            m_szCondicionEx += " AND aportes.estado=" + m_CBOrigen.SelectedValue;
+
+        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx);
         m_baHidden[0] = true;
         m_baHidden[10] = true;
 
         m_pUsuario.FillComboBox(m_CBEnte);
         FillComboBox(m_CBOrigen, "SELECT id,nombre FROM varios WHERE tipo=47 AND (nReservado IS NULL OR nReservado!=-1)");
+        FillComboBox(m_CBEstado, "SELECT id,nombre FROM varios WHERE tipo=58 AND (nReservado IS NULL OR nReservado!=-1)");
 
         m_EValor.Attributes["onKeypress"] = "isfloat(this);";
         m_EValor.Attributes["onblur"] = "tcomas(this);";
         m_EValor.Attributes["onfocus"] = "scomas(this);";
+        m_szMensaje = "No se encontraron convenios";
 
         EndPageLoad();
     }
@@ -86,19 +94,8 @@ public partial class aprobacion_convenios_aportes : CPageTemplate
         m_CBOrigen.UpdateAfterCallBack = true;
         m_EFecha.UpdateAfterCallBack = true;
         m_EValor.UpdateAfterCallBack = true;
-        m_EEstado.UpdateAfterCallBack = true;
+        m_CBEstado.UpdateAfterCallBack = true;
         m_EObservaciones.UpdateAfterCallBack = true;
-    }
-
-    override protected void ShowControls(bool show)
-    {
-        m_CBEnte.Visible = show;
-        m_CCertificado.Visible = show;
-        m_CBOrigen.Visible = show;
-        m_EFecha.Visible = show;
-        m_EValor.Visible = show;
-        m_EEstado.Visible = show;
-        m_EObservaciones.Visible = show;
     }
 
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)
@@ -114,7 +111,7 @@ public partial class aprobacion_convenios_aportes : CPageTemplate
         SelectInCombo(m_CBOrigen, row[5].ToString());
         m_EFecha.Text= GetFechaCorta(row[6].ToString());      
         m_EValor.Text= GetFormatDouble(row[7].ToString());
-        m_EEstado.Text= row[8].ToString();
+        SelectInCombo(m_CBEstado,row[8].ToString());
         m_EObservaciones.Text= row[9].ToString();
         m_CCertificado.Checked = row[10].ToString() == "True";
 
@@ -127,8 +124,10 @@ public partial class aprobacion_convenios_aportes : CPageTemplate
         m_nId.Value = "";
         m_EFecha.Text = "";
         m_EValor.Text = "";
-        m_EEstado.Text = "";
+        m_CBEstado.SelectedIndex = 0;
         m_EObservaciones.Text = "";
+        m_CBOrigen.SelectedIndex = 0;
+        m_CBEnte.SelectedIndex = 0;
 
         base.m_BCancelar_Click(sender, e);
     }
@@ -144,7 +143,7 @@ public partial class aprobacion_convenios_aportes : CPageTemplate
         m_saDatos[5] = m_CBOrigen.SelectedValue;
         m_saDatos[6] = GetFechaCorta(m_EFecha.Text);
         m_saDatos[7] = GetDouble(m_EValor.Text);
-        m_saDatos[8] = m_EEstado.Text;
+        m_saDatos[8] = GetSeleccion(m_CBEstado.SelectedValue);
         m_saDatos[9] = m_EObservaciones.Text;
         m_saDatos[10] = m_CCertificado.Checked ? "1" : "0";
 
@@ -172,7 +171,7 @@ public partial class aprobacion_convenios_aportes : CPageTemplate
         m_saDatos[5] = m_CBOrigen.SelectedValue;
         m_saDatos[6] = GetFechaCorta(m_EFecha.Text);
         m_saDatos[7] = GetDouble(m_EValor.Text);
-        m_saDatos[8] = m_EEstado.Text;
+        m_saDatos[8] = GetSeleccion(m_CBEstado.SelectedValue);
         m_saDatos[9] = m_EObservaciones.Text;
         m_saDatos[10] = m_CCertificado.Checked ? "1" : "0";
 
@@ -207,6 +206,13 @@ public partial class aprobacion_convenios_aportes : CPageTemplate
         m_CBOrigen_SelectedIndexChanged(sender, e);
     }
     protected void m_CBOrigen_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        m_LCResultados.DataBind();
+        m_LCResultados_PageIndexChanged(m_LCResultados, e);
+        // m_LCResultados.Columns[].Visible = .SelectedIndex == 0;
+        m_LCResultados.UpdateAfterCallBack = true;
+    }
+    protected void m_CBEstado_SelectedIndexChanged(object sender, EventArgs e)
     {
         m_LCResultados.DataBind();
         m_LCResultados_PageIndexChanged(m_LCResultados, e);

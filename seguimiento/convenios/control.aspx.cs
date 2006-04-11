@@ -90,6 +90,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
             + " LEFT JOIN liquidacionconvenio ON (liquidacionconvenio.convenio=conveniosm.id)"
             ;
         m_szCondicion = " (conveniosm.vigencia='" + m_pUsuario.GetVigenciaActual() + "' ) ";
+        m_szCondicion += " AND " + m_pUsuario.GetCondicion("conveniosm.eterritorial");
 
         m_pUsuario.FillComboBox(m_CBEnte);
         FillComboBox(m_CBConvenio, "SELECT id,codigo FROM conveniosm WHERE vigencia='" + m_pUsuario.GetVigenciaActual() 
@@ -101,24 +102,24 @@ public partial class seguimiento_convenios_control : CPageTemplate
         FillComboBox(m_CBEstadoRendimiento, "SELECT id,nombre FROM varios WHERE tipo=54 AND (nReservado IS NULL OR nReservado!=-1)");
         // autofiltro
         if (m_CBConvenio.SelectedIndex > 0)
-            m_szCondicion += " AND conveniosm.id=" + m_CBConvenio.SelectedValue;
+            m_szCondicionEx += " AND conveniosm.id=" + m_CBConvenio.SelectedValue;
         if (m_CBEstadoConvenio.SelectedIndex > 0)
-            m_szCondicion += " AND conveniosm.estado=" + m_CBEstadoConvenio.SelectedValue;
+            m_szCondicionEx += " AND conveniosm.estado=" + m_CBEstadoConvenio.SelectedValue;
         if (m_CBEnte.SelectedIndex > 0)
-            m_szCondicion += " AND conveniosm.eterritorial=" + m_CBEnte.SelectedValue;
-        else m_szCondicion += " AND " + m_pUsuario.GetCondicion("conveniosm.eterritorial");
-        m_szCondicion += " GROUP BY ";
+            m_szCondicionEx += " AND conveniosm.eterritorial=" + m_CBEnte.SelectedValue;
+        string grupo= " GROUP BY ";
         for (int i = 0; i <5; i++)
         {
-            m_szCondicion += m_saCamposAlias[i] + ",";
+            grupo+= m_saCamposAlias[i] + ",";
         }
         for (int i = 14; i < m_saCamposAlias.Length; i++)
         {
-            m_szCondicion += m_saCamposAlias[i] + ",";
+            grupo += m_saCamposAlias[i] + ",";
         }
-        m_szCondicion += m_saCamposAlias[6] + "," + m_saCamposAlias[8] + ", " + m_saCamposAlias[10];
+        grupo += m_saCamposAlias[6] + "," + m_saCamposAlias[8] + ", " + m_saCamposAlias[10];
 
-        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion);
+        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx + grupo);
+        m_szCondicion += grupo;
         m_baHidden[0] = true;
         for (int i = 16; i < m_saTitulos.Length; i++)
             m_baHidden[i] = true;
@@ -330,6 +331,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
             m_LCRendimientos.Style["display"]="none";
         }
 
+        m_szMensaje = "No se encontraron convenios";
         EndPageLoad();
     }
 
@@ -339,7 +341,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_nId.UpdateAfterCallBack = true;
         m_CBEnte.UpdateAfterCallBack = true;
         m_CBConvenio.UpdateAfterCallBack = true;
-        m_EValor.UpdateAfterCallBack = true;
+        m_SValor.UpdateAfterCallBack = true;
         m_CBEstadoConvenio.UpdateAfterCallBack = true;
         m_EObservaciones.UpdateAfterCallBack = true;
         // pestaña 2
@@ -357,7 +359,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_LCAdiciones.UpdateAfterCallBack = true;
         m_nIdAdicion.UpdateAfterCallBack = true;
         // pestaña 3
-        m_ENIT.UpdateAfterCallBack = true;
+        m_SNIT.UpdateAfterCallBack = true;
         m_LBDocumentos.UpdateAfterCallBack = true;
 
         // pestaña 4
@@ -389,55 +391,6 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_EObservacionesLiquidacion.UpdateAfterCallBack = true;
     }
 
-    override protected void ShowControls(bool show)
-    {
-        m_CBEnte.Visible = show;
-        m_CBConvenio.Visible = show;
-        m_EValor.Visible = show;
-        m_CBEstadoConvenio.Visible = show;
-        m_EObservaciones.Visible = show;
-        // pestaña2
-        m_SNoAdicion.Visible = show;
-        m_EAdicionValor.Visible = show;
-        m_EFechaAdicion.Visible = show;
-        m_ECDPAdicion.Visible = show;
-        m_EFechaCDP.Visible = show;
-        m_ERDPAdicion.Visible = show;
-        m_EFechaRDP.Visible = show;
-        m_EProrroga.Visible = show;
-        m_EFechaProrroga.Visible = show;
-        m_CBEstado.Visible = show;
-        m_EObservacionesAdicion.Visible = show;
-        m_LCAdiciones.Visible = show;
-        // pestaña 3
-        m_ENIT.Visible = show;
-        m_LBDocumentos.Visible = show;
-        // pestaña 4
-        m_EValorDesembolso.Visible = show;
-        m_EFechaDesembolso.Visible = show;
-        m_EComprobanteDesembolso.Visible = show;
-        m_EFechaComprobanteDesembolso.Visible = show;
-        m_SBancoDesembolso.Visible = show;
-        m_SCuentaDesembolso.Visible = show;
-        m_STipoCuentaDesembolso.Visible = show;
-        m_EObservacionesDesembolso.Visible = show;
-        m_LCDesembolsos.Visible = show;
-        // pestaña 5
-        m_EValorRendimiento.Visible = show;
-        m_CBMes.Visible = show;
-        m_LCAno.Visible = show;
-        m_EFechaComprobanteRendimiento.Visible = show;
-        m_CBEstadoRendimiento.Visible = show;
-        m_EObservacionesRendimiento.Visible = show;
-        m_LCRendimientos.Visible = show;
-        // pestaña 6
-        m_CInformeFinal.Visible = show;
-        m_EFechaInforme.Visible = show;
-        m_CDocumentosCompletos.Visible = show;
-        m_CActaLiquidacion.Visible = show;
-        m_EFechaActa.Visible = show;
-        m_EObservacionesLiquidacion.Visible = show;
-    }
 
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -453,7 +406,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
             + "' AND eterritorial=" + m_CBEnte.SelectedValue, true);
         SelectInCombo(m_CBConvenio, row[3].ToString());
         m_STitulo.Text = "Convenio " + row[3].ToString();
-        m_EValor.Text = GetFormatDouble(row[5].ToString());
+        m_SValor.Text = GetFormatDouble(row[5].ToString());
         SelectInCombo(m_CBEstadoConvenio, row[14].ToString());
         m_EObservaciones.Text = row[15].ToString();
 
@@ -510,7 +463,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_STitulo.Text = "Seleccione un convenio";
         m_nId.Value = "";
         m_CBConvenio.SelectedIndex=0;
-        m_EValor.Text = "";
+        m_SValor.Text = "";
         m_EObservaciones.Text = "";
         // pestaña 2
         m_SNoAdicion.Text = "";
@@ -524,6 +477,8 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_EFechaProrroga.Text = "";
         m_CBEstado.SelectedIndex = 0;
         m_EObservacionesAdicion.Text = "";
+        m_CBEnte.SelectedIndex = 0;
+        m_CBConvenio.SelectedIndex = 0;
 
         Session["idconvenio"]="";
         m_nIdAdicion.Value = "";
@@ -539,7 +494,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_BInsertarObjeto.UpdateAfterCallBack = true;
 
         // pestaña 3
-        m_ENIT.Text = "";
+        m_SNIT.Text = "";
         m_LBDocumentos.DataBind();
 
         // pestaña 4
@@ -615,6 +570,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
             m_saDatos[0] = "";
             query = CConector.CreateUpdate(m_szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion("convenio", m_nId.Value);
         }
+        m_szTabla = "conveniosm";
         return m_pConector.QueryMod(query) != -1;
     }
 
@@ -688,9 +644,9 @@ public partial class seguimiento_convenios_control : CPageTemplate
         {
             if (ActualizarDocumentos() && ActualizarLiquidacion())
             {
-                base.AfterUpdate("Convenio " + m_CBConvenio.SelectedItem.Text + " Editado");
                 MultiView1.ActiveViewIndex = 0;
                 SetView(0);
+                base.AfterUpdate("Convenio " + m_CBConvenio.SelectedItem.Text + " Editado");
             } 
             else
             {
@@ -808,7 +764,6 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_BInsertarObjeto.UpdateAfterCallBack = true;
 
         m_nIdAdicion.Value = "";
-        m_SNoAdicion.Text = "";
         m_EAdicionValor.Text = "";
         m_EFechaAdicion.Text = "";
         m_ECDPAdicion.Text = "";
@@ -824,6 +779,8 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_LCAdiciones.DataBind();
         m_LCAdiciones.SelectedIndex = -1;
         m_LCAdiciones.UpdateAfterCallBack = true;
+
+        m_SNoAdicion.Text = CAdicionesConvenio.GetNumero().ToString();
 
         m_nIdAdicion.UpdateAfterCallBack = true;
         m_SNoAdicion.UpdateAfterCallBack = true;
@@ -889,18 +846,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
 
     protected void m_LCAdiciones_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        //if (e.Row.DataItemIndex != -1)
-        //{
-        //    DataTable tabla = CTablaObjeto.GetTabla();
-        //    for (int i = 1; i < tabla.Columns.Count; i++)
-        //    {
-        //        if (tabla.Columns[i].DataType == typeof(double) || tabla.Columns[i].DataType == typeof(decimal))
-        //        {
-        //            e.Row.Cells[i + 1].Text = GetFormatDouble(e.Row.Cells[i + 1].Text);
-        //            e.Row.Cells[i + 1].CssClass = "inputnumerico";// .Style["text-aling"] = "";
-        //        }
-        //    }
-        //}
+        ParseRow(m_LCAdiciones, CAdicionesConvenio.GetTabla(), e);
     }
 
     // pestaña 3
@@ -1029,7 +975,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
     }
     protected void m_LCDesembolsos_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-
+        ParseRow(m_LCDesembolsos, CDesembolsosConvenio.GetTabla(), e);
     }
     // pestaña 5
     protected void m_BInsertarRendimiento_Click(object sender, EventArgs e)
@@ -1152,7 +1098,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
     }
     protected void m_LCRendimientos_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-
+        ParseRow(m_LCRendimientos, CRendimientosConvenio.GetTabla(), e);
     }
 
     override protected void SetView(int index)

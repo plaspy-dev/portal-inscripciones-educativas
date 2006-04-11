@@ -10,8 +10,8 @@
 		<link href="../../estilos/estilos.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" language="JavaScript1.2" src="../../menu/JSCookMenu.js"></script>
 		<script type="text/javascript" language="JavaScript1.2" src="../../menu/ThemeMiniBlack/theme.js"></script>
-		<LINK REL="stylesheet" HREF="../../menu/ThemeMiniBlack/theme.css" TYPE="text/css" />
-		<style>body { background-color: #E3E4EA; };</style>
+		<link rel="stylesheet" href="../../menu/ThemeMiniBlack/theme.css" type="text/css" />
+		<style type="text/css">body { background-color: #E3E4EA; };</style>
 		<script type="text/javascript" language="JavaScript" src="../../scripts/comun.js"></script>
 </head>
 <body>
@@ -60,11 +60,8 @@
                     <td class="ccontenido">
                         <asp:MultiView ID="MultiView1" runat="server" ActiveViewIndex="0">
                             <asp:View ID="View1" runat="server">
-                                <table>
+                                <table cellspacing="0">
                                     <tr>
-                                        <td>
-                                            <anthem:CheckBox ID="CheckBox1" runat="server" Checked="True" Visible="False" />
-                                        </td>
                                         <td>
                                             Ente Territorial<anthem:HiddenField ID="m_nId" runat="server" />
                                         </td>
@@ -77,9 +74,6 @@
                                         </td>
                                     </tr>
 						            <tr>
-                                        <td >
-                                            <anthem:CheckBox ID="CheckBox2" runat="server" Checked="True" Visible="False" />
-                                        </td>
                                         <td >
                                             Numero de convenio</td>
                                         <td ><anthem:TextBox ID="m_ENumero" runat="server" CssClass="inputnumerico" MaxLength="3">
@@ -94,8 +88,6 @@
                                     </tr>
                                     <tr>
                                         <td >
-                                            <anthem:CheckBox ID="CheckBox3" runat="server" Checked="True" Visible="False" /></td>
-                                        <td >
                                             Valor convenio</td>
                                         <td ><anthem:TextBox ID="m_EValor" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox></td>
@@ -107,8 +99,6 @@
                                     </tr>
                                     <tr>
                                         <td >
-                                            <anthem:CheckBox ID="CheckBox4" runat="server" Checked="True" Visible="False" /></td>
-                                        <td >
                                             Tipo</td>
                                         <td >
                                             <anthem:DropDownList ID="m_CBTipo" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBTipo_SelectedIndexChanged">
@@ -119,17 +109,12 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                                        <anthem:CheckBox ID="CheckBox5" runat="server" Checked="True" Visible="False" /></td>
-                                        <td>
                                             Objeto</td>
-                                        <td><anthem:TextBox ID="m_EObjeto" runat="server">
-                                        </anthem:TextBox></td>
+                                        <td><anthem:TextBox ID="m_EObjeto" runat="server" CssClass="editcomun" TextMode="MultiLine"></anthem:TextBox></td>
                                         <td>
                                         </td>
                                     </tr>
                                                 <tr>
-                                                    <td >
-                                                        <anthem:CheckBox ID="CheckBox6" runat="server" Checked="True" Visible="False" /></td>
                                                     <td >
                                                         Plazo total en dias</td>
                                                     <td ><anthem:TextBox ID="m_EPlazo" runat="server" CssClass="inputnumerico" MaxLength="3">
@@ -142,11 +127,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td >
-                                                        <anthem:CheckBox ID="CheckBox7" runat="server" Checked="True" Visible="False" /></td>
-                                                    <td >
                                                         Fecha de aprobación</td>
-                                                    <td ><anthem:TextBox ID="m_EFechaAprobacion" runat="server">
-                                                    </anthem:TextBox><input id="botonfecha" name="botonfecha"  onclick="setFecha('m_EFechaAprobacion')" type="button" value="..." />
+                                                    <td ><anthem:TextBox ID="m_EFechaAprobacion" runat="server" CssClass="editfecha"></anthem:TextBox><input id="botonfecha" name="botonfecha"  onclick="setFecha('m_EFechaAprobacion')" type="button" value="..." />
                                                     </td>
                                                     <td>
                                                     <asp:RangeValidator ID="RangeValidator4" runat="server" ControlToValidate="m_EFechaAprobacion"
@@ -156,17 +138,13 @@
                                                 </tr>
                                                 <tr>
                                                     <td >
-                                                        <anthem:CheckBox ID="CheckBox8" runat="server" Checked="True" Visible="False" /></td>
-                                                    <td >
                                                         Fecha de vencimiento</td>
-                                                    <td ><anthem:TextBox ID="m_EFechaVencimiento" runat="server" ReadOnly="True">
-                                                    </anthem:TextBox></td>
+                                                    <td ><anthem:Label ID="m_SFechaVencimiento" runat="server">
+                                                    </anthem:Label></td>
                                                     <td>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td >
-                                            <anthem:CheckBox ID="CheckBox9" runat="server" Checked="True" Visible="False" /></td>
                                                     <td >
                                                         Estado</td>
                                                     <td >
@@ -177,12 +155,9 @@
                                                 </tr>
                                     <tr>
                                         <td>
-                                            <anthem:CheckBox ID="CheckBox10" runat="server" Checked="True" Visible="False" /></td>
-                                        <td>
                                             Observaciones</td>
                                         <td>
-                                            <anthem:TextBox ID="m_EObservaciones" runat="server">
-                                            </anthem:TextBox></td>
+                                            <anthem:TextBox ID="m_EObservaciones" runat="server" CssClass="editobs" TextMode="MultiLine"></anthem:TextBox></td>
                                         <td>
                                         </td>
                                     </tr>
@@ -192,42 +167,36 @@
                                         <td>
                                         </td>
                                         <td>
-                                        </td>
-                                        <td>
-                                            <asp:Button ID="m_BSiguiente" runat="server" Text="Siguiente" OnClick="OnNext"  CausesValidation="true"/></td>
+                                            <asp:ImageButton  ImageUrl="~/imagenes/sig.gif"  ID="m_BSiguiente" runat="server" ToolTip="Siguiente" OnClick="OnNext"  CausesValidation="true"/></td>
                                     </tr>
                                             </table>
                                     <br />
                                             <anthem:Label ID="m_SMensaje" runat="server"></anthem:Label><br />
-                                            <anthem:Button ID="m_BInsertar" runat="server" Text="Insertar" OnClick="m_BInsertar_Click" /><anthem:Button ID="m_BImprimir" runat="server" Text="Imprimir" OnClick="m_BImprimir_Click" CausesValidation="False" />
+                                            <anthem:ImageButton ID="m_BInsertar" ToolTip="Insertar" runat="server" ImageUrl="~/imagenes/save.gif" OnClick="m_BInsertar_Click" /><anthem:ImageButton ID="m_BImprimir" runat="server" ToolTip="Imprimir" ImageUrl="~/imagenes/print.gif" OnClick="m_BImprimir_Click" CausesValidation="False" />
                                             <anthem:DropDownList ID="m_CBImprimir" runat="server">
                                                 <asp:ListItem Value="1">Microsoft Excel</asp:ListItem>
                                                 <asp:ListItem Value="0">En Pantalla</asp:ListItem>
                                             </anthem:DropDownList>
-                                            <anthem:Button ID="m_BAceptar" runat="server" Text="Aceptar" OnClick="m_BAceptar_Click" /><anthem:Button ID="m_BCancelar" runat="server" Text="Cancelar" OnClick="m_BCancelar_Click" CausesValidation="False" /><anthem:Button ID="m_BEliminar" runat="server" Text="Eliminar" CausesValidation="False" OnClick="m_BEliminar_Click" PreCallBackFunction="Eliminar_PreCallBack"/>
-                                            <anthem:Button ID="m_BAceptarP" runat="server" Text="Aceptar" CausesValidation="False" OnClick="m_BAceptarP_Click" PreCallBackFunction="preprintform" /><anthem:Button ID="m_BCancelarP" runat="server" Text="Cancelar" CausesValidation="False" OnClick="m_BCancelarP_Click" />
-                                            <anthem:LinkButton ID="m_LBTodos" runat="server" CausesValidation="False" PreCallBackFunction="checkall">Todos</anthem:LinkButton>
-                                            <anthem:LinkButton ID="m_LBNinguno" runat="server" CausesValidation="False" PreCallBackFunction="uncheckall">Ninguno</anthem:LinkButton>
+                                            <anthem:ImageButton ID="m_BAceptar" runat="server" ImageUrl="~/imagenes/save.gif" ToolTip="Guardar" OnClick="m_BAceptar_Click" /><anthem:ImageButton ID="m_BCancelar" ToolTip="Cancelar" runat="server" ImageUrl="~/imagenes/stop.gif" OnClick="m_BCancelar_Click" CausesValidation="False" /><anthem:ImageButton ID="m_BEliminar" runat="server" ImageUrl="~/imagenes/trash.gif" ToolTip="Eliminar" CausesValidation="False" OnClick="m_BEliminar_Click" PreCallBackFunction="Eliminar_PreCallBack"/>
+                                            <anthem:ImageButton ID="m_BAceptarP" runat="server" ImageUrl="~/imagenes/print.gif" ToolTip="Imprimir" CausesValidation="False" OnClick="m_BAceptarP_Click" /><anthem:ImageButton ID="m_BCancelarP" runat="server" ToolTip="Cancelar" ImageUrl="~/imagenes/stop.gif" CausesValidation="False" OnClick="m_BCancelarP_Click" />
+                                            
+                                            
                                 </asp:View>
                                 <asp:View ID="View2" runat="server">
                                     &nbsp;<table>
                                         <tr>
                                             <td>
-                                    <table>
+                                    <table cellspacing="0">
                                     <tr>
-                                        <td>
-                                            <anthem:CheckBox ID="CheckBox11" runat="server" Checked="True" Visible="False" /></td>
                                         <td>
                                             <strong>
                                             NIT ente territorial</strong></td>
-                                        <td style="font-weight: bold"><anthem:TextBox ID="m_ENIT" runat="server" ReadOnly="True">
-                                        </anthem:TextBox></td>
+                                        <td style="font-weight: bold"><anthem:Label ID="m_SNIT" runat="server">
+                                        </anthem:Label></td>
                                         <td style="font-weight: bold">
                                         </td>
                                     </tr>
                                         <tr style="font-weight: bold">
-                                            <td>
-                                            </td>
                                             <td>
                                                 Ordenador del gasto</td>
                                             <td>
@@ -236,7 +205,6 @@
                                             </td>
                                         </tr>
                                         <tr style="font-weight: bold">
-                                            <td><anthem:CheckBox ID="CheckBox12" runat="server" Checked="True" Visible="False" /></td>
                                             <td>
                                                 Tipo de gasto</td>
                                             <td><anthem:DropDownList ID="m_CBTipoGasto" runat="server">
@@ -246,24 +214,18 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <anthem:CheckBox ID="CheckBox13" runat="server" Checked="True" Visible="False" /></td>
-                                            <td>
                                                 Registro presupuestal</td>
                                             <td>
-                                                <anthem:TextBox ID="m_ERDP" runat="server">
-                                                </anthem:TextBox>
+                                                <anthem:TextBox ID="m_ERDP" runat="server" CssClass="editcomun"></anthem:TextBox>
                                                 </td>
                                             <td>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <anthem:CheckBox ID="CheckBox14" runat="server" Checked="True" Visible="False" /></td>
-                                            <td>
                                                 Fecha Registro</td>
                                             <td>
-                                                <anthem:TextBox ID="m_EFechaRDP" runat="server">
-                                                </anthem:TextBox>
+                                                <anthem:TextBox ID="m_EFechaRDP" runat="server" CssClass="editfecha"></anthem:TextBox>
                                                 <input id="Button1" name="botonfecha"  onclick="setFecha('m_EFechaRDP')" type="button" value="..." />
                                                 </td>
                                             <td>
@@ -274,23 +236,17 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <anthem:CheckBox ID="CheckBox15" runat="server" Checked="True" Visible="False" /></td>
-                                            <td>
                                                 Certificado de disponibilidad presupuestal</td>
                                             <td>
-                                                <anthem:TextBox ID="m_ECDP" runat="server">
-                                                </anthem:TextBox></td>
+                                                <anthem:TextBox ID="m_ECDP" runat="server" CssClass="editcomun"></anthem:TextBox></td>
                                             <td>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <anthem:CheckBox ID="CheckBox16" runat="server" Checked="True" Visible="False" /></td>
-                                            <td>
                                                 Fecha Certificado</td>
                                             <td>
-                                                <anthem:TextBox ID="m_EFechaCDP" runat="server">
-                                                </anthem:TextBox>
+                                                <anthem:TextBox ID="m_EFechaCDP" runat="server" CssClass="editfecha"></anthem:TextBox>
                                                 <input id="Button2" name="botonfecha"  onclick="setFecha('m_EFechaCDP')" type="button" value="..." />
                                                 </td>
                                             <td>
@@ -303,8 +259,6 @@
                                             <td>
                                                 <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" SelectMethod="Select"
                                                     TypeName="CDocumentosConvenio"></asp:ObjectDataSource>
-                                            </td>
-                                            <td>
                                                 </td>
                                             <td>
                                             </td>
@@ -322,11 +276,9 @@
                                         </tr>
                                         <tr>
                                             <td style="text-align: right">
-                                        <asp:Button ID="m_BAnterior" runat="server" Text="Anterior" OnClick="OnPrev" CausesValidation="false" /><asp:Button
-                                                    ID="m_BFinalizarE" runat="server" OnClick="m_BAceptar_Click" Text="Finalizar"
-                                                    ValidationGroup="tab" />
-                                                <asp:Button ID="m_BFinalizar" runat="server" OnClick="m_BInsertar_Click" Text="Finalizar"
-                                                    ValidationGroup="tab" /></td>
+                                        <asp:ImageButton ImageUrl="~/imagenes/ant.gif" ID="m_BAnterior" runat="server" ToolTip="Anterior" OnClick="OnPrev" CausesValidation="false" />
+                                        <asp:ImageButton ImageUrl="~/imagenes/save.gif" ID="m_BFinalizarE" runat="server" OnClick="m_BAceptar_Click" ToolTip="Finalizar"/>
+                                                <asp:ImageButton ImageUrl="~/imagenes/save.gif" ID="m_BFinalizar" runat="server" OnClick="m_BInsertar_Click" ToolTip="Finalizar"/></td>
                                         </tr>
                                     </table>
                                     <br />
@@ -350,12 +302,12 @@
                                                 TypeName="CTablaEx"></asp:ObjectDataSource>
                                             <anthem:GridView ID="m_LCResultados" runat="server" AllowPaging="True" AllowSorting="True" EmptyDataText="No se encontraron resultados"
                                                 Width="100%" DataSourceID="ObjectDataSource1" UpdateAfterCallBack="False" OnSelectedIndexChanged="m_LCResultados_SelectedIndexChanged" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" OnPageIndexChanged="m_LCResultados_PageIndexChanged" OnSorted="m_LCResultados_PageIndexChanged" OnRowDataBound="m_LCResultados_RowDataBound">
-                                                <PagerSettings Mode="NextPreviousFirstLast" Position="Top" FirstPageText="&amp;lt;&amp;lt;  Primera p&#225;gina" LastPageText="&#218;ltima p&#225;gina &amp;gt;&amp;gt;" NextPageText="Siguiente &amp;gt;" PreviousPageText="&amp;lt; Anterior"/>
+                                                <PagerSettings Mode="NextPreviousFirstLast" Position="Top" FirstPageImageUrl="~/imagenes/inicio.gif" LastPageImageUrl="~/imagenes/final.gif" NextPageImageUrl="~/imagenes/adelante.gif" PreviousPageImageUrl="~/imagenes/atras.gif" FirstPageText="Primera p&#225;gina" LastPageText="&#218;ltima p&#225;gina" NextPageText="P&#225;gina siguiente" PreviousPageText="P&#225;gina anterior"/>
                                                 <RowStyle CssClass="celda" BackColor="White" Wrap="True" />
                                                 <HeaderStyle CssClass="celdaTitulo" BackColor="#E3E4EA" />
                                                 <PagerStyle HorizontalAlign="Right" BackColor="#E3E4EA" />
                                                 <Columns>
-                                                <asp:CommandField ButtonType="Image" ShowSelectButton="True" SelectImageUrl="../../imagenes/edit.jpg" />
+                                                <asp:CommandField ButtonType="Image" ShowSelectButton="True" SelectImageUrl="../../imagenes/edit.gif" />
                                                 </Columns>
                                                 <SelectedRowStyle BackColor="#316AC5" CssClass="celdasel" />
                                             </anthem:GridView>

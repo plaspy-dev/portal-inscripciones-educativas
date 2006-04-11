@@ -39,19 +39,17 @@ public partial class sistema_usuarios_usuarios : CPageTemplate
             m_saCamposAlias[i] = m_szTabla + "." + m_saCampos[i];
 
         m_saCamposAlias[2] = "varios.nombre";
-        m_saCamposAlias[3] = "grupos.nombre";
 
         m_szCondicion = " usuarios2.estado!=-1";
 
-        m_szJoin = " LEFT JOIN varios ON (varios.id=usuarios2.grupo)"
-            + " LEFT JOIN varios AS grupos ON (grupos.id=usuarios2.grupo) ";
+        m_szJoin = " LEFT JOIN varios ON (varios.id=usuarios2.grupo)";
 
         m_szIndice = m_saTitulos[0];
         // autofiltro
         if (m_CBGrupo.SelectedIndex > 0)
-            m_szCondicion += " AND usuarios2.grupo=" + m_CBGrupo.SelectedValue;
+            m_szCondicionEx += " AND usuarios2.grupo=" + m_CBGrupo.SelectedValue;
 
-        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion);
+        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx);
         FillComboBox(m_CBGrupo, "SELECT id,nombre FROM varios WHERE tipo=1 AND (nReservado!=-1  OR nReservado IS NULL)  ORDER BY nombre");
         FillComboBox(m_CBVigencias, "SELECT nombre,nombre FROM vigencias");
 
@@ -97,6 +95,7 @@ public partial class sistema_usuarios_usuarios : CPageTemplate
         m_baHidden[0] = true;
         m_baHidden[4]=true;
 
+        m_szMensaje = "No se encontraron usuarios";
         EndPageLoad();
     }
 
@@ -113,22 +112,6 @@ public partial class sistema_usuarios_usuarios : CPageTemplate
         m_LBEntes.UpdateAfterCallBack = true;
         m_SDVigencias.UpdateAfterCallBack = true;
         m_CBVigencias.UpdateAfterCallBack = true;
-    }
-
-    override protected void ShowControls(bool show)
-    {
-        m_EUsuario.Visible = show;
-        m_CBGrupo.Visible = show;
-        m_ENombre.Visible = show;
-        m_EContrasena.Visible = show;
-        m_EConfirmar.Visible = show;
-        m_CActivo.Visible = show;
-        m_LBVigencias.Visible = show;
-        m_LBEntes.Visible = show;
-        m_SDVigencias.Visible = show;
-        Panel1.Visible = show;
-        m_CBVigencias.Visible = show;
-        Panel1.UpdateAfterCallBack = true;
     }
 
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)
@@ -169,6 +152,7 @@ public partial class sistema_usuarios_usuarios : CPageTemplate
         m_SDVigencias.Text = "Sobrescribe los entes de todas las vigencias";
         m_CActivo.Checked = true;
         m_CBVigencias.SelectedIndex = 0;
+        m_CBGrupo.SelectedIndex = 0;
 
         Session["idvigencias"] = "";
         m_LBVigencias.DataBind();

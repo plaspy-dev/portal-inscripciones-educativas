@@ -20,7 +20,7 @@ public class CMenu
     {
         m_szMenu = "";
 
-        CConector conector = new CConector();
+        CConector conector = CConector.GetConector();
         CUsuarioDatos usuario = (CUsuarioDatos)padre.Session["usuario"];
 
         SqlDataReader result = conector.Query("SELECT * FROM Menus WHERE orden=NULL OR orden!=-1 ORDER BY padre,orden", true);

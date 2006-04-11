@@ -20,6 +20,7 @@ public class CUsuarioDatos
     protected string m_szGrupo;
     protected ArrayList m_alVigencias;
     protected CEntesTerritoriales m_pEntes;
+    protected string m_szNombreReal;
 
     public CUsuarioDatos()
     {
@@ -29,14 +30,16 @@ public class CUsuarioDatos
         m_szVigencia = "";
         m_szID = "";
         m_szGrupo = "";
+        m_szNombreReal = "";
     }
 
-    public CUsuarioDatos(string nombre, string vigencia, string id, string grupo)
+    public CUsuarioDatos(string nombre, string vigencia, string id, string grupo, string nombrereal)
     {
         m_szNombre = nombre;
         m_szVigencia = vigencia;
         m_szID = id;
         m_szGrupo = grupo;
+        m_szNombreReal = nombrereal;
         m_alVigencias = null;
         m_pEntes = null;
     }
@@ -62,9 +65,14 @@ public class CUsuarioDatos
         m_alVigencias.Add(vigencia);
     }
 
-    public string GetNombre()
+    public string GetLogin()
     {
         return m_szNombre;
+    }
+
+    public string GetNombre()
+    {
+        return m_szNombreReal;
     }
 
     public string GetVigenciaActual()
@@ -108,10 +116,21 @@ public class CUsuarioDatos
             if (m_alVigencias[i].ToString() == vigencia)
             {
                 m_szVigencia = vigencia;
+                CConector.SetCookie("vigencia", vigencia);
                 return true;
             }
         return false;
     }
+
+    public bool SetVigencia()
+    {
+        if( m_alVigencias==null || m_alVigencias.Count==0)
+            return false;
+        if (SetVigencia(CConector.GetCookie("vigencia", m_alVigencias[0].ToString())))
+            return true;
+        return SetVigencia(m_alVigencias[0].ToString());
+    }
+
     public void FillComboBox(Anthem.DropDownList lista)
     {
         if (m_pEntes != null)

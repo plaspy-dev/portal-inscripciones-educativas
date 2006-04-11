@@ -45,12 +45,15 @@ Copy `demo/CatalogProbe.aspx.example` into the test site as `prueba-catalogo.asp
 - `App_Code/`. Shared record and data access classes. Start with `App_Code/CConector.cs`.
 - `aprobacion/`. Agreement and project decisions, including proyectos/aprobacion.aspx.
 - `bin/` · Original Anthem.NET assembly
+- `conf/`. Application settings open at `conf/app/app.aspx`. Password changes open at `conf/contrasena/contrasena.aspx`.
 - `demo/` · Build and fictional SQL scenario
+- `estilos/`. `estilos/estilos.css` supplies shared styles for forms and headings.
 - `imagenes/`. Menu banners, navigation icons and LogoEntidad.aspx.
 - `inscripcion/` · Application forms
 - `menu/`. JSCookMenu.js and the visual theme for the menu.
+- `scripts/`. Common browser helpers, including comun.js.
 - `seguimiento/`. Follow-up pages for projects and agreements, including proyectos/proyecto.aspx.
-- `sistema/` · Administrative catalogues
+- `sistema/`. Administrative catalogues and user groups. Start at `sistema/usuarios/grupos.aspx`.
 - `viabilizacion/`. Project feasibility entry in proyectos/viabilizacion.aspx.
 
 ### Verification
@@ -63,7 +66,9 @@ Verified on 20 November 2026. The portal was built in Windows and tested with II
 
 ### History
 
-The source edition keeps its recorded date of 2006-04-03. The 2026 reconstruction includes recovered components, setup instructions and local checks.
+The 2026 reconstruction fills the original paging image references with the earliest surviving copies, dated July 26, 2006.
+
+The source edition keeps its recorded date of 2006-04-11. The 2026 reconstruction includes recovered components, setup instructions and local checks.
 
 ### Support
 
@@ -123,12 +128,15 @@ Copia `demo/CatalogProbe.aspx.example` al sitio de prueba como `prueba-catalogo.
 - `App_Code/`. Clases compartidas y de acceso a datos. Consulta `App_Code/CConector.cs`.
 - `aprobacion/`. Decisiones de convenios y proyectos, incluida proyectos/aprobacion.aspx.
 - `bin/` · Ensamblado original de Anthem.NET
+- `conf/`. La configuración abre en `conf/app/app.aspx`. El cambio de contraseña abre en `conf/contrasena/contrasena.aspx`.
 - `demo/` · Compilación y escenario ficticio en SQL
+- `estilos/`. `estilos/estilos.css` comparte los estilos de formularios y encabezados.
 - `imagenes/`. Encabezados del menú, iconos y LogoEntidad.aspx.
 - `inscripcion/` · Formularios de inscripción
 - `menu/`. JSCookMenu.js y el tema visual del menú.
+- `scripts/`. Funciones de navegador compartidas, incluida comun.js.
 - `seguimiento/`. Seguimiento de proyectos y convenios, incluido proyectos/proyecto.aspx.
-- `sistema/` · Catálogos de administración
+- `sistema/`. Catálogos administrativos y grupos de usuarios. Empieza en `sistema/usuarios/grupos.aspx`.
 - `viabilizacion/`. Ficha de viabilidad de proyectos en proyectos/viabilizacion.aspx.
 
 ### Verificación
@@ -141,7 +149,9 @@ Verificado el 20 de noviembre de 2026. El portal se compiló en Windows y se pro
 
 ### Historia
 
-La edición conserva su fecha registrada del 2006-04-03. La reconstrucción de 2026 incorpora componentes recuperados, instrucciones y comprobaciones locales.
+La reconstrucción de 2026 completa las referencias originales a imágenes de paginación con las copias más antiguas conservadas, del 26 de julio de 2006.
+
+La edición conserva su fecha registrada del 2006-04-11. La reconstrucción de 2026 incorpora componentes recuperados, instrucciones y comprobaciones locales.
 
 ### Soporte
 

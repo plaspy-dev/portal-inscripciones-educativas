@@ -35,6 +35,8 @@ public partial class aplicativo_mapa_departamento : CPageTemplate
         m_szIndice = m_saTitulos[0];
         m_ECodigo.Attributes["onKeypress"] = "isnb();";
         m_EColor.Attributes["onKeypress"] = "isnb();";
+
+        m_szMensaje = "No se encontraron departamentos";
         EndPageLoad();
     }
 
@@ -46,15 +48,6 @@ public partial class aplicativo_mapa_departamento : CPageTemplate
         m_EMapa.UpdateAfterCallBack = true;
         m_EColor.UpdateAfterCallBack = true;
         m_EObservaciones.UpdateAfterCallBack = true;
-    }
-
-    override protected void ShowControls(bool show)
-    {
-        m_ECodigo.Visible = show;
-        m_ENombre.Visible = show;
-        m_EMapa.Visible = show;
-        m_EColor.Visible = show;
-        m_EObservaciones.Visible = show;
     }
 
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)

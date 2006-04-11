@@ -19,25 +19,28 @@ public class CTablaItems
     protected string [] m_szCampos;
     protected string[] m_szTitulos;
     protected string m_szId;
+    protected CUsuarioDatos m_pUsuario;
 
     public CTablaItems()
     {
-        m_pConector = new CConector();
+        m_pConector = CConector.GetConector();
         m_szCurrentID = "";
         m_szQuery = "";
         m_szId = "";
         m_pTabla = null;
+        m_pUsuario = (CUsuarioDatos)HttpContext.Current.Session["usuario"];
     }
 
 	public CTablaItems(int columnas)
 	{
-        m_pConector = new CConector();
+        m_pConector = CConector.GetConector();
         m_szCurrentID = "";
         m_szQuery = "";
         m_szId = "";
         m_pTabla = null;
         m_szCampos= new string[columnas];
         m_szTitulos = new string[columnas];
+        m_pUsuario = (CUsuarioDatos)HttpContext.Current.Session["usuario"];
         for (int i = 0; i < m_szCampos.Length; i++)
             m_szCampos[i] = m_szTitulos[i] = "";
 	}

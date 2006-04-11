@@ -68,22 +68,21 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
             +" LEFT JOIN varios AS varios2 ON (varios2.id=conveniosm.estado) "
             ;
         m_szCondicion = " (conveniosm.vigencia='" +m_pUsuario.GetVigenciaActual() + "') ";
+        m_szCondicion += " AND " + m_pUsuario.GetCondicion("conveniosm.eterritorial");
         // autofiltro
         if (m_CBEnte.SelectedIndex > 0)
-            m_szCondicion += " AND conveniosm.eterritorial=" + m_CBEnte.SelectedValue;
+            m_szCondicionEx += " AND conveniosm.eterritorial=" + m_CBEnte.SelectedValue;
         if (m_CBTipo.SelectedIndex > 0)
-            m_szCondicion += " AND conveniosm.tipo=" + m_CBTipo.SelectedValue;
+            m_szCondicionEx += " AND conveniosm.tipo=" + m_CBTipo.SelectedValue;
         if (m_CBEstado.SelectedIndex > 0)
-            m_szCondicion += " AND conveniosm.estado=" + m_CBEstado.SelectedValue;
-
-        m_szCondicion += " AND " + m_pUsuario.GetCondicion("conveniosm.eterritorial");
+            m_szCondicionEx += " AND conveniosm.estado=" + m_CBEstado.SelectedValue;
 
         m_pUsuario.FillComboBox(m_CBEnte);
         FillComboBox(m_CBTipo, "SELECT id,nombre FROM varios WHERE tipo=31 AND (nReservado IS NULL OR nReservado!=-1)");
         FillComboBox(m_CBEstado, "SELECT id,nombre FROM varios WHERE tipo=44 AND (nReservado IS NULL OR nReservado!=-1)");
         FillComboBox(m_CBTipoGasto, "SELECT id,nombre FROM varios WHERE tipo=46 AND (nReservado IS NULL OR nReservado!=-1)");
 
-        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion);
+        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion+ m_szCondicionEx);
         m_baHidden[0] = true;
         for( int i=11; i<m_baHidden.Length; i++)
             m_baHidden[i] = true;
@@ -132,6 +131,7 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
             m_LBDocumentos.DataBind();
         }
 
+        m_szMensaje = "No se encontraron proyectos";
         EndPageLoad();
     }
 
@@ -148,40 +148,18 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
         m_CBTipo.UpdateAfterCallBack = true;
         m_EPlazo.UpdateAfterCallBack = true;
         m_EFechaAprobacion.UpdateAfterCallBack = true;
-        m_EFechaVencimiento.UpdateAfterCallBack = true;
+        m_SFechaVencimiento.UpdateAfterCallBack = true;
         m_CBEstado.UpdateAfterCallBack = true;
         m_EObjeto.UpdateAfterCallBack = true;
         m_EObservaciones.UpdateAfterCallBack = true;
         // pestaña 2
-        m_ENIT.UpdateAfterCallBack = true;
+        m_SNIT.UpdateAfterCallBack = true;
         m_CBTipoGasto.UpdateAfterCallBack = true;
         m_EFechaCDP.UpdateAfterCallBack = true;
         m_EFechaRDP.UpdateAfterCallBack = true;
         m_ERDP.UpdateAfterCallBack = true;
         m_ECDP.UpdateAfterCallBack = true;
         m_LBDocumentos.UpdateAfterCallBack = true;
-    }
-
-    override protected void ShowControls(bool show)
-    {
-        m_CBEnte.Visible = show;
-        m_ENumero.Visible = show;
-        m_EValor.Visible = show;
-        m_CBTipo.Visible = show;
-        m_EPlazo.Visible = show;
-        m_EFechaAprobacion.Visible = show;
-        m_EFechaVencimiento.Visible = show;
-        m_CBEstado.Visible = show;
-        m_EObjeto.Visible = show;
-        m_EObservaciones.Visible = show;
-        // pestaña 2
-        m_ENIT.Visible = show;
-        m_CBTipoGasto.Visible = show;
-        m_ECDP.Visible = show;
-        m_ERDP.Visible = show;
-        m_EFechaRDP.Visible = show;
-        m_EFechaCDP.Visible = show;
-        m_LBDocumentos.Visible = show;
     }
 
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)
@@ -203,11 +181,11 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
         SelectInCombo(m_CBTipo, row[5].ToString());
         m_EObjeto.Text = row[6].ToString();
         m_EFechaAprobacion.Text= GetFechaCorta(row[7].ToString());
-        m_EFechaVencimiento.Text= GetFechaCorta(row[8].ToString());
+        m_SFechaVencimiento.Text= GetFechaCorta(row[8].ToString());
         SelectInCombo(m_CBEstado, row[9].ToString());
         m_EObservaciones.Text= row[10].ToString();
         m_EPlazo.Text= row[11].ToString();
-        m_ENIT.Text = row[12].ToString();
+        m_SNIT.Text = row[12].ToString();
         m_ECDP.Text = row[13].ToString();
         m_ERDP.Text = row[14].ToString();
         m_EFechaRDP.Text= GetFechaCorta(row[15].ToString());
@@ -224,11 +202,14 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
         m_EValor.Text="";
         m_EPlazo.Text="";
         m_EFechaAprobacion.Text="";
-        m_EFechaVencimiento.Text="";
+        m_SFechaVencimiento.Text="";
         m_EObjeto.Text = "";
         m_EObservaciones.Text="";
+        m_CBEnte.SelectedIndex = 0;
+        m_CBTipo.SelectedIndex = 0;
+        m_CBEstado.SelectedIndex = 0;
         // pestaña 2
-        m_ENIT.Text="";
+        m_SNIT.Text="";
         m_ERDP.Text = "";
         m_ECDP.Text = "";
         m_EFechaCDP.Text = "";

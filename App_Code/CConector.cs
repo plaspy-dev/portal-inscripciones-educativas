@@ -43,12 +43,36 @@ public class CConector
         {
             if (pagina.Session["usuario"]== null)
             {
-                CUsuarioDatos usuario = new CUsuarioDatos("Administrador", "200x", "0", "0");
+                CUsuarioDatos usuario = new CUsuarioDatos("Administrador", "2000", "0", "0", "Administrador");
                 pagina.Session["usuario"] = usuario;
             }
             return true;
         }
         return pagina.Session["usuario"] != null;
+    }
+
+    static public string GetCookie(string cookie)
+    {
+        return GetCookie(cookie, "");
+    }
+
+    static public string GetCookie(string cookie, string defecto)
+    {
+        string valor = defecto;
+        if (HttpContext.Current.Request.Cookies[cookie]!=null)
+            valor = HttpContext.Current.Request.Cookies[cookie].Value.Replace("%%"," ");
+        return valor;
+    }
+
+    static public int GetCookie(string cookie, int defecto)
+    {
+        return Convert.ToInt32(GetCookie(cookie, defecto.ToString()));
+    }
+
+    static public void SetCookie(string cookie, string valor)
+    {
+        HttpContext.Current.Response.Cookies[cookie].Value = valor.Replace(" ", "%%");
+        HttpContext.Current.Response.Cookies[cookie].Expires = DateTime.Now.AddYears(1);
     }
 
 	    static public int GetProfileInt(string key, int valor) 
@@ -393,6 +417,16 @@ public class CConector
 
     static public string GetCurrentVersion()
     {
-        return "Versión 1.1 Beta";
+        return "Versión 1.11 Beta";
+    }
+
+    static public CConector GetConector() {
+
+        if (HttpContext.Current.Session["Conector"] == null)
+        {
+            CConector conector = new CConector();
+            HttpContext.Current.Session["Conector"] = conector;
+        }
+        return (CConector) HttpContext.Current.Session["Conector"];
     }
 }

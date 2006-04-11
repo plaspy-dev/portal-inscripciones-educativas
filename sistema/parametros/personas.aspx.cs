@@ -72,6 +72,7 @@ public partial class sistema_parametros_personas : CPageTemplate
         FillComboBox(m_CBGrupo, "SELECT id,nombre FROM varios WHERE tipo=2 AND (nReservado!=-1  OR nReservado IS NULL) ORDER BY nombre");
         FillComboBox(m_CBMunicipio, "SELECT id,nombre FROM municipios ORDER BY nombre");
 
+        m_szMensaje = "No se encontraron personas";
         EndPageLoad();
     }
 
@@ -89,21 +90,6 @@ public partial class sistema_parametros_personas : CPageTemplate
         m_ECedula.UpdateAfterCallBack = true;
         m_EEmpresa.UpdateAfterCallBack = true;
         m_CBMunicipio.UpdateAfterCallBack = true;
-    }
-
-    override protected void ShowControls(bool show)
-    {
-        m_ENombre.Visible = show;
-        m_CBTipo.Visible = show;
-        m_CBGrupo.Visible = show;
-        m_EDireccion.Visible = show;
-        m_ETelefono.Visible = show;
-        m_ECelular.Visible = show;
-        m_EMail.Visible = show;
-        m_ECargo.Visible = show;
-        m_ECedula.Visible = show;
-        m_EEmpresa.Visible = show;
-        m_CBMunicipio.Visible = show;
     }
 
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)

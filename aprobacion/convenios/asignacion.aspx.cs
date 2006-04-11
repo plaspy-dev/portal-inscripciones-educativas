@@ -60,19 +60,20 @@ public partial class aprobacion_convenios_asignacion : CPageTemplate
         m_szCondicion = " asignacionpresupuestal.vigencia='" + m_pUsuario.GetVigenciaActual() + "' ";
         // autofiltro
         if (m_CBGrupo.SelectedIndex > 0)
-            m_szCondicion += " AND asignacionpresupuestal.grupo=" + m_CBGrupo.SelectedValue;
+            m_szCondicionEx += " AND asignacionpresupuestal.grupo=" + m_CBGrupo.SelectedValue;
         if (m_CBEnte.SelectedIndex > 0)
-            m_szCondicion += " AND asignacionpresupuestal.eterritorial=" + m_CBEnte.SelectedValue;
-        else m_szCondicion += " AND " + m_pUsuario.GetCondicion("asignacionpresupuestal.eterritorial");
+            m_szCondicionEx += " AND asignacionpresupuestal.eterritorial=" + m_CBEnte.SelectedValue;
+        else m_szCondicionEx += " AND " + m_pUsuario.GetCondicion("asignacionpresupuestal.eterritorial");
 
-        m_szCondicion += " GROUP BY ";
+        string grupo = " GROUP BY ";
         for (int i = 0; i < 7; i++)
-            m_szCondicion += m_saCamposAlias[i] + ",";
-        m_szCondicion += m_saCamposAlias[11];
-        m_szCondicion+= ",asignacionpresupuestal.eterritorial";
+            grupo += m_saCamposAlias[i] + ",";
+        grupo += m_saCamposAlias[11];
+        grupo += ",asignacionpresupuestal.eterritorial";
 
-        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion);
-        
+        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx + grupo);
+
+        m_szCondicion += grupo;
         m_baHidden[0] = true;
         m_baHidden[6] = true;
 
@@ -87,6 +88,13 @@ public partial class aprobacion_convenios_asignacion : CPageTemplate
         m_EPartidaDefinitiva.Attributes["onblur"] = "tcomas(this);";
         m_EPartidaDefinitiva.Attributes["onfocus"] = "scomas(this);";
 
+        if (!IsPostBack)
+        {
+            CResumenAsignacion temp = new CResumenAsignacion();
+            temp.RebuilTable();
+        }
+
+        m_szMensaje = "No se encontraron convenios";
         EndPageLoad();
     }
 
@@ -100,29 +108,14 @@ public partial class aprobacion_convenios_asignacion : CPageTemplate
         m_EPartidaDefinitiva.UpdateAfterCallBack = true;
         m_EFechaDefinitiva.UpdateAfterCallBack = true;
         m_CCertificado.UpdateAfterCallBack = true;
-        m_EFechaCertificado.UpdateAfterCallBack = true;
+        m_SFechaCertificado.UpdateAfterCallBack = true;
         m_EActual.UpdateAfterCallBack = true;
-        m_EAnterior.UpdateAfterCallBack = true;
-        m_EVariacion.UpdateAfterCallBack = true;
+        m_SAnterior.UpdateAfterCallBack = true;
+        m_SVariacion.UpdateAfterCallBack = true;
         m_EObservaciones.UpdateAfterCallBack = true;
     }
 
-    override protected void ShowControls(bool show)
-    {
-        m_CBGrupo.Visible = show;
-        m_CBEnte.Visible = show;
-        m_EPartida.Visible = show;
-        m_EFecha.Visible = show;
-        m_EPartidaDefinitiva.Visible = show;
-        m_EFechaDefinitiva.Visible = show;
-        m_CCertificado.Visible = show;
-        m_EFechaCertificado.Visible = show;
-        m_EActual.Visible = show;
-        m_EAnterior.Visible = show;
-        m_EVariacion.Visible = show;
-        m_EObservaciones.Visible = show;
-    }
-
+    
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)
     {
         Anthem.GridView gv = sender as Anthem.GridView;
@@ -139,10 +132,10 @@ public partial class aprobacion_convenios_asignacion : CPageTemplate
         m_EPartidaDefinitiva.Text = GetFormatDouble(row[5].ToString());
         m_EFechaDefinitiva.Text = GetFechaCorta(row[6].ToString());
         m_CCertificado.Checked = row[7].ToString() != "";
-        m_EFechaCertificado.Text = GetFechaCorta(row[7].ToString());
+        m_SFechaCertificado.Text = GetFechaCorta(row[7].ToString());
         m_EActual.Text = row[8].ToString();
-        m_EAnterior.Text = row[9].ToString();
-        m_EVariacion.Text = row[10].ToString();
+        m_SAnterior.Text = row[9].ToString();
+        m_SVariacion.Text = row[10].ToString();
         m_EObservaciones.Text = row[11].ToString();
 
         base.m_LCResultados_SelectedIndexChanged(sender, e);
@@ -157,11 +150,18 @@ public partial class aprobacion_convenios_asignacion : CPageTemplate
         m_EPartidaDefinitiva.Text="";
         m_EFechaDefinitiva.Text="";
         m_CCertificado.Text="";
-        m_EFechaCertificado.Text="";
+        m_SFechaCertificado.Text="";
         m_EActual.Text="";
-        m_EAnterior.Text="";
-        m_EVariacion.Text="";
+        m_SAnterior.Text="";
+        m_SVariacion.Text="";
         m_EObservaciones.Text="";
+        m_CBGrupo.SelectedIndex = 0;
+        m_CBEnte.SelectedIndex = 0;
+
+        CResumenAsignacion temp = new CResumenAsignacion();
+        temp.RebuilTable();
+        m_DLResumen.DataBind();
+        m_DLResumen.UpdateAfterCallBack = true;
 
         base.m_BCancelar_Click(sender, e);
     }

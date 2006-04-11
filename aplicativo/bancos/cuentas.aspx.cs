@@ -52,6 +52,7 @@ public partial class aplicativo_bancos_cuentas : CPageTemplate
 
         FillComboBox(m_CBTipo, "SELECT id,nombre FROM varios WHERE tipo=28 AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre");
         FillComboBox(m_CBBanco, "SELECT id,nombre FROM varios WHERE tipo=27 AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre");
+        m_szMensaje = "No se encontraron cuentas";
         EndPageLoad();
     }
 
@@ -62,14 +63,6 @@ public partial class aplicativo_bancos_cuentas : CPageTemplate
         m_CBTipo.UpdateAfterCallBack = true;
         m_CBBanco.UpdateAfterCallBack = true;
         m_ESucursal.UpdateAfterCallBack = true;
-    }
-
-    override protected void ShowControls(bool show)
-    {
-        m_ENumero.Visible = show;
-        m_CBTipo.Visible = show;
-        m_CBBanco.Visible = show;
-        m_ESucursal.Visible = show;
     }
 
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)

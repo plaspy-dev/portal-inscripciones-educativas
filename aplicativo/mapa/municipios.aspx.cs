@@ -47,13 +47,13 @@ public partial class aplicativo_mapa_municipios : CPageTemplate
 
         // autofiltro
         if(m_CBDepartamento.SelectedIndex>0)
-            m_szCondicion+=" AND municipios.departamento=" + m_CBDepartamento.SelectedValue;
+            m_szCondicionEx+=" AND municipios.departamento=" + m_CBDepartamento.SelectedValue;
         if(m_CBEnte.SelectedIndex>0)
-            m_szCondicion+= " AND municipios.eterritorial=" + m_CBEnte.SelectedValue;
+            m_szCondicionEx+= " AND municipios.eterritorial=" + m_CBEnte.SelectedValue;
         if( m_CBRegion.SelectedIndex>0)
-            m_szCondicion+=" AND municipios.region=" + m_CBRegion.SelectedValue;
+            m_szCondicionEx+=" AND municipios.region=" + m_CBRegion.SelectedValue;
 
-        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion);
+        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx);
 
         m_baHidden[0] = true;
         m_szIndice = m_saTitulos[0];
@@ -64,6 +64,7 @@ public partial class aplicativo_mapa_municipios : CPageTemplate
 
         m_ECodigo.Attributes["onKeypress"] = "isnb();";
         m_ETotal.Attributes["onKeypress"] = "isnb();";
+        m_szMensaje = "No se encontraron municipios";
         EndPageLoad();
     }
 
@@ -76,16 +77,6 @@ public partial class aplicativo_mapa_municipios : CPageTemplate
         m_ETotal.UpdateAfterCallBack = true;
         m_CBEnte.UpdateAfterCallBack = true;
         m_CBRegion.UpdateAfterCallBack = true;
-    }
-
-    override protected void ShowControls(bool show)
-    {
-        m_ECodigo.Visible = show;
-        m_ENombre.Visible = show;
-        m_CBDepartamento.Visible = show;
-        m_ETotal.Visible = show;
-        m_CBEnte.Visible = show;
-        m_CBRegion.Visible = show;
     }
 
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)
@@ -117,6 +108,9 @@ public partial class aplicativo_mapa_municipios : CPageTemplate
         m_ECodigo.Text="";
         m_ENombre.Text = "";
         m_ETotal.Text = "";
+        m_CBDepartamento.SelectedIndex = 0;
+        m_CBEnte.SelectedIndex = 0;
+        m_CBRegion.SelectedIndex = 0;
 
         base.m_BCancelar_Click(sender, e);
     }

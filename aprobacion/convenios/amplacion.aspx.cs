@@ -57,16 +57,17 @@ public partial class aprobacion_convenios_amplacion : CPageTemplate
             ;
         // autofiltro
         m_szCondicion+=" tipo.nombre LIKE '%marco%'";
+        m_szCondicion += " AND " + m_pUsuario.GetCondicion("ampliacionmatricula.eterritorial");
 
         if (m_CBEnte.SelectedIndex > 0)
-            m_szCondicion+= " AND ampliacionmatricula.eterritorial=" + m_CBEnte.SelectedValue;
-        else m_szCondicion+= " AND " + m_pUsuario.GetCondicion("ampliacionmatricula.eterritorial");
+            m_szCondicionEx+= " AND ampliacionmatricula.eterritorial=" + m_CBEnte.SelectedValue;
 
-        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion);
+        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx);
         m_baHidden[0] = true;
 
         m_pUsuario.FillComboBox(m_CBEnte);
         m_EActual.Attributes["onKeypress"] = "isnb();";
+        m_szMensaje = "No se encontraron convenios";
         EndPageLoad();
     }
 
@@ -75,20 +76,10 @@ public partial class aprobacion_convenios_amplacion : CPageTemplate
         m_nId.UpdateAfterCallBack = true;
         m_CBEnte.UpdateAfterCallBack = true;
         m_EActual.UpdateAfterCallBack = true;
-        m_EAnterior.UpdateAfterCallBack = true;
-        m_EVariacion.UpdateAfterCallBack = true;
+        m_SAnterior.UpdateAfterCallBack = true;
+        m_SVariacion.UpdateAfterCallBack = true;
         m_EConcepto.UpdateAfterCallBack = true;
         m_EObservaciones.UpdateAfterCallBack = true;
-    }
-
-    override protected void ShowControls(bool show)
-    {
-        m_CBEnte.Visible = show;
-        m_EActual.Visible = show;
-        m_EAnterior.Visible = show;
-        m_EVariacion.Visible = show;
-        m_EConcepto.Visible = show;
-        m_EObservaciones.Visible = show;
     }
 
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)
@@ -103,8 +94,8 @@ public partial class aprobacion_convenios_amplacion : CPageTemplate
 
         SelectInCombo(m_CBEnte, row[2].ToString());
         m_EActual.Text= row[4].ToString();
-        m_EAnterior.Text = row[5].ToString();
-        m_EVariacion.Text = row[6].ToString();
+        m_SAnterior.Text = row[5].ToString();
+        m_SVariacion.Text = row[6].ToString();
         m_EConcepto.Text = row[7].ToString();
         m_EObservaciones.Text= row[8].ToString();
         
@@ -116,11 +107,11 @@ public partial class aprobacion_convenios_amplacion : CPageTemplate
         // limpiar los campos
         m_nId.Value = "";
         m_EActual.Text = "";
-        m_EAnterior.Text = "";
-        m_EVariacion.Text = "";
+        m_SAnterior.Text = "";
+        m_SVariacion.Text = "";
         m_EObservaciones.Text = "";
         m_EConcepto.Text = "";
-
+        m_CBEnte.SelectedIndex = 0;
         base.m_BCancelar_Click(sender, e);
     }
 

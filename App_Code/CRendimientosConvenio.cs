@@ -65,7 +65,7 @@ public class CRendimientosConvenio
             m_pTabla = tabla.m_pTabla;
             return m_pTabla;
         }
-        m_pConector = new CConector();
+        m_pConector = CConector.GetConector();
 
         if (m_szCurrentID == null)
         {

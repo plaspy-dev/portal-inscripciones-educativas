@@ -77,7 +77,7 @@ public class CTablaEx
             m_szQuery = HttpContext.Current.Session["query"].ToString();
         }
 
-        m_pConector = new CConector();
+        m_pConector = CConector.GetConector();
         m_szID = HttpContext.Current.Session["indice"].ToString();
 
         m_pTabla = new DataTable();

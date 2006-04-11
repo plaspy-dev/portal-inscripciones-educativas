@@ -36,7 +36,7 @@
 <script runat="server">
     virtual public void timer_Tick(object sender, EventArgs e)
     {
-        m_SFechaActual.Text = DateTime.Now.ToString();
+        m_SFechaActual.Text = CPageTemplate.GetFechaHora(DateTime.Now);
         m_SFechaActual.UpdateAfterCallBack = true;
     }
 </script>

@@ -6,14 +6,11 @@
     <title>Untitled Page</title>
 </head>
 <body>
-    <form id="form1" runat="server">
-    <div>
+    <form id="form1" runat="server" enableviewstate="false">
         <asp:GridView ID="GridView1" runat="server" DataSourceID="ObjectDataSource1" OnRowDataBound="GridView1_RowDataBound">
         </asp:GridView>
         <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="SelectPrint"
             TypeName="CTablaEx"></asp:ObjectDataSource>
-    
-    </div>
     </form>
 </body>
 </html>

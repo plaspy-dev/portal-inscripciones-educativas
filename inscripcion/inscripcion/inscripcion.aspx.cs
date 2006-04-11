@@ -143,12 +143,14 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
 
         // autofiltro
         if (m_EEnte.SelectedIndex > 0)
-            m_szCondicion += " AND proyectosi.eterritorial=" + m_EEnte.SelectedValue;
-        else m_szCondicion += " AND " + m_pUsuario.GetCondicion("proyectosi.eterritorial");
+            m_szCondicionEx += " AND proyectosi.eterritorial=" + m_EEnte.SelectedValue;
+        else m_szCondicionEx += " AND " + m_pUsuario.GetCondicion("proyectosi.eterritorial");
         if (m_EMunicipio.SelectedIndex > 0)
-            m_szCondicion += " AND proyectosi.municipio=" + m_EMunicipio.SelectedValue;
+            m_szCondicionEx += " AND proyectosi.municipio=" + m_EMunicipio.SelectedValue;
 
-        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + gruoup);
+        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx + gruoup);
+        m_szCondicion += gruoup;
+
         m_baHidden[0] = true;
         m_baHidden[5] = true;
         m_baHidden[16] = true;
@@ -195,6 +197,7 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
             m_LCObjetos.Columns.Add(data);
         }
 
+        m_szMensaje = "No se encontraron proyectos";
         EndPageLoad();
     }
 
@@ -212,9 +215,9 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_CBJornadas.UpdateAfterCallBack = true;
         m_EResolucion.UpdateAfterCallBack = true;
         m_EFechaResolucion.UpdateAfterCallBack = true;
-        m_EActual.UpdateAfterCallBack = true;
-        m_EAnterior.UpdateAfterCallBack = true;
-        m_EVariacion.UpdateAfterCallBack = true;
+        m_SActual.UpdateAfterCallBack = true;
+        m_SAnterior.UpdateAfterCallBack = true;
+        m_SVariacion.UpdateAfterCallBack = true;
         m_ENombre.UpdateAfterCallBack = true;
         m_EDireccion.UpdateAfterCallBack = true;
         m_ETelefono.UpdateAfterCallBack = true;
@@ -238,41 +241,6 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_LCObjetos.UpdateAfterCallBack = true;
     }
 
-    override protected void ShowControls(bool show)
-    {
-        m_ECodigo.Visible = show;
-        m_EEnte.Visible = show;
-        m_EMunicipio.Visible = show;
-        m_EInstitucion.Visible = show;
-        m_ENombreInstitucion.Visible = show;
-        //pestaña 2.Visible = show;
-        m_CBJornadas.Visible = show;
-        m_EResolucion.Visible = show;
-        m_EFechaResolucion.Visible = show;
-        m_EActual.Visible = show;
-        m_EAnterior.Visible = show;
-        m_EVariacion.Visible = show;
-        m_ENombre.Visible = show;
-        m_EDireccion.Visible = show;
-        m_ETelefono.Visible = show;
-        m_ECelular.Visible = show;
-        m_EFax.Visible = show;
-        m_EEmail.Visible = show;
-        //pestaña 3.Visible = show;
-        m_CBCriticidad.Visible = show;
-        m_CBTipo.Visible = show;
-        m_EResolucionEmergencia.Visible = show;
-        m_EFechaEmergencia.Visible = show;
-        m_CBConcepto.Visible = show;
-        m_ECantidad.Visible = show;
-        m_CBUnidades.Visible = show;
-        m_EValor.Visible = show;
-        m_CBPorcentaje.Visible = show;
-        m_EEstudiantesBeneficiados.Visible = show;
-        m_EDotacion.Visible = show;
-        m_EObservaciones.Visible = show;
-        m_LCObjetos.Visible = show;
-    }
 
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -345,12 +313,14 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_EInstitucion.Text = "";
         m_ENombreInstitucion.Text = "";
         m_nIdInstitucion.Value = "";
+        m_EEnte.SelectedIndex = 0;
+        m_EMunicipio.SelectedIndex = 0;
         //pestaña 2.Text = "";
         m_EResolucion.Text = "";
         m_EFechaResolucion.Text = "";
-        m_EActual.Text = "";
-        m_EAnterior.Text = "";
-        m_EVariacion.Text = "";
+        m_SActual.Text = "";
+        m_SAnterior.Text = "";
+        m_SVariacion.Text = "";
         m_ENombre.Text = "";
         m_EDireccion.Text = "";
         m_ETelefono.Text = "";
@@ -365,6 +335,7 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_EEstudiantesBeneficiados.Text = "";
         m_EDotacion.Text = "";
         m_EObservaciones.Text = "";
+
 
         m_BEliminarObjeto.Style["display"] = "none";
         m_BAceptarObjeto.Style["display"] = "none";
@@ -628,7 +599,7 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
     protected void m_BVerificar_Click(object sender, EventArgs e)
     {
         string id = "";
-        string nombre = "Por favor ingrese un código DANE";
+        string nombre = "No se encontro el código DANE " + m_EInstitucion.Text;
         SqlDataReader reader = m_pConector.Query("SELECT COUNT(*) FROM insteducativas WHERE codigo LIKE '" + m_EInstitucion.Text + "%'");
         if (reader != null && reader.Read())
         {
@@ -799,17 +770,6 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
 
     protected void m_LCObjetos_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        if (e.Row.DataItemIndex != -1)
-        {
-            DataTable tabla = CTablaObjeto.GetTabla();
-            for (int i = 1; i < tabla.Columns.Count; i++)
-            {
-                if (tabla.Columns[i].DataType == typeof(double) || tabla.Columns[i].DataType==typeof(decimal))
-                {
-                    e.Row.Cells[i+1].Text = GetFormatDouble(e.Row.Cells[i+1].Text);
-                    e.Row.Cells[i + 1].CssClass = "inputnumerico";// .Style["text-aling"] = "";
-                }
-            }
-        }
+        ParseRow(m_LCObjetos, CTablaObjeto.GetTabla(), e);
     }
 }

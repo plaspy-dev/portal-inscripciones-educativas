@@ -80,21 +80,21 @@ public partial class aplicativo_institucion_ieducativas : CPageTemplate
         m_szCondicion = " principal IS NULL ";
 
         if(m_CBCalendario.SelectedIndex>0)
-           m_szCondicion+="AND insteducativas.calendario=" + m_CBCalendario.SelectedValue;
+           m_szCondicionEx+="AND insteducativas.calendario=" + m_CBCalendario.SelectedValue;
         if(m_CBTipo.SelectedIndex>0)
-           m_szCondicion+="AND insteducativas.tpoblacion=" + m_CBTipo.SelectedValue;
+           m_szCondicionEx+="AND insteducativas.tpoblacion=" + m_CBTipo.SelectedValue;
         if(m_CBSector.SelectedIndex>0)
-           m_szCondicion+="AND insteducativas.sector=" + m_CBSector.SelectedValue;
+           m_szCondicionEx+="AND insteducativas.sector=" + m_CBSector.SelectedValue;
         if(m_CBDepartamento.SelectedIndex>0)
-            m_szCondicion += "AND municipios.departamento=" + m_CBDepartamento.SelectedValue;
+            m_szCondicionEx += "AND municipios.departamento=" + m_CBDepartamento.SelectedValue;
         if(m_CBMunicipio.SelectedIndex>0)
-           m_szCondicion+="AND insteducativas.Municipio=" + m_CBMunicipio.SelectedValue;
+           m_szCondicionEx+="AND insteducativas.Municipio=" + m_CBMunicipio.SelectedValue;
         if(m_CBModalidad.SelectedIndex>0)
-           m_szCondicion+="AND insteducativas.modalidad=" + m_CBModalidad.SelectedValue;
+           m_szCondicionEx+="AND insteducativas.modalidad=" + m_CBModalidad.SelectedValue;
         if(m_CBRector.SelectedIndex>0)
-           m_szCondicion+="AND insteducativas.rector=" + m_CBRector.SelectedValue;
+           m_szCondicionEx+="AND insteducativas.rector=" + m_CBRector.SelectedValue;
         if(m_CBZona.SelectedIndex>0)
-            m_szCondicion += "AND insteducativas.zona=" + m_CBZona.SelectedValue;
+            m_szCondicionEx += "AND insteducativas.zona=" + m_CBZona.SelectedValue;
 
         m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion);
         m_baHidden[0] = true;
@@ -111,6 +111,7 @@ public partial class aplicativo_institucion_ieducativas : CPageTemplate
         FillComboBox(m_CBZona, "SELECT id,nombre FROM varios WHERE tipo=12 AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre");
 
         m_ECodigo.Attributes["onKeypress"] = "isnb();";
+        m_szMensaje = "No se encontraron instituciones";
         EndPageLoad();
     }
 
@@ -133,26 +134,6 @@ public partial class aplicativo_institucion_ieducativas : CPageTemplate
         m_EFax.UpdateAfterCallBack = true;
         m_EWeb.UpdateAfterCallBack = true;
         m_EMail.UpdateAfterCallBack = true;
-    }
-
-    override protected void ShowControls(bool show)
-    {
-        m_ECodigo.Visible = show;
-        m_ENombre.Visible = show;
-        m_CBCalendario.Visible = show;
-        m_CBTipo.Visible = show;
-        m_CBSector.Visible = show;
-        m_CBDepartamento.Visible = show;
-        m_CBMunicipio.Visible = show;
-        m_CBModalidad.Visible = show;
-        m_CBRector.Visible = show;
-        m_CBZona.Visible = show;
-        m_EBarrio.Visible = show;
-        m_EDireccion.Visible = show;
-        m_ETelefono.Visible = show;
-        m_EFax.Visible = show;
-        m_EWeb.Visible = show;
-        m_EMail.Visible = show;
     }
 
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)
@@ -211,6 +192,14 @@ public partial class aplicativo_institucion_ieducativas : CPageTemplate
         m_EFax.Text = "";
         m_EWeb.Text = "";
         m_EMail.Text = "";
+        m_CBCalendario.SelectedIndex = 0;
+        m_CBTipo.SelectedIndex = 0;
+        m_CBSector.SelectedIndex = 0;
+        m_CBDepartamento.SelectedIndex = 0;
+        m_CBMunicipio.SelectedIndex = 0;
+        m_CBModalidad.SelectedIndex = 0;
+        m_CBRector.SelectedIndex = 0;
+        m_CBZona.SelectedIndex = 0;
 
         base.m_BCancelar_Click(sender, e);
     }

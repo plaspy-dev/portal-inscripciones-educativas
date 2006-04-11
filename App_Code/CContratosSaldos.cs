@@ -36,8 +36,8 @@ public class CContratosSaldos : CTablaItems
         m_szCampos[4]="departamentos.nombre";
         m_szCampos[5]="municipios.nombre";
         m_szCampos[6] = "SUM(objeto.valor)-SUM(contratos.valor)";
-        m_szCampos[7] = "presupuesto.valormen-((SUM(contratos.valor)*presupuesto.valormen)/SUM(objeto.valor))";
-        m_szCampos[8] = "(SUM(objeto.valor)-presupuesto.valormen)-(SUM(contratos.valor)-(SUM(contratos.valor)*presupuesto.valormen)/SUM(objeto.valor))";
+        m_szCampos[7] = "presupuesto.valormen-(SUM(contratos.valor)*(presupuesto.valormen/SUM(objeto.valor)))";
+        m_szCampos[8] = "(SUM(objeto.valor)-presupuesto.valormen)-(SUM(contratos.valor)-(SUM(contratos.valor)*(presupuesto.valormen/SUM(objeto.valor))))";
         m_szCampos[9]="estados.nombre";
         m_szCampos[10] = "saldosp.observaciones";
 

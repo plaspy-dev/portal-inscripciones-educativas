@@ -36,15 +36,16 @@ public partial class aplicativo_mapa_eterritoriales : CPageTemplate
         m_szJoin = " LEFT JOIN varios ON (varios.id=eterritoriales.region) ";
 
         if (m_CBRegion.SelectedIndex > 0)
-            m_szCondicion += " AND eterritoriales.region=" + m_CBRegion.SelectedValue;
+            m_szCondicionEx += " AND eterritoriales.region=" + m_CBRegion.SelectedValue;
 
-        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion);
+        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx);
 
         m_szIndice = m_saTitulos[0];
         m_ENit.Attributes["onKeypress"] = "isnb();";
         m_ECodigo.Attributes["onKeypress"] = "isnb();";
 
         FillComboBox(m_CBRegion, "SELECT id,nombre FROM varios WHERE tipo=4 AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre");
+        m_szMensaje = "No se encontraron entidades territoriales";
         EndPageLoad();
     }
 
@@ -55,14 +56,6 @@ public partial class aplicativo_mapa_eterritoriales : CPageTemplate
         m_ENombre.UpdateAfterCallBack = true;
         m_ENit.UpdateAfterCallBack = true;
         m_CBRegion.UpdateAfterCallBack = true;
-    }
-
-    override protected void ShowControls(bool show)
-    {
-        m_ECodigo.Visible = show;
-        m_ENombre.Visible = show;
-        m_ENit.Visible = show;
-        m_CBRegion.Visible = show;
     }
 
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)
@@ -91,6 +84,7 @@ public partial class aplicativo_mapa_eterritoriales : CPageTemplate
         m_ENombre.Text = "";
         m_ECodigo.Text = "";
         m_ENit.Text = "";
+        m_CBRegion.SelectedIndex = 0;
 
         base.m_BCancelar_Click(sender, e);
     }

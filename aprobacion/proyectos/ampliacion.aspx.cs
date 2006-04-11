@@ -54,6 +54,7 @@ public partial class aprobacion_proyectos_ampliacion : CPageTemplate
             + " LEFT JOIN varios AS concepto ON (concepto.id=proyectosi.conceptomen) "
             ;
         m_szCondicion = " (proyectosi.priorizacion>0 AND proyectosi.vigencia='" + m_pUsuario.GetVigenciaActual() +"') ";
+        m_szCondicion += " AND " + m_pUsuario.GetCondicion("proyectosi.eterritorial");
         // autofiltro
         m_pUsuario.FillComboBox(m_CBEnte);
         FillComboBox(m_CBConcepto, "SELECT id,nombre FROM varios WHERE tipo=49 AND (nReservado IS NULL OR nReservado!=-1)");
@@ -61,21 +62,23 @@ public partial class aprobacion_proyectos_ampliacion : CPageTemplate
             + " AND proyectosi.vigencia='" + m_pUsuario.GetVigenciaActual() + "'", true);
         FillComboBox(m_CBInstitucion, "SELECT insteducativas.id,insteducativas.nombre FROM proyectosi "
         + "LEFT JOIN insteducativas ON (insteducativas.id=proyectosi.institucion) WHERE proyectosi.id=" + m_CBProyecto.SelectedValue, true);
-        if (m_CBConcepto.SelectedIndex > 0)
-            m_szCondicion += " AND proyectosi.conceptomen=" + m_CBConcepto.SelectedValue;
-        if(m_CBProyecto.SelectedIndex>0)
-            m_szCondicion +=" AND proyectosi.id=" + m_CBProyecto.SelectedValue;
-        if(m_CBInstitucion.SelectedIndex>0)
-            m_szCondicion+=" AND proyectosi.institucion=" + m_CBInstitucion.SelectedValue;
-        if (m_CBEnte.SelectedIndex > 0)
-            m_szCondicion += " AND proyectosi.eterritorial=" + m_CBEnte.SelectedValue;
-        else m_szCondicion += " AND " + m_pUsuario.GetCondicion("proyectosi.eterritorial");
 
-        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion);
+        if (m_CBConcepto.SelectedIndex > 0)
+            m_szCondicionEx += " AND proyectosi.conceptomen=" + m_CBConcepto.SelectedValue;
+        if(m_CBProyecto.SelectedIndex>0)
+            m_szCondicionEx +=" AND proyectosi.id=" + m_CBProyecto.SelectedValue;
+        if(m_CBInstitucion.SelectedIndex>0)
+            m_szCondicionEx+=" AND proyectosi.institucion=" + m_CBInstitucion.SelectedValue;
+        if (m_CBEnte.SelectedIndex > 0)
+            m_szCondicionEx += " AND proyectosi.eterritorial=" + m_CBEnte.SelectedValue;
+        
+
+        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx);
         m_baHidden[0] = true;
         m_baHidden[10] = true;
 
         m_EActual.Attributes["onKeypress"] = "isnb();";
+        m_szMensaje = "No se encontraron proyectos";
         EndPageLoad();
     }
 
@@ -86,23 +89,11 @@ public partial class aprobacion_proyectos_ampliacion : CPageTemplate
         m_CBProyecto.UpdateAfterCallBack = true;
         m_CBInstitucion.UpdateAfterCallBack = true;
         m_EActual.UpdateAfterCallBack = true;
-        m_EAnterior.UpdateAfterCallBack = true;
-        m_EVariacion.UpdateAfterCallBack = true;
+        m_SAnterior.UpdateAfterCallBack = true;
+        m_SVariacion.UpdateAfterCallBack = true;
         m_CBConcepto.UpdateAfterCallBack = true;
         m_EObservaciones.UpdateAfterCallBack = true;
         m_nIdProyecto.UpdateAfterCallBack = true;
-    }
-
-    override protected void ShowControls(bool show)
-    {
-        m_CBEnte.Visible = show;
-        m_CBProyecto.Visible = show;
-        m_CBInstitucion.Visible = show;
-        m_EActual.Visible = show;
-        m_EAnterior.Visible = show;
-        m_EVariacion.Visible = show;
-        m_CBConcepto.Visible = show;
-        m_EObservaciones.Visible = show;
     }
 
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)
@@ -123,8 +114,8 @@ public partial class aprobacion_proyectos_ampliacion : CPageTemplate
         + "LEFT JOIN insteducativas ON (insteducativas.id=proyectosi.institucion) WHERE proyectosi.id=" + m_CBProyecto.SelectedValue, true);
         SelectInCombo(m_CBInstitucion, row[4].ToString());
         m_EActual.Text= row[5].ToString();
-        m_EAnterior.Text = row[6].ToString();
-        m_EVariacion.Text = row[7].ToString();
+        m_SAnterior.Text = row[6].ToString();
+        m_SVariacion.Text = row[7].ToString();
         
         SelectInCombo( m_CBConcepto, row[8].ToString());
         m_EObservaciones.Text= row[9].ToString();
@@ -138,10 +129,14 @@ public partial class aprobacion_proyectos_ampliacion : CPageTemplate
         m_nId.Value = "";
         m_nIdProyecto.Value = "";
         m_EActual.Text = "";
-        m_EAnterior.Text = "";
-        m_EVariacion.Text = "";
+        m_SAnterior.Text = "";
+        m_SVariacion.Text = "";
         m_EObservaciones.Text = "";
         m_CBInstitucion.SelectedIndex = 0;
+        m_CBConcepto.SelectedIndex = 0;
+        m_CBProyecto.SelectedIndex = 0;
+        m_CBEnte.SelectedIndex = 0;
+
 
         base.m_BCancelar_Click(sender, e);
     }

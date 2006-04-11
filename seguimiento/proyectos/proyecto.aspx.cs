@@ -66,24 +66,27 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
             + " LEFT JOIN presupuesto ON (presupuesto.proyecto=proyectos.id)"
             ;
         m_szCondicion = " proyectos.vigencia='" +m_pUsuario.GetVigenciaActual() + "' ";
+        m_szCondicion += " AND " + m_pUsuario.GetCondicion("proyectos.eterritorial");
+
         m_pUsuario.FillComboBox(m_CBEnte);
         FillComboBox(m_LCProyecto, "SELECT id,codigo FROM proyectos WHERE vigencia='" + m_pUsuario.GetVigenciaActual()
             + "' AND eterritorial=" + m_CBEnte.SelectedValue, true);
 
         if (m_LCProyecto.SelectedIndex > 0)
-            m_szCondicion+= " AND proyectos.id=" + m_LCProyecto.SelectedValue;
+            m_szCondicionEx+= " AND proyectos.id=" + m_LCProyecto.SelectedValue;
         if (m_CBEnte.SelectedIndex > 0)
-            m_szCondicion += " AND proyectos.eterritorial=" + m_CBEnte.SelectedValue;
-        else m_szCondicion += " AND " + m_pUsuario.GetCondicion("proyectos.eterritorial");
+            m_szCondicionEx += " AND proyectos.eterritorial=" + m_CBEnte.SelectedValue;
+        
 
-        m_szCondicion += " GROUP BY ";
+        string grupo= " GROUP BY ";
         for (int i = 0; i < 9; i++)
         {
-            m_szCondicion += m_saCamposAlias[i] + ",";
+            grupo += m_saCamposAlias[i] + ",";
         }
-        m_szCondicion += m_saCamposAlias[10] + "," + m_saCamposAlias[14] + "," + m_saCamposAlias[15];
+        grupo += m_saCamposAlias[10] + "," + m_saCamposAlias[14] + "," + m_saCamposAlias[15];
 
-        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion);
+        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx + grupo);
+        m_szCondicion += grupo;
         m_baHidden[0] = true;
         m_baHidden[15] = true;
 
@@ -225,6 +228,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
 
             m_LCContratosSaldos.Style["display"] = "none";
         }
+        m_szMensaje = "No se encontraron proyectos";
         EndPageLoad();
     }
 
@@ -283,59 +287,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_EMunicipio.UpdateAfterCallBack = true;
         m_EObservacionesFinal.UpdateAfterCallBack = true;
     }
-
-    override protected void ShowControls(bool show)
-    {
-        m_CBEnte.Visible=show;
-        m_LCProyecto.Visible = show;
-        m_SInstitucion.Visible = show;
-        m_SFechaAprobacion.Visible = show;
-        m_EObservaciones.Visible = show;
-        // pestaña 2
-        m_EContrato.Visible = show;
-        m_EFechaS.Visible = show;
-        m_EActaInicio.Visible = show;
-        m_CBClaseContrato.Visible = show;
-        m_CBObjeto.Visible = show;
-        m_EPlazoContrato.Visible = show;
-        m_SFechaV.Visible = show;
-        m_EValorContratado.Visible = show;
-        m_SValorMen.Visible = show;
-        m_SValorMun.Visible = show;
-        m_EContratista.Visible = show;
-        m_ERepresentante.Visible = show;
-        m_EValorAvance.Visible = show;
-        m_EFechaR.Visible = show;
-        m_SPEjecucion.Visible = show;
-        m_EObservacionesReporte.Visible = show;
-        m_EHistorial.Visible = show;
-        m_EFechaRegistro.Visible = show;
-        m_EInterventor.Visible = show;
-        m_ECargo.Visible = show;
-        m_SContrato.Visible = show;
-        m_SFechaActa.Visible = show;
-        m_SPlazo.Visible = show;
-        m_SFechaVencimiento.Visible = show;
-        m_EObservacionesContrato.Visible = show;
-        m_CBTipoR.Visible = show;
-
-        m_LCContratos.Visible = show;
-        // pestaña 3
-        m_LCContratosSaldos.Visible = show;
-        m_EObservacionesSaldo.Visible = show;
-        m_CBEstadoSaldo.Visible = show;
-        m_SDifMen.Visible = show;
-        m_SDifMun.Visible = show;
-        m_SDifProy.Visible = show;
-        // pestaña 4
-        m_EInforme.Visible = show;
-        m_EActa.Visible = show;
-        m_EInterventoria.Visible = show;
-        m_EHacienda.Visible = show;
-        m_EMunicipio.Visible = show;
-        m_EObservacionesFinal.Visible = show;
-
-    }
+    
 
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -355,6 +307,8 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_EObservaciones.Text= row[14].ToString();
         m_STitulo.Text = "Proyecto " + m_LCProyecto.SelectedItem.Text;
 
+        m_BTab3.CausesValidation = false;
+        m_BTab4.CausesValidation = false;
         // pestaña 2
         Session["idproyecto"]=m_nId.Value;
         m_nIdContrato.Value = "";
@@ -399,6 +353,8 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_SInstitucion.Text = "";
         m_SFechaAprobacion.Text = "";
         m_EObservaciones.Text = "";
+        m_CBEnte.SelectedIndex = 0;
+        
         // pestaña 2
         m_EContrato.Text = "";
         m_EFechaS.Text = "";
@@ -452,6 +408,11 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_EMunicipio.Text = "";
         m_EObservacionesFinal.Text = "";
 
+        m_BTab3.CausesValidation = true;
+        m_BTab4.CausesValidation = true;
+
+        m_BCancelarContrato_Click(sender, e);
+        m_STitulo.Text = "Seleccione un proyecto";
         base.m_BCancelar_Click(sender, e);
     }
 
@@ -848,7 +809,8 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
     }
     protected void m_LCContratos_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-
+        CContratos tabla= new CContratos();
+        ParseRow((GridView)sender, tabla.GetTabla(), e);
     }
     override protected void SetView(int index)
     {
@@ -858,4 +820,9 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         base.SetView(index);
     }
 
+    protected void m_LCContratosSaldos_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        CContratosSaldos tabla = new CContratosSaldos();
+        ParseRow((GridView)sender, tabla.GetTabla(), e);
+    }
 }

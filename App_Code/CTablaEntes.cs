@@ -63,7 +63,7 @@ public class CTablaEntes
             m_pTabla = tabla.m_pTabla;
             return m_pTabla;
         }
-        m_pConector = new CConector();
+        m_pConector = CConector.GetConector();
 
         if (m_szCurrentID == null || m_szCurrentID.Length == 0 || m_szCurrentVigencia == null || m_szCurrentVigencia.Length==0)
         {

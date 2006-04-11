@@ -162,30 +162,32 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             ;
 
         m_szCondicion = " proyectos.vigencia='" + m_pUsuario.GetVigenciaActual() + "' ";
+        m_szCondicion += " AND " + m_pUsuario.GetCondicion("proyectos.eterritorial");
         // autofiltro
         if (m_CBEnte.SelectedIndex > 0)
-            m_szCondicion += " AND proyectos.eterritorial=" + m_CBEnte.SelectedValue;
-        else m_szCondicion += " AND " + m_pUsuario.GetCondicion("proyectos.eterritorial");
+            m_szCondicionEx += " AND proyectos.eterritorial=" + m_CBEnte.SelectedValue;
         if (m_CBMunicipio.SelectedIndex > 0)
-            m_szCondicion += " AND proyectos.municipio=" + m_CBMunicipio.SelectedValue;
+            m_szCondicionEx += " AND proyectos.municipio=" + m_CBMunicipio.SelectedValue;
         if (m_CBProyecto.SelectedIndex > 0)
-            m_szCondicion += " AND proyectos.proyectoi=" + m_CBProyecto.SelectedValue;
+            m_szCondicionEx += " AND proyectos.proyectoi=" + m_CBProyecto.SelectedValue;
 
-        m_szCondicion += " GROUP BY ";
+        string grupo= " GROUP BY ";
         for (int i = 0; i < 8; i++)
         {
-            m_szCondicion += m_saCamposAlias[i] + ",";
+            grupo += m_saCamposAlias[i] + ",";
         }
         for (int i = 13; i < m_saCamposAlias.Length; i++)
         {
             if (m_saCamposAlias[i].Length == 0)
             {
                 m_saCamposAlias[i] = "''";
-            } else m_szCondicion += m_saCamposAlias[i] + ",";
+            }
+            else grupo += m_saCamposAlias[i] + ",";
         }
-        m_szCondicion += m_saCamposAlias[9];
+        grupo += m_saCamposAlias[9];
 
-        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion);
+        m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx+ grupo);
+        m_szCondicion += grupo;
         m_baHidden[0] = true;
         m_baHidden[17] = true;
         // pestaña 5
@@ -304,9 +306,9 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_EAulasR.Attributes["onKeypress"] = "isnb();";
         m_EEstudiantesP.Attributes["onKeypress"] = "isnb();";
         m_EJornadas.Attributes["onKeypress"] = "isnb();";
-        m_ETotalACobertura.Attributes["onKeypress"] = "isnb();";
-        m_ETotalBeneficiados.Attributes["onKeypress"] = "isnb();";
-        m_EBeneficiadosReposicion.Attributes["onKeypress"] = "isnb();";
+        m_STotalACobertura.Attributes["onKeypress"] = "isnb();";
+        m_STotalBeneficiados.Attributes["onKeypress"] = "isnb();";
+        m_SBeneficiadosReposicion.Attributes["onKeypress"] = "isnb();";
         m_EBanos.Attributes["onKeypress"] = "isnb();";
         m_EAparatosS.Attributes["onKeypress"] = "isnb();";
         m_ESillas.Attributes["onKeypress"] = "isnb();";
@@ -315,7 +317,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_EValorTotalD.Attributes["onblur"] = "tcomas(this);";
         m_EValorTotalD.Attributes["onfocus"] = "scomas(this);";
 
-        m_EBeneficiadosD.Attributes["onKeypress"] = "isnb();";
+        m_SBeneficiadosD.Attributes["onKeypress"] = "isnb();";
 
         //pestaña 6
         m_EAulas.Attributes["onKeypress"] = "isfloat(this);";
@@ -354,6 +356,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_EIndiceOcupacion.Attributes["onfocus"] = "scomas(this);";
         m_EIndiceConstruccion2.Attributes["onfocus"] = "scomas(this);";
 
+        m_szMensaje = "No se encontraron proyectos";
         EndPageLoad();
     }
 
@@ -402,14 +405,14 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_EAulasR.UpdateAfterCallBack = true;
         m_EEstudiantesP.UpdateAfterCallBack = true;
         m_EJornadas.UpdateAfterCallBack = true;
-        m_ETotalACobertura.UpdateAfterCallBack = true;
-        m_ETotalBeneficiados.UpdateAfterCallBack = true;
-        m_EBeneficiadosReposicion.UpdateAfterCallBack = true;
+        m_STotalACobertura.UpdateAfterCallBack = true;
+        m_STotalBeneficiados.UpdateAfterCallBack = true;
+        m_SBeneficiadosReposicion.UpdateAfterCallBack = true;
         m_EBanos.UpdateAfterCallBack = true;
         m_EAparatosS.UpdateAfterCallBack = true;
         m_ESillas.UpdateAfterCallBack = true;
         m_EValorTotalD.UpdateAfterCallBack = true;
-        m_EBeneficiadosD.UpdateAfterCallBack = true;
+        m_SBeneficiadosD.UpdateAfterCallBack = true;
         m_EObservacionesInfraestructura.UpdateAfterCallBack = true;
         //pestaña 6
         m_SValorTotalProyecto.UpdateAfterCallBack = true;
@@ -427,72 +430,6 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_EIndiceOcupacion.UpdateAfterCallBack = true;
         m_EIndiceConstruccion2.UpdateAfterCallBack = true;
         m_EObservacionesValores.UpdateAfterCallBack = true;
-
-    }
-
-    override protected void ShowControls(bool show)
-    {
-        m_CBEnte.Visible = show;
-        m_CBMunicipio.Visible = show;
-        m_CBProyecto.Visible = show;
-        m_SInstitucion.Visible = show;
-        m_SFechaUltimaRevision.Visible = show;
-        m_SConceptoViabilidad.Visible = show;
-        m_SEstado.Visible = show;
-        m_SObservaciones.Visible = show;
-        m_ENITFirma.Visible = show;
-        m_ENombreFirma.Visible = show;
-        m_ERepresentante.Visible = show;
-        m_EDireccion.Visible = show;
-        m_ETelefono.Visible = show;
-        m_EFax.Visible = show;
-        m_EMail.Visible = show;
-        // pestana 2
-        m_SValorTotal.Visible = show;
-        m_EValorPartidaMEN.Visible = show;
-        m_SPorcentajeMEN.Visible = show;
-        m_SValorMun.Visible = show;
-        m_SPorcentajeMun.Visible = show;
-        m_CBConceptoViablizacion.Visible = show;
-        m_EFechaAprobacion.Visible = show;
-        m_EObservaciones.Visible = show;
-        // pestaña 3
-        m_EObservacionesDocumentos.Visible = show;
-        m_LBDocumentos.Visible = show;
-        // pestaña 4
-        m_EObservacionesTecnicas.Visible = show;
-        m_LBTecnicos.Visible = show;
-        // pestaña 5
-        m_CBTipo.Visible = show;
-        m_EAulasN.Visible = show;
-        m_EAulasR.Visible = show;
-        m_EEstudiantesP.Visible = show;
-        m_EJornadas.Visible = show;
-        m_ETotalACobertura.Visible = show;
-        m_ETotalBeneficiados.Visible = show;
-        m_EBeneficiadosReposicion.Visible = show;
-        m_EBanos.Visible = show;
-        m_EAparatosS.Visible = show;
-        m_ESillas.Visible = show;
-        m_EValorTotalD.Visible = show;
-        m_EBeneficiadosD.Visible = show;
-        m_EObservacionesInfraestructura.Visible = show;
-        //pestaña 6
-        m_SValorTotalProyecto.Visible = show;
-        m_EAulas.Visible = show;
-        m_EBanosV.Visible = show;
-        m_ECirculaciones.Visible = show;
-        m_SAreaTotal.Visible = show;
-        m_EM2Aulas.Visible = show;
-        m_EM2Banos.Visible = show;
-        m_EM2Circulaciones.Visible = show;
-        m_SValorM2Total.Visible = show;
-        m_EValorM2Aula.Visible = show;
-        m_EValorM2Banos.Visible = show;
-        m_EValorM2Circulaciones.Visible = show;
-        m_EIndiceOcupacion.Visible = show;
-        m_EIndiceConstruccion2.Visible = show;
-        m_EObservacionesValores.Visible = show;
 
     }
 
@@ -566,14 +503,14 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_EAulasR.Text=row[20].ToString();
         m_EEstudiantesP.Text=row[21].ToString();
         m_EJornadas.Text=row[22].ToString();
-        m_ETotalACobertura.Text=row[23].ToString();
-        m_ETotalBeneficiados.Text=row[24].ToString();
-        m_EBeneficiadosReposicion.Text=row[25].ToString();
+        m_STotalACobertura.Text = row[23].ToString();
+        m_STotalBeneficiados.Text = row[24].ToString();
+        m_SBeneficiadosReposicion.Text = row[25].ToString();
         m_EBanos.Text=row[26].ToString();
         m_EAparatosS.Text=row[27].ToString();
         m_ESillas.Text=row[28].ToString();
         m_EValorTotalD.Text= GetFormatDouble(row[29].ToString());
-        m_EBeneficiadosD.Text=row[30].ToString();
+        m_SBeneficiadosD.Text = row[30].ToString();
         m_EObservacionesInfraestructura.Text=row[31].ToString();
 
         // pestana 6
@@ -619,6 +556,8 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_EFax.Text = "";
         m_EMail.Text = "";
         m_CBProyecto.SelectedIndex = 0;
+        m_CBEnte.SelectedIndex = 0;
+        m_CBMunicipio.SelectedIndex = 0;
 
         // pestaña 2
         m_SValorTotal.Text = "";
@@ -656,14 +595,14 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_EAulasR.Text = "";
         m_EEstudiantesP.Text = "";
         m_EJornadas.Text = "";
-        m_ETotalACobertura.Text = "";
-        m_ETotalBeneficiados.Text = "";
-        m_EBeneficiadosReposicion.Text = "";
+        m_STotalACobertura.Text = "";
+        m_STotalBeneficiados.Text = "";
+        m_SBeneficiadosReposicion.Text = "";
         m_EBanos.Text = "";
         m_EAparatosS.Text = "";
         m_ESillas.Text = "";
         m_EValorTotalD.Text = "";
-        m_EBeneficiadosD.Text = "";
+        m_SBeneficiadosD.Text = "";
         m_EObservacionesInfraestructura.Text = "";
 
         //pestaña 6
@@ -682,8 +621,8 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_EIndiceOcupacion.Text = "";
         m_EIndiceConstruccion2.Text = "";
         m_EObservacionesValores.Text = "";
-
-        base.m_BCancelar_Click(sender, e);
+        if(sender.ToString()!="1")
+            base.m_BCancelar_Click(sender, e);
     }
 
     protected bool InsertarTecnicos()
@@ -1099,8 +1038,9 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
     {
         m_LCResultados.DataBind();
         m_LCResultados_PageIndexChanged(m_LCResultados, e);
-        // m_LCResultados.Columns[].Visible = .SelectedIndex == 0;
         m_LCResultados.UpdateAfterCallBack = true;
+        int ente= m_CBEnte.SelectedIndex;
+        int municipio = m_CBMunicipio.SelectedIndex;
 
         if (m_CBProyecto.SelectedIndex > 0)
         {
@@ -1112,7 +1052,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             else
             {
                 int sel = m_CBProyecto.SelectedIndex;
-                m_BCancelar_Click(sender, e);
+                m_BCancelar_Click("1", e);
                 m_CBProyecto.SelectedIndex = sel;
             }
             SqlDataReader reader= m_pConector.Query("SELECT insteducativas.nombre,insteducativas.id FROM proyectosi LEFT JOIN insteducativas ON insteducativas.id=proyectosi.institucion WHERE proyectosi.id=" + m_CBProyecto.SelectedValue);
@@ -1126,9 +1066,11 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         {
             m_SInstitucion.Text = "";
             m_nIdInstitucion.Value = "";
-            m_BCancelar_Click(sender, e);
+            m_BCancelar_Click("1", e);
             m_LCResultados.SelectedIndex = -1;
         }
+        m_CBEnte.SelectedIndex = ente;
+        m_CBMunicipio.SelectedIndex = municipio;
         m_SInstitucion.UpdateAfterCallBack = true;
         m_nIdInstitucion.UpdateAfterCallBack = true;
     }

@@ -31,9 +31,10 @@ public class CPageTemplate : System.Web.UI.Page
     protected string m_szJoin;
     protected bool[] m_baHidden;
     protected string m_szCondicion;
+    protected string m_szCondicionEx;
     protected string m_szTipoIndice;
     protected int m_nPermisos;
-
+    protected string m_szMensaje;
 
     public CPageTemplate()
     {
@@ -42,6 +43,8 @@ public class CPageTemplate : System.Web.UI.Page
         m_szTitulo = "";
         m_szTipoIndice = "INT";
         m_nPermisos = 0;
+        m_szCondicionEx = "";
+        m_szMensaje = "No se encontraron resultados";
     }
 
     public bool PageLoad(string tabla, int campos)
@@ -77,7 +80,7 @@ public class CPageTemplate : System.Web.UI.Page
 
         m_szTitulo = m_pMenu.GetFullPath(Request.Url.AbsolutePath);
         m_pUsuario = (CUsuarioDatos)Session["usuario"];
-        m_pConector = new CConector();
+        m_pConector = CConector.GetConector();
 
         m_szJoin = "";
         m_szCondicion = "";
@@ -109,7 +112,7 @@ public class CPageTemplate : System.Web.UI.Page
             if ((lab = (Label)FindControl("m_SUsuarioActual")) != null)
                 lab.Text = m_pUsuario.GetNombre();
             if ((lab = (Label)FindControl("m_SFechaActual")) != null)
-                lab.Text = DateTime.Now.ToString();
+                lab.Text = GetFechaHora(DateTime.Now);
         }
         return true;
     }
@@ -117,6 +120,20 @@ public class CPageTemplate : System.Web.UI.Page
     public void SetPermisos(int permisos)
     {
         m_nPermisos = permisos;
+    }
+
+    virtual public void CleanQuery()
+    {
+        if(m_szCondicion.Length>0)
+            m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion);
+        else m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin);
+        Session["query"] = m_szQuery;
+        Anthem.GridView grid = (Anthem.GridView)FindControl("m_LCResultados");
+        if (grid != null)
+        {
+            grid.DataBind();
+            grid.UpdateAfterCallBack = true;
+        }
     }
 
     public virtual void EndPageLoad()
@@ -128,28 +145,24 @@ public class CPageTemplate : System.Web.UI.Page
 
         if (!IsPostBack)
         {
-            Button boton = (Button)FindControl("m_BCancelar");
-            if (boton != null)
+            ImageButton boton;
+            if ((boton = (ImageButton)FindControl("m_BCancelarP")) != null)
             {
                 boton.Style["display"] = "none";
             }
-            if ((boton = (Button)FindControl("m_BCancelarP")) != null)
+            if ((boton = (ImageButton)FindControl("m_BAceptar")) != null)
             {
                 boton.Style["display"] = "none";
             }
-            if ((boton = (Button)FindControl("m_BAceptar")) != null)
+            if ((boton = (ImageButton)FindControl("m_BAceptarP")) != null)
             {
                 boton.Style["display"] = "none";
             }
-            if ((boton = (Button)FindControl("m_BAceptarP")) != null)
+            if ((boton = (ImageButton)FindControl("m_BEliminar")) != null)
             {
                 boton.Style["display"] = "none";
             }
-            if ((boton = (Button)FindControl("m_BEliminar")) != null)
-            {
-                boton.Style["display"] = "none";
-            }
-            if ((m_nPermisos & 4) == 0 && (boton = (Button)FindControl("m_BInsertar")) != null)
+            if ((m_nPermisos & 4) == 0 && (boton = (ImageButton)FindControl("m_BInsertar")) != null)
             {
                 boton.Style["display"]="none";
             }
@@ -162,7 +175,7 @@ public class CPageTemplate : System.Web.UI.Page
             if ((lista = (Anthem.DropDownList)FindControl("m_CBImprimir")) != null)
             {
                 lista.Style["display"] = "none";
-                lista.SelectedIndex = Request.Cookies["formatop"] == null ? 0 : Convert.ToInt32(Request.Cookies["formatop"].Value);
+                lista.SelectedIndex = Convert.ToInt32(CConector.GetCookie("formatop", "0"));
             }
             Label label = (Label)FindControl("m_SVersion");
             if (label != null)
@@ -186,7 +199,8 @@ public class CPageTemplate : System.Web.UI.Page
                 }
                 grid.DataKeyNames = new string[] { m_szIndice }; 
             }
-            grid.PageSize = Request.Cookies["pager"] == null ? 20 : Convert.ToInt32(Request.Cookies["pager"].Value);
+            grid.EmptyDataText = m_szMensaje;
+            grid.PageSize = CConector.GetCookie("pager", 20);
         }
     }
 
@@ -255,23 +269,28 @@ public class CPageTemplate : System.Web.UI.Page
             grid.UpdateAfterCallBack = true;
         }
 
-        Anthem.Button boton = (Anthem.Button)FindControl("m_BImprimir");
+        Anthem.ImageButton boton = (Anthem.ImageButton)FindControl("m_BImprimir");
         if (boton != null)
         {
             boton.Style["display"] = show ? "none" :"";
             boton.UpdateAfterCallBack = true;
         }
-        if ((m_nPermisos&4) ==4 && (boton = (Anthem.Button)FindControl("m_BInsertar")) != null)
+        if ((boton = (Anthem.ImageButton)FindControl("m_BCancelar"))!=null)
         {
             boton.Style["display"] = show ? "none" : "";
             boton.UpdateAfterCallBack = true;
         }
-        if ((boton = (Anthem.Button)FindControl("m_BAceptarP")) != null)
+        if ((m_nPermisos & 4) == 4 && (boton = (Anthem.ImageButton)FindControl("m_BInsertar")) != null)
+        {
+            boton.Style["display"] = show ? "none" : "";
+            boton.UpdateAfterCallBack = true;
+        }
+        if ((boton = (Anthem.ImageButton)FindControl("m_BAceptarP")) != null)
         {
             boton.Style["display"] = show ? "" : "none";
             boton.UpdateAfterCallBack = true;
         }
-        if ((boton = (Anthem.Button)FindControl("m_BCancelarP")) != null)
+        if ((boton = (Anthem.ImageButton)FindControl("m_BCancelarP")) != null)
         {
             boton.Style["display"] = show ? "" : "none";
             boton.UpdateAfterCallBack = true;
@@ -366,28 +385,23 @@ public class CPageTemplate : System.Web.UI.Page
     protected void ShowEdicion(bool show,string mensaje)
     {
 
-        Anthem.Button boton = (Anthem.Button)FindControl("m_BCancelar");
-        if (boton != null)
+        Anthem.ImageButton boton;
+        if ((boton = (Anthem.ImageButton)FindControl("m_BAceptar")) != null)
         {
             boton.Style["display"] = show ? "" : "none";
             boton.UpdateAfterCallBack = true;
         }
-        if ((boton = (Anthem.Button)FindControl("m_BAceptar")) != null)
+        if ((m_nPermisos & 16) == 16 && (boton = (Anthem.ImageButton)FindControl("m_BEliminar")) != null)
         {
             boton.Style["display"] = show ? "" : "none";
             boton.UpdateAfterCallBack = true;
         }
-        if ((m_nPermisos&16)==16 && (boton = (Anthem.Button)FindControl("m_BEliminar")) != null)
-        {
-            boton.Style["display"] = show ? "" : "none";
-            boton.UpdateAfterCallBack = true;
-        }
-        if ((boton = (Anthem.Button)FindControl("m_BImprimir")) != null)
+        if ((boton = (Anthem.ImageButton)FindControl("m_BImprimir")) != null)
         {
             boton.Style["display"] = show ? "none" : "";
             boton.UpdateAfterCallBack = true;
         }
-        if ((m_nPermisos&4)==4 && (boton = (Anthem.Button)FindControl("m_BInsertar")) != null)
+        if ((m_nPermisos & 4) == 4 && (boton = (Anthem.ImageButton)FindControl("m_BInsertar")) != null)
         {
             boton.Style["display"] = show ? "none" : "";
             boton.UpdateAfterCallBack = true;
@@ -418,6 +432,7 @@ public class CPageTemplate : System.Web.UI.Page
     {
         UpdateAll();
         ShowEdicion(false, "");
+        CleanQuery();
     }
 
     virtual protected void UpdateAll()
@@ -527,6 +542,11 @@ public class CPageTemplate : System.Web.UI.Page
         ListItem item = lista.Items.FindByText(value);
         lista.SelectedIndex = item == null ? 0 : lista.Items.IndexOf(item);
     }
+    static public void SelectInComboValue(Anthem.DropDownList lista, string value)
+    {
+        ListItem item = lista.Items.FindByValue(value);
+        lista.SelectedIndex = item == null ? 0 : lista.Items.IndexOf(item);
+    }
     public void FillComboBox(Anthem.DropDownList lista, string query, bool force)
     {
         // int selectedindex = lista.SelectedIndex;
@@ -603,30 +623,57 @@ public class CPageTemplate : System.Web.UI.Page
         return texto;
     }
 
-    virtual protected void m_LCResultados_RowDataBound(object sender, GridViewRowEventArgs e)
+    static public void ParseRow(GridView grid, DataTable tabla, GridViewRowEventArgs e)
+    {
+        ParseRow(grid, tabla, e, true);
+    }
+
+    static public void ParseRow(GridView grid, DataTable tabla, GridViewRowEventArgs e, bool trim)
     {
         if (e.Row.DataItemIndex != -1)
         {
-            DataTable tabla = CTablaEx.GetTabla();
-            for (int i = 1; i < tabla.Columns.Count; i++)
+            int realindex = grid.PageIndex * grid.PageSize;
+            realindex += e.Row.DataItemIndex;
+
+            for (int i = 0; i < grid.Columns.Count; i++)
             {
-                if (tabla.Columns[i].DataType == typeof(double) || tabla.Columns[i].DataType == typeof(decimal) 
-                    || tabla.Columns[i].DataType == typeof(float))
+                if (grid.Columns[i].GetType() == typeof(BoundField))
                 {
-                    e.Row.Cells[i + 1].Text = GetFormatDouble(e.Row.Cells[i + 1].Text);
-                    e.Row.Cells[i + 1].CssClass = "inputnumerico";
-                }
-                else if (tabla.Columns[i].DataType == typeof(int) || tabla.Columns[i].DataType == typeof(Int32))
-                {
-                    e.Row.Cells[i + 1].CssClass = "inputnumerico";
-                }
-                else if (tabla.Columns[i].DataType == typeof(DateTime))
-                {
-                    e.Row.Cells[i + 1].Text = GetFechaCorta(e.Row.Cells[i + 1].Text);
-                    e.Row.Cells[i + 1].CssClass = "inputnumerico";
+                    Type tipodato = tabla.Rows[realindex][((BoundField)grid.Columns[i]).DataField].GetType();
+                    if (tipodato == typeof(double) || tipodato == typeof(decimal) || tipodato == typeof(float))
+                    {
+                        e.Row.Cells[i].Text = GetFormatDouble(e.Row.Cells[i].Text);
+                        e.Row.Cells[i].CssClass = "inputnumerico";
+                    }
+                    else if (tipodato == typeof(int) || tipodato == typeof(Int32))
+                    {
+                        e.Row.Cells[i].CssClass = "inputnumerico";
+                    }
+                    else if (tipodato == typeof(DateTime))
+                    {
+                        if (e.Row.Cells[i].Text.Length > 10)
+                            e.Row.Cells[i].Text = GetFecha(Convert.ToDateTime(e.Row.Cells[i].Text));
+                        e.Row.Cells[i].CssClass = "inputnumerico";
+                    }
+                    e.Row.Cells[i].ToolTip = HttpUtility.HtmlDecode(grid.Columns[i].HeaderText) + " : " + HttpUtility.HtmlDecode(e.Row.Cells[i].Text);
+                    if (trim)
+                    {
+                        string texto = HttpUtility.HtmlDecode(e.Row.Cells[i].Text);
+                        int max = CConector.GetCookie("maxcelda", 25);
+                        if (max > 3 && texto.Length > max)
+                        {
+                            texto = texto.Substring(0, max - 3) + "...";
+                            e.Row.Cells[i].Text = HttpUtility.HtmlEncode(texto);
+                        }
+                    }
                 }
             }
         }
+    }
+
+    virtual protected void m_LCResultados_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        ParseRow((GridView)sender, CTablaEx.GetTabla(), e);
     }
 
     virtual protected void m_CBVigenciasCombo_SelectedIndexChanged(object sender, EventArgs e)
@@ -643,9 +690,19 @@ public class CPageTemplate : System.Web.UI.Page
         Anthem.Label lab;
         if ((lab = (Anthem.Label)FindControl("m_SFechaActual")) != null)
         {
-            lab.Text = DateTime.Now.ToString();
+            lab.Text = GetFechaHora(DateTime.Now);
             lab.UpdateAfterCallBack = true;
         }
+    }
+
+    static public string GetFecha(DateTime tiempo)
+    {
+        return CDateFormat.GetDate(tiempo);
+    }
+
+    static public string GetFechaHora(DateTime tiempo)
+    {
+        return CDateFormat.GetDate(tiempo)+ ", " + tiempo.ToShortTimeString();
     }
 }
 
