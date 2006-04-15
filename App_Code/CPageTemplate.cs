@@ -70,7 +70,7 @@ public class CPageTemplate : System.Web.UI.Page
             m_pMenu = new CMenu(this);
             Session.Add("menu", m_pMenu);
         }
-        m_nPermisos = m_pMenu.GetPermisos(verificar ? Request.Url.AbsolutePath : Session["parent"].ToString());
+        m_nPermisos = m_pMenu.GetPermisos(Request.Url.AbsolutePath);
         if (verificar && m_nPermisos < 1)
         {
             Response.Redirect(HttpContext.Current.Request.ApplicationPath + "/Entrada.aspx");

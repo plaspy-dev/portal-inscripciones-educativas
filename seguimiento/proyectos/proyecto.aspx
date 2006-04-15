@@ -362,7 +362,7 @@
                                             Registro fotográfico</td>
                                         <td>
                                             <asp:FileUpload ID="m_ERegistro" runat="server" />
-                                            <asp:Button ID="Button2" runat="server" Text="Subir" /></td>
+                                            <asp:Button ID="m_BSubir" runat="server" Text="Subir" CausesValidation="False" OnClick="m_BSubir_Click" /></td>
                                         <td>
                                             </td>
                                     </tr>

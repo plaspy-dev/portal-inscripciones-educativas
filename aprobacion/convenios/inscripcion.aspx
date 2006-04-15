@@ -267,9 +267,34 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                            <anthem:DataGrid ID="m_LBDocumentos" Runat="server" AutoGenerateColumns="false" DataSourceID="ObjectDataSource2" OnItemDataBound="m_LBDocumentos_ItemDataBound">
-                                                <HeaderStyle Font-Bold="True" />
-		                                    </anthem:DataGrid></td>
+                                                <asp:GridView ID="m_LCDocumentos" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource2"
+                                                    OnRowDataBound="m_LCDocumentos_RowDataBound" DataKeyNames="id">
+                                                    <Columns>
+                                                        <asp:TemplateField>
+                                                            <ItemTemplate>
+                                                                <asp:CheckBox ID="CheckBox1" runat="server" Checked='<%# Bind("did") %>' />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:BoundField DataField="id" HeaderText="id" Visible="false"/>
+                                                        <asp:BoundField DataField="Documento" HeaderText="Documento"/>
+                                                        <asp:TemplateField HeaderText="Fecha">
+                                                            <ItemTemplate>
+                                                                <asp:TextBox ID="m_EFecha" CssClass="editfecha" runat="server" Text='<%# Bind("Fecha") %>'></asp:TextBox><input id="botonfecha" name="botonfecha" type="button" value="..." runat="server" />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Número">
+                                                            <ItemTemplate>
+                                                                <asp:TextBox ID="m_ENumero" runat="server" Text='<%# Bind("Número") %>'></asp:TextBox>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Observaciones">
+                                                            <ItemTemplate>
+                                                                <asp:TextBox ID="m_EObservaciones" runat="server" Text='<%# Bind("Observaciones") %>'></asp:TextBox>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                </asp:GridView>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: right">
@@ -279,8 +304,6 @@
                                         </tr>
                                     </table>
                                     <br />
-                                    &nbsp;<div style="text-align: right">
-                                                &nbsp;</div>
                                 </asp:View>
                             </asp:MultiView>
                             

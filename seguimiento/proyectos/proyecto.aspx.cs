@@ -99,9 +99,10 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_EValorAvance.Attributes["onblur"] = "tcomas(this);";
         m_EValorAvance.Attributes["onfocus"] = "scomas(this);";
         
-        FillComboBox(m_CBClaseContrato, "SELECT * FROM varios WHERE tipo=23 AND (nReservado IS NULL OR nReservado!=-1)");
+        // 55 
+        FillComboBox(m_CBClaseContrato, "SELECT * FROM varios WHERE tipo=55 AND (nReservado IS NULL OR nReservado!=-1)");
         FillComboBox(m_CBEstadoContrato, "SELECT * FROM varios WHERE tipo=32 AND (nReservado IS NULL OR nReservado!=-1)");
-        FillComboBox(m_CBObjeto, "SELECT * FROM varios WHERE tipo=55 AND (nReservado IS NULL OR nReservado!=-1)");
+        FillComboBox(m_CBObjeto, "SELECT * FROM varios WHERE tipo=37 AND (nReservado IS NULL OR nReservado!=-1)");
         FillComboBox(m_CBTipoR, "SELECT * FROM varios WHERE tipo=56 AND (nReservado IS NULL OR nReservado!=-1)");
         FillComboBox(m_CBEstadoSaldo, "SELECT * FROM varios WHERE tipo=57 AND (nReservado IS NULL OR nReservado!=-1)");
 
@@ -824,5 +825,32 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
     {
         CContratosSaldos tabla = new CContratosSaldos();
         ParseRow((GridView)sender, tabla.GetTabla(), e);
+    }
+    protected void m_BSubir_Click(object sender, EventArgs e)
+    {
+        int len = m_ERegistro.PostedFile.ContentLength;
+        if (m_nIdContrato.Value == "")
+        {
+            Anthem.Manager.AddScriptForClientSideEval("alert('Por favor seleccione un contrato primero');");
+            return;
+        }
+        if (len <= 0)
+        {
+            Anthem.Manager.AddScriptForClientSideEval("alert('Por favor seleccione un archivo');");
+            return;
+        }
+        if (m_ERegistro.PostedFile.ContentType.IndexOf("jpeg")<0)
+        {
+            Anthem.Manager.AddScriptForClientSideEval("alert('Por favor seleccione un archivo con formato JPEG');");
+            return;
+        }
+        byte[] pic = new byte[len];
+        m_ERegistro.PostedFile.InputStream.Read(pic, 0, len);
+        CConector conector = new CConector();
+        SqlConnection connection = conector.GetConexion();
+        SqlCommand cmd = new SqlCommand("INSERT INTO registro (fecha,contrato,foto) VALUES (GETDATE(),@contrato,@foto)",connection);
+        cmd.Parameters.AddWithValue("@contrato", m_nIdContrato.Value);
+        cmd.Parameters.AddWithValue("@foto", pic);
+        cmd.ExecuteNonQuery();
     }
 }

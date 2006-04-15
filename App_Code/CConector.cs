@@ -37,6 +37,10 @@ public class CConector
         QueryMod("SET DATEFORMAT dmy");
 	}
 
+    public SqlConnection GetConexion() {
+        return m_pSQLConector;
+    }
+
     public static bool IsLogged(Page pagina)
     {
         if (CConector.GetProfileInt("administrador", 0) == 1)
@@ -417,7 +421,7 @@ public class CConector
 
     static public string GetCurrentVersion()
     {
-        return "Versión 1.111 Beta";
+        return "Versión 1.12 Beta";
     }
 
     static public CConector GetConector() {

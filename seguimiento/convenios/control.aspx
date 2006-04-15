@@ -300,8 +300,6 @@
                                         <asp:ImageButton  ImageUrl="~/imagenes/sig.gif" ID="Button1" runat="server" ToolTip="Siguiente" OnClick="OnNext"/></td>
                                         </tr>
                                     </table>
-                                    <div style="text-align: right">
-                                        &nbsp;</div>
                                 </asp:View>
                                 <asp:View ID="View3" runat="server">
                                     &nbsp;<table cellspacing="0">
@@ -325,9 +323,34 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                            <anthem:DataGrid ID="m_LBDocumentos" Runat="server" AutoGenerateColumns="false" DataSourceID="ObjectDataSource3" OnItemDataBound="m_LBDocumentos_ItemDataBound">
-                                                <HeaderStyle Font-Bold="True" />
-		                                    </anthem:DataGrid></td>
+                                                <asp:GridView ID="m_LCDocumentos" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource3"
+                                                    OnRowDataBound="m_LCDocumentos_RowDataBound" DataKeyNames="id">
+                                                    <Columns>
+                                                        <asp:TemplateField>
+                                                            <ItemTemplate>
+                                                                <asp:CheckBox ID="CheckBox1" runat="server" Checked='<%# Bind("did") %>' />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:BoundField DataField="id" HeaderText="id" Visible="False"/>
+                                                        <asp:BoundField DataField="Documento" HeaderText="Documento"/>
+                                                        <asp:TemplateField HeaderText="Fecha">
+                                                            <ItemTemplate>
+                                                                <asp:TextBox ID="m_EFecha" CssClass="editfecha" runat="server" Text='<%# Bind("Fecha") %>'></asp:TextBox><input id="botonfecha" name="botonfecha" type="button" value="..." runat="server" />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="N&#250;mero">
+                                                            <ItemTemplate>
+                                                                <asp:TextBox ID="m_ENumero" runat="server" Text='<%# Bind("Número") %>'></asp:TextBox>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="Observaciones">
+                                                            <ItemTemplate>
+                                                                <asp:TextBox ID="m_EObservaciones" runat="server" Text='<%# Bind("Observaciones") %>'></asp:TextBox>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                </asp:GridView>
+		                                    </td>
                                         </tr>
                                         <tr>
                                             <td align="right">
@@ -470,8 +493,6 @@
                                     </tr>
                                 </table>
                                     <br />
-                                    <div style="text-align: right">
-                                        &nbsp;</div>
                                 </asp:View>
                                 <asp:View ID="View5" runat="server"><table cellspacing="0">
                                     <tr>
@@ -585,8 +606,6 @@
                                     </tr>
                                 </table>
                                     <br />
-                                    <div style="text-align: right">
-                                        &nbsp;</div>
                                 </asp:View>
                                 <asp:View ID="View6" runat="server"><table cellspacing="0">
                                     <tr>
@@ -682,7 +701,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            &nbsp;&nbsp;<asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="Select"
+                                            <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="Select"
                                                 TypeName="CTablaEx"></asp:ObjectDataSource>
                                                 <anthem:GridView ID="m_LCAdiciones" runat="server" EmptyDataText="No hay Adiciones" UpdateAfterCallBack="False" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" DataKeyNames="id" DataSourceID="ObjectDataSource2" OnSelectedIndexChanged="m_LCAdiciones_SelectedIndexChanged" OnRowDataBound="m_LCAdiciones_RowDataBound">
                                         <columns>

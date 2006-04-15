@@ -204,44 +204,6 @@ public partial class seguimiento_convenios_control : CPageTemplate
 
             m_SNoAdicion.Text = CAdicionesConvenio.GetNumero().ToString();
         }
-        // pestaña 3
-        if (m_LBDocumentos.Columns.Count == 0)
-        {
-            CheckBoxColumn checkCol = new CheckBoxColumn("DGSelectOrUnselectAllTodos", "updateOtros", m_LBDocumentos.ID);
-            checkCol.HeaderText = "";
-            checkCol.DataField = "did";
-            checkCol.SetCheckInHeader(0);
-            m_LBDocumentos.Columns.Add(checkCol);
-
-            BoundColumn data = new BoundColumn();
-            data.DataField = data.HeaderText = "id";
-            data.Visible = false;
-            m_LBDocumentos.Columns.Add(data);
-
-            data = new BoundColumn();
-            data.DataField = "Documento";
-            data.HeaderText = "Documento";
-            m_LBDocumentos.Columns.Add(data);
-
-            CEditBoxCol editcol = new CEditBoxCol(m_LBDocumentos.ID);
-            editcol.DataField = "Fecha";
-            editcol.HeaderText = "Fecha";
-            m_LBDocumentos.Columns.Add(editcol);
-
-            editcol = new CEditBoxCol();
-            editcol.DataField = "Número";
-            editcol.HeaderText = "Número";
-            m_LBDocumentos.Columns.Add(editcol);
-
-            editcol = new CEditBoxCol();
-            editcol.DataField = "Observaciones";
-            editcol.HeaderText = "Observaciones";
-            m_LBDocumentos.Columns.Add(editcol);
-
-            m_LBDocumentos.DataKeyField = "id";
-            m_LBDocumentos.DataBind();
-        }
-
         // pestaña 4
         m_EValorDesembolso.Attributes["onKeypress"] = "isfloat(this);";
         m_EValorDesembolso.Attributes["onblur"] = "tcomas(this);";
@@ -360,7 +322,6 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_nIdAdicion.UpdateAfterCallBack = true;
         // pestaña 3
         m_SNIT.UpdateAfterCallBack = true;
-        m_LBDocumentos.UpdateAfterCallBack = true;
 
         // pestaña 4
         m_EValorDesembolso.UpdateAfterCallBack = true;
@@ -424,7 +385,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_SNoAdicion.Text = CAdicionesConvenio.GetNumero().ToString();
 
         // pestaña 3
-        m_LBDocumentos.DataBind();
+        m_LCDocumentos.DataBind();
         // pestaña 4
         m_nIdDesembolso.Value = "";
         m_LCDesembolsos.DataBind();
@@ -495,7 +456,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
 
         // pestaña 3
         m_SNIT.Text = "";
-        m_LBDocumentos.DataBind();
+        m_LCDocumentos.DataBind();
 
         // pestaña 4
         m_EValorDesembolso.Text = "";
@@ -591,16 +552,16 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_saCampos[4] = "observaciones";
         string query = "";
         bool check;
-        for (int i = 0; i < m_LBDocumentos.Items.Count; i++)
+        for (int i = 0; i < m_LCDocumentos.Rows.Count; i++)
         {
+            DataRow row = tabla.Rows[i];
             query = "";
-            check = ((CheckBox)m_LBDocumentos.Items[i].Cells[0].Controls[0]).Checked;
-            m_saDatos[1] = m_LBDocumentos.Items[i].Cells[1].Text;
-            m_saDatos[2] = ((TextBox)m_LBDocumentos.Items[i].Cells[3].Controls[0]).Text;
-            m_saDatos[3] = ((TextBox)m_LBDocumentos.Items[i].Cells[4].Controls[0]).Text;
-            m_saDatos[4] = ((TextBox)m_LBDocumentos.Items[i].Cells[5].Controls[0]).Text;
+            check = ((CheckBox)m_LCDocumentos.Rows[i].Cells[0].Controls[1]).Checked;
+            m_saDatos[1] = row["id"].ToString();
+            m_saDatos[2] = ((TextBox)m_LCDocumentos.Rows[i].Cells[3].Controls[1]).Text;
+            m_saDatos[3] = ((TextBox)m_LCDocumentos.Rows[i].Cells[4].Controls[1]).Text;
+            m_saDatos[4] = ((TextBox)m_LCDocumentos.Rows[i].Cells[5].Controls[1]).Text;
 
-            DataRow row = tabla.Rows.Find(m_saDatos[1]);
             if (row != null && row[1].ToString() != "")
             {
                 if (check) // actualizar
@@ -847,16 +808,6 @@ public partial class seguimiento_convenios_control : CPageTemplate
     protected void m_LCAdiciones_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         ParseRow(m_LCAdiciones, CAdicionesConvenio.GetTabla(), e);
-    }
-
-    // pestaña 3
-    protected void m_LBDocumentos_ItemDataBound(object sender, DataGridItemEventArgs e)
-    {
-        if (e.Item.ItemIndex != -1)
-        {
-            TextBox box = (TextBox)e.Item.Cells[3].Controls[0];
-            box.Text = GetFechaCorta(box.Text);
-        }
     }
     // pestaña 4
 
@@ -1114,5 +1065,17 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_LCRendimientos.Style["display"] = index == 4 ? "" : "none";
         m_LCResultados.Style["display"] = (index != 1 && index!=3 && index!=4) ? "" : "none";
         base.SetView(index);
+    }
+    protected void m_LCDocumentos_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.DataItemIndex != -1)
+        {
+            TextBox text = (TextBox)e.Row.Cells[3].Controls[1];
+            text.Attributes["readonly"] = "true";
+            text.Text = GetFechaCorta(text.Text);
+            HtmlInputButton boton = (HtmlInputButton)e.Row.Cells[3].Controls[2];
+            boton.Attributes["onclick"] = "setFecha('" + m_LCDocumentos.ID + "_ctl" + ((e.Row.DataItemIndex + 2) < 10 ? "0" : "")
+            + (e.Row.DataItemIndex + 2) + "_m_EFecha');";
+        }
     }
 }

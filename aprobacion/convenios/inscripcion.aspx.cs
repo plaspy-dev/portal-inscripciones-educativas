@@ -94,43 +94,6 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
         m_EValor.Attributes["onblur"] = "tcomas(this);";
         m_EValor.Attributes["onfocus"] = "scomas(this);";
 
-        if (m_LBDocumentos.Columns.Count==0)
-        {
-            CheckBoxColumn checkCol = new CheckBoxColumn("DGSelectOrUnselectAllTodos", "updateOtros", m_LBDocumentos.ID);
-            checkCol.HeaderText = "";
-            checkCol.DataField = "did";
-            checkCol.SetCheckInHeader(0);
-            m_LBDocumentos.Columns.Add(checkCol);
-
-            BoundColumn data = new BoundColumn();
-            data.DataField = data.HeaderText = "id";
-            data.Visible = false;
-            m_LBDocumentos.Columns.Add(data);
-
-            data = new BoundColumn();
-            data.DataField = "Documento";
-            data.HeaderText = "Documento";
-            m_LBDocumentos.Columns.Add(data);
-
-            CEditBoxCol editcol = new CEditBoxCol(m_LBDocumentos.ID);
-            editcol.DataField = "Fecha";
-            editcol.HeaderText = "Fecha";
-            m_LBDocumentos.Columns.Add(editcol);
-
-            editcol = new CEditBoxCol();
-            editcol.DataField = "Número";
-            editcol.HeaderText = "Número";
-            m_LBDocumentos.Columns.Add(editcol);
-
-            editcol = new CEditBoxCol();
-            editcol.DataField = "Observaciones";
-            editcol.HeaderText = "Observaciones";
-            m_LBDocumentos.Columns.Add(editcol);
-
-            m_LBDocumentos.DataKeyField = "id";
-            m_LBDocumentos.DataBind();
-        }
-
         m_szMensaje = "No se encontraron proyectos";
         EndPageLoad();
     }
@@ -139,7 +102,6 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
     {
 
         m_STitulo.UpdateAfterCallBack = true;
-
 
         m_nId.UpdateAfterCallBack = true;
         m_CBEnte.UpdateAfterCallBack = true;
@@ -159,7 +121,6 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
         m_EFechaRDP.UpdateAfterCallBack = true;
         m_ERDP.UpdateAfterCallBack = true;
         m_ECDP.UpdateAfterCallBack = true;
-        m_LBDocumentos.UpdateAfterCallBack = true;
     }
 
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)
@@ -173,7 +134,7 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
         
         m_nId.Value = gv.SelectedDataKey.Value.ToString();
         Session["idconvenio"] = m_nId.Value;
-        m_LBDocumentos.DataBind();
+        m_LCDocumentos.DataBind();
 
         SelectInCombo(m_CBEnte, row[2].ToString());
         m_EValor.Text = GetFormatDouble(row[3].ToString());;
@@ -218,7 +179,7 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
         m_STitulo.Text = "Nuevo convenio";
 
         Session["idconvenio"] = "";
-        m_LBDocumentos.DataBind();
+        m_LCDocumentos.DataBind();
 
         base.m_BCancelar_Click(sender, e);
     }
@@ -279,16 +240,16 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
             m_saCampos[4] = "observaciones";
             string query = "";
             bool check;
-            for (int i = 0; i < m_LBDocumentos.Items.Count; i++)
+            for (int i = 0; i < m_LCDocumentos.Rows.Count; i++)
             {
+                DataRow row = tabla.Rows[i];
                 query = "";
-                check = ((CheckBox)m_LBDocumentos.Items[i].Cells[0].Controls[0]).Checked;
-                m_saDatos[1] = m_LBDocumentos.Items[i].Cells[1].Text;
-                m_saDatos[2] = GetDate(((TextBox)m_LBDocumentos.Items[i].Cells[3].Controls[0]).Text);
-                m_saDatos[3] = GetString(((TextBox)m_LBDocumentos.Items[i].Cells[4].Controls[0]).Text);
-                m_saDatos[4] = GetString(((TextBox)m_LBDocumentos.Items[i].Cells[5].Controls[0]).Text);
+                check = ((CheckBox)m_LCDocumentos.Rows[i].Cells[0].Controls[1]).Checked;
+                m_saDatos[1] = row["id"].ToString();
+                m_saDatos[2] = GetDate(((TextBox)m_LCDocumentos.Rows[i].Cells[3].Controls[1]).Text);
+                m_saDatos[3] = GetString(((TextBox)m_LCDocumentos.Rows[i].Cells[4].Controls[1]).Text);
+                m_saDatos[4] = GetString(((TextBox)m_LCDocumentos.Rows[i].Cells[5].Controls[1]).Text);
 
-                DataRow row= tabla.Rows.Find(m_saDatos[1]);
                 if (row != null && row[1].ToString() != "")
                 {
                     if (check) // actualizar
@@ -364,16 +325,16 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
             m_saCampos[3] = "numero";
             m_saCampos[4] = "observaciones";
             bool check;
-            for (int i = 0; i < m_LBDocumentos.Items.Count; i++)
+            for (int i = 0; i < m_LCDocumentos.Rows.Count; i++)
             {
+                DataRow row = tabla.Rows[i];
                 query = "";
-                check = ((CheckBox)m_LBDocumentos.Items[i].Cells[0].Controls[0]).Checked;
-                m_saDatos[1] = m_LBDocumentos.Items[i].Cells[1].Text;
-                m_saDatos[2] = GetDate(((TextBox)m_LBDocumentos.Items[i].Cells[3].Controls[0]).Text);
-                m_saDatos[3] = GetString( ((TextBox)m_LBDocumentos.Items[i].Cells[4].Controls[0]).Text);
-                m_saDatos[4] = GetString(((TextBox)m_LBDocumentos.Items[i].Cells[5].Controls[0]).Text);
+                check = ((CheckBox)m_LCDocumentos.Rows[i].Cells[0].Controls[1]).Checked;
+                m_saDatos[1] = row["id"].ToString();
+                m_saDatos[2] = GetDate(((TextBox)m_LCDocumentos.Rows[i].Cells[3].Controls[1]).Text);
+                m_saDatos[3] = GetString(((TextBox)m_LCDocumentos.Rows[i].Cells[4].Controls[1]).Text);
+                m_saDatos[4] = GetString(((TextBox)m_LCDocumentos.Rows[i].Cells[5].Controls[1]).Text);
 
-                DataRow row = tabla.Rows.Find(m_saDatos[1]);
                 if (row != null && row[1].ToString() != "")
                 {
                     if (check) // actualizar
@@ -430,14 +391,6 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
     {
         m_CBEnte_SelectedIndexChanged(sender, e);
     }
-    protected void m_LBDocumentos_ItemDataBound(object sender, DataGridItemEventArgs e)
-    {
-        if (e.Item.ItemIndex != -1)
-        {
-            TextBox box = (TextBox )e.Item.Cells[3].Controls[0];
-            box.Text = GetFechaCorta(box.Text);
-        }
-    }
     override protected void SetView(int index)
     {
         switch (index)
@@ -450,5 +403,17 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
                 break;
         }
         base.SetView(index);
+    }
+    protected void m_LCDocumentos_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.DataItemIndex != -1)
+        {
+            TextBox text = (TextBox)e.Row.Cells[3].Controls[1];
+            text.Attributes["readonly"] = "true";
+            text.Text = GetFechaCorta(text.Text);
+            HtmlInputButton boton = (HtmlInputButton)e.Row.Cells[3].Controls[2];
+            boton.Attributes["onclick"] = "setFecha('" + m_LCDocumentos.ID + "_ctl" + ((e.Row.DataItemIndex + 2) < 10 ? "0" : "")
+            + (e.Row.DataItemIndex + 2) + "_m_EFecha');";
+        }
     }
 }
