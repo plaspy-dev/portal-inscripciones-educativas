@@ -45,7 +45,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_saCamposAlias[5] = "municipios.nombre";
         m_saCamposAlias[6] = "insteducativas.nombre";
         m_saCamposAlias[7] = "tipos.nombre";
-        m_saCamposAlias[8] = "proyectos.objeto";
+        m_saCamposAlias[8] = "dbo.fn_GetObjetos(proyectos.id)";
         m_saCamposAlias[9] = "SUM(objeto.valor)";
         m_saCamposAlias[10] = "presupuesto.valormen";
         m_saCamposAlias[11] = "(presupuesto.valormen*100)/SUM(objeto.valor)";
@@ -79,7 +79,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         
 
         string grupo= " GROUP BY ";
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < 8; i++)
         {
             grupo += m_saCamposAlias[i] + ",";
         }
@@ -687,6 +687,8 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_SFechaVencimiento.Text = "";
         m_EObservacionesContrato.Text = "";
         m_CBTipoR.SelectedIndex = 0;
+        m_BGaleria.Visible = false;
+        m_BGaleria.UpdateAfterCallBack = true;
         
         CContratos contratos=new CContratos();
         contratos.RebuilTable();
@@ -768,6 +770,9 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_EObservacionesContrato.Text = row[28].ToString();
         m_EFechaRegistro.Text = GetFechaCorta(row[29].ToString());
 
+        m_BGaleria.Visible = true;
+        m_BGaleria.UpdateAfterCallBack = true;
+
         m_nIdContrato.UpdateAfterCallBack = true;
         m_EContrato.UpdateAfterCallBack = true;
         m_EFechaS.UpdateAfterCallBack = true;
@@ -848,9 +853,14 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_ERegistro.PostedFile.InputStream.Read(pic, 0, len);
         CConector conector = new CConector();
         SqlConnection connection = conector.GetConexion();
-        SqlCommand cmd = new SqlCommand("INSERT INTO registro (fecha,contrato,foto) VALUES (GETDATE(),@contrato,@foto)",connection);
+        string query = "INSERT INTO registro (fecha,contrato,foto) VALUES (" + (m_EFechaRegistro.Text.Length > 0 ? ("'" + m_EFechaRegistro.Text + "'") : "GETDATE()") + ",@contrato,@foto)";
+        SqlCommand cmd = new SqlCommand(query, connection);
         cmd.Parameters.AddWithValue("@contrato", m_nIdContrato.Value);
         cmd.Parameters.AddWithValue("@foto", pic);
         cmd.ExecuteNonQuery();
+    }
+    protected void LinkButton1_Click(object sender, EventArgs e)
+    {
+        Anthem.Manager.AddScriptForClientSideEval("window.open('" + HttpContext.Current.Request.ApplicationPath + "/fotos/contratos/galeria.aspx?id=" + m_nIdContrato.Value +"&contrato=" + m_EContrato.Text + "')");
     }
 }

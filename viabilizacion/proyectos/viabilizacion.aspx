@@ -41,19 +41,16 @@
                                 <asp:Button ID="m_BTab1" runat="server" Text="Datos Generales" CssClass="cselected" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="130px"/>
                             </td>
                             <td >
-                                <asp:Button ID="m_BTab2" runat="server" Text="Objeto y presupuesto" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="150px"/>
+                                <asp:Button ID="m_BTab2" runat="server" Text="Aspectos Juridicos y formulación" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="200px"/>
                             </td>
                             <td >
-                                <asp:Button ID="m_BTab3" runat="server" Text="Aspectos Juridicos y formulación" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="200px"/>
+                                <asp:Button ID="m_BTab3" runat="server" Text="Aspectos técnicos" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="120px"/>
                             </td>
                             <td >
-                                <asp:Button ID="m_BTab4" runat="server" Text="Aspectos técnicos" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="120px"/>
-                            </td>
-                            <td >
-                                <asp:Button ID="m_BTab5" runat="server" Text="Tipos de intervención y población atendida" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="280px"/>
+                                <asp:Button ID="m_BTab4" runat="server" Text="Tipos de intervención y población atendida" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="280px"/>
                             </td>
                             <td>
-                                <asp:Button ID="m_BTab6" runat="server" Text="Areas y costos M2" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="150px"/>
+                                <asp:Button ID="m_BTab5" runat="server" Text="Areas y costos M2" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="150px"/>
                             </td>
                             <td style="width: 100%;" class="cinf">&nbsp;
                             </td>
@@ -77,30 +74,30 @@
                                             Ente Territorial<anthem:HiddenField ID="m_nId" runat="server" />
                                         </td>
                                         <td>
-                                            <anthem:DropDownList ID="m_CBEnte" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBEnte_SelectedIndexChanged">
+                                            <anthem:DropDownList ID="m_CBEnte" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBEnte_SelectedIndexChanged" ValidationGroup="normal">
                                             </anthem:DropDownList></td>
                                         <td>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_CBEnte"
-                                            ErrorMessage="Por favor seleccione un ente territorial" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_CBEnte" Display="Dynamic"
+                                            ErrorMessage="Por favor seleccione un ente territorial" InitialValue="-1" SetFocusOnError="True">*</asp:RequiredFieldValidator>
                                         </td>
                                     </tr>
 						            <tr>
                                         <td >
                                             Municipio</td>
-                                        <td ><anthem:DropDownList ID="m_CBMunicipio" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBMunicipio_SelectedIndexChanged">
+                                        <td ><anthem:DropDownList ID="m_CBMunicipio" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBMunicipio_SelectedIndexChanged" ValidationGroup="normal">
                                         </anthem:DropDownList></td>
                                         <td>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="m_CBEnte"
-                                                ErrorMessage="Por favor seleccione un ente territorial" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="m_CBEnte" Display="Dynamic"
+                                                ErrorMessage="Por favor seleccione un municipio" InitialValue="-1" SetFocusOnError="True">*</asp:RequiredFieldValidator></td>
                                     </tr>
                                     <tr>
                                         <td >
                                             Código proyecto</td>
-                                        <td ><anthem:DropDownList ID="m_CBProyecto" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBProyecto_SelectedIndexChanged">
+                                        <td ><anthem:DropDownList ID="m_CBProyecto" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBProyecto_SelectedIndexChanged" ValidationGroup="normal">
                                         </anthem:DropDownList></td>
                                         <td>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="m_CBProyecto"
-                                                ErrorMessage="Por favor seleccione un proyecto" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="m_CBProyecto" Display="Dynamic"
+                                                ErrorMessage="Por favor seleccione un proyecto" InitialValue="-1" SetFocusOnError="True">*</asp:RequiredFieldValidator></td>
                                     </tr>
                                     <tr>
                                         <td >
@@ -111,38 +108,188 @@
                                         <td>
                                         </td>
                                     </tr>
-                                                <tr>
-                                                    <td >
-                                                        Fecha ultima revisión</td>
-                                                    <td ><anthem:Label ID="m_SFechaUltimaRevision" runat="server" Text="">
-                                                    </anthem:Label></td>
-                                                    <td>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td >
-                                                        Concepto de viabilidad</td>
-                                                    <td ><anthem:Label ID="m_SConceptoViabilidad" runat="server" Text="">
-                                                    </anthem:Label></td>
-                                                    <td>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td >
+                                    <tr>
+                                        <td>
+                                            <strong>Objeto viabilizado</strong></td>
+                                        <td>
+                                            <anthem:HiddenField ID="m_nIdObjeto" runat="server" />
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Concepto</td>
+                                        <td>
+                                            <anthem:DropDownList ID="m_CBConcepto" runat="server" ValidationGroup="objeto">
+                                            </anthem:DropDownList></td>
+                                        <td>
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="m_CBConcepto" Display="Dynamic"
+                                                    ErrorMessage="Por favor seleccione un concepto" InitialValue="-1" SetFocusOnError="True"
+                                                    ValidationGroup="objeto">*</asp:RequiredFieldValidator></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                                Cantidad</td>
+                                        <td>
+                                            <anthem:TextBox ID="m_ECantidad" runat="server" CssClass="inputnumerico" ValidationGroup="objeto"></anthem:TextBox></td>
+                                        <td>
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="m_ECantidad" Display="Dynamic"
+                                                    ErrorMessage="Por favor ingrese una cantidad" SetFocusOnError="True" ValidationGroup="objeto">*</asp:RequiredFieldValidator>
+                                                <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="m_ECantidad" Display="Dynamic"
+                                                    ErrorMessage="Por favor ingrese un número aqui" MaximumValue="900000000000000" MinimumValue="1"
+                                                    SetFocusOnError="True" Type="Currency" ValidationGroup="objeto"></asp:RangeValidator></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                                Unidades</td>
+                                        <td>
+                                            <anthem:DropDownList ID="m_CBUnidades" runat="server" ValidationGroup="objeto">
+                                            </anthem:DropDownList></td>
+                                        <td>
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="m_CBUnidades" Display="Dynamic"
+                                                    ErrorMessage="Por favor seleccione unidades" InitialValue="-1" SetFocusOnError="True"
+                                                    ValidationGroup="objeto">*</asp:RequiredFieldValidator></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Valor</td>
+                                        <td>
+                                            <anthem:TextBox ID="m_EValor" runat="server" CssClass="inputnumerico" ValidationGroup="objeto"></anthem:TextBox></td>
+                                        <td>
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="m_EValor" Display="Dynamic"
+                                                    ErrorMessage="Por favor ingrese un valor" SetFocusOnError="True" ValidationGroup="objeto">*</asp:RequiredFieldValidator>
+                                                <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_EValor" Display="Dynamic"
+                                                    ErrorMessage="Por favor ingrese un número aqui" MaximumValue="900000000000000" MinimumValue="1"
+                                                    SetFocusOnError="True" Type="Currency" ValidationGroup="objeto"></asp:RangeValidator></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                        <td>
+                                                <anthem:Button ID="m_BInsertarObjeto" runat="server" Text="Insertar" ValidationGroup="objeto" OnClick="m_BInsertarObjeto_Click" /><anthem:Button ID="m_BAceptarObjeto" runat="server" Text="Aceptar" ValidationGroup="objeto" OnClick="m_BAceptarObjeto_Click" /><anthem:Button ID="m_BCancelarObjeto" runat="server" Text="Cancelar" CausesValidation="false" OnClick="m_BCancelarObjeto_Click" /><anthem:Button ID="m_BEliminarObjeto" runat="server" Text="Eliminar" CausesValidation="False" PreCallBackFunction="Eliminar_PreCallBack" OnClick="m_BEliminarObjeto_Click" /></td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" SelectMethod="Select"
+                                                    TypeName="CTablaObjetoVia"></asp:ObjectDataSource>
+                                        </td>
+                                        <td>
+                                                <anthem:GridView ID="m_LCObjetos" runat="server" EmptyDataText="No hay objetos"
+                                                Width="100%" UpdateAfterCallBack="False" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" DataKeyNames="id" DataSourceID="ObjectDataSource2" OnSelectedIndexChanged="m_LCObjetos_SelectedIndexChanged" OnRowDataBound="m_LCObjetos_RowDataBound">
+                                                <RowStyle CssClass="celda" BackColor="White" Wrap="True" />
+                                                <HeaderStyle CssClass="celdaTitulo" BackColor="#E3E4EA" />
+                                                <PagerStyle HorizontalAlign="Right" BackColor="#E3E4EA" />
+                                                <SelectedRowStyle BackColor="#316AC5" CssClass="celdasel" />
+                                                <Columns>
+                                                <asp:CommandField ButtonType="Image" ShowSelectButton="True" SelectImageUrl="../../imagenes/edit.gif" />
+                                                </Columns>
+                                            </anthem:GridView>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Presupuesto Viabilizado</strong></td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Valor total proyecto</td>
+                                        <td>
+                                            <anthem:Label ID="m_SValorTotal" runat="server" Text="">
+                                            </anthem:Label></td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                                Valor partida asignada por el Entidad</td>
+                                        <td>
+                                            <anthem:TextBox ID="m_EValorPartidaMEN" runat="server" CssClass="inputnumerico" ValidationGroup="normal"></anthem:TextBox></td>
+                                        <td>
+                                                <asp:RangeValidator ID="RangeValidator3" runat="server" ControlToValidate="m_EValorPartidaMEN" Display="Dynamic"
+                                                    ErrorMessage="Por favor ingrese un número aqui" MaximumValue="900000000000000" MinimumValue="1"
+                                                    SetFocusOnError="True" Type="Currency"></asp:RangeValidator></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Porcentaje aportes Entidad educativa</td>
+                                        <td>
+                                            <anthem:Label ID="m_SPorcentajeMEN" runat="server" Text="">
+                                            </anthem:Label></td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                                Valor partida asignada municipio proyecto aprobado</td>
+                                        <td>
+                                            <anthem:Label ID="m_SValorMun" runat="server" Text="">
+                                            </anthem:Label></td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                                Porcentaje aportes cofinaciación</td>
+                                        <td>
+                                            <anthem:Label ID="m_SPorcentajeMun" runat="server" Text="">
+                                            </anthem:Label></td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Concepto de viabilidad</td>
+                                        <td>
+                                            <anthem:DropDownList ID="m_CBConceptoViablizacion" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBConceptoViablizacion_SelectedIndexChanged">
+                                            </anthem:DropDownList></td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
                                                         Estado</td>
-                                                    <td ><anthem:Label ID="m_SEstado" runat="server" Text="">
-                                                    </anthem:Label></td>
-                                                    <td>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td >
-                                                        Observaciones</td>
-                                                    <td ><anthem:Label ID="m_SObservaciones" runat="server" Text="">
-                                                    </anthem:Label></td>
-                                                    <td>
-                                                    </td>
-                                                </tr>
+                                        <td>
+                                            <anthem:DropDownList ID="m_CBEstado" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBEstado_SelectedIndexChanged">
+                                            </anthem:DropDownList></td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Fecha ultima revisión</td>
+                                        <td>
+                                            <anthem:Label ID="m_EFechaUltima" runat="server" Text="">
+                                            </anthem:Label></td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                                Fecha Aprobación</td>
+                                        <td>
+                                            <anthem:TextBox ID="m_EFechaAprobacion" runat="server" CssClass="editfecha" ValidationGroup="normal"></anthem:TextBox><input id="botonfecha" name="botonfecha" onclick="setFecha('m_EFechaAprobacion')" type="button" value="..." /></td>
+                                        <td>
+                                                <asp:RangeValidator ID="RangeValidator4" runat="server" ControlToValidate="m_EFechaAprobacion" Display="Dynamic"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                    SetFocusOnError="True" Type="Date"></asp:RangeValidator></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Observaciones</td>
+                                        <td>
+                                            <anthem:TextBox ID="m_EObservaciones" runat="server" CssClass="editobs" TextMode="MultiLine"></anthem:TextBox></td>
+                                        <td>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td>
                                             <strong>Responsable de Viablización</strong></td>
@@ -202,216 +349,55 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                        </td>
+                                            &nbsp;</td>
                                         <td>
                                         </td>
-                                        <td>
+                                        <td style="text-align: left">
                                             <asp:ImageButton  ImageUrl="~/imagenes/sig.gif" ID="m_BSiguiente" runat="server" ToolTip="Siguiente" OnClick="OnNext"/></td>
                                     </tr>
                                             </table>
                                     <br />
                                             <anthem:Label ID="m_SMensaje" runat="server"></anthem:Label><br />
-                                            <anthem:ImageButton ID="m_BInsertar" ToolTip="Insertar" runat="server" ImageUrl="~/imagenes/save.gif" OnClick="m_BInsertar_Click" /><anthem:ImageButton ID="m_BImprimir" runat="server" ToolTip="Imprimir" ImageUrl="~/imagenes/print.gif" OnClick="m_BImprimir_Click" CausesValidation="False" />
+                                            <anthem:ImageButton ID="m_BInsertar" ToolTip="Insertar" runat="server" ImageUrl="~/imagenes/save.gif" OnClick="m_BInsertar_Click" ValidationGroup="normal" /><anthem:ImageButton ID="m_BImprimir" runat="server" ToolTip="Imprimir" ImageUrl="~/imagenes/print.gif" OnClick="m_BImprimir_Click" CausesValidation="False" />
                                             <anthem:DropDownList ID="m_CBImprimir" runat="server">
                                                 <asp:ListItem Value="1">Microsoft Excel</asp:ListItem>
                                                 <asp:ListItem Value="0">En Pantalla</asp:ListItem>
                                             </anthem:DropDownList>
-                                            <anthem:ImageButton ID="m_BAceptar" runat="server" ImageUrl="~/imagenes/save.gif" ToolTip="Guardar" OnClick="m_BAceptar_Click" /><anthem:ImageButton ID="m_BCancelar" ToolTip="Cancelar" runat="server" ImageUrl="~/imagenes/stop.gif" OnClick="m_BCancelar_Click" CausesValidation="False" /><anthem:ImageButton ID="m_BEliminar" runat="server" ImageUrl="~/imagenes/trash.gif" ToolTip="Eliminar" CausesValidation="False" OnClick="m_BEliminar_Click" PreCallBackFunction="Eliminar_PreCallBack"/>
+                                            <anthem:ImageButton ID="m_BAceptar" runat="server" ImageUrl="~/imagenes/save.gif" ToolTip="Guardar" OnClick="m_BAceptar_Click" ValidationGroup="normal" /><anthem:ImageButton ID="m_BCancelar" ToolTip="Cancelar" runat="server" ImageUrl="~/imagenes/stop.gif" OnClick="m_BCancelar_Click" CausesValidation="False" /><anthem:ImageButton ID="m_BEliminar" runat="server" ImageUrl="~/imagenes/trash.gif" ToolTip="Eliminar" CausesValidation="False" OnClick="m_BEliminar_Click" PreCallBackFunction="Eliminar_PreCallBack"/>
                                             <anthem:ImageButton ID="m_BAceptarP" runat="server" ImageUrl="~/imagenes/print.gif" ToolTip="Imprimir" CausesValidation="False" OnClick="m_BAceptarP_Click" /><anthem:ImageButton ID="m_BCancelarP" runat="server" ToolTip="Cancelar" ImageUrl="~/imagenes/stop.gif" CausesValidation="False" OnClick="m_BCancelarP_Click" />
                                             
                                             
                                 </asp:View>
                                 <asp:View ID="View2" runat="server">
-                                    <table cellspacing="0">
-                                    <tr>
-                                        <td>
-                                            <anthem:HiddenField ID="m_nIdObjeto" runat="server" /><strong>Objeto viabilizado</strong></td>
-                                        <td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                        <tr>
-                                            <td>
-                                                Concepto</td>
-                                            <td><anthem:DropDownList ID="m_CBConcepto" runat="server">
-                                            </anthem:DropDownList></td>
-                                            <td>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="m_CBConcepto"
-                                                    ErrorMessage="Por favor seleccione un concepto" InitialValue="-1" SetFocusOnError="True"
-                                                    ValidationGroup="objeto"></asp:RequiredFieldValidator></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Cantidad</td>
-                                            <td><anthem:TextBox ID="m_ECantidad" runat="server" CssClass="inputnumerico">
-                                            </anthem:TextBox></td>
-                                            <td>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="m_ECantidad"
-                                                    ErrorMessage="Por favor ingrese una cantidad" SetFocusOnError="True" ValidationGroup="objeto"></asp:RequiredFieldValidator>
-                                                <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="m_ECantidad"
-                                                    ErrorMessage="Por favor ingrese un número aqui" MaximumValue="900000000000000" MinimumValue="1"
-                                                    SetFocusOnError="True" Type="Currency" ValidationGroup="objeto"></asp:RangeValidator>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Unidades</td>
-                                            <td><anthem:DropDownList ID="m_CBUnidades" runat="server">
-                                            </anthem:DropDownList></td>
-                                            <td>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="m_CBUnidades"
-                                                    ErrorMessage="Por favor seleccione unidades" InitialValue="-1" SetFocusOnError="True"
-                                                    ValidationGroup="objeto"></asp:RequiredFieldValidator></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Valor</td>
-                                            <td><anthem:TextBox ID="m_EValor" runat="server" CssClass="inputnumerico">
-                                            </anthem:TextBox></td>
-                                            <td>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="m_EValor"
-                                                    ErrorMessage="Por favor ingrese un valor" SetFocusOnError="True" ValidationGroup="objeto"></asp:RequiredFieldValidator>
-                                                <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_EValor"
-                                                    ErrorMessage="Por favor ingrese un número aqui" MaximumValue="900000000000000" MinimumValue="1"
-                                                    SetFocusOnError="True" Type="Currency" ValidationGroup="objeto"></asp:RangeValidator>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            </td>
-                                            <td>
-                                                <anthem:Button ID="m_BInsertarObjeto" runat="server" Text="Insertar" ValidationGroup="objeto" OnClick="m_BInsertarObjeto_Click" />
-                                                <anthem:Button ID="m_BAceptarObjeto" runat="server" Text="Aceptar" ValidationGroup="objeto" OnClick="m_BAceptarObjeto_Click" />
-                                                <anthem:Button ID="m_BCancelarObjeto" runat="server" Text="Cancelar" CausesValidation="false" OnClick="m_BCancelarObjeto_Click" />
-                                                <anthem:Button ID="m_BEliminarObjeto" runat="server" Text="Eliminar" CausesValidation="False" PreCallBackFunction="Eliminar_PreCallBack" OnClick="m_BEliminarObjeto_Click" />
-                                            </td>
-                                            <td>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" SelectMethod="Select"
-                                                    TypeName="CTablaObjetoVia"></asp:ObjectDataSource>
-                                            </td>
-                                            <td>
-                                                <anthem:GridView ID="m_LCObjetos" runat="server" EmptyDataText="No hay objetos"
-                                                Width="100%" UpdateAfterCallBack="False" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" DataKeyNames="id" DataSourceID="ObjectDataSource2" OnSelectedIndexChanged="m_LCObjetos_SelectedIndexChanged" OnRowDataBound="m_LCObjetos_RowDataBound">
-                                                <RowStyle CssClass="celda" BackColor="White" Wrap="True" />
-                                                <HeaderStyle CssClass="celdaTitulo" BackColor="#E3E4EA" />
-                                                <PagerStyle HorizontalAlign="Right" BackColor="#E3E4EA" />
-                                                <SelectedRowStyle BackColor="#316AC5" CssClass="celdasel" />
-                                                <Columns>
-                                                <asp:CommandField ButtonType="Image" ShowSelectButton="True" SelectImageUrl="../../imagenes/edit.gif" />
-                                                </Columns>
-                                            </anthem:GridView>
-                                            </td>
-                                            <td>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <strong>Presupuesto Viabilizado</strong></td>
-                                            <td>
-                                            </td>
-                                            <td>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Valor total proyecto</td>
-                                            <td><anthem:Label ID="m_SValorTotal" runat="server" Text="">
-                                            </anthem:Label></td>
-                                            <td>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Valor partida asignada por el Entidad</td>
-                                            <td><anthem:TextBox ID="m_EValorPartidaMEN" runat="server" CssClass="inputnumerico">
-                                            </anthem:TextBox></td>
-                                            <td>
-                                                <asp:RangeValidator ID="RangeValidator3" runat="server" ControlToValidate="m_EValorPartidaMEN"
-                                                    ErrorMessage="Por favor ingrese un número aqui" MaximumValue="900000000000000" MinimumValue="1"
-                                                    SetFocusOnError="True" Type="Currency"></asp:RangeValidator>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Porcentaje aportes Entidad educativa</td>
-                                            <td><anthem:Label ID="m_SPorcentajeMEN" runat="server" Text="">
-                                            </anthem:Label></td>
-                                            <td>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Valor partida asignada municipio proyecto aprobado</td>
-                                            <td><anthem:Label ID="m_SValorMun" runat="server" Text="">
-                                            </anthem:Label></td>
-                                            <td>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Porcentaje aportes cofinaciación</td>
-                                            <td><anthem:Label ID="m_SPorcentajeMun" runat="server" Text="">
-                                            </anthem:Label></td>
-                                            <td>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Concepto de viabilidad</td>
-                                            <td><anthem:DropDownList ID="m_CBConceptoViablizacion" runat="server">
-                                            </anthem:DropDownList></td>
-                                            <td>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Fecha ultima revisión</td>
-                                            <td><anthem:Label ID="m_EFechaUltima" runat="server" Text="">
-                                            </anthem:Label></td>
-                                            <td>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Fecha Aprobación</td>
-                                            <td><anthem:TextBox ID="m_EFechaAprobacion" runat="server" CssClass="editfecha"></anthem:TextBox>
-                                                <input id="botonfecha" name="botonfecha" onclick="setFecha('m_EFechaAprobacion')" type="button" value="..." /></td>
-                                            <td>
-                                                <asp:RangeValidator ID="RangeValidator4" runat="server" ControlToValidate="m_EFechaAprobacion"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
-                                                    SetFocusOnError="True" Type="Date"></asp:RangeValidator>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Observaciones</td>
-                                            <td><anthem:TextBox ID="m_EObservaciones" runat="server" CssClass="editobs" TextMode="MultiLine"></anthem:TextBox></td>
-                                            <td>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            </td>
-                                            <td>
-                                            </td>
-                                            <td>
-                                                <asp:ImageButton ImageUrl="~/imagenes/ant.gif" ID="m_BAnterior1" runat="server" ToolTip="Anterior" OnClick="OnPrev" CausesValidation="false" />
-                                        <asp:ImageButton ImageUrl="~/imagenes/sig.gif" ID="Button1" runat="server" ToolTip="Siguiente" OnClick="OnNext"/></td>
-                                        </tr>
-                                    </table>
-                                    <div style="text-align: right">
-                                        &nbsp;</div>
-                                </asp:View>
-                                <asp:View ID="View3" runat="server">
                                 <asp:ObjectDataSource ID="ObjectDataSource3" runat="server" SelectMethod="Select"
                                                     TypeName="CDocumentosProyecto"></asp:ObjectDataSource>
-                                    <anthem:DataGrid ID="m_LBDocumentos" Runat="server" AutoGenerateColumns="false" DataSourceID="ObjectDataSource3" OnItemDataBound="m_LBDocumentos_ItemDataBound">
-                                                <HeaderStyle Font-Bold="True" />
-		                                    </anthem:DataGrid>
+                                    <asp:GridView ID="m_LCDocumentos" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource3"
+                                    DataKeyNames="id" OnRowDataBound="m_LCDocumentos_RowDataBound">
+                                    <Columns>
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <asp:CheckBox ID="CheckBox1" runat="server" Checked='<%# Bind("did") %>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:BoundField DataField="id" HeaderText="id" Visible="false"/>
+                                        <asp:BoundField DataField="Documento" HeaderText="Documento"/>
+                                        <asp:TemplateField HeaderText="Fecha">
+                                            <ItemTemplate>
+                                                <asp:TextBox ID="m_EFecha" CssClass="editfecha" runat="server" Text='<%# Bind("Fecha") %>'></asp:TextBox><input id="botonfecha" name="botonfecha" type="button" value="..." runat="server" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Número">
+                                            <ItemTemplate>
+                                                <asp:TextBox ID="m_ENumero" runat="server" Text='<%# Bind("Número") %>'></asp:TextBox>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Observaciones">
+                                            <ItemTemplate>
+                                                <asp:TextBox ID="m_EObservaciones" runat="server" Text='<%# Bind("Observaciones") %>'></asp:TextBox>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
                                     <table cellspacing="0">
                                         <tr>
                                             <td>
@@ -439,16 +425,29 @@
                                         <asp:ImageButton  ImageUrl="~/imagenes/sig.gif" ID="Button2" runat="server" ToolTip="Siguiente" OnClick="OnNext"/></td>
                                         </tr>
                                     </table>
-                                    <div style="text-align: right">
-                                        &nbsp;</div>
                                 </asp:View>
-                                <asp:View ID="View4" runat="server">
+                                <asp:View ID="View3" runat="server">
+                                 
                                  <asp:ObjectDataSource ID="ObjectDataSource4" runat="server" SelectMethod="Select"
                                                     TypeName="CAspectosTecnicos"></asp:ObjectDataSource>
-                                    <anthem:DataGrid ID="m_LBTecnicos" Runat="server" AutoGenerateColumns="false" DataSourceID="ObjectDataSource4">
-                                                <HeaderStyle Font-Bold="True" />
-		                                    </anthem:DataGrid>
-                                    <table cellspacing="0">
+                                                    
+                                 <asp:GridView ID="m_LCTecnicos" runat="server" AutoGenerateColumns="False" DataSourceID="ObjectDataSource4"
+                                    DataKeyNames="id" OnRowDataBound="m_LCTecnicos_RowDataBound">
+                                    <Columns>
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <asp:CheckBox ID="CheckBox1" runat="server" Checked='<%# Bind("did") %>' />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:BoundField DataField="Documento" HeaderText="Aspecto Técnico"/>
+                                        <asp:TemplateField HeaderText="Cantidad">
+                                            <ItemTemplate>
+                                                <asp:TextBox ID="m_ENumero" CssClass="inputnumerico" runat="server" Text='<%# Bind("Cantidad") %>'></asp:TextBox>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                </asp:GridView>
+                                <table>
                                         <tr>
                                             <td>
                                             <td>
@@ -473,10 +472,8 @@
                                         <asp:ImageButton  ImageUrl="~/imagenes/sig.gif" ID="Button3" runat="server" ToolTip="Siguiente" OnClick="OnNext"/></td>
                                         </tr>
                                     </table>
-                                    <div style="text-align: right">
-                                        &nbsp;</div>
                                 </asp:View>
-                                <asp:View ID="View5" runat="server">
+                                <asp:View ID="View4" runat="server">
                                     <table cellspacing="0">
                                     <tr>
                                         <td>
@@ -500,7 +497,7 @@
                                                 <anthem:TextBox ID="m_EAulasN" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
                                             <td>
-                                                <asp:RangeValidator ID="RangeValidator5" ControlToValidate="m_EAulasN" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="integer" MaximumValue="10000000" MinimumValue="1">
+                                                <asp:RangeValidator ID="RangeValidator5" Display="Dynamic" ControlToValidate="m_EAulasN" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="integer" MaximumValue="10000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -520,7 +517,7 @@
                                                 <anthem:TextBox ID="m_EEstudiantesP" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
                                             <td>
-                                            <asp:RangeValidator ID="RangeValidator6" ControlToValidate="m_EEstudiantesP" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="integer" MaximumValue="10000000" MinimumValue="1">
+                                            <asp:RangeValidator ID="RangeValidator6" Display="Dynamic" ControlToValidate="m_EEstudiantesP" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="integer" MaximumValue="10000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -531,7 +528,7 @@
                                                 <anthem:TextBox ID="m_EJornadas" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
                                             <td>
-                                            <asp:RangeValidator ID="RangeValidator7" ControlToValidate="m_EJornadas" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="integer" MaximumValue="10000000" MinimumValue="1">
+                                            <asp:RangeValidator ID="RangeValidator7" Display="Dynamic" ControlToValidate="m_EJornadas" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="integer" MaximumValue="10000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -569,7 +566,7 @@
                                                 <anthem:TextBox ID="m_EBanos" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
                                             <td>
-                                            <asp:RangeValidator ID="RangeValidator11" ControlToValidate="m_EBanos" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="integer" MaximumValue="10000000" MinimumValue="1">
+                                            <asp:RangeValidator ID="RangeValidator11" Display="Dynamic" ControlToValidate="m_EBanos" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="integer" MaximumValue="10000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -580,7 +577,7 @@
                                                 <anthem:TextBox ID="m_EAparatosS" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
                                             <td>
-                                            <asp:RangeValidator ID="RangeValidator12" ControlToValidate="m_EAparatosS" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="integer" MaximumValue="10000000" MinimumValue="1">
+                                            <asp:RangeValidator ID="RangeValidator12" Display="Dynamic" ControlToValidate="m_EAparatosS" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="integer" MaximumValue="10000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -599,7 +596,7 @@
                                                 <anthem:TextBox ID="m_ESillas" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
                                             <td>
-                                            <asp:RangeValidator ID="RangeValidator13" ControlToValidate="m_ESillas" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="integer" MaximumValue="10000000" MinimumValue="1">
+                                            <asp:RangeValidator ID="RangeValidator13" Display="Dynamic" ControlToValidate="m_ESillas" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="integer" MaximumValue="10000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -610,7 +607,7 @@
                                                 <anthem:TextBox ID="m_EValorTotalD" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
                                             <td>
-                                            <asp:RangeValidator ID="RangeValidator14" ControlToValidate="m_EValorTotalD" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
+                                            <asp:RangeValidator ID="RangeValidator14" Display="Dynamic" ControlToValidate="m_EValorTotalD" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -641,10 +638,8 @@
                                         <asp:ImageButton  ImageUrl="~/imagenes/sig.gif" ID="Button4" runat="server" ToolTip="Siguiente" OnClick="OnNext"/></td>
                                         </tr>
                                     </table>
-                                    <div style="text-align: right">
-                                        &nbsp;</div>
                                 </asp:View>
-                                <asp:View ID="View6" runat="server">
+                                <asp:View ID="View5" runat="server">
                                     <table cellspacing="0">
                                     <tr>
                                         <td>
@@ -660,7 +655,7 @@
                                         <td><anthem:TextBox ID="m_EAulas" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
-                                        <asp:RangeValidator ID="RangeValidator8" ControlToValidate="m_EAulas" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
+                                        <asp:RangeValidator ID="RangeValidator8" Display="Dynamic" ControlToValidate="m_EAulas" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -670,7 +665,7 @@
                                         <td><anthem:TextBox ID="m_EBanosV" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
-                                        <asp:RangeValidator ID="RangeValidator9" ControlToValidate="m_EBanosV" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
+                                        <asp:RangeValidator ID="RangeValidator9" Display="Dynamic" ControlToValidate="m_EBanosV" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
 
                                         </td>
@@ -681,7 +676,7 @@
                                         <td><anthem:TextBox ID="m_ECirculaciones" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
-                                        <asp:RangeValidator ID="RangeValidator10" ControlToValidate="m_ECirculaciones" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
+                                        <asp:RangeValidator ID="RangeValidator10" Display="Dynamic" ControlToValidate="m_ECirculaciones" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -699,7 +694,7 @@
                                         <td><anthem:TextBox ID="m_EM2Aulas" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
-                                        <asp:RangeValidator ID="RangeValidator15" ControlToValidate="m_EM2Aulas" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
+                                        <asp:RangeValidator ID="RangeValidator15" Display="Dynamic" ControlToValidate="m_EM2Aulas" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
 
                                         </td>
@@ -710,7 +705,7 @@
                                         <td><anthem:TextBox ID="m_EM2Banos" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
-                                        <asp:RangeValidator ID="RangeValidator16" ControlToValidate="m_EM2Banos" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
+                                        <asp:RangeValidator ID="RangeValidator16" Display="Dynamic" ControlToValidate="m_EM2Banos" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -720,7 +715,7 @@
                                         <td><anthem:TextBox ID="m_EM2Circulaciones" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
-                                        <asp:RangeValidator ID="RangeValidator17" ControlToValidate="m_EM2Circulaciones" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
+                                        <asp:RangeValidator ID="RangeValidator17" Display="Dynamic" ControlToValidate="m_EM2Circulaciones" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -738,7 +733,7 @@
                                         <td><anthem:TextBox ID="m_EValorM2Aula" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
-                                        <asp:RangeValidator ID="RangeValidator18" ControlToValidate="m_EValorM2Aula" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
+                                        <asp:RangeValidator ID="RangeValidator18" Display="Dynamic" ControlToValidate="m_EValorM2Aula" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -748,7 +743,7 @@
                                         <td><anthem:TextBox ID="m_EValorM2Banos" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
-                                        <asp:RangeValidator ID="RangeValidator19" ControlToValidate="m_EValorM2Banos" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
+                                        <asp:RangeValidator ID="RangeValidator19" Display="Dynamic" ControlToValidate="m_EValorM2Banos" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -759,7 +754,7 @@
                                                 <anthem:TextBox ID="m_EValorM2Circulaciones" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
                                             <td>
-                                            <asp:RangeValidator ID="RangeValidator20" ControlToValidate="m_EValorM2Circulaciones" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
+                                            <asp:RangeValidator ID="RangeValidator20" Display="Dynamic" ControlToValidate="m_EValorM2Circulaciones" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -770,7 +765,7 @@
                                                 <anthem:TextBox ID="m_EIndiceOcupacion" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
                                             <td>
-                                            <asp:RangeValidator ID="RangeValidator21" ControlToValidate="m_EIndiceOcupacion" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
+                                            <asp:RangeValidator ID="RangeValidator21" Display="Dynamic" ControlToValidate="m_EIndiceOcupacion" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -781,7 +776,7 @@
                                                 <anthem:TextBox ID="m_EIndiceConstruccion2" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
                                             <td>
-                                            <asp:RangeValidator ID="RangeValidator22" ControlToValidate="m_EIndiceConstruccion2" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
+                                            <asp:RangeValidator ID="RangeValidator22" Display="Dynamic" ControlToValidate="m_EIndiceConstruccion2" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -806,6 +801,7 @@
                                     </table>
                                 </asp:View>
                             </asp:MultiView>
+                                            <asp:ValidationSummary ID="ValidationSummary1" runat="server" />
                             
                             </td>
                             </tr>

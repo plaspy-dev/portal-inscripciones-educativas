@@ -140,7 +140,6 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         FillComboBox(m_CBConcepto, "SELECT id,nombre FROM varios WHERE tipo=15 AND (nReservado IS NULL OR nReservado!=-1)");
         FillComboBox(m_CBPorcentaje, "SELECT nombre,nombre FROM varios WHERE tipo=43 AND (nReservado IS NULL OR nReservado!=-1)");
 
-
         // autofiltro
         if (m_EEnte.SelectedIndex > 0)
             m_szCondicionEx += " AND proyectosi.eterritorial=" + m_EEnte.SelectedValue;
@@ -157,7 +156,6 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         for (int i = 17; i < 29; i++)
             m_baHidden[i] = true;
 
-        m_ECodigo.Attributes["onKeypress"] = "isnb();";
         m_EInstitucion.Attributes["onKeypress"] = "isnb();";
 
         m_ECantidad.Attributes["onKeypress"] = "isfloat(this);";
@@ -335,7 +333,9 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_EEstudiantesBeneficiados.Text = "";
         m_EDotacion.Text = "";
         m_EObservaciones.Text = "";
-
+        m_CBCriticidad.SelectedIndex = 0;
+        m_CBTipo.SelectedIndex = 0;
+        m_CBPorcentaje.SelectedIndex = 0;
 
         m_BEliminarObjeto.Style["display"] = "none";
         m_BAceptarObjeto.Style["display"] = "none";
@@ -512,7 +512,7 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         else
         {
             m_nId.Value = id.ToString();
-            Button boton = (Button)sender;
+            ImageButton boton = (ImageButton)sender;
             if (boton != null && boton.ID == "m_BFinalizar")
             {
                 // pestana 2
@@ -573,7 +573,10 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
     protected void m_BEliminar_Click(object sender, EventArgs e)
     {
         // eliminar
-        if (m_pConector.QueryMod("DELETE FROM proyectosi WHERE id=" + m_nId.Value) == -1)
+        if (m_pConector.QueryMod("DELETE FROM proyectosemergencia WHERE proyecto=" + m_nId.Value) == -1 ||
+            m_pConector.QueryMod("DELETE FROM objetoinscrito WHERE proyecto=" + m_nId.Value) == -1 ||
+            m_pConector.QueryMod("DELETE FROM presupuestoi WHERE proyecto=" + m_nId.Value) == -1 ||
+            m_pConector.QueryMod("DELETE FROM proyectosi WHERE id=" + m_nId.Value) == -1)
         {
             m_SMensaje.Text = m_pConector.GetLastError();
             m_SMensaje.UpdateAfterCallBack = true;
@@ -724,6 +727,11 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_LCObjetos.DataBind();
         m_LCObjetos.SelectedIndex = -1;
         m_LCObjetos.UpdateAfterCallBack = true;
+
+        // necesario actualizar la tabla de abajo
+        CTablaEx.RebuilTable();
+        m_LCResultados.DataBind();
+        m_LCResultados.UpdateAfterCallBack = true;
 
         m_nIdObjeto.UpdateAfterCallBack = true;
         m_EValor.UpdateAfterCallBack = true;

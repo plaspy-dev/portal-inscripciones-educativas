@@ -43,7 +43,7 @@
                                                         <anthem:DropDownList ID="m_CBEnte" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBEnte_SelectedIndexChanged">
                                                         </anthem:DropDownList></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_CBEnte"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_CBEnte" Display="Dynamic"
                                                             ErrorMessage="Por favor seleccione un ente" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
 						<tr>
@@ -53,7 +53,7 @@
                                                         <anthem:DropDownList ID="m_CBProyecto" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBProyecto_SelectedIndexChanged">
                                                         </anthem:DropDownList></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="m_CBProyecto"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="m_CBProyecto" Display="Dynamic"
                                                             ErrorMessage="Por favor seleccione un proyecto" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
@@ -63,7 +63,7 @@
                                                         <anthem:DropDownList ID="m_CBEstado" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBEstado_SelectedIndexChanged">
                                                         </anthem:DropDownList></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="m_CBEstado"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="m_CBEstado" Display="Dynamic"
                                                             ErrorMessage="Por favor seleccione un estado" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>

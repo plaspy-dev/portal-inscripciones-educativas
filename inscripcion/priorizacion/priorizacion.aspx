@@ -44,7 +44,7 @@
                                                         <anthem:DropDownList ID="m_EEntes" runat="server" OnSelectedIndexChanged="m_EEntes_SelectedIndexChanged" AutoCallBack="True">
                                                         </anthem:DropDownList></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_EEntes"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_EEntes" Display="Dynamic"
                                                             ErrorMessage="Por favor seleccione un ente" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                             </table>

@@ -42,9 +42,9 @@
                                                     <td>
                                                         <anthem:TextBox ID="m_ECodigo" runat="server" CssClass="inputnumerico"></anthem:TextBox></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_ECodigo"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_ECodigo" Display="Dynamic"
                                                             ErrorMessage="Por favor ingrese un código" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                                                        <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_ECodigo"
+                                                        <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_ECodigo" Display="Dynamic"
                                                             ErrorMessage="Por favor ingrese un número aqui" MaximumValue="1000000000" MinimumValue="1"
                                                             SetFocusOnError="True" Type="Integer"></asp:RangeValidator>
 
@@ -56,7 +56,7 @@
                                                     <td >
                                                         <anthem:TextBox ID="m_ENombre" runat="server" CssClass="editcomun "></anthem:TextBox></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="m_ENombre"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="m_ENombre" Display="Dynamic"
                                                             ErrorMessage="Por favor ingrese un nombre" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
@@ -65,9 +65,9 @@
                                                     <td >
                                                         <anthem:TextBox ID="m_ENit" runat="server" CssClass="inputnumerico"></anthem:TextBox></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="m_ENit"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="m_ENit" Display="Dynamic"
                                                             ErrorMessage="Por favor ingrese un NIT" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                                                            <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="m_ENit"
+                                                            <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="m_ENit" Display="Dynamic"
                                                             ErrorMessage="Por favor ingrese un número aqui" MaximumValue="1000000000" MinimumValue="1"
                                                             SetFocusOnError="True" Type="Integer"></asp:RangeValidator>
                                                             </td>
@@ -79,7 +79,7 @@
                                                         <anthem:DropDownList ID="m_CBRegion" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBRegion_SelectedIndexChanged">
                                                         </anthem:DropDownList></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="m_CBRegion"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="m_CBRegion" Display="Dynamic"
                                                             ErrorMessage="Por favor selecccione una región" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                             </table>

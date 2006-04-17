@@ -42,9 +42,9 @@
                                                     <td>
                                                         <anthem:TextBox ID="m_ECodigo" runat="server" CssClass="inputnumerico"></anthem:TextBox></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_ECodigo"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_ECodigo" Display="Dynamic"
                                                             ErrorMessage="Por favor ingrese un código" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                                                        <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_ECodigo"
+                                                        <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_ECodigo" Display="Dynamic"
                                                             ErrorMessage="Por favor ingrese un número aqui" MaximumValue="1000000000" MinimumValue="1"
                                                             SetFocusOnError="True" Type="Integer"></asp:RangeValidator>
                                                     </td>
@@ -56,7 +56,7 @@
                                                         <anthem:DropDownList ID="m_CBDepartamento" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBDepartamento_SelectedIndexChanged">
                                                         </anthem:DropDownList></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="m_CBDepartamento"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="m_CBDepartamento" Display="Dynamic"
                                                             ErrorMessage="Por favor seleccione un departamento" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
@@ -65,7 +65,7 @@
                                                     <td >
                                                         <anthem:TextBox ID="m_ENombre" runat="server" CssClass="editcomun "></anthem:TextBox></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="m_ENombre"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="m_ENombre" Display="Dynamic"
                                                             ErrorMessage="Por favor ingrese un nombre" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
@@ -74,7 +74,7 @@
                                                     <td >
                                                         <anthem:TextBox ID="m_ETotal" runat="server" CssClass="inputnumerico"></anthem:TextBox></td>
                                                     <td>
-                                                        <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="m_ETotal"
+                                                        <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="m_ETotal" Display="Dynamic"
                                                             ErrorMessage="Por favor ingrese un número aqui" MaximumValue="1000000000" MinimumValue="1"
                                                             SetFocusOnError="True" Type="Integer"></asp:RangeValidator>
                                                     </td>
@@ -85,7 +85,7 @@
                                                     <td ><anthem:DropDownList ID="m_CBEnte" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBEnte_SelectedIndexChanged">
                                                     </anthem:DropDownList></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="m_CBEnte"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="m_CBEnte" Display="Dynamic"
                                                             ErrorMessage="Por favor seleccione un ente" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
@@ -94,7 +94,7 @@
                                                     <td ><anthem:DropDownList ID="m_CBRegion" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBRegion_SelectedIndexChanged">
                                                     </anthem:DropDownList></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="m_CBRegion"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="m_CBRegion" Display="Dynamic"
                                                             ErrorMessage="Por favor seleccione una región"  InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                             </table>

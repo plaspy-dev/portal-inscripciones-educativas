@@ -42,7 +42,7 @@
                                                     <td style="width: 3px">
                                                         <anthem:TextBox ID="m_ENombre" runat="server"></anthem:TextBox></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_ENombre"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_ENombre" Display="Dynamic"
                                                             ErrorMessage="Por favor ingrese un nombre" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
@@ -76,7 +76,7 @@
                                                     <td style="width: 3px">
                                                         <anthem:TextBox ID="m_EOrden" runat="server" CssClass="inputnumerico"></anthem:TextBox></td>
                                                     <td>
-                                                        <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_EOrden"
+                                                        <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_EOrden" Display="Dynamic"
                                                             ErrorMessage="Por Favor ingrese un número aqui" MaximumValue="1000" MinimumValue="0"
                                                             SetFocusOnError="True" Type="Integer"></asp:RangeValidator></td>
                                                 </tr>

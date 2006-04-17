@@ -68,10 +68,10 @@
                                             Código del proyecto<anthem:HiddenField ID="m_nId" runat="server" />
                                         </td>
                                         <td>
-                                            <anthem:TextBox ID="m_ECodigo" runat="server" CssClass="inputnumerico"></anthem:TextBox></td>
+                                            <anthem:TextBox ID="m_ECodigo" runat="server" CssClass="editcomun"></anthem:TextBox></td>
                                         <td>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_ECodigo"
-                                            ErrorMessage="Por favor ingrese un código" SetFocusOnError="True"></asp:RequiredFieldValidator>&nbsp;
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_ECodigo" Display="Dynamic"
+                                            ErrorMessage="Por favor ingrese un código" SetFocusOnError="True"></asp:RequiredFieldValidator>
                                         </td>
                                     </tr>
 						            <tr>
@@ -81,7 +81,7 @@
                                             <anthem:DropDownList ID="m_EEnte" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_EEnte_SelectedIndexChanged">
                                             </anthem:DropDownList></td>
                                         <td>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="m_EEnte"
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="m_EEnte" Display="Dynamic"
                                                 ErrorMessage="Por favor seleccione un ente territorial" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                     </tr>
                                     <tr>
@@ -99,7 +99,7 @@
                                         <td ><anthem:TextBox ID="m_EInstitucion" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox></td>
                                         <td>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="m_EInstitucion"
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="m_EInstitucion" Display="Dynamic"
                                                 ErrorMessage="Por favor ingrese un código" SetFocusOnError="True"></asp:RequiredFieldValidator>&nbsp;
                                                 </td>
                                     </tr>
@@ -158,7 +158,7 @@
                                         <td >
                                             Fecha de resolución</td>
                                         <td ><anthem:TextBox ID="m_EFechaResolucion" runat="server" CssClass="editfecha"></anthem:TextBox><input id="Button2" name="botonfecha"  onclick="setFecha('m_EFechaResolucion')" type="button" value="..." /></td>
-                                        <td><asp:RangeValidator ID="RangeValidator5" runat="server" ControlToValidate="m_EFechaResolucion"
+                                        <td><asp:RangeValidator ID="RangeValidator5" runat="server" ControlToValidate="m_EFechaResolucion" Display="Dynamic"
                                                             ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
                                                             SetFocusOnError="True" Type="Date" ></asp:RangeValidator>
                                             </td>
@@ -273,7 +273,7 @@
                                             <anthem:DropDownList ID="m_CBCriticidad" runat="server" AutoCallBack="False">
                                             </anthem:DropDownList></td>
                                         <td>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="m_CBCriticidad"
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="m_CBCriticidad" Display="Dynamic"
                                             ErrorMessage="Por favor seleccione un valor" InitialValue="-1" SetFocusOnError="True" ValidationGroup="tab" ></asp:RequiredFieldValidator>
                                         </td>
                                     </tr>
@@ -284,7 +284,7 @@
                                                 <anthem:DropDownList ID="m_CBTipo" runat="server" AutoCallBack="False">
                                                 </anthem:DropDownList></td>
                                             <td>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="m_CBTipo"
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="m_CBTipo" Display="Dynamic"
                                                     ErrorMessage="Por favor seleccione tipo" InitialValue="-1" SetFocusOnError="True" ValidationGroup="tab" ></asp:RequiredFieldValidator></td>
                                         </tr>
                                         <tr>
@@ -301,7 +301,7 @@
                                             <td>
                                                 <anthem:TextBox ID="m_EFechaEmergencia" runat="server" CssClass="editfecha"></anthem:TextBox><input id="botonfecha" name="botonfecha"  onclick="setFecha('m_EFechaEmergencia')" type="button" value="..." /></td>
                                             <td>
-                                                <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="m_EFechaEmergencia"
+                                                <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="m_EFechaEmergencia" Display="Dynamic"
                                                     ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
                                                     SetFocusOnError="True" Type="Date" ValidationGroup="tab"></asp:RangeValidator></td>
                                         </tr>
@@ -320,7 +320,7 @@
                                                 <anthem:DropDownList ID="m_CBConcepto" runat="server" AutoCallBack="False">
                                                 </anthem:DropDownList></td>
                                             <td>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="m_CBConcepto"
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="m_CBConcepto" Display="Dynamic"
                                                     ErrorMessage="Por favor seleccione un concepto" InitialValue="-1" SetFocusOnError="True" ValidationGroup="objeto"></asp:RequiredFieldValidator></td>
                                         </tr>
                                         <tr>
@@ -330,9 +330,9 @@
                                                 <anthem:TextBox ID="m_ECantidad" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
                                             <td>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="m_ECantidad"
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="m_ECantidad" Display="Dynamic"
                                                     ErrorMessage="Por favor ingrese una cantidad" SetFocusOnError="True" ValidationGroup="objeto"></asp:RequiredFieldValidator>
-                                                <asp:RangeValidator ID="RangeValidator3" runat="server" ControlToValidate="m_ECantidad"
+                                                <asp:RangeValidator ID="RangeValidator3" runat="server" ControlToValidate="m_ECantidad" Display="Dynamic"
                                                             ErrorMessage="Por favor ingrese un número aqui" MaximumValue="900000000000000" MinimumValue="1"
                                                             SetFocusOnError="True" Type="Currency" ValidationGroup="objeto"></asp:RangeValidator>
                                                     </td>
@@ -344,7 +344,7 @@
                                                 <anthem:DropDownList ID="m_CBUnidades" runat="server" AutoCallBack="False">
                                                 </anthem:DropDownList></td>
                                             <td>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="m_CBUnidades"
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="m_CBUnidades" Display="Dynamic"
                                                     ErrorMessage="Por favor seleccione unas unidades" InitialValue="-1" SetFocusOnError="True" ValidationGroup="objeto"></asp:RequiredFieldValidator></td>
                                         </tr>
                                         <tr>
@@ -354,9 +354,9 @@
                                                 <anthem:TextBox ID="m_EValor" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
                                             <td>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="m_EValor"
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="m_EValor" Display="Dynamic"
                                                     ErrorMessage="Por favor ingrese un valor" SetFocusOnError="True" ValidationGroup="objeto"></asp:RequiredFieldValidator>
-                                                <asp:RangeValidator ID="RangeValidator4" runat="server" ControlToValidate="m_EValor"
+                                                <asp:RangeValidator ID="RangeValidator4" runat="server" ControlToValidate="m_EValor" Display="Dynamic"
                                                             ErrorMessage="Por favor ingrese un número aqui" MaximumValue="900000000000000" MinimumValue="1"
                                                             SetFocusOnError="True" Type="Currency" ValidationGroup="objeto"></asp:RangeValidator>
                                             </td>

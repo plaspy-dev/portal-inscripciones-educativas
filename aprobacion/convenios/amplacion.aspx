@@ -43,7 +43,7 @@
                                                         <anthem:DropDownList ID="m_CBEnte" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBEnte_SelectedIndexChanged">
                                                         </anthem:DropDownList></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_CBEnte"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_CBEnte" Display="Dynamic"
                                                             ErrorMessage="Por favor seleccione un ente" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
@@ -60,9 +60,9 @@
                                                     <td >
                                                         <anthem:TextBox ID="m_EActual" runat="server" CssClass="inputnumerico"></anthem:TextBox></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="m_EActual"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="m_EActual" Display="Dynamic"
                                                             ErrorMessage="Por favor ingrese un valor" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                                                    <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_EActual"
+                                                    <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_EActual" Display="Dynamic"
                                                             ErrorMessage="Por favor ingrese un número aqui" MaximumValue="1000000000" MinimumValue="1"
                                                             SetFocusOnError="True" Type="Integer"></asp:RangeValidator>
                                                     </td>

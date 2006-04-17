@@ -41,7 +41,7 @@
                                                     <td>
                                                         <anthem:TextBox ID="m_ENumero" runat="server" CssClass="editcomun "></anthem:TextBox></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_ENumero"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_ENumero" Display="Dynamic"
                                                             ErrorMessage="Por favor ingrese un número" SetFocusOnError="True"></asp:RequiredFieldValidator>
                                                             </td>
                                                 </tr>
@@ -52,7 +52,7 @@
                                                         <anthem:DropDownList ID="m_CBTipo" runat="server" AutoCallBack="true" OnSelectedIndexChanged="m_CBTipo_SelectedIndexChanged">
                                                         </anthem:DropDownList></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="m_CBTipo"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="m_CBTipo" Display="Dynamic"
                                                             ErrorMessage="Por favor selecccione un tipo" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
@@ -62,7 +62,7 @@
                                                         <anthem:DropDownList ID="m_CBBanco" runat="server" AutoCallBack="true" OnSelectedIndexChanged="m_CBBanco_SelectedIndexChanged">
                                                         </anthem:DropDownList></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="m_CBBanco"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="m_CBBanco" Display="Dynamic"
                                                             ErrorMessage="Por favor seleccione un banco" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
@@ -71,7 +71,7 @@
                                                     <td >
                                                         <anthem:TextBox ID="m_ESucursal" runat="server" CssClass="editcomun "></anthem:TextBox></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="m_ESucursal"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="m_ESucursal" Display="Dynamic"
                                                             ErrorMessage="Por favor ingrese una sucursal" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                             </table>

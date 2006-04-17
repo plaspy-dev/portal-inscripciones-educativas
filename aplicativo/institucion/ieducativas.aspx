@@ -68,9 +68,9 @@
                                         <td>
                                             <anthem:TextBox ID="m_ECodigo" runat="server" CssClass="inputnumerico"></anthem:TextBox></td>
                                         <td>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_ECodigo"
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="m_ECodigo" Display="Dynamic"
                                             ErrorMessage="Por favor ingrese un código" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                                            <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_ECodigo"
+                                            <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_ECodigo" Display="Dynamic"
                                                             ErrorMessage="Por favor ingrese un número aqui" MaximumValue="1000000000" MinimumValue="1"
                                                             SetFocusOnError="True" Type="Integer"></asp:RangeValidator>
                                         </td>
@@ -81,7 +81,7 @@
                                         <td ><anthem:TextBox ID="m_ENombre" runat="server" CssClass="editcomun ">
                                         </anthem:TextBox></td>
                                         <td>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="m_ENombre"
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="m_ENombre" Display="Dynamic"
                                                 ErrorMessage="Por favor ingrese un nombre" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                     </tr>
                                     <tr>
@@ -91,7 +91,7 @@
                                             <anthem:DropDownList ID="m_CBCalendario" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBCalendario_SelectedIndexChanged">
                                             </anthem:DropDownList></td>
                                         <td>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="m_CBCalendario"
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="m_CBCalendario" Display="Dynamic"
                                                 ErrorMessage="Por favor selecccione un calendario" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                     </tr>
                                     <tr>
@@ -100,7 +100,7 @@
                                         <td ><anthem:DropDownList ID="m_CBTipo" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBTipo_SelectedIndexChanged">
                                         </anthem:DropDownList></td>
                                         <td>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="m_CBTipo"
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="m_CBTipo" Display="Dynamic"
                                                 ErrorMessage="Por favor seleccione un tipo" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                     </tr>
                                                 <tr>
@@ -109,7 +109,7 @@
                                                     <td ><anthem:DropDownList ID="m_CBSector" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBSector_SelectedIndexChanged">
                                                     </anthem:DropDownList></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="m_CBSector"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="m_CBSector" Display="Dynamic"
                                                             ErrorMessage="Por favor seleccione un sector" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
@@ -118,7 +118,7 @@
                                                     <td ><anthem:DropDownList ID="m_CBDepartamento" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBDepartamento_SelectedIndexChanged">
                                                     </anthem:DropDownList></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="m_CBDepartamento"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="m_CBDepartamento" Display="Dynamic"
                                                             ErrorMessage="Por favor seleccione un departamento" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
@@ -127,7 +127,7 @@
                                                     <td ><anthem:DropDownList ID="m_CBMunicipio" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBMunicipio_SelectedIndexChanged">
                                                     </anthem:DropDownList></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="m_CBMunicipio"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="m_CBMunicipio" Display="Dynamic"
                                                             ErrorMessage="Por favor seleccione un municipio" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
@@ -136,7 +136,7 @@
                                                     <td ><anthem:DropDownList ID="m_CBModalidad" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBModalidad_SelectedIndexChanged">
                                                     </anthem:DropDownList></td>
                                                     <td>
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="m_CBModalidad"
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="m_CBModalidad" Display="Dynamic"
                                                             ErrorMessage="Por favor seleccione una modalidad" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                     <tr>
@@ -153,7 +153,7 @@
                                         <td><anthem:DropDownList ID="m_CBZona" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBZona_SelectedIndexChanged">
                                         </anthem:DropDownList></td>
                                         <td>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="m_CBZona"
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="m_CBZona" Display="Dynamic"
                                                 ErrorMessage="Por favor seleccione una zona" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                     </tr>
                                     <tr>

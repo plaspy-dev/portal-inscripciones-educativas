@@ -91,6 +91,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_saCamposAlias[4] = "departamentos.nombre";
         m_saCamposAlias[5] = "municipios.nombre";
         m_saCamposAlias[6] = "insteducativas.nombre";
+        m_saCamposAlias[7] = "dbo.fn_GetObjetos(proyectos.id)";
         m_saCamposAlias[8] = "SUM(objeto.valor)";
         m_saCamposAlias[9] = "presupuesto.valormen";
         m_saCamposAlias[10] = "(presupuesto.valormen*100)/SUM(objeto.valor)";
@@ -143,6 +144,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         FillComboBox(m_CBConcepto, "SELECT id,nombre FROM varios WHERE tipo=15 AND (nReservado IS NULL OR nReservado!=-1)");
         FillComboBox(m_CBConceptoViablizacion, "SELECT id,nombre FROM varios WHERE tipo=50 AND (nReservado IS NULL OR nReservado!=-1)");
         FillComboBox(m_CBTipo, "SELECT id,nombre FROM varios WHERE tipo=13 AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre");
+        FillComboBox(m_CBEstado, "SELECT id,nombre FROM varios WHERE tipo=60 AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre");
 
         m_szJoin = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=proyectos.eterritorial) "
             + " LEFT JOIN eterritoriales ON (eterritoriales.codigo=proyectos.eterritorial)"
@@ -170,9 +172,13 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             m_szCondicionEx += " AND proyectos.municipio=" + m_CBMunicipio.SelectedValue;
         if (m_CBProyecto.SelectedIndex > 0)
             m_szCondicionEx += " AND proyectos.proyectoi=" + m_CBProyecto.SelectedValue;
+        if (m_CBEstado.SelectedIndex > 0)
+            m_szCondicionEx += " AND proyectos.estado=" + m_CBEstado.SelectedValue;
+        if (m_CBConceptoViablizacion.SelectedIndex > 0)
+            m_szCondicionEx += " AND proyectos.conceptoviabilizacion" + m_CBConceptoViablizacion.SelectedValue;
 
         string grupo= " GROUP BY ";
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 7; i++)
         {
             grupo += m_saCamposAlias[i] + ",";
         }
@@ -209,6 +215,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         // objeto
         if (!IsPostBack)
         {
+            Session["idobjectos"] = "";
             m_BEliminarObjeto.Style["display"] = "none";
             m_BAceptarObjeto.Style["display"] = "none";
             m_BCancelarObjeto.Style["display"] = "none";
@@ -234,72 +241,6 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             data = new BoundField();
             data.DataField = data.HeaderText = "Valor";
             m_LCObjetos.Columns.Add(data);
-        }
-
-        // documentos
-        if (m_LBDocumentos.Columns.Count == 0)
-        {
-            CheckBoxColumn checkCol = new CheckBoxColumn("DGSelectOrUnselectAllTodos", "updateOtros", m_LBDocumentos.ID);
-            checkCol.HeaderText = "";
-            checkCol.DataField = "did";
-            checkCol.SetCheckInHeader(0);
-            m_LBDocumentos.Columns.Add(checkCol);
-
-            BoundColumn data = new BoundColumn();
-            data.DataField = data.HeaderText = "id";
-            data.Visible = false;
-            m_LBDocumentos.Columns.Add(data);
-
-            data = new BoundColumn();
-            data.DataField = "Documento";
-            data.HeaderText = "Documento";
-            m_LBDocumentos.Columns.Add(data);
-
-            CEditBoxCol editcol = new CEditBoxCol(m_LBDocumentos.ID);
-            editcol.DataField = "Fecha";
-            editcol.HeaderText = "Fecha";
-            m_LBDocumentos.Columns.Add(editcol);
-
-            editcol = new CEditBoxCol();
-            editcol.DataField = "Número";
-            editcol.HeaderText = "Número";
-            m_LBDocumentos.Columns.Add(editcol);
-
-            editcol = new CEditBoxCol();
-            editcol.DataField = "Observaciones";
-            editcol.HeaderText = "Observaciones";
-            m_LBDocumentos.Columns.Add(editcol);
-
-            m_LBDocumentos.DataKeyField = "id";
-            m_LBDocumentos.DataBind();
-        }
-
-        // aspectos tecnicos
-        if (m_LBTecnicos.Columns.Count == 0)
-        {
-            CheckBoxColumn checkCol = new CheckBoxColumn("DGSelectOrUnselectAllTodos", "updateOtros", m_LBTecnicos.ID);
-            checkCol.HeaderText = "";
-            checkCol.DataField = "did";
-            checkCol.SetCheckInHeader(0);
-            m_LBTecnicos.Columns.Add(checkCol);
-
-            BoundColumn data = new BoundColumn();
-            data.DataField = data.HeaderText = "id";
-            data.Visible = false;
-            m_LBTecnicos.Columns.Add(data);
-
-            data = new BoundColumn();
-            data.DataField = "Documento";
-            data.HeaderText = "Aspecto Técnico";
-            m_LBTecnicos.Columns.Add(data);
-
-            CEditBoxCol editcol = new CEditBoxCol(true);
-            editcol.DataField = "Cantidad";
-            editcol.HeaderText = "Cantidad";
-            m_LBTecnicos.Columns.Add(editcol);
-
-            m_LBTecnicos.DataKeyField = "id";
-            m_LBTecnicos.DataBind();
         }
         // pestaña 5
         m_EAulasN.Attributes["onKeypress"] = "isnb();";
@@ -369,10 +310,8 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_CBMunicipio.UpdateAfterCallBack = true;
         m_CBProyecto.UpdateAfterCallBack = true;
         m_SInstitucion.UpdateAfterCallBack = true;
-        m_SFechaUltimaRevision.UpdateAfterCallBack = true;
-        m_SConceptoViabilidad.UpdateAfterCallBack = true;
-        m_SEstado.UpdateAfterCallBack = true;
-        m_SObservaciones.UpdateAfterCallBack = true;
+        m_CBEstado.UpdateAfterCallBack = true;
+        m_EObservaciones.UpdateAfterCallBack = true;
         m_ENITFirma.UpdateAfterCallBack = true;
         m_ENombreFirma.UpdateAfterCallBack = true;
         m_ERepresentante.UpdateAfterCallBack = true;
@@ -389,15 +328,12 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_SPorcentajeMun.UpdateAfterCallBack = true;
         m_CBConceptoViablizacion.UpdateAfterCallBack = true;
         m_EFechaAprobacion.UpdateAfterCallBack = true;
-        m_EObservaciones.UpdateAfterCallBack = true;
 
         // pestaña 3
         m_EObservacionesDocumentos.UpdateAfterCallBack = true;
-        m_LBDocumentos.UpdateAfterCallBack = true;
 
         // pestaña 4
         m_EObservacionesTecnicas.UpdateAfterCallBack = true;
-        m_LBTecnicos.UpdateAfterCallBack = true;
 
         // pestaña 5
         m_CBTipo.UpdateAfterCallBack = true;
@@ -450,10 +386,9 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             + m_pUsuario.GetVigenciaActual() + "' AND proyectosi.eterritorial=" + m_CBEnte.SelectedValue + (m_CBMunicipio.SelectedIndex > 0 ? (" AND proyectosi.municipio=" + m_CBMunicipio.SelectedValue) : ""), true);
         SelectInCombo(m_CBProyecto, row[2].ToString());
         m_SInstitucion.Text = row[6].ToString();
-        m_SConceptoViabilidad.Text = row[13].ToString();
-        m_SEstado.Text=row[14].ToString();
-        m_SObservaciones.Text= row[16].ToString();
-        m_EFechaUltima.Text= m_SFechaUltimaRevision.Text =row[15].ToString();
+        SelectInCombo(m_CBEstado, row[14].ToString());
+        m_EObservaciones.Text= row[16].ToString();
+        m_EFechaUltima.Text= row[15].ToString();
 
         // responsable
         SqlDataReader reader = m_pConector.Query("SELECT nit,nombre,representante,direccion,telefono,fax,email FROM responsableviabilizacion WHERE proyecto=" + m_nId.Value);
@@ -481,6 +416,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         //objeto
         Session["idobjectos"] = m_nId.Value;
         m_LCObjetos.DataBind();
+        m_LCObjetos.UpdateAfterCallBack = true;
 
         m_BEliminarObjeto.Style["display"] = "none";
         m_BAceptarObjeto.Style["display"] = "none";
@@ -491,10 +427,10 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
 
         // pestaña 3
         Session["idproyecto"] = m_nId.Value;
-        m_LBDocumentos.DataBind();
+        m_LCDocumentos.DataBind();
 
         // pestaña 4
-        m_LBTecnicos.DataBind();
+        m_LCTecnicos.DataBind();
 
         // pestaña 5
 
@@ -544,10 +480,8 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_nId.Value = "";
         m_nIdInstitucion.Value = "";
         m_SInstitucion.Text = "";
-        m_SFechaUltimaRevision.Text = "";
-        m_SConceptoViabilidad.Text = "";
-        m_SEstado.Text = "";
-        m_SObservaciones.Text = "";
+        m_CBEstado.SelectedIndex=0;
+        m_EObservaciones.Text = "";
         m_ENITFirma.Text = "";
         m_ENombreFirma.Text = "";
         m_ERepresentante.Text = "";
@@ -567,7 +501,6 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_SPorcentajeMun.Text = "";
         m_CBConceptoViablizacion.SelectedIndex = 0;
         m_EFechaAprobacion.Text = "";
-        m_EObservaciones.Text = "";
 
         // objeto
         Session["idobjectos"] = "0";
@@ -584,11 +517,11 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         // pestaña 3
         m_EObservacionesDocumentos.Text = "";
         Session["idproyecto"] = "";
-        m_LBDocumentos.DataBind();
+        m_LCDocumentos.DataBind();
 
         // pestaña 4
         m_EObservacionesTecnicas.Text = "";
-        m_LBTecnicos.DataBind();
+        m_LCTecnicos.DataBind();
         // pestaña 5
         m_CBTipo.SelectedIndex=0;
         m_EAulasN.Text = "";
@@ -621,13 +554,13 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_EIndiceOcupacion.Text = "";
         m_EIndiceConstruccion2.Text = "";
         m_EObservacionesValores.Text = "";
-        if(sender.ToString()!="1")
+        if(sender==null || sender.ToString()!="1")
             base.m_BCancelar_Click(sender, e);
     }
 
     protected bool InsertarTecnicos()
     {
-        m_szTabla = "aspectostecnicos";
+        string szTabla = "aspectostecnicos";
         for (int i = 0; i < m_saCampos.Length; i++)
             m_saCampos[i] = m_saDatos[i] = "";
 
@@ -641,28 +574,29 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
 
         DataTable tabla = CAspectosTecnicos.GetTabla();
 
-        for (int i = 0; i < m_LBTecnicos.Items.Count; i++)
+        for (int i = 0; i < m_LCTecnicos.Rows.Count; i++)
         {
-            query = "";
-            check = ((CheckBox)m_LBTecnicos.Items[i].Cells[0].Controls[0]).Checked;
-            m_saDatos[1] = m_LBTecnicos.Items[i].Cells[1].Text;
-            m_saDatos[2] = ((TextBox)m_LBTecnicos.Items[i].Cells[3].Controls[0]).Text;
 
-            DataRow row = tabla.Rows.Find(m_saDatos[1]);
+            DataRow row = tabla.Rows[i];
+            query = "";
+            check = ((CheckBox)m_LCTecnicos.Rows[i].Cells[0].Controls[1]).Checked;
+            m_saDatos[1] = row["id"].ToString();
+            m_saDatos[2] = ((TextBox)m_LCTecnicos.Rows[i].Cells[2].Controls[1]).Text;
+
             if (row != null && row[1].ToString() != "")
             {
                 if (check) // actualizar
                 {
-                    query = CConector.CreateUpdate(m_szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion("id", row[1].ToString());
+                    query = CConector.CreateUpdate(szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion("id", row[1].ToString());
                 }
                 else
                 {
-                    query = "DELETE FROM " + m_szTabla + " WHERE id=" + row[1].ToString();
+                    query = "DELETE FROM " + szTabla + " WHERE id=" + row[1].ToString();
                 }
             }
             else if (check)
             {
-                query = CConector.CrearInsercion(m_szTabla, m_saCampos, m_saDatos);
+                query = CConector.CrearInsercion(szTabla, m_saCampos, m_saDatos);
             }
             if (query.Length > 0 && m_pConector.QueryMod(query) == -1)
             {
@@ -674,7 +608,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
 
     protected bool InsertarDocumentos()
     {
-        m_szTabla = "documentoproyecto";
+        string szTabla = "documentoproyecto";
         for (int i = 0; i < m_saCampos.Length; i++)
             m_saCampos[i] = m_saDatos[i] = "";
         
@@ -690,30 +624,30 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
 
         DataTable tabla = CDocumentosProyecto.GetTabla();
 
-        for (int i = 0; i < m_LBDocumentos.Items.Count; i++)
+        for (int i = 0; i < m_LCDocumentos.Rows.Count; i++)
         {
+            DataRow row = tabla.Rows[i];
             query = "";
-            check = ((CheckBox)m_LBDocumentos.Items[i].Cells[0].Controls[0]).Checked;
-            m_saDatos[1] = m_LBDocumentos.Items[i].Cells[1].Text;
-            m_saDatos[2] = ((TextBox)m_LBDocumentos.Items[i].Cells[3].Controls[0]).Text;
-            m_saDatos[3] = ((TextBox)m_LBDocumentos.Items[i].Cells[4].Controls[0]).Text;
-            m_saDatos[4] = ((TextBox)m_LBDocumentos.Items[i].Cells[5].Controls[0]).Text;
+            check = ((CheckBox)m_LCDocumentos.Rows[i].Cells[0].Controls[1]).Checked;
+            m_saDatos[1] = row["id"].ToString();
+            m_saDatos[2] = ((TextBox)m_LCDocumentos.Rows[i].Cells[3].Controls[1]).Text;
+            m_saDatos[3] = ((TextBox)m_LCDocumentos.Rows[i].Cells[4].Controls[1]).Text;
+            m_saDatos[4] = ((TextBox)m_LCDocumentos.Rows[i].Cells[5].Controls[1]).Text;
 
-            DataRow row = tabla.Rows.Find(m_saDatos[1]);
             if (row != null && row[1].ToString() != "")
             {
                 if (check) // actualizar
                 {
-                    query = CConector.CreateUpdate(m_szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion("id", row[1].ToString());
+                    query = CConector.CreateUpdate(szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion("id", row[1].ToString());
                 }
                 else
                 {
-                    query = "DELETE FROM " + m_szTabla + " WHERE id=" + row[1].ToString();
+                    query = "DELETE FROM " + szTabla + " WHERE id=" + row[1].ToString();
                 }
             }
             else if (check)
             {
-                query = CConector.CrearInsercion(m_szTabla, m_saCampos, m_saDatos);
+                query = CConector.CrearInsercion(szTabla, m_saCampos, m_saDatos);
             }
             if (query.Length > 0 && m_pConector.QueryMod(query) == -1)
             {
@@ -725,7 +659,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
 
     protected bool InsertarObservaciones(bool insertar)
     {
-        m_szTabla = "observacionesproyecto";
+        string szTabla = "observacionesproyecto";
         for (int i = 0; i < m_saCampos.Length; i++)
             m_saCampos[i] = m_saDatos[i] = "";
 
@@ -744,19 +678,19 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         string query = "";
         if (insertar)
         {
-            query = CConector.CrearInsercion(m_szTabla, m_saCampos, m_saDatos);
+            query = CConector.CrearInsercion(szTabla, m_saCampos, m_saDatos);
         }
         else
         {
             m_saDatos[0] = "";
-            query = CConector.CreateUpdate(m_szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion(m_saCampos[0], m_nId.Value);
+            query = CConector.CreateUpdate(szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion(m_saCampos[0], m_nId.Value);
         }
         return m_pConector.QueryMod(query) != -1;
     }
 
     protected bool InsertarAreas(bool insertar)
     {
-        m_szTabla = "areas";
+        string szTabla = "areas";
         for (int i = 0; i < m_saCampos.Length; i++)
             m_saCampos[i] = m_saDatos[i] = "";
 
@@ -777,19 +711,19 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         string query = "";
         if (insertar)
         {
-            query = CConector.CrearInsercion(m_szTabla, m_saCampos, m_saDatos);
+            query = CConector.CrearInsercion(szTabla, m_saCampos, m_saDatos);
         }
         else
         {
             m_saDatos[0] = "";
-            query = CConector.CreateUpdate(m_szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion(m_saCampos[0], m_nId.Value);
+            query = CConector.CreateUpdate(szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion(m_saCampos[0], m_nId.Value);
         }
         return m_pConector.QueryMod(query) != -1;
     }
 
     protected bool InsertarValores(bool insertar)
     {
-        m_szTabla = "valor";
+        string szTabla = "valor";
         for (int i = 0; i < m_saCampos.Length; i++)
             m_saCampos[i] = m_saDatos[i] = "";
 
@@ -812,12 +746,12 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         string query = "";
         if (insertar)
         {
-            query = CConector.CrearInsercion(m_szTabla, m_saCampos, m_saDatos);
+            query = CConector.CrearInsercion(szTabla, m_saCampos, m_saDatos);
         }
         else
         {
             m_saDatos[0] = "";
-            query = CConector.CreateUpdate(m_szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion(m_saCampos[0], m_nId.Value);
+            query = CConector.CreateUpdate(szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion(m_saCampos[0], m_nId.Value);
         }
         return m_pConector.QueryMod(query) != -1;
     }
@@ -825,7 +759,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
     protected bool InsertarInfraestructura(bool insertar)
     {
 
-        m_szTabla = "infraestructura";
+        string szTabla = "infraestructura";
         for (int i = 0; i < m_saCampos.Length; i++)
             m_saCampos[i] = m_saDatos[i] = "";
 
@@ -852,19 +786,19 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         string query = "";
         if (insertar)
         {
-            query = CConector.CrearInsercion(m_szTabla, m_saCampos, m_saDatos);
+            query = CConector.CrearInsercion(szTabla, m_saCampos, m_saDatos);
         }
         else
         {
             m_saDatos[0] = "";
-            query = CConector.CreateUpdate(m_szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion(m_saCampos[0], m_nId.Value);
+            query = CConector.CreateUpdate(szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion(m_saCampos[0], m_nId.Value);
         }
         return m_pConector.QueryMod(query) != -1;
     }
 
     protected bool InsertarPresupuesto(bool insertar)
     {
-        m_szTabla = "presupuesto";
+        string szTabla = "presupuesto";
         for (int i = 0; i < m_saCampos.Length; i++)
             m_saCampos[i] = m_saDatos[i] = "";
 
@@ -876,18 +810,18 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         string query = "";
         if (insertar)
         {
-            query = CConector.CrearInsercion(m_szTabla, m_saCampos, m_saDatos);
+            query = CConector.CrearInsercion(szTabla, m_saCampos, m_saDatos);
         }
         else
         {
-            query = CConector.CreateUpdate(m_szTabla, m_saCampos[1], m_saDatos[1]) + CConector.GetCondicion(m_saCampos[0], m_saDatos[0]);
+            query = CConector.CreateUpdate(szTabla, m_saCampos[1], m_saDatos[1]) + CConector.GetCondicion(m_saCampos[0], m_saDatos[0]);
         }
         return m_pConector.QueryMod(query) != -1;
     }
 
     protected bool InsertarResponsable(bool insertar)
     {
-        m_szTabla = "responsableviabilizacion";
+        string szTabla = "responsableviabilizacion";
         for (int i = 0; i < m_saCampos.Length; i++)
             m_saCampos[i] = m_saDatos[i] = "";
 
@@ -911,12 +845,12 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         string query = "";
         if (insertar)
         {
-            query = CConector.CrearInsercion(m_szTabla, m_saCampos, m_saDatos);
+            query = CConector.CrearInsercion(szTabla, m_saCampos, m_saDatos);
         }
         else
         {
             m_saCampos[0] = "";
-            query = CConector.CreateUpdate(m_szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion("proyecto", m_saDatos[0]);
+            query = CConector.CreateUpdate(szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion("proyecto", m_saDatos[0]);
         }
         return m_pConector.QueryMod(query) != -1;
     }
@@ -933,6 +867,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_saDatos[5] = m_CBMunicipio.SelectedValue;
         m_saDatos[6] = m_nIdInstitucion.Value;
         m_saDatos[13] = GetSeleccion(m_CBConceptoViablizacion.SelectedValue);
+        m_saDatos[14] = GetSeleccion(m_CBEstado.SelectedValue);
         m_saDatos[15] = "%GETDATE()";
         m_saDatos[16] = GetString(m_EObservaciones.Text);
         m_saDatos[17] = m_EFechaAprobacion.Text;
@@ -968,6 +903,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
     {
         // campos a actualizar
         m_saDatos[13] = GetSeleccion(m_CBConceptoViablizacion.SelectedValue);
+        m_saDatos[14] = GetSeleccion(m_CBEstado.SelectedValue);
         m_saDatos[15] = "%GETDATE()";
         m_saDatos[16] = GetString(m_EObservaciones.Text);
         m_saDatos[17] = m_EFechaAprobacion.Text;
@@ -1126,6 +1062,11 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_LCObjetos.SelectedIndex = -1;
         m_LCObjetos.UpdateAfterCallBack = true;
 
+        // tabla principal
+        CTablaEx.RebuilTable();
+        m_LCResultados.DataBind();
+        m_LCResultados.UpdateAfterCallBack = true;
+
         m_nIdObjeto.UpdateAfterCallBack = true;
         m_EValor.UpdateAfterCallBack = true;
         m_CBUnidades.UpdateAfterCallBack = true;
@@ -1198,12 +1139,12 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
     override protected void SetView(int index)
     {
         int inicio = 0, fin = 0;
-        if (index == 4)
+        if (index == 3)
         {
             inicio = 19;
             fin = 33;
         }
-        else if (index == 5)
+        else if (index == 4)
         {
             inicio = 33;
             fin = m_saTitulos.Length-1;
@@ -1223,7 +1164,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         {
             m_LCResultados.Columns[i].Visible = true;
         }
-        if (index == 4 || index==5)
+        if (index == 3 || index==4)
         {
             m_LCResultados.Columns[2].Visible=true;
             m_LCResultados.Columns[3].Visible=true;
@@ -1237,5 +1178,36 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             m_LCResultados.Columns[0].Visible = true;
         }
         base.SetView(index);
+    }
+    protected void m_CBConceptoViablizacion_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        m_LCResultados.DataBind();
+        m_LCResultados_PageIndexChanged(m_LCResultados, e);
+        // m_LCResultados.Columns[].Visible = .SelectedIndex == 0;
+        m_LCResultados.UpdateAfterCallBack = true;
+    }
+    protected void m_CBEstado_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        m_CBConceptoViablizacion_SelectedIndexChanged(sender, e);
+    }
+    protected void m_LCDocumentos_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.DataItemIndex != -1)
+        {
+            TextBox text = (TextBox)e.Row.Cells[3].Controls[1];
+            text.Attributes["readonly"] = "true";
+            text.Text = GetFechaCorta(text.Text);
+            HtmlInputButton boton = (HtmlInputButton)e.Row.Cells[3].Controls[2];
+            boton.Attributes["onclick"] = "setFecha('" + m_LCDocumentos.ID + "_ctl" + ((e.Row.DataItemIndex + 2) < 10 ? "0" : "")
+            + (e.Row.DataItemIndex + 2) + "_m_EFecha');";
+        }
+    }
+    protected void m_LCTecnicos_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.DataItemIndex != -1)
+        {
+            TextBox text = (TextBox)e.Row.Cells[2].Controls[1];
+            text.Attributes["onKeypress"] = "isnb();";
+        }
     }
 }
