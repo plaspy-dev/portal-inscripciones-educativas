@@ -13,6 +13,10 @@ public partial class mapa : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            CMapa mapa = CMapa.GetMapa("2003");
+        }
         m_SUsuarioActual.Text = " ";
         m_SFechaActual.Text= CPageTemplate.GetFechaHora(DateTime.Now);
         m_STituloLargo.Text = "Mapa";
