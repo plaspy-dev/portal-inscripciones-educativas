@@ -118,6 +118,7 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
             ;
 
         m_szCondicion = " proyectosi.vigencia='" +m_pUsuario.GetVigenciaActual() + "' AND (proyectosi.estudiantesb IS NULL OR proyectosi.estudiantesb!=-1) ";
+        m_szCondicion += " AND " + m_pUsuario.GetCondicion("proyectosi.eterritorial");
         string gruoup = " GROUP BY ";
         for (int i = 0; i < 9; i++)
         {
@@ -136,14 +137,12 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         FillComboBox(m_CBJornadas, "SELECT nombre,nombre FROM varios WHERE tipo=41 AND (nReservado IS NULL OR nReservado!=-1) ");
         FillComboBox(m_CBCriticidad, "SELECT id,nombre FROM varios WHERE tipo=35 AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre");
         FillComboBox(m_CBTipo, "SELECT id,nombre FROM varios WHERE tipo=13 AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre");
-        FillComboBox(m_CBUnidades, "SELECT id,nombre FROM varios WHERE tipo=42 AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre");
         FillComboBox(m_CBConcepto, "SELECT id,nombre FROM varios WHERE tipo=15 AND (nReservado IS NULL OR nReservado!=-1)");
         FillComboBox(m_CBPorcentaje, "SELECT nombre,nombre FROM varios WHERE tipo=43 AND (nReservado IS NULL OR nReservado!=-1)");
 
         // autofiltro
         if (m_EEnte.SelectedIndex > 0)
             m_szCondicionEx += " AND proyectosi.eterritorial=" + m_EEnte.SelectedValue;
-        else m_szCondicionEx += " AND " + m_pUsuario.GetCondicion("proyectosi.eterritorial");
         if (m_EMunicipio.SelectedIndex > 0)
             m_szCondicionEx += " AND proyectosi.municipio=" + m_EMunicipio.SelectedValue;
 
@@ -168,6 +167,8 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
 
         if (!IsPostBack)
         {
+            CTablaObjeto.RebuilTable();
+
             m_BEliminarObjeto.Style["display"] = "none";
             m_BAceptarObjeto.Style["display"] = "none";
             m_BCancelarObjeto.Style["display"] = "none";
@@ -184,10 +185,6 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
 
             data = new BoundField();
             data.DataField = data.HeaderText = "Cantidad";
-            m_LCObjetos.Columns.Add(data);
-
-            data = new BoundField();
-            data.DataField = data.HeaderText = "Unidades";
             m_LCObjetos.Columns.Add(data);
 
             data = new BoundField();
@@ -229,7 +226,6 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_EFechaEmergencia.UpdateAfterCallBack = true;
         m_CBConcepto.UpdateAfterCallBack = true;
         m_ECantidad.UpdateAfterCallBack = true;
-        m_CBUnidades.UpdateAfterCallBack = true;
         m_EValor.UpdateAfterCallBack = true;
         m_CBPorcentaje.UpdateAfterCallBack = true;
         m_EEstudiantesBeneficiados.UpdateAfterCallBack = true;
@@ -683,7 +679,7 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         campos[0] = m_nId.Value;
         campos[1] = m_CBConcepto.SelectedValue;
         campos[2] = GetDouble(m_ECantidad.Text);
-        campos[3] = m_CBUnidades.SelectedValue;
+        campos[3] = "";
         campos[4] = GetDouble(m_EValor.Text);
         m_pConector.QueryMod(CConector.CrearInsercion("objetoinscrito", campos));
         m_BCancelarObjeto_Click(sender, e);
@@ -698,7 +694,7 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         nombres[1] = "cantidad";
         campos[1] = GetDouble(m_ECantidad.Text);
         nombres[2] = "unidades";
-        campos[2] = m_CBUnidades.SelectedValue;
+        campos[2] = "";
         nombres[3] = "valor";
         campos[3] = GetDouble(m_EValor.Text);
         m_pConector.QueryMod(CConector.CreateUpdate("objetoinscrito", nombres, campos) + CConector.GetCondicion("id", m_nIdObjeto.Value));
@@ -721,7 +717,6 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_nIdObjeto.Value = "";
         m_CBConcepto.SelectedIndex = 0;
         m_ECantidad.Text = "";
-        m_CBUnidades.SelectedIndex = 0;
         m_EValor.Text = "";
         CTablaObjeto.RebuilTable();
         m_LCObjetos.DataBind();
@@ -735,7 +730,6 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
 
         m_nIdObjeto.UpdateAfterCallBack = true;
         m_EValor.UpdateAfterCallBack = true;
-        m_CBUnidades.UpdateAfterCallBack = true;
         m_ECantidad.UpdateAfterCallBack = true;
         m_CBConcepto.UpdateAfterCallBack = true;
     }
@@ -756,13 +750,10 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         ListItem item = m_CBConcepto.Items.FindByText(row[1].ToString());
         m_CBConcepto.SelectedIndex = item == null ? 0 : m_CBConcepto.Items.IndexOf(item);
         m_ECantidad.Text = GetFormatDouble(row[2].ToString());
-        item = m_CBUnidades.Items.FindByText(row[3].ToString());
-        m_CBUnidades.SelectedIndex = item == null ? 0 : m_CBUnidades.Items.IndexOf(item);
         m_EValor.Text = GetFormatDouble(row[4].ToString());
 
         m_nIdObjeto.UpdateAfterCallBack = true;
         m_EValor.UpdateAfterCallBack = true;
-        m_CBUnidades.UpdateAfterCallBack = true;
         m_ECantidad.UpdateAfterCallBack = true;
         m_CBConcepto.UpdateAfterCallBack = true;
 

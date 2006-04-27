@@ -77,7 +77,7 @@
                                                     <td><anthem:Button ID="m_BIzquierda" runat="server" Text="<<" CausesValidation="False" OnClick="m_BIzquierda_Click" /><br />
                                                         <anthem:Button ID="m_BDerecha" runat="server" Text=">>" CausesValidation="False" OnClick="m_BDerecha_Click" /></td>
                                                     <td>
-                                                        <anthem:GridView ID="m_LCPriorizados" runat="server" EmptyDataText="No hay proyectos" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" DataSourceID="ObjectDataSource2" UpdateAfterCallBack="False" DataKeyNames="id">
+                                                        <anthem:GridView ID="m_LCPriorizados" runat="server" EmptyDataText="No hay proyectos" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" DataSourceID="ObjectDataSource2" UpdateAfterCallBack="False" DataKeyNames="id" OnRowDataBound="m_LCPriorizados_RowDataBound">
                                                         <RowStyle CssClass="celda" BackColor="White" Wrap="True" />
                                                         <HeaderStyle CssClass="celdaTitulo" BackColor="#E3E4EA" />
                                                         <PagerStyle HorizontalAlign="Right" BackColor="#E3E4EA" />

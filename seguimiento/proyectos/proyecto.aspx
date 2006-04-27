@@ -115,6 +115,33 @@
                                                 </tr>
                                     <tr>
                                         <td>
+                                            <strong>Registro Fotografico</strong></td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Registro fotográfico</td>
+                                        <td>
+                                            <asp:FileUpload ID="m_ERegistro" runat="server" />
+                                            <asp:Button ID="m_BSubir" runat="server" Text="Subir" CausesValidation="False" OnClick="m_BSubir_Click" /></td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Fecha ultimo registro</td>
+                                        <td>
+                                            <anthem:TextBox ID="m_EFechaRegistro" runat="server" CssClass="editfecha"></anthem:TextBox><input id="Button4" name="botonfecha"  onclick="setFecha('m_EFechaRegistro')" type="button" value="..." /><anthem:LinkButton ID="m_BGaleria" runat="server" CausesValidation="False" OnClick="LinkButton1_Click" Visible="False">Ver Fotos</anthem:LinkButton></td>
+                                        <td>
+                                            <asp:RangeValidator ID="RangeValidator7" runat="server" ControlToValidate="m_EFechaRegistro" Display="Dynamic"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                    SetFocusOnError="True" Type="Date"></asp:RangeValidator></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
                                         </td>
                                         <td>
                                         </td>
@@ -359,25 +386,10 @@
                                         <td>
                                         </td>
                                         <td>
-                                            Registro fotográfico</td>
-                                        <td>
-                                            <asp:FileUpload ID="m_ERegistro" runat="server" />
-                                            <asp:Button ID="m_BSubir" runat="server" Text="Subir" CausesValidation="False" OnClick="m_BSubir_Click" /></td>
-                                        <td>
-                                            </td>
-                                    </tr>
-                                    <tr>
+                                            <strong>Interventoria</strong></td>
                                         <td>
                                         </td>
                                         <td>
-                                            Fecha ultimo registro</td>
-                                        <td>
-                                            <anthem:TextBox ID="m_EFechaRegistro" runat="server" CssClass="editfecha"></anthem:TextBox><input id="Button4" name="botonfecha"  onclick="setFecha('m_EFechaRegistro')" type="button" value="..." />
-                                            <anthem:LinkButton ID="m_BGaleria" runat="server" CausesValidation="False" OnClick="LinkButton1_Click" Visible="False">Ver Fotos</anthem:LinkButton></td>
-                                        <td>
-                                            &nbsp;<asp:RangeValidator ID="RangeValidator7" runat="server" ControlToValidate="m_EFechaRegistro" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
-                                                    SetFocusOnError="True" Type="Date"></asp:RangeValidator>
                                         </td>
                                     </tr>
                                     <tr>
@@ -406,8 +418,7 @@
                                         <td>
                                             Numero de contrato</td>
                                         <td>
-                                            <anthem:Label id="m_SContrato" runat="server" UpdateAfterCallBack="False">
-                                            </anthem:Label></td>
+                                            <anthem:TextBox ID="m_EContratoI" runat="server" CssClass="editcomun"></anthem:TextBox></td>
                                         <td>
                                         </td>
                                     </tr>
@@ -417,10 +428,11 @@
                                         <td>
                                             Fecha acta de inicio</td>
                                         <td>
-                                            <anthem:Label id="m_SFechaActa" runat="server" UpdateAfterCallBack="False">
-                                            </anthem:Label></td>
+                                            <anthem:TextBox ID="m_EFechaAI" runat="server" CssClass="editfecha"></anthem:TextBox><input id="Button2" name="botonfecha"  onclick="setFecha('m_EFechaAI')" type="button" value="..." /></td>
                                         <td>
-                                        </td>
+                                            <asp:RangeValidator ID="RangeValidator13" runat="server" ControlToValidate="m_EFechaAI"
+                                                Display="Dynamic" ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01"
+                                                MinimumValue="2000/01/01" SetFocusOnError="True" Type="Date"></asp:RangeValidator></td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -428,10 +440,11 @@
                                         <td>
                                             Plazo (incluidas adiciones y suspensiones)</td>
                                         <td>
-                                            <anthem:Label id="m_SPlazo" runat="server" UpdateAfterCallBack="False">
-                                            </anthem:Label></td>
+                                            <anthem:TextBox ID="m_EPlazoI" runat="server" CssClass="inputnumerico"></anthem:TextBox></td>
                                         <td>
-                                        </td>
+                                            <asp:RangeValidator ID="RangeValidator14" runat="server" ControlToValidate="m_EPlazoI"
+                                                Display="Dynamic" ErrorMessage="Por favor ingrese un número aqui" MaximumValue="1000000000"
+                                                MinimumValue="1" SetFocusOnError="True" Type="Integer"></asp:RangeValidator></td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -439,8 +452,7 @@
                                         <td>
                                             Fecha vencimiento</td>
                                         <td>
-                                            <anthem:Label id="m_SFechaVencimiento" runat="server" UpdateAfterCallBack="False">
-                                            </anthem:Label></td>
+                                            <anthem:Label id="m_SFechaVI" runat="server" UpdateAfterCallBack="False"></anthem:Label></td>
                                         <td>
                                         </td>
                                     </tr>

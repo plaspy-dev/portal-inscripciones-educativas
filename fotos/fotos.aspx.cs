@@ -27,7 +27,7 @@ public partial class fotos_contratos_fotos : System.Web.UI.Page
         try
         {
             SqlCommand command = new
-              SqlCommand("SELECT foto FROM registro WHERE id=" + Request.QueryString["id"], connection);
+              SqlCommand("SELECT foto FROM fotos WHERE id=" + Request.QueryString["id"], connection);
             byte[] image = (byte[])command.ExecuteScalar();
             stream.Write(image, 0, image.Length);
             Bitmap bitmap = new Bitmap(stream);

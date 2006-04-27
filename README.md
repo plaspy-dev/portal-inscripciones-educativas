@@ -37,12 +37,12 @@ From a Windows checkout, run `pwsh -NoProfile -File demo/Build.ps1 -Output <new-
 
 ### Usage
 
-Copy `demo/CatalogProbe.aspx.example` into the test site as `prueba-catalogo.aspx`. Open that page in the local site. The fictional record is Departamento Ejemplo. The probe reads it through the archived connection adapter.
+Copy `demo/CatalogProbe.aspx.example` into the test site as `prueba-catalogo.aspx`. Open that page in the local site. The fictional record is Departamento Ejemplo. The initializer opens the original `datosmapa.aspx` page and that page returns the record as XML.
 
 ### Project structure
 
 - `aplicativo/`. Institutional catalogues. Open the school list in `aplicativo/institucion/ieducativas.aspx`.
-- `App_Code/`. Shared record and data access classes. Start with `App_Code/CConector.cs`.
+- `App_Code/`. Shared record and data access classes. Start with `App_Code/CMapa.cs`.
 - `aprobacion/`. Agreement and project decisions, including proyectos/aprobacion.aspx.
 - `bin/` · Original Anthem.NET assembly
 - `demo/` · Build and fictional SQL scenario
@@ -66,7 +66,7 @@ Verified on 20 November 2026. The portal was built in Windows and tested with II
 
 The 2026 reconstruction fills the original paging image references with the earliest surviving copies, dated July 26, 2006.
 
-The source edition keeps its recorded date of 2006-04-18. The 2026 reconstruction includes recovered components, setup instructions and local checks.
+The source edition keeps its recorded date of 2006-04-27. The 2026 reconstruction includes recovered components, setup instructions and local checks.
 
 ### Support
 
@@ -118,12 +118,12 @@ Desde una copia en Windows, ejecuta `pwsh -NoProfile -File demo/Build.ps1 -Outpu
 
 ### Uso
 
-Copia `demo/CatalogProbe.aspx.example` al sitio de prueba como `prueba-catalogo.aspx`. Abre esa página en el sitio local. El registro ficticio se llama Departamento Ejemplo. El probador lo lee mediante el adaptador de conexión del respaldo.
+Copia `demo/CatalogProbe.aspx.example` al sitio de prueba como `prueba-catalogo.aspx`. Abre esa página en el sitio local. El registro ficticio se llama Departamento Ejemplo. El inicializador abre la página original `datosmapa.aspx` y esa página devuelve el registro en XML.
 
 ### Estructura del proyecto
 
 - `aplicativo/`. Catálogos institucionales. Abre la lista de escuelas en `aplicativo/institucion/ieducativas.aspx`.
-- `App_Code/`. Clases compartidas y de acceso a datos. Consulta `App_Code/CConector.cs`.
+- `App_Code/`. Clases compartidas y de acceso a datos. Consulta `App_Code/CMapa.cs`.
 - `aprobacion/`. Decisiones de convenios y proyectos, incluida proyectos/aprobacion.aspx.
 - `bin/` · Ensamblado original de Anthem.NET
 - `demo/` · Compilación y escenario ficticio en SQL
@@ -147,7 +147,7 @@ Verificado el 20 de noviembre de 2026. El portal se compiló en Windows y se pro
 
 La reconstrucción de 2026 completa las referencias originales a imágenes de paginación con las copias más antiguas conservadas, del 26 de julio de 2006.
 
-La edición conserva su fecha registrada del 2006-04-18. La reconstrucción de 2026 incorpora componentes recuperados, instrucciones y comprobaciones locales.
+La edición conserva su fecha registrada del 2006-04-27. La reconstrucción de 2026 incorpora componentes recuperados, instrucciones y comprobaciones locales.
 
 ### Soporte
 

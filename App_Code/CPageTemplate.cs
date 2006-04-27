@@ -547,6 +547,23 @@ public class CPageTemplate : System.Web.UI.Page
         ListItem item = lista.Items.FindByValue(value);
         lista.SelectedIndex = item == null ? 0 : lista.Items.IndexOf(item);
     }
+
+    static public void FillComboBox(DropDownList lista, string query,CConector conector)
+    {
+        if (lista.Items.Count > 0)
+            return;
+        if (query == null || query.Length == 0)
+            return;
+        SqlDataReader reader = conector.Query(query);
+        if (reader != null)
+        {
+            while (reader.Read())
+            {
+                lista.Items.Add(new ListItem(reader[1].ToString(), reader[0].ToString()));
+            }
+        }
+    }
+
     public void FillComboBox(Anthem.DropDownList lista, string query, bool force)
     {
         // int selectedindex = lista.SelectedIndex;

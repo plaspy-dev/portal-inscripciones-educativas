@@ -140,7 +140,6 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         FillComboBox(m_CBMunicipio, "SELECT id,nombre FROM municipios WHERE eterritorial=" + m_CBEnte.SelectedValue, true);
         FillComboBox(m_CBProyecto, "SELECT proyectosi.id,proyectosi.codigo FROM proyectosi LEFT JOIN varios ON varios.id=proyectosi.estado WHERE varios.nReservado=1 AND proyectosi.vigencia='" 
             +m_pUsuario.GetVigenciaActual() +"' AND proyectosi.eterritorial=" + m_CBEnte.SelectedValue + (m_CBMunicipio.SelectedIndex>0 ? (" AND proyectosi.municipio=" + m_CBMunicipio.SelectedValue) : "" ) , true);
-        FillComboBox(m_CBUnidades, "SELECT id,nombre FROM varios WHERE tipo=42 AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre");
         FillComboBox(m_CBConcepto, "SELECT id,nombre FROM varios WHERE tipo=15 AND (nReservado IS NULL OR nReservado!=-1)");
         FillComboBox(m_CBConceptoViablizacion, "SELECT id,nombre FROM varios WHERE tipo=50 AND (nReservado IS NULL OR nReservado!=-1)");
         FillComboBox(m_CBTipo, "SELECT id,nombre FROM varios WHERE tipo=13 AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre");
@@ -215,6 +214,8 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         // objeto
         if (!IsPostBack)
         {
+            CTablaObjetoVia.RebuilTable();
+
             Session["idobjectos"] = "";
             m_BEliminarObjeto.Style["display"] = "none";
             m_BAceptarObjeto.Style["display"] = "none";
@@ -234,9 +235,9 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             data.DataField = data.HeaderText = "Cantidad";
             m_LCObjetos.Columns.Add(data);
 
-            data = new BoundField();
-            data.DataField = data.HeaderText = "Unidades";
-            m_LCObjetos.Columns.Add(data);
+            //data = new BoundField();
+            //data.DataField = data.HeaderText = "Unidades";
+            //m_LCObjetos.Columns.Add(data);
 
             data = new BoundField();
             data.DataField = data.HeaderText = "Valor";
@@ -1018,7 +1019,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         campos[0] = m_nId.Value;
         campos[1] = m_CBConcepto.SelectedValue;
         campos[2] = GetDouble(m_ECantidad.Text);
-        campos[3] = m_CBUnidades.SelectedValue;
+        campos[3] = "";
         campos[4] = GetDouble(m_EValor.Text);
         m_pConector.QueryMod(CConector.CrearInsercion("objeto", campos));
         m_BCancelarObjeto_Click(sender, e);
@@ -1032,7 +1033,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         nombres[1] = "cantidad";
         campos[1] = GetDouble(m_ECantidad.Text);
         nombres[2] = "unidades";
-        campos[2] = m_CBUnidades.SelectedValue;
+        campos[2] = "";
         nombres[3] = "valor";
         campos[3] = GetDouble(m_EValor.Text);
         m_pConector.QueryMod(CConector.CreateUpdate("objeto", nombres, campos) + CConector.GetCondicion("id", m_nIdObjeto.Value));
@@ -1055,7 +1056,6 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_nIdObjeto.Value = "";
         m_CBConcepto.SelectedIndex = 0;
         m_ECantidad.Text = "";
-        m_CBUnidades.SelectedIndex = 0;
         m_EValor.Text = "";
         CTablaObjetoVia.RebuilTable();
         m_LCObjetos.DataBind();
@@ -1069,7 +1069,6 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
 
         m_nIdObjeto.UpdateAfterCallBack = true;
         m_EValor.UpdateAfterCallBack = true;
-        m_CBUnidades.UpdateAfterCallBack = true;
         m_ECantidad.UpdateAfterCallBack = true;
         m_CBConcepto.UpdateAfterCallBack = true;
     }
@@ -1090,13 +1089,10 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         ListItem item = m_CBConcepto.Items.FindByText(row[1].ToString());
         m_CBConcepto.SelectedIndex = item == null ? 0 : m_CBConcepto.Items.IndexOf(item);
         m_ECantidad.Text = GetFormatDouble(row[2].ToString());
-        item = m_CBUnidades.Items.FindByText(row[3].ToString());
-        m_CBUnidades.SelectedIndex = item == null ? 0 : m_CBUnidades.Items.IndexOf(item);
         m_EValor.Text = GetFormatDouble(row[4].ToString());
 
         m_nIdObjeto.UpdateAfterCallBack = true;
         m_EValor.UpdateAfterCallBack = true;
-        m_CBUnidades.UpdateAfterCallBack = true;
         m_ECantidad.UpdateAfterCallBack = true;
         m_CBConcepto.UpdateAfterCallBack = true;
 
@@ -1112,18 +1108,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
 
     protected void m_LCObjetos_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        if (e.Row.DataItemIndex != -1)
-        {
-            DataTable tabla = CTablaObjetoVia.GetTabla();
-            for (int i = 1; i < tabla.Columns.Count; i++)
-            {
-                if (tabla.Columns[i].DataType == typeof(double) || tabla.Columns[i].DataType == typeof(decimal))
-                {
-                    e.Row.Cells[i + 1].Text = GetFormatDouble(e.Row.Cells[i + 1].Text);
-                    e.Row.Cells[i + 1].CssClass = "inputnumerico";
-                }
-            }
-        }
+        ParseRow(m_LCObjetos, CTablaObjetoVia.GetTabla(), e);
     }
 
     // funciones de documentos

@@ -19,7 +19,7 @@ public class CGaleria : CTablaItems
 
         m_szCampos[0]= m_szTitulos[0] = "id";
         m_szCampos[1] = m_szTitulos[1] = "fecha";
-        string condicion = " WHERE contrato=%d ";
-        m_szQuery = CConector.CrearSelectT("registro", m_szCampos, m_szTitulos, condicion);
+        string condicion = " WHERE proyecto=%d ORDER BY id";
+        m_szQuery = CConector.CrearSelectT("fotos", m_szCampos, m_szTitulos, condicion);
 	}
 }

@@ -142,17 +142,6 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                                Unidades</td>
-                                        <td>
-                                            <anthem:DropDownList ID="m_CBUnidades" runat="server" ValidationGroup="objeto">
-                                            </anthem:DropDownList></td>
-                                        <td>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="m_CBUnidades" Display="Dynamic"
-                                                    ErrorMessage="Por favor seleccione unidades" InitialValue="-1" SetFocusOnError="True"
-                                                    ValidationGroup="objeto">*</asp:RequiredFieldValidator></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
                                             Valor</td>
                                         <td>
                                             <anthem:TextBox ID="m_EValor" runat="server" CssClass="inputnumerico" ValidationGroup="objeto"></anthem:TextBox></td>

@@ -137,7 +137,8 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
         m_LCDocumentos.DataBind();
 
         SelectInCombo(m_CBEnte, row[2].ToString());
-        m_EValor.Text = GetFormatDouble(row[3].ToString());;
+        m_EValor.Text = GetFormatDouble(row[3].ToString());
+        m_STitulo.Text = "Convenio No. " + row[4].ToString();
         m_ENumero.Text=row[4].ToString();
         SelectInCombo(m_CBTipo, row[5].ToString());
         m_EObjeto.Text = row[6].ToString();
@@ -396,8 +397,12 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
         switch (index)
         {
             case 0:
+                m_LCResultados.Visible = true;
+                m_SResumen.Visible = true;
                 break;
             case 1:
+                m_LCResultados.Visible = false;
+                m_SResumen.Visible = false;
                 m_BFinalizarE.Style["display"] = m_BAceptar.Style["display"];
                 m_BFinalizar.Style["display"] = m_BAceptar.Style["display"] == "" ? "none" : "";
                 break;

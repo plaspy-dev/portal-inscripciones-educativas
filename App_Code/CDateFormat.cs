@@ -84,16 +84,12 @@ public class CDateFormat
         {
             case 1:
                 return m_szCampo1;
-                break;
             case 2:
                 return m_szCampo2;
-                break;
             case 3:
                 return m_szCampo3;
-                break;
             case 4:
                 return m_szCampo4;
-                break;
         }
         return "";
     }
@@ -103,13 +99,10 @@ public class CDateFormat
         {
             case 1:
                 return m_szSeparador1;
-                break;
             case 2:
                 return m_szSeparador2;
-                break;
             case 3:
                 return m_szSeparador3;
-                break;
         }
         return "";
     }

@@ -53,12 +53,12 @@ public partial class aprobacion_proyectos_ampliacion : CPageTemplate
             +" LEFT JOIN institucionesvariacion AS old ON (old.institucion=proyectosi.institucion AND old.anolectivo=" +(ano-1).ToString() + ") "
             + " LEFT JOIN varios AS concepto ON (concepto.id=proyectosi.conceptomen) "
             ;
-        m_szCondicion = " (proyectosi.priorizacion>0 AND proyectosi.vigencia='" + m_pUsuario.GetVigenciaActual() +"') ";
+        m_szCondicion = " (proyectosi.priorizacion>=0 AND proyectosi.vigencia='" + m_pUsuario.GetVigenciaActual() +"') ";
         m_szCondicion += " AND " + m_pUsuario.GetCondicion("proyectosi.eterritorial");
         // autofiltro
         m_pUsuario.FillComboBox(m_CBEnte);
         FillComboBox(m_CBConcepto, "SELECT id,nombre FROM varios WHERE tipo=49 AND (nReservado IS NULL OR nReservado!=-1)");
-        FillComboBox(m_CBProyecto, "SELECT id,codigo FROM proyectosi WHERE priorizacion>0 AND eterritorial=" + m_CBEnte.SelectedValue
+        FillComboBox(m_CBProyecto, "SELECT id,codigo FROM proyectosi WHERE priorizacion>=0 AND eterritorial=" + m_CBEnte.SelectedValue
             + " AND proyectosi.vigencia='" + m_pUsuario.GetVigenciaActual() + "'", true);
         FillComboBox(m_CBInstitucion, "SELECT insteducativas.id,insteducativas.nombre FROM proyectosi "
         + "LEFT JOIN insteducativas ON (insteducativas.id=proyectosi.institucion) WHERE proyectosi.id=" + m_CBProyecto.SelectedValue, true);
@@ -107,7 +107,7 @@ public partial class aprobacion_proyectos_ampliacion : CPageTemplate
         m_nId.Value = row[0].ToString();
         m_nIdProyecto.Value= row[10].ToString();
         SelectInCombo(m_CBEnte,row[3].ToString());
-        FillComboBox(m_CBProyecto, "SELECT id,codigo FROM proyectosi WHERE priorizacion>0 AND eterritorial=" + m_CBEnte.SelectedValue
+        FillComboBox(m_CBProyecto, "SELECT id,codigo FROM proyectosi WHERE priorizacion>=0 AND eterritorial=" + m_CBEnte.SelectedValue
             + " AND proyectosi.vigencia='" + m_pUsuario.GetVigenciaActual() + "'", true);
         SelectInCombo(m_CBProyecto, row[2].ToString());
         FillComboBox(m_CBInstitucion, "SELECT insteducativas.id,insteducativas.nombre FROM proyectosi "

@@ -14,7 +14,7 @@ using System.Web.UI.HtmlControls;
 /// </summary>
 public class CContratos : CTablaItems
 {
-	public CContratos() : base(30)
+	public CContratos() : base(34)
 	{
         m_szId = "idproyecto";
 
@@ -48,7 +48,10 @@ public class CContratos : CTablaItems
         m_szTitulos[27] = m_szCampos[27] = "reporte.cargo";
         m_szTitulos[28] = m_szCampos[28] = "contratos.observaciones";
         m_szTitulos[29] = m_szCampos[29] = "MAX(registro.fecha)";
-        
+        m_szTitulos[30] = m_szCampos[30] = "reporte.ncontrato";
+        m_szTitulos[31] = m_szCampos[31] = "reporte.acta";
+        m_szTitulos[32] = m_szCampos[32] = "reporte.plazo";
+        m_szTitulos[33] = m_szCampos[33] = "DATEADD(dd,reporte.plazo-1,reporte.acta)";
 
         m_szCampos[0]="contratos.id";
         m_szCampos[1]="grupos.nombre";
@@ -78,8 +81,12 @@ public class CContratos : CTablaItems
         string grupo=" GROUP BY ";
         for (int i = 0; i < 14; i++)
             grupo += m_szCampos[i] + ",";
-        for (int i = 21; i < m_szCampos.Length-1; i++)
+        for (int i = 21; i < m_szCampos.Length; i++)
+        {
+            if (i == 29 || i == 33)
+                continue;
             grupo += m_szCampos[i] + ",";
+        }
         grupo += m_szCampos[15] + "," + m_szCampos[18] + "," + m_szCampos[19] + ",presupuesto.valormen";
 
         string join = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=proyectos.eterritorial) "

@@ -98,6 +98,8 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_EValorAvance.Attributes["onKeypress"] = "isfloat(this);";
         m_EValorAvance.Attributes["onblur"] = "tcomas(this);";
         m_EValorAvance.Attributes["onfocus"] = "scomas(this);";
+
+        m_EPlazoI.Attributes["onKeypress"] = "isnb();";
         
         // 55 
         FillComboBox(m_CBClaseContrato, "SELECT * FROM varios WHERE tipo=55 AND (nReservado IS NULL OR nReservado!=-1)");
@@ -263,10 +265,11 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_EFechaRegistro.UpdateAfterCallBack = true;
         m_EInterventor.UpdateAfterCallBack = true;
         m_ECargo.UpdateAfterCallBack = true;
-        m_SContrato.UpdateAfterCallBack = true;
-        m_SFechaActa.UpdateAfterCallBack = true;
-        m_SPlazo.UpdateAfterCallBack = true;
-        m_SFechaVencimiento.UpdateAfterCallBack = true;
+        m_EContratoI.UpdateAfterCallBack = true;
+        m_EPlazoI.UpdateAfterCallBack = true;
+        m_EFechaAI.UpdateAfterCallBack = true;
+        m_SFechaVI.UpdateAfterCallBack = true;
+        m_SFechaVI.UpdateAfterCallBack = true;
         m_EObservacionesContrato.UpdateAfterCallBack = true;
         m_CBTipoR.UpdateAfterCallBack = true;
 
@@ -310,6 +313,10 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
 
         m_BTab3.CausesValidation = false;
         m_BTab4.CausesValidation = false;
+
+        m_BGaleria.Visible = true;
+        m_BGaleria.UpdateAfterCallBack = true;
+
         // pestaña 2
         Session["idproyecto"]=m_nId.Value;
         m_nIdContrato.Value = "";
@@ -355,7 +362,10 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_SFechaAprobacion.Text = "";
         m_EObservaciones.Text = "";
         m_CBEnte.SelectedIndex = 0;
-        
+
+        m_BGaleria.Visible = false;
+        m_BGaleria.UpdateAfterCallBack = true;
+
         // pestaña 2
         m_EContrato.Text = "";
         m_EFechaS.Text = "";
@@ -377,10 +387,11 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_EFechaRegistro.Text = "";
         m_EInterventor.Text = "";
         m_ECargo.Text = "";
-        m_SContrato.Text = "";
-        m_SFechaActa.Text = "";
-        m_SPlazo.Text = "";
-        m_SFechaVencimiento.Text = "";
+        m_EFechaAI.Text = "";
+        m_EContratoI.Text = "";
+        m_SFechaVI.Text = "";
+        m_EPlazoI.Text = "";
+        m_SFechaVI.Text = "";
         m_EObservacionesContrato.Text = "";
         m_CBTipoR.SelectedIndex = 0;
 
@@ -578,6 +589,10 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
             campos[4]="interventor";
             campos[5]="cargo";
             campos[6]="observaciones";
+            campos[7]="ncontrato";
+            campos[8]="acta";
+            campos[9]="plazo";
+
             datos[0]=id.ToString();
             datos[1]=GetDouble(m_EValorAvance.Text);
             datos[2]=GetDate(m_EFechaR.Text);
@@ -585,6 +600,10 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
             datos[4]=GetString(m_EInterventor.Text);
             datos[5]=GetString(m_ECargo.Text);
             datos[6]=GetString(m_EObservacionesReporte.Text);
+            datos[7] = GetString(m_EContratoI.Text);
+            datos[8] = GetDate(m_EFechaAI.Text);
+            datos[9] = GetString(m_EPlazoI.Text);
+
             m_pConector.QueryMod(CConector.CrearInsercion("reporte", campos, datos));
             for (int i = 0; i < campos.Length; i++)
                 campos[i] = datos[i] = "";
@@ -639,13 +658,26 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         campos[4] = "interventor";
         campos[5] = "cargo";
         campos[6] = "observaciones";
+        campos[7] = "ncontrato";
+        campos[8] = "acta";
+        campos[9] = "plazo";
+
         datos[1] = GetDouble(m_EValorAvance.Text);
         datos[2] = GetDate(m_EFechaR.Text);
         datos[3] = GetSeleccion(m_CBTipoR.SelectedValue);
         datos[4] = GetString(m_EInterventor.Text);
         datos[5] = GetString(m_ECargo.Text);
         datos[6] = GetString(m_EObservacionesReporte.Text);
-        m_pConector.QueryMod(CConector.CreateUpdate("reporte", campos, datos) + CConector.GetCondicion("contrato", m_nIdContrato.Value));
+        datos[7] = GetString(m_EContratoI.Text);
+        datos[8] = GetDate(m_EFechaAI.Text);
+        datos[9] = GetString(m_EPlazoI.Text);
+
+        if (m_pConector.QueryString("SELECT contrato FROM reporte WHERE contrato=" + m_nIdContrato.Value) == "")
+        {
+            campos[0] = "contrato";
+            datos[0] = m_nIdContrato.Value;
+            m_pConector.QueryMod(CConector.CrearInsercion("reporte", campos, datos));
+        } else m_pConector.QueryMod(CConector.CreateUpdate("reporte", campos, datos) + CConector.GetCondicion("contrato", m_nIdContrato.Value));
 
         m_BCancelarContrato_Click(sender, e);
     }
@@ -681,14 +713,12 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_EFechaRegistro.Text = "";
         m_EInterventor.Text = "";
         m_ECargo.Text = "";
-        m_SContrato.Text = "";
-        m_SFechaActa.Text = "";
-        m_SPlazo.Text = "";
-        m_SFechaVencimiento.Text = "";
+        m_EContratoI.Text = "";
+        m_EFechaAI.Text = "";
+        m_EPlazoI.Text = "";
+        m_SFechaVI.Text = "";
         m_EObservacionesContrato.Text = "";
         m_CBTipoR.SelectedIndex = 0;
-        m_BGaleria.Visible = false;
-        m_BGaleria.UpdateAfterCallBack = true;
         
         CContratos contratos=new CContratos();
         contratos.RebuilTable();
@@ -719,10 +749,10 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_EFechaRegistro.UpdateAfterCallBack = true;
         m_EInterventor.UpdateAfterCallBack = true;
         m_ECargo.UpdateAfterCallBack = true;
-        m_SContrato.UpdateAfterCallBack = true;
-        m_SFechaActa.UpdateAfterCallBack = true;
-        m_SPlazo.UpdateAfterCallBack = true;
-        m_SFechaVencimiento.UpdateAfterCallBack = true;
+        m_EFechaAI.UpdateAfterCallBack = true;
+        m_EContratoI.UpdateAfterCallBack = true;
+        m_EPlazoI.UpdateAfterCallBack = true;
+        m_SFechaVI.UpdateAfterCallBack = true;
         m_EObservacionesContrato.UpdateAfterCallBack = true;
         m_CBTipoR.UpdateAfterCallBack = true;
 
@@ -747,13 +777,13 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
             return;
 
         m_nIdContrato.Value = m_LCContratos.SelectedDataKey.Value.ToString();
-        m_SContrato.Text= m_EContrato.Text= row[8].ToString();
+        m_EContrato.Text= row[8].ToString();
         m_EFechaS.Text= GetFechaCorta(row[9].ToString());
-        m_SFechaActa.Text= m_EActaInicio.Text = GetFechaCorta(row[10].ToString());
+        m_EActaInicio.Text = GetFechaCorta(row[10].ToString());
         SelectInCombo(m_CBClaseContrato, row[11].ToString());
         SelectInCombo(m_CBObjeto, row[12].ToString());
-        m_SPlazo.Text= m_EPlazoContrato.Text= row[13].ToString();
-        m_SFechaV.Text = m_SFechaVencimiento.Text = GetFechaCorta(row[14].ToString());
+        m_EPlazoContrato.Text= row[13].ToString();
+        m_SFechaV.Text = m_SFechaVI.Text = GetFechaCorta(row[14].ToString());
         m_EValorContratado.Text= GetFormatDouble(row[15].ToString());
         m_EValorAvance.Text= GetFormatDouble(row[18].ToString());
         m_EFechaR.Text= GetFechaCorta(row[19].ToString());
@@ -769,9 +799,10 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_ECargo.Text = row[27].ToString();
         m_EObservacionesContrato.Text = row[28].ToString();
         m_EFechaRegistro.Text = GetFechaCorta(row[29].ToString());
-
-        m_BGaleria.Visible = true;
-        m_BGaleria.UpdateAfterCallBack = true;
+        m_EContratoI.Text = row[30].ToString();
+        m_EFechaAI.Text = GetFechaCorta(row[31].ToString());
+        m_EPlazoI.Text = row[32].ToString();
+        m_SFechaVI.Text = GetFechaCorta(row[33].ToString());
 
         m_nIdContrato.UpdateAfterCallBack = true;
         m_EContrato.UpdateAfterCallBack = true;
@@ -794,10 +825,11 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_EFechaRegistro.UpdateAfterCallBack = true;
         m_EInterventor.UpdateAfterCallBack = true;
         m_ECargo.UpdateAfterCallBack = true;
-        m_SContrato.UpdateAfterCallBack = true;
-        m_SFechaActa.UpdateAfterCallBack = true;
-        m_SPlazo.UpdateAfterCallBack = true;
-        m_SFechaVencimiento.UpdateAfterCallBack = true;
+
+        m_EContratoI.UpdateAfterCallBack = true;
+        m_EFechaAI.UpdateAfterCallBack = true;
+        m_EPlazoI.UpdateAfterCallBack = true;
+        m_SFechaVI.UpdateAfterCallBack = true;
         m_EObservacionesContrato.UpdateAfterCallBack = true;
         m_CBTipoR.UpdateAfterCallBack = true;
 
@@ -834,33 +866,34 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
     protected void m_BSubir_Click(object sender, EventArgs e)
     {
         int len = m_ERegistro.PostedFile.ContentLength;
-        if (m_nIdContrato.Value == "")
+        if (m_nId.Value == "")
         {
-            Anthem.Manager.AddScriptForClientSideEval("alert('Por favor seleccione un contrato primero');");
+            m_SMensaje.Text = "Por favor seleccione un proyecto";
             return;
         }
         if (len <= 0)
         {
-            Anthem.Manager.AddScriptForClientSideEval("alert('Por favor seleccione un archivo');");
+            m_SMensaje.Text = "Por favor seleccione un archivo";
             return;
         }
         if (m_ERegistro.PostedFile.ContentType.IndexOf("jpeg")<0)
         {
-            Anthem.Manager.AddScriptForClientSideEval("alert('Por favor seleccione un archivo con formato JPEG');");
+            m_SMensaje.Text = "Por favor seleccione un archivo con formato JPEG";
             return;
         }
         byte[] pic = new byte[len];
         m_ERegistro.PostedFile.InputStream.Read(pic, 0, len);
         CConector conector = new CConector();
         SqlConnection connection = conector.GetConexion();
-        string query = "INSERT INTO registro (fecha,contrato,foto) VALUES (" + (m_EFechaRegistro.Text.Length > 0 ? ("'" + m_EFechaRegistro.Text + "'") : "GETDATE()") + ",@contrato,@foto)";
+        string query = "INSERT INTO fotos (fecha,proyecto,foto) VALUES (" + (m_EFechaRegistro.Text.Length > 0 ? ("'" + m_EFechaRegistro.Text + "'") : "GETDATE()") + ",@proyecto,@foto)";
         SqlCommand cmd = new SqlCommand(query, connection);
-        cmd.Parameters.AddWithValue("@contrato", m_nIdContrato.Value);
+        cmd.Parameters.AddWithValue("@proyecto", m_nId.Value);
         cmd.Parameters.AddWithValue("@foto", pic);
         cmd.ExecuteNonQuery();
+        m_SMensaje.Text = "Foto Agregada";
     }
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
-        Anthem.Manager.AddScriptForClientSideEval("window.open('" + HttpContext.Current.Request.ApplicationPath + "/fotos/contratos/galeria.aspx?id=" + m_nIdContrato.Value +"&contrato=" + m_EContrato.Text + "')");
+        Anthem.Manager.AddScriptForClientSideEval("window.open('" + HttpContext.Current.Request.ApplicationPath + "/fotos/proyectos/galeria.aspx?id=" + m_nId.Value +"&proyecto=" + m_LCProyecto.SelectedItem.Text+ "')");
     }
 }

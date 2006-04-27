@@ -85,11 +85,11 @@ public partial class aprobacion_proyectos_aprobacion : CPageTemplate
 
         m_pUsuario.FillComboBox(m_CBEnte);
         FillComboBox(m_CBEstado, "SELECT id,nombre FROM varios WHERE tipo=48 AND (nReservado IS NULL OR nReservado!=-1)");
-        FillComboBox(m_CBProyecto, "SELECT id,codigo FROM proyectosi WHERE priorizacion>0 AND eterritorial=" + m_CBEnte.SelectedValue
+        FillComboBox(m_CBProyecto, "SELECT id,codigo FROM proyectosi WHERE priorizacion>=0 AND eterritorial=" + m_CBEnte.SelectedValue
             + " AND proyectosi.vigencia='" + m_pUsuario.GetVigenciaActual() + "'", true);
         FillComboBox(m_CBConcepto, "SELECT id,nombre FROM varios WHERE tipo=49 AND (nReservado IS NULL OR nReservado!=-1)");
 
-        m_szCondicion += " (proyectosi.priorizacion>0 AND proyectosi.vigencia='"+m_pUsuario.GetVigenciaActual() + "' ) ";
+        m_szCondicion += " (proyectosi.priorizacion>=0 AND proyectosi.vigencia='"+m_pUsuario.GetVigenciaActual() + "' ) ";
         m_szCondicion += " AND " + m_pUsuario.GetCondicion("proyectosi.eterritorial");
 
         if(m_CBEstado.SelectedIndex>0)
@@ -139,7 +139,7 @@ public partial class aprobacion_proyectos_aprobacion : CPageTemplate
 
         m_nId.Value = gv.SelectedDataKey.Value.ToString();
         SelectInCombo(m_CBEnte, row[3].ToString());
-        FillComboBox(m_CBProyecto, "SELECT id,codigo FROM proyectosi WHERE priorizacion>0 AND eterritorial=" + m_CBEnte.SelectedValue
+        FillComboBox(m_CBProyecto, "SELECT id,codigo FROM proyectosi WHERE priorizacion>=0 AND eterritorial=" + m_CBEnte.SelectedValue
             + " AND proyectosi.vigencia='" + m_pUsuario.GetVigenciaActual() + "'", true);
         SelectInCombo(m_CBProyecto, row[2].ToString());
         SelectInCombo(m_CBEstado, row[15].ToString());

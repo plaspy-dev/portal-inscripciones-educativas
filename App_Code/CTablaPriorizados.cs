@@ -27,7 +27,7 @@ public class CTablaPriorizados
         m_szQuery = "SELECT proyectosi.id AS id,proyectosi.codigo AS Código,insteducativas.nombre AS 'Institución educativa',proyectosi.priorizacion AS Priorización FROM proyectosi "
             + "LEFT JOIN insteducativas ON insteducativas.id=proyectosi.institucion WHERE proyectosi.vigencia='" + usuario.GetVigenciaActual() 
             +"' AND proyectosi.eterritorial=%d "
-            + " AND proyectosi.priorizacion>0 ORDER BY proyectosi.priorizacion";
+            + " AND proyectosi.priorizacion>=0 ORDER BY proyectosi.priorizacion";
         m_szCurrentID = "";
 	}
 

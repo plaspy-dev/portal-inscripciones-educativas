@@ -106,7 +106,7 @@ public partial class inscripcion_priorizacion_priorizacion : CPageTemplate
             for (int i = 0; i < tablap.Rows.Count; i++)
             {
                 m_saDatos[1]= tablap.Rows[i].ItemArray.GetValue(0).ToString();
-                m_saDatos[0] = (i + 1).ToString();
+                m_saDatos[0] = tablap.Rows[i][3].ToString();
                 query = CConector.CreateUpdate(m_szTabla, m_saCampos[0], m_saDatos[0]) + CConector.GetCondicion(m_saCampos[1], m_saDatos[1]);
                 if (m_pConector.QueryMod(query) == -1)
                 {
@@ -125,7 +125,9 @@ public partial class inscripcion_priorizacion_priorizacion : CPageTemplate
     {
         DataTable tablap = CTablaPriorizados.GetTabla();
         for (int i = 0; i < tablap.Rows.Count; i++)
-            tablap.Rows[i][3]=i+1;
+        {
+            tablap.Rows[i][3] = i + 1;
+        }
         m_LCSinPriorizar.DataBind();
         m_LCPriorizados.DataBind();
         m_LCPriorizados.UpdateAfterCallBack = true;
@@ -141,6 +143,11 @@ public partial class inscripcion_priorizacion_priorizacion : CPageTemplate
         DataTable tablap = CTablaPriorizados.GetTabla();
         DataTable tablas = CTablaSinPriorizar.GetTabla();
         DataRow row = GetDataRow(m_LCPriorizados, tablap);
+        if (row[3].ToString() == "0")
+        {
+            Anthem.Manager.AddScriptForClientSideEval("alert('Este proyecto esta bloqueado intente con otro');");
+            return;
+        }
         object[] datos = new object[3];
         for (int i = 0; i < 3; i++)
             datos[i] = row.ItemArray.GetValue(i);
@@ -185,9 +192,19 @@ public partial class inscripcion_priorizacion_priorizacion : CPageTemplate
         }
         DataTable tablap = CTablaPriorizados.GetTabla();
         DataRow row = GetDataRow(m_LCPriorizados, tablap);
+        if (row[3].ToString() == "0")
+        {
+            Anthem.Manager.AddScriptForClientSideEval("alert('Este proyecto esta bloqueado intente con otro');");
+            return;
+        }
         int index = tablap.Rows.IndexOf(row);
         if (index == 0)
         {
+            return;
+        }
+        if (tablap.Rows[index - 1][3].ToString() == "0")
+        {
+            Anthem.Manager.AddScriptForClientSideEval("alert('Este proyecto no puede subir mas');");
             return;
         }
         DataRow nuevo = tablap.NewRow();
@@ -198,7 +215,11 @@ public partial class inscripcion_priorizacion_priorizacion : CPageTemplate
         tablap.Rows.InsertAt(nuevo, index - 1);
 
         for (int i = 0; i < tablap.Rows.Count; i++)
+        {
+            if (tablap.Rows[i][3].ToString() == "0")
+                continue;
             tablap.Rows[i][3] = i + 1;
+        }
         m_LCPriorizados.SelectedIndex = index - 1;
         m_LCPriorizados.DataBind();
         m_LCPriorizados.UpdateAfterCallBack = true;
@@ -212,6 +233,11 @@ public partial class inscripcion_priorizacion_priorizacion : CPageTemplate
         }
         DataTable tablap = CTablaPriorizados.GetTabla();
         DataRow row = GetDataRow(m_LCPriorizados, tablap);
+        if (row[3].ToString() == "0")
+        {
+            Anthem.Manager.AddScriptForClientSideEval("alert('Este proyecto esta bloqueado intente con otro');");
+            return;
+        }
         int index= tablap.Rows.IndexOf(row);
         if (index == tablap.Rows.Count-1)
         {
@@ -225,9 +251,25 @@ public partial class inscripcion_priorizacion_priorizacion : CPageTemplate
         tablap.Rows.InsertAt(nuevo, index + 1);
 
         for (int i = 0; i < tablap.Rows.Count; i++)
+        {
+            if (tablap.Rows[i][3].ToString() == "0")
+                continue;
             tablap.Rows[i][3] = i + 1;
+        }
         m_LCPriorizados.SelectedIndex = index + 1;
         m_LCPriorizados.DataBind();
         m_LCPriorizados.UpdateAfterCallBack = true;
+    }
+    protected void m_LCPriorizados_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.DataItemIndex != -1)
+        {
+            if (e.Row.Cells[4].Text == "0")
+            {
+                e.Row.Cells[4].Text = "Bloqueado";
+                e.Row.BackColor = System.Drawing.Color.Red;
+                e.Row.ForeColor = System.Drawing.Color.White;
+            }
+        }
     }
 }

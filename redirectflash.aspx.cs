@@ -13,6 +13,9 @@ public partial class redirectflash : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        Response.AddHeader("pragma", " no-cache");
+        Response.CacheControl = "Private";
+        Response.Expires = 0;
         Session["tipomapa"]= Request.QueryString["tipodato"];
         Session["departamentomapa"] = Request.QueryString["departamento"];
         Response.Write("&respuesta=true");
