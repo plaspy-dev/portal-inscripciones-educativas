@@ -166,6 +166,10 @@ public class CPageTemplate : System.Web.UI.Page
             {
                 boton.Style["display"]="none";
             }
+            if ((m_nPermisos & 2) == 0 && (boton = (ImageButton)FindControl("m_BImprimir")) != null)
+            {
+                boton.Style["display"] = "none";
+            }
             Anthem.LinkButton lboton = (Anthem.LinkButton)FindControl("m_LBTodos");
             if (lboton != null)
                 lboton.Style["display"] = "none";
@@ -270,7 +274,7 @@ public class CPageTemplate : System.Web.UI.Page
         }
 
         Anthem.ImageButton boton = (Anthem.ImageButton)FindControl("m_BImprimir");
-        if (boton != null)
+        if ((m_nPermisos&2)== 2 && boton != null)
         {
             boton.Style["display"] = show ? "none" :"";
             boton.UpdateAfterCallBack = true;
@@ -386,7 +390,7 @@ public class CPageTemplate : System.Web.UI.Page
     {
 
         Anthem.ImageButton boton;
-        if ((boton = (Anthem.ImageButton)FindControl("m_BAceptar")) != null)
+        if ((m_nPermisos&8)==8  && (boton = (Anthem.ImageButton)FindControl("m_BAceptar")) != null)
         {
             boton.Style["display"] = show ? "" : "none";
             boton.UpdateAfterCallBack = true;
@@ -396,7 +400,7 @@ public class CPageTemplate : System.Web.UI.Page
             boton.Style["display"] = show ? "" : "none";
             boton.UpdateAfterCallBack = true;
         }
-        if ((boton = (Anthem.ImageButton)FindControl("m_BImprimir")) != null)
+        if ((m_nPermisos & 2) == 2 && (boton = (Anthem.ImageButton)FindControl("m_BImprimir")) != null)
         {
             boton.Style["display"] = show ? "none" : "";
             boton.UpdateAfterCallBack = true;

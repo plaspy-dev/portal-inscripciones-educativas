@@ -235,10 +235,6 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             data.DataField = data.HeaderText = "Cantidad";
             m_LCObjetos.Columns.Add(data);
 
-            //data = new BoundField();
-            //data.DataField = data.HeaderText = "Unidades";
-            //m_LCObjetos.Columns.Add(data);
-
             data = new BoundField();
             data.DataField = data.HeaderText = "Valor";
             m_LCObjetos.Columns.Add(data);
@@ -423,8 +419,11 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_BAceptarObjeto.Style["display"] = "none";
         m_BCancelarObjeto.Style["display"] = "none";
 
-        m_BInsertarObjeto.Style["display"] = "";
-        m_BInsertarObjeto.UpdateAfterCallBack = true;
+        if ((m_nPermisos & 4) == 4)
+        {
+            m_BInsertarObjeto.Style["display"] = "";
+            m_BInsertarObjeto.UpdateAfterCallBack = true;
+        }
 
         // pestaña 3
         Session["idproyecto"] = m_nId.Value;
@@ -569,6 +568,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_saDatos[0] = m_nId.Value;
         m_saCampos[1] = "aspecto";
         m_saCampos[2] = "cantidad";
+        m_saCampos[3] = "observaciones";
 
         bool check;
         string query;
@@ -582,7 +582,8 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             query = "";
             check = ((CheckBox)m_LCTecnicos.Rows[i].Cells[0].Controls[1]).Checked;
             m_saDatos[1] = row["id"].ToString();
-            m_saDatos[2] = ((TextBox)m_LCTecnicos.Rows[i].Cells[2].Controls[1]).Text;
+            m_saDatos[2] = GetString(((TextBox)m_LCTecnicos.Rows[i].Cells[2].Controls[1]).Text);
+            m_saDatos[3] = GetString(((TextBox)m_LCTecnicos.Rows[i].Cells[3].Controls[1]).Text);
 
             if (row != null && row[1].ToString() != "")
             {
@@ -1048,8 +1049,13 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_BAceptarObjeto.UpdateAfterCallBack = true;
         m_BCancelarObjeto.Style["display"] = "none";
         m_BCancelarObjeto.UpdateAfterCallBack = true;
-        m_BInsertarObjeto.Style["display"] = "";
-        m_BInsertarObjeto.UpdateAfterCallBack = true;
+
+        if ((m_nPermisos & 4) == 4)
+        {
+            m_BInsertarObjeto.Style["display"] = "";
+            m_BInsertarObjeto.UpdateAfterCallBack = true;
+        }
+
         m_LCObjetos.DataBind();
         m_LCObjetos.UpdateAfterCallBack = true;
 
@@ -1096,10 +1102,16 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_ECantidad.UpdateAfterCallBack = true;
         m_CBConcepto.UpdateAfterCallBack = true;
 
-        m_BEliminarObjeto.Style["display"] = "";
-        m_BEliminarObjeto.UpdateAfterCallBack = true;
-        m_BAceptarObjeto.Style["display"] = "";
-        m_BAceptarObjeto.UpdateAfterCallBack = true;
+        if ((m_nPermisos & 16) == 16)
+        {
+            m_BEliminarObjeto.Style["display"] = "";
+            m_BEliminarObjeto.UpdateAfterCallBack = true;
+        }
+        if ((m_nPermisos & 8) == 8)
+        {
+            m_BAceptarObjeto.Style["display"] = "";
+            m_BAceptarObjeto.UpdateAfterCallBack = true;
+        }
         m_BCancelarObjeto.Style["display"] = "";
         m_BCancelarObjeto.UpdateAfterCallBack = true;
         m_BInsertarObjeto.Style["display"] = "none";
@@ -1134,7 +1146,11 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             inicio = 33;
             fin = m_saTitulos.Length-1;
             m_BFinalizarE.Style["display"] = m_BAceptar.Style["display"];
-            m_BFinalizar.Style["display"] = m_BAceptar.Style["display"] == "" ? "none" : "";
+            if ((m_nPermisos & 4) == 4)
+                m_BFinalizar.Style["display"] = m_BAceptar.Style["display"] == "" ? "none" : "";
+            else m_BFinalizar.Style["display"] = "none";
+            if ((m_nPermisos & 8) == 0)
+                m_BFinalizar.Style["display"] = "none";
         } else 
         {
             inicio = 2;

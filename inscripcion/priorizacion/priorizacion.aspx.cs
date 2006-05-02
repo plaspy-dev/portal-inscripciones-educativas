@@ -49,7 +49,8 @@ public partial class inscripcion_priorizacion_priorizacion : CPageTemplate
         EndPageLoad();
         if (!IsPostBack)
         {
-            m_BAceptar.Style["display"] = "";
+            if((m_nPermisos&8)==8)
+                m_BAceptar.Style["display"] = "";
             m_BCancelar.Style["display"] = "";
         }
     }
@@ -64,9 +65,12 @@ public partial class inscripcion_priorizacion_priorizacion : CPageTemplate
     override protected void ShowPrint(bool show)
     {
         base.ShowPrint(show);
-        m_BAceptar.Style["display"] = show ? "none" : "";
+        if ((m_nPermisos & 8) == 8)
+        {
+            m_BAceptar.Style["display"] = show ? "none" : "";
+            m_BAceptar.UpdateAfterCallBack = true;
+        }
         m_BCancelar.Style["display"] = show ? "none" : "";
-        m_BAceptar.UpdateAfterCallBack = true;
         m_BCancelar.UpdateAfterCallBack = true;
     }
 
@@ -80,7 +84,8 @@ public partial class inscripcion_priorizacion_priorizacion : CPageTemplate
 
         base.m_BCancelar_Click(sender, e);
 
-        m_BAceptar.Style["display"] = "";
+        if ((m_nPermisos & 8) == 8)
+            m_BAceptar.Style["display"] = "";
         m_BCancelar.Style["display"] = "";
     }
 
@@ -116,7 +121,8 @@ public partial class inscripcion_priorizacion_priorizacion : CPageTemplate
                 }
             }
             base.AfterUpdate("Priorización completada");
-            m_BAceptar.Style["display"] = "";
+            if ((m_nPermisos & 8) == 8)
+                m_BAceptar.Style["display"] = "";
             m_BCancelar.Style["display"] = "";
         }
     }

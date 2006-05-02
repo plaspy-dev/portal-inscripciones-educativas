@@ -152,7 +152,7 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_baHidden[0] = true;
         m_baHidden[5] = true;
         m_baHidden[16] = true;
-        for (int i = 17; i < 29; i++)
+        for (int i = 17; i < 30; i++)
             m_baHidden[i] = true;
 
         m_EInstitucion.Attributes["onKeypress"] = "isnb();";
@@ -289,8 +289,11 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_BAceptarObjeto.Style["display"] = "none";
         m_BCancelarObjeto.Style["display"] = "none";
 
-        m_BInsertarObjeto.Style["display"] = "";
-        m_BInsertarObjeto.UpdateAfterCallBack = true;
+        if ((m_nPermisos & 4) == 4)
+        {
+            m_BInsertarObjeto.Style["display"] = "";
+            m_BInsertarObjeto.UpdateAfterCallBack = true;
+        }
 
         base.m_LCResultados_SelectedIndexChanged(sender, e);
     }
@@ -639,7 +642,11 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
                 inicio = 2;
                 fin = 18;
                 m_BFinalizarE.Style["display"] = m_BAceptar.Style["display"];
-                m_BFinalizar.Style["display"] = m_BAceptar.Style["display"] == "" ? "none" : "";
+                if ((m_nPermisos & 4) == 4)
+                    m_BFinalizar.Style["display"] = m_BAceptar.Style["display"] == "" ? "none" : "";
+                else m_BFinalizar.Style["display"] = "none";
+                if((m_nPermisos&8)==0)
+                    m_BFinalizar.Style["display"] = "none";
                 break;
         }
 
@@ -709,8 +716,11 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_BAceptarObjeto.UpdateAfterCallBack = true;
         m_BCancelarObjeto.Style["display"] = "none";
         m_BCancelarObjeto.UpdateAfterCallBack = true;
-        m_BInsertarObjeto.Style["display"] = "";
-        m_BInsertarObjeto.UpdateAfterCallBack = true;
+        if ((m_nPermisos & 4) == 4)
+        {
+            m_BInsertarObjeto.Style["display"] = "";
+            m_BInsertarObjeto.UpdateAfterCallBack = true;
+        }
         m_LCObjetos.DataBind();
         m_LCObjetos.UpdateAfterCallBack = true;
 
@@ -757,10 +767,18 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_ECantidad.UpdateAfterCallBack = true;
         m_CBConcepto.UpdateAfterCallBack = true;
 
-        m_BEliminarObjeto.Style["display"] = "";
-        m_BEliminarObjeto.UpdateAfterCallBack = true;
-        m_BAceptarObjeto.Style["display"] = "";
-        m_BAceptarObjeto.UpdateAfterCallBack = true;
+        if ((m_nPermisos & 16) == 16)
+        {
+            m_BEliminarObjeto.Style["display"] = "";
+            m_BEliminarObjeto.UpdateAfterCallBack = true;
+        }
+
+        if ((m_nPermisos & 8) == 8)
+        {
+            m_BAceptarObjeto.Style["display"] = "";
+            m_BAceptarObjeto.UpdateAfterCallBack = true;
+        }
+
         m_BCancelarObjeto.Style["display"] = "";
         m_BCancelarObjeto.UpdateAfterCallBack = true;
         m_BInsertarObjeto.Style["display"] = "none";

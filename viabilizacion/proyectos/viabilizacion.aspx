@@ -434,6 +434,11 @@
                                                 <asp:TextBox ID="m_ENumero" CssClass="inputnumerico" runat="server" Text='<%# Bind("Cantidad") %>'></asp:TextBox>
                                             </ItemTemplate>
                                         </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Observaciones">
+                                            <ItemTemplate>
+                                                <asp:TextBox ID="m_EObservaciones" runat="server" Text='<%# Bind("Observaciones") %>'></asp:TextBox>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                     </Columns>
                                 </asp:GridView>
                                 <table>

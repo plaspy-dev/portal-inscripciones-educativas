@@ -376,8 +376,11 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_BAceptarObjeto.Style["display"] = "none";
         m_BCancelarObjeto.Style["display"] = "none";
 
-        m_BInsertarObjeto.Style["display"] = "";
-        m_BInsertarObjeto.UpdateAfterCallBack = true;
+        if ((m_nPermisos & 4) == 4)
+        {
+            m_BInsertarObjeto.Style["display"] = "";
+            m_BInsertarObjeto.UpdateAfterCallBack = true;
+        }
 
         Session["idconvenio"] = m_nId.Value;
         m_nIdAdicion.Value = "";
@@ -393,8 +396,11 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_BAceptarDesembolso.Style["display"] = "none";
         m_BCancelarDesembolso.Style["display"] = "none";
 
-        m_BInsertarDesembolso.Style["display"] = "";
-        m_BInsertarDesembolso.UpdateAfterCallBack = true;
+        if ((m_nPermisos & 4) == 4)
+        {
+            m_BInsertarDesembolso.Style["display"] = "";
+            m_BInsertarDesembolso.UpdateAfterCallBack = true;
+        }
 
         // pestaña 5
         CRendimientosConvenio.RebuilTable();
@@ -404,8 +410,11 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_BAceptarRendimiento.Style["display"] = "none";
         m_BCancelarRendimiento.Style["display"] = "none";
 
-        m_BInsertarRendimiento.Style["display"] = "";
-        m_BInsertarRendimiento.UpdateAfterCallBack = true;
+        if ((m_nPermisos & 4) == 4)
+        {
+            m_BInsertarRendimiento.Style["display"] = "";
+            m_BInsertarRendimiento.UpdateAfterCallBack = true;
+        }
         // pestaña 6
 
         m_CInformeFinal.Checked = row[17].ToString()=="True";
@@ -721,8 +730,11 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_BAceptarObjeto.UpdateAfterCallBack = true;
         m_BCancelarObjeto.Style["display"] = "none";
         m_BCancelarObjeto.UpdateAfterCallBack = true;
-        m_BInsertarObjeto.Style["display"] = "";
-        m_BInsertarObjeto.UpdateAfterCallBack = true;
+        if ((m_nPermisos & 4) == 4)
+        {
+            m_BInsertarObjeto.Style["display"] = "";
+            m_BInsertarObjeto.UpdateAfterCallBack = true;
+        }
 
         m_nIdAdicion.Value = "";
         m_EAdicionValor.Text = "";
@@ -795,10 +807,17 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_CBEstado.UpdateAfterCallBack = true;
         m_EObservacionesAdicion.UpdateAfterCallBack = true;
 
-        m_BEliminarObjeto.Style["display"] = "";
-        m_BEliminarObjeto.UpdateAfterCallBack = true;
-        m_BAceptarObjeto.Style["display"] = "";
-        m_BAceptarObjeto.UpdateAfterCallBack = true;
+        if ((m_nPermisos & 16) == 16)
+        {
+            m_BEliminarObjeto.Style["display"] = "";
+            m_BEliminarObjeto.UpdateAfterCallBack = true;
+        }
+
+        if((m_nPermisos&8)==8) 
+        {
+            m_BAceptarObjeto.Style["display"] = "";
+            m_BAceptarObjeto.UpdateAfterCallBack = true;
+        }
         m_BCancelarObjeto.Style["display"] = "";
         m_BCancelarObjeto.UpdateAfterCallBack = true;
         m_BInsertarObjeto.Style["display"] = "none";
@@ -867,8 +886,11 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_BAceptarDesembolso.UpdateAfterCallBack = true;
         m_BCancelarDesembolso.Style["display"] = "none";
         m_BCancelarDesembolso.UpdateAfterCallBack = true;
-        m_BInsertarDesembolso.Style["display"] = "";
-        m_BInsertarDesembolso.UpdateAfterCallBack = true;
+        if ((m_nPermisos & 4) == 4)
+        {
+            m_BInsertarDesembolso.Style["display"] = "";
+            m_BInsertarDesembolso.UpdateAfterCallBack = true;
+        }
 
         m_nIdDesembolso.Value = "";
         m_EValorDesembolso.Text = "";
@@ -915,10 +937,16 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_EFechaComprobanteDesembolso.UpdateAfterCallBack = true;
         m_EObservacionesDesembolso.UpdateAfterCallBack = true;
 
-        m_BEliminarDesembolso.Style["display"] = "";
-        m_BEliminarDesembolso.UpdateAfterCallBack = true;
-        m_BAceptarDesembolso.Style["display"] = "";
-        m_BAceptarDesembolso.UpdateAfterCallBack = true;
+        if ((m_nPermisos & 16) == 16)
+        {
+            m_BEliminarDesembolso.Style["display"] = "";
+            m_BEliminarDesembolso.UpdateAfterCallBack = true;
+        }
+        if ((m_nPermisos & 8) == 8)
+        {
+            m_BAceptarDesembolso.Style["display"] = "";
+            m_BAceptarDesembolso.UpdateAfterCallBack = true;
+        }
         m_BCancelarDesembolso.Style["display"] = "";
         m_BCancelarDesembolso.UpdateAfterCallBack = true;
         m_BInsertarDesembolso.Style["display"] = "none";
@@ -986,8 +1014,11 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_BAceptarRendimiento.UpdateAfterCallBack = true;
         m_BCancelarRendimiento.Style["display"] = "none";
         m_BCancelarRendimiento.UpdateAfterCallBack = true;
-        m_BInsertarRendimiento.Style["display"] = "";
-        m_BInsertarRendimiento.UpdateAfterCallBack = true;
+        if ((m_nPermisos & 4) == 4)
+        {
+            m_BInsertarRendimiento.Style["display"] = "";
+            m_BInsertarRendimiento.UpdateAfterCallBack = true;
+        }
 
         m_nIdRendimiento.Value = "";
         m_EValorRendimiento.Text = "";
@@ -1038,10 +1069,16 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_CBEstadoRendimiento.UpdateAfterCallBack = true;
         m_EObservacionesRendimiento.UpdateAfterCallBack = true;
 
-        m_BEliminarRendimiento.Style["display"] = "";
-        m_BEliminarRendimiento.UpdateAfterCallBack = true;
-        m_BAceptarRendimiento.Style["display"] = "";
-        m_BAceptarRendimiento.UpdateAfterCallBack = true;
+        if ((m_nPermisos & 16) == 16)
+        {
+            m_BEliminarRendimiento.Style["display"] = "";
+            m_BEliminarRendimiento.UpdateAfterCallBack = true;
+        }
+        if ((m_nPermisos & 8) == 8)
+        {
+            m_BAceptarRendimiento.Style["display"] = "";
+            m_BAceptarRendimiento.UpdateAfterCallBack = true;
+        }
         m_BCancelarRendimiento.Style["display"] = "";
         m_BCancelarRendimiento.UpdateAfterCallBack = true;
         m_BInsertarRendimiento.Style["display"] = "none";

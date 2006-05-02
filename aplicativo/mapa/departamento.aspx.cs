@@ -22,6 +22,9 @@ public partial class aplicativo_mapa_departamento : CPageTemplate
         m_saCampos[3] = "color";
         m_saCampos[4] = "observaciones";
 
+        for( int i=0; i<m_saCampos.Length; i++)
+            m_saCamposAlias[i]=m_saCampos[i];
+
         m_saTitulos[0] = "Código División política";
         m_saTitulos[1] = "Nombre Departamento";
         m_saTitulos[2] = "Nombre en el Mapa";

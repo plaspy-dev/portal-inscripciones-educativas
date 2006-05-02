@@ -24,7 +24,7 @@ public class CAspectosTecnicos
         m_pConector = null;
         m_pTabla = null;
         m_szQuery = "SELECT aspectostecnicos.id AS did,aspectostecnicos.id AS iddoc,varios.id AS id,varios.nombre AS Documento"
-            + ",aspectostecnicos.cantidad AS Cantidad FROM varios "
+            + ",aspectostecnicos.cantidad AS Cantidad,aspectostecnicos.observaciones AS Observaciones FROM varios "
             + " LEFT JOIN aspectostecnicos ON (aspectostecnicos.aspecto=varios.id AND aspectostecnicos.proyecto=%d) "
             + " WHERE varios.tipo=52 AND (varios.nReservado IS NULL OR varios.nReservado!=-1) ";
         m_szCurrentID = "";

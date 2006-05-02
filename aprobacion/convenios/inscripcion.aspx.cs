@@ -404,7 +404,9 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
                 m_LCResultados.Visible = false;
                 m_SResumen.Visible = false;
                 m_BFinalizarE.Style["display"] = m_BAceptar.Style["display"];
-                m_BFinalizar.Style["display"] = m_BAceptar.Style["display"] == "" ? "none" : "";
+                if ((m_nPermisos & 4) == 4)
+                    m_BFinalizar.Style["display"] = m_BAceptar.Style["display"] == "" ? "none" : "";
+                else m_BFinalizar.Style["display"] = "none";
                 break;
         }
         base.SetView(index);

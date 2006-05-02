@@ -47,7 +47,8 @@ public class CContratos : CTablaItems
         m_szTitulos[26] = m_szCampos[26] = "reporte.interventor";
         m_szTitulos[27] = m_szCampos[27] = "reporte.cargo";
         m_szTitulos[28] = m_szCampos[28] = "contratos.observaciones";
-        m_szTitulos[29] = m_szCampos[29] = "MAX(registro.fecha)";
+        m_szCampos[29] = "contratos.id";
+        m_szTitulos[29] = "myid";
         m_szTitulos[30] = m_szCampos[30] = "reporte.ncontrato";
         m_szTitulos[31] = m_szCampos[31] = "reporte.acta";
         m_szTitulos[32] = m_szCampos[32] = "reporte.plazo";
@@ -102,7 +103,6 @@ public class CContratos : CTablaItems
             + " LEFT JOIN varios AS objetos ON (objetos.id=contratos.objeto)"
             + " LEFT JOIN reporte ON (reporte.contrato=contratos.id)"
             + " LEFT JOIN varios AS estados ON (estados.id=contratos.estado)"
-            + " LEFT JOIN registro ON (registro.contrato=contratos.id)"
             + " WHERE proyectos.id=%d AND contratos.id IS NOT NULL"
             ;
         m_szQuery = CConector.CrearSelectT("proyectos",m_szCampos, m_szTitulos, join + grupo);

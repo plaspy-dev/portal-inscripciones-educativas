@@ -92,6 +92,101 @@ public class CMapaDepartamentos
         }
         return total;
     }
+    public decimal GetMaximoValorP()
+    {
+        if (m_pProyectos == null)
+            return 0;
+        decimal total = 0;
+        for (int i = 0; i < m_pProyectos.Count; i++)
+        {
+            if (((CMapaProyectos)m_pProyectos[i]).m_szValor.Length > 0)
+            {
+                if( total<Convert.ToDecimal(((CMapaProyectos)m_pProyectos[i]).m_szValor))
+                    total = Convert.ToDecimal(((CMapaProyectos)m_pProyectos[i]).m_szValor);
+            }
+        }
+        return total;
+    }
+    public decimal GetAvance(string proyectoid)
+    {
+        if (m_pContratos == null)
+            return 0;
+        decimal total = 0;
+        for (int i = 0; i < m_pContratos.Count; i++)
+        {
+            if (((CMapaContratos)m_pContratos[i]).m_szIDProyecto==proyectoid && ((CMapaContratos)m_pContratos[i]).m_szAvance.Length > 0)
+                total += Convert.ToDecimal(((CMapaContratos)m_pContratos[i]).m_szAvance);
+        }
+        return total;
+    }
+    public int GetAvance(CMapaProyectos proyecto)
+    {
+        decimal avance = GetAvance(proyecto.m_nID.ToString());
+        avance *= 100;
+        if(proyecto.m_szValor.Length>0)
+            return Convert.ToInt32(avance / Convert.ToDecimal(proyecto.m_szValor));
+        return 0;
+    }
+    public int GetMaximoAvance()
+    {
+        if (m_pProyectos == null)
+            return 0;
+        int total = 0;
+        int temp;
+        for (int i = 0; i < m_pProyectos.Count; i++)
+        {
+            temp = GetAvance((CMapaProyectos)m_pProyectos[i]);
+            if (total < temp)
+                total = temp;
+        }
+        return total;
+    }
+    public int GetMaxEstudiantesB()
+    {
+        if (m_pProyectos == null)
+            return 0;
+        int total = 0;
+        for (int i = 0; i < m_pProyectos.Count; i++)
+        {
+            if (total < ((CMapaProyectos)m_pProyectos[i]).m_nEstudiantesB)
+                total = ((CMapaProyectos)m_pProyectos[i]).m_nEstudiantesB;
+        }
+        return total;
+    }
+    public int GetMaxAulas()
+    {
+        if (m_pProyectos == null)
+            return 0;
+        int total = 0;
+        for (int i = 0; i < m_pProyectos.Count; i++)
+        {
+            if (total < ((CMapaProyectos)m_pProyectos[i]).m_nAulas)
+                total = ((CMapaProyectos)m_pProyectos[i]).m_nAulas;
+        }
+        return total;
+    }
+    public int GetEstudiantesBeneficiados()
+    {
+        if (m_pProyectos == null)
+            return 0;
+        int total = 0;
+        for (int i = 0; i < m_pProyectos.Count; i++)
+        {
+            total += ((CMapaProyectos)m_pProyectos[i]).m_nEstudiantesB;
+        }
+        return total;
+    }
+    public int GetAulasNuevas()
+    {
+        if (m_pProyectos == null)
+            return 0;
+        int total = 0;
+        for (int i = 0; i < m_pProyectos.Count; i++)
+        {
+            total += ((CMapaProyectos)m_pProyectos[i]).m_nAulas;
+        }
+        return total;
+    }
     public decimal GetValorConvenios()
     {
         if (m_pConvenios== null)

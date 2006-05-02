@@ -232,6 +232,11 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
             m_LCContratosSaldos.Style["display"] = "none";
         }
         m_szMensaje = "No se encontraron proyectos";
+        if ((m_nPermisos & 8) == 0)
+        {
+            m_BFinalizarE.Style["display"] = "none";
+            m_BSubir.Style["display"]="none";
+        }
         EndPageLoad();
     }
 
@@ -324,8 +329,11 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_BEliminarContrato.Style["display"] = "none";
         m_BAceptarContrato.Style["display"] = "none";
         m_BCancelarContrato.Style["display"] = "none";
-        m_BInsertarContrato.Style["display"] = "";
-        m_BInsertarContrato.UpdateAfterCallBack = true;
+        if ((m_nPermisos & 4) == 4)
+        {
+            m_BInsertarContrato.Style["display"] = "";
+            m_BInsertarContrato.UpdateAfterCallBack = true;
+        }
 
         // pestaña 3
         m_LCContratosSaldos.DataBind();
@@ -689,8 +697,11 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_BAceptarContrato.UpdateAfterCallBack = true;
         m_BCancelarContrato.Style["display"] = "none";
         m_BCancelarContrato.UpdateAfterCallBack = true;
-        m_BInsertarContrato.Style["display"] = "";
-        m_BInsertarContrato.UpdateAfterCallBack = true;
+        if ((m_nPermisos & 4) == 4)
+        {
+            m_BInsertarContrato.Style["display"] = "";
+            m_BInsertarContrato.UpdateAfterCallBack = true;
+        }
 
         m_nIdContrato.Value = "";
         m_EContrato.Text = "";
@@ -833,10 +844,16 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_EObservacionesContrato.UpdateAfterCallBack = true;
         m_CBTipoR.UpdateAfterCallBack = true;
 
-        m_BEliminarContrato.Style["display"] = "";
-        m_BEliminarContrato.UpdateAfterCallBack = true;
-        m_BAceptarContrato.Style["display"] = "";
-        m_BAceptarContrato.UpdateAfterCallBack = true;
+        if ((m_nPermisos & 16) == 16)
+        {
+            m_BEliminarContrato.Style["display"] = "";
+            m_BEliminarContrato.UpdateAfterCallBack = true;
+        }
+        if ((m_nPermisos & 8) == 8)
+        {
+            m_BAceptarContrato.Style["display"] = "";
+            m_BAceptarContrato.UpdateAfterCallBack = true;
+        }
         m_BCancelarContrato.Style["display"] = "";
         m_BCancelarContrato.UpdateAfterCallBack = true;
         m_BInsertarContrato.Style["display"] = "none";
