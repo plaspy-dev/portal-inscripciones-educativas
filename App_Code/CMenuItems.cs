@@ -20,6 +20,7 @@ public class CMenuItems
     protected string m_szDescripcion;
     protected string m_szURL;
     protected int m_nPermiso;
+    protected int m_nOrden;
 
     public CMenuItems()
     {
@@ -29,9 +30,10 @@ public class CMenuItems
         m_szDescripcion = "";
         m_szURL = "";
         m_nPermiso = 0;
+        m_nOrden = 0;
     }
 
-    public CMenuItems(string nombre, int id, string descripcion, string url)
+    public CMenuItems(string nombre, int id, string descripcion, string url,int orden)
     {
         m_pItems = null;
         m_szNombre = nombre;
@@ -39,12 +41,13 @@ public class CMenuItems
         m_szDescripcion = descripcion;
         m_szURL = url;
         m_nPermiso = 0;
+        m_nOrden = orden;
     }
 
-    public int AddMenu(string nombre, int id, string descripcion, string url, int padre)
+    public int AddMenu(string nombre, int id, string descripcion, string url, int padre, int orden)
     {
         if (m_nID == padre)
-            return AddMenu(nombre, id, descripcion, url);
+            return AddMenu(nombre, id, descripcion, url,orden);
         if (m_pItems == null)
             return 0;
         CMenuItems item = null;
@@ -53,9 +56,9 @@ public class CMenuItems
             item = (CMenuItems)m_pItems[i];
             if (item.m_nID == padre)
             {
-                return item.AddMenu(nombre, id, descripcion, url);
+                return item.AddMenu(nombre, id, descripcion, url,orden);
             }
-            if (item.AddMenu(nombre, id, descripcion, url, padre) != 0)
+            if (item.AddMenu(nombre, id, descripcion, url, padre,orden) != 0)
                 return 1;
         }
         return 0;
@@ -81,11 +84,11 @@ public class CMenuItems
         return false;
     }
 
-    public int AddMenu(string nombre, int id, string descripcion, string url)
+    public int AddMenu(string nombre, int id, string descripcion, string url, int orden)
     {
         if (m_pItems == null)
             m_pItems = new ArrayList();
-        return m_pItems.Add(new CMenuItems(nombre, id, descripcion, url));
+        return m_pItems.Add(new CMenuItems(nombre, id, descripcion, url, orden));
     }
 
     public static string GetQuotedWord(string palabra)
@@ -119,7 +122,7 @@ public class CMenuItems
                     return true;
             }
         }
-        return m_nPermiso != 0;
+        return m_nPermiso != 0 && m_nOrden!=-1;
     }
 
     public void SetPermisoEx(int permiso)

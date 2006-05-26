@@ -69,13 +69,13 @@ public class CTablaPermisos
 
         if (m_szCurrentID == null || m_szCurrentID.Length == 0)
         {
-            m_szQuery = "SELECT id,nombre,0 FROM menus WHERE url!='' ORDER BY nombre";
+            m_szQuery = "SELECT id,nombre,0 FROM menus WHERE url!='' AND orden!=-2 ORDER BY nombre";
         }
         else
         {
             m_szQuery = "SELECT menus.id,menus.nombre,ISNULL(gruposupermisos.permisos, 0) FROM menus LEFT JOIN gruposupermisos ON (gruposupermisos.menu=menus.id AND gruposupermisos.grupo='"
                 + m_szCurrentID
-                +"') WHERE menus.url!='' ORDER BY menus.nombre";
+                +"') WHERE menus.url!='' AND menus.orden!=-2 ORDER BY menus.nombre";
         }
         m_pTabla = new DataTable();
         SqlDataReader reader = m_pConector.Query(m_szQuery);

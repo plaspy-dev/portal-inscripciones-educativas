@@ -66,7 +66,7 @@ Verified on 20 November 2026. The portal was built in Windows and tested with II
 
 The 2026 reconstruction fills the original paging image references with the earliest surviving copies, dated July 26, 2006.
 
-The source edition keeps its recorded date of 2006-05-02. The 2026 reconstruction includes recovered components, setup instructions and local checks.
+The source edition keeps its recorded date of 2006-05-26. The 2026 reconstruction includes recovered components, setup instructions and local checks.
 
 ### Support
 
@@ -147,7 +147,7 @@ Verificado el 20 de noviembre de 2026. El portal se compiló en Windows y se pro
 
 La reconstrucción de 2026 completa las referencias originales a imágenes de paginación con las copias más antiguas conservadas, del 26 de julio de 2006.
 
-La edición conserva su fecha registrada del 2006-05-02. La reconstrucción de 2026 incorpora componentes recuperados, instrucciones y comprobaciones locales.
+La edición conserva su fecha registrada del 2006-05-26. La reconstrucción de 2026 incorpora componentes recuperados, instrucciones y comprobaciones locales.
 
 ### Soporte
 

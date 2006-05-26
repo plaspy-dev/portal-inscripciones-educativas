@@ -23,7 +23,7 @@ public class CMenu
         CConector conector = CConector.GetConector();
         CUsuarioDatos usuario = (CUsuarioDatos)padre.Session["usuario"];
 
-        SqlDataReader result = conector.Query("SELECT * FROM Menus WHERE orden=NULL OR orden!=-1 ORDER BY padre,orden", true);
+        SqlDataReader result = conector.Query("SELECT * FROM Menus WHERE orden=NULL OR orden!=-2 ORDER BY padre,orden", true);
         m_pItems = new CMenuItems();
 
         while (result.Read())
@@ -33,9 +33,12 @@ public class CMenu
             string descripcion = result[2].ToString();
             string url = result[3].ToString();
             string parent = result[4].ToString();
+            string orden = result[5].ToString();
+            if (orden.Length == 0)
+                orden = "0";
             if (parent.Length == 0)
                 parent = "0";
-            m_pItems.AddMenu(nombre, Convert.ToInt32(id), descripcion, HttpContext.Current.Request.ApplicationPath + url, Convert.ToInt32(parent));
+            m_pItems.AddMenu(nombre, Convert.ToInt32(id), descripcion, HttpContext.Current.Request.ApplicationPath + url, Convert.ToInt32(parent),Convert.ToInt32(orden));
         }
         if (CConector.GetProfileInt("administrador", 0) == 1)
         {

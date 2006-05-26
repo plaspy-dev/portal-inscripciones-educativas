@@ -77,7 +77,7 @@
                                                         <anthem:TextBox ID="m_EOrden" runat="server" CssClass="inputnumerico"></anthem:TextBox></td>
                                                     <td>
                                                         <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_EOrden" Display="Dynamic"
-                                                            ErrorMessage="Por Favor ingrese un número aqui" MaximumValue="1000" MinimumValue="0"
+                                                            ErrorMessage="Por Favor ingrese un número aqui" MaximumValue="1000" MinimumValue="-1"
                                                             SetFocusOnError="True" Type="Integer"></asp:RangeValidator></td>
                                                 </tr>
                                             </table>

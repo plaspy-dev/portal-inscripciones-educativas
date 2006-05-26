@@ -12,10 +12,13 @@ using System.Web.UI.HtmlControls;
 
 public partial class seguimiento_proyectos_proyecto : CPageTemplate
 {
+    public int m_nPermisosRegistro;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!PageLoad("proyectos", 16))
             return;
+
+        m_nPermisosRegistro = m_pMenu.GetPermisos(HttpContext.Current.Request.ApplicationPath + "/fotos/proyectos/galeria.aspx");
 
         m_saCampos[0] = "id";
 
@@ -232,10 +235,11 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
             m_LCContratosSaldos.Style["display"] = "none";
         }
         m_szMensaje = "No se encontraron proyectos";
+        m_BSubir.Style["display"] = (m_nPermisosRegistro & 4)==4 ? "" : "none";
+
         if ((m_nPermisos & 8) == 0)
         {
             m_BFinalizarE.Style["display"] = "none";
-            m_BSubir.Style["display"]="none";
         }
         EndPageLoad();
     }
@@ -319,7 +323,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_BTab3.CausesValidation = false;
         m_BTab4.CausesValidation = false;
 
-        m_BGaleria.Visible = true;
+        m_BGaleria.Visible = m_nPermisosRegistro>0;
         m_BGaleria.UpdateAfterCallBack = true;
 
         // pestaña 2

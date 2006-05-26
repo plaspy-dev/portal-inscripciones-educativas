@@ -36,7 +36,7 @@ public partial class sistema_parametros_menus : CPageTemplate
 
         m_szIndice = m_saTitulos[0];
         m_szJoin = " LEFT JOIN menus AS menuitem ON (menuitem.id=menus.padre)";
-        m_szCondicion = " (menus.orden!=-1 ) ";
+        m_szCondicion = " (menus.orden!=-2 ) ";
         if (m_CBPadre.SelectedIndex > 0)
         {
             m_szCondicionEx += " AND menus.padre=" + m_CBPadre.SelectedValue;
@@ -44,9 +44,9 @@ public partial class sistema_parametros_menus : CPageTemplate
 
         m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx);
         m_baHidden[0] = true;
-        
-        FillComboBox(m_CBPadre, "SELECT id,nombre FROM menus WHERE url='' OR url IS NULL ORDER BY nombre");
-        m_EOrden.Attributes["onKeypress"] = "isnb();";
+
+        FillComboBox(m_CBPadre, "SELECT id,nombre FROM menus WHERE (url='' OR url IS NULL) AND orden!=-2 ORDER BY nombre");
+        // m_EOrden.Attributes["onKeypress"] = "isnb();";
         m_szMensaje = "No se encontraron menus";
         EndPageLoad();
     }
@@ -208,7 +208,7 @@ public partial class sistema_parametros_menus : CPageTemplate
     protected void m_BEliminar_Click(object sender, EventArgs e)
     {
         // eliminar
-        if (m_pConector.QueryMod("UPDATE menus SET orden=-1 WHERE id=" + m_nId.Value)== -1)
+        if (m_pConector.QueryMod("UPDATE menus SET orden=-2 WHERE id=" + m_nId.Value)== -1)
         {
             m_SMensaje.Text = m_pConector.GetLastError();
             m_SMensaje.UpdateAfterCallBack = true;
