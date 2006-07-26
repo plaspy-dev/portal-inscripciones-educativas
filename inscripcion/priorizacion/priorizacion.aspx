@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="priorizacion.aspx.cs" Inherits="inscripcion_priorizacion_priorizacion" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="priorizacion.aspx.cs" Inherits="inscripcion_priorizacion_priorizacion"  EnableEventValidation="false"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>
@@ -14,7 +14,7 @@
 		<style type="text/css">body { background-color: #E3E4EA; };</style>
 		<script type="text/javascript" language="JavaScript" src="../../scripts/comun.js"></script>
 </head>
-<body>
+<body onload="vermenu();">
     <form id="form1" runat="server">
     <table width="100%" align="center" border="0">
 			<tr>
@@ -25,7 +25,7 @@
 			<tr>
 				<td><table width="100%" border="1">
 						<tr>
-							<td width="150" height="280" align="center" valign="top"><span class="Titulos">VIGENCIA <asp:DropDownList ID="m_CBVigenciasCombo" runat="server" AutoPostBack="True" OnSelectedIndexChanged="m_CBVigenciasCombo_SelectedIndexChanged">
+							<td id="leftmenu"  width="150" height="280" align="center" valign="top"><span  id="lefttitulo" class="Titulos">VIGENCIA <asp:DropDownList ID="m_CBVigenciasCombo" runat="server" AutoPostBack="True" OnSelectedIndexChanged="m_CBVigenciasCombo_SelectedIndexChanged">
                                 </asp:DropDownList></span><br />
 								<div id="menu"><%GetMenu();%></div>
 							</td>
@@ -63,7 +63,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <anthem:GridView ID="m_LCSinPriorizar" runat="server" EmptyDataText="No hay proyectos" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" DataSourceID="ObjectDataSource1" UpdateAfterCallBack="False" DataKeyNames="id">
+                                                        <anthem:GridView ID="m_LCSinPriorizar" runat="server" EmptyDataText="No hay proyectos"  AutoUpdateAfterCallBack="true" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" DataSourceID="ObjectDataSource1" UpdateAfterCallBack="False" DataKeyNames="id">
                                                         <RowStyle CssClass="celda" BackColor="White" Wrap="True" />
                                                         <HeaderStyle CssClass="celdaTitulo" BackColor="#E3E4EA" />
                                                         <PagerStyle HorizontalAlign="Right" BackColor="#E3E4EA" />
@@ -77,7 +77,7 @@
                                                     <td><anthem:Button ID="m_BIzquierda" runat="server" Text="<<" CausesValidation="False" OnClick="m_BIzquierda_Click" /><br />
                                                         <anthem:Button ID="m_BDerecha" runat="server" Text=">>" CausesValidation="False" OnClick="m_BDerecha_Click" /></td>
                                                     <td>
-                                                        <anthem:GridView ID="m_LCPriorizados" runat="server" EmptyDataText="No hay proyectos" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" DataSourceID="ObjectDataSource2" UpdateAfterCallBack="False" DataKeyNames="id" OnRowDataBound="m_LCPriorizados_RowDataBound">
+                                                        <anthem:GridView ID="m_LCPriorizados" runat="server" EmptyDataText="No hay proyectos"  AutoUpdateAfterCallBack="true" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" DataSourceID="ObjectDataSource2" UpdateAfterCallBack="False" DataKeyNames="id" OnRowDataBound="m_LCPriorizados_RowDataBound">
                                                         <RowStyle CssClass="celda" BackColor="White" Wrap="True" />
                                                         <HeaderStyle CssClass="celdaTitulo" BackColor="#E3E4EA" />
                                                         <PagerStyle HorizontalAlign="Right" BackColor="#E3E4EA" />

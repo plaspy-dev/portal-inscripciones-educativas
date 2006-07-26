@@ -52,6 +52,13 @@ public class CPageTemplate : System.Web.UI.Page
         return PageLoad(tabla, campos, true);
     }
 
+    void Page_Error()
+    {
+        Exception mierror=HttpContext.Current.Server.GetLastError();
+        Session["lasterror"] = mierror==null ? "" : mierror.ToString();
+        // Anthem.Manager.AddScriptForClientSideEval("window.location = '" + HttpContext.Current.Request.ApplicationPath + "/error.aspx'");
+    }
+
     public bool PageLoad(string tabla, int campos, bool verificar)
     {
         Response.AddHeader("pragma", " no-cache");
@@ -604,7 +611,9 @@ public class CPageTemplate : System.Web.UI.Page
     {
         if (valor.Length == 0 || valor=="&nbsp;")
             return valor;
+
         string texto = valor;
+        texto= texto.Replace(".", ",");
 
         int pos = texto.IndexOf(',');
         string dec = "";
@@ -651,10 +660,10 @@ public class CPageTemplate : System.Web.UI.Page
 
     static public void ParseRow(GridView grid, DataTable tabla, GridViewRowEventArgs e, bool trim)
     {
-        if (e.Row.DataItemIndex != -1)
+        if (e.Row.RowIndex != -1)
         {
             int realindex = grid.PageIndex * grid.PageSize;
-            realindex += e.Row.DataItemIndex;
+            realindex += e.Row.RowIndex;
 
             for (int i = 0; i < grid.Columns.Count; i++)
             {

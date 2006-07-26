@@ -108,7 +108,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         FillComboBox(m_CBClaseContrato, "SELECT * FROM varios WHERE tipo=55 AND (nReservado IS NULL OR nReservado!=-1)");
         FillComboBox(m_CBEstadoContrato, "SELECT * FROM varios WHERE tipo=32 AND (nReservado IS NULL OR nReservado!=-1)");
         FillComboBox(m_CBObjeto, "SELECT * FROM varios WHERE tipo=37 AND (nReservado IS NULL OR nReservado!=-1)");
-        FillComboBox(m_CBTipoR, "SELECT * FROM varios WHERE tipo=56 AND (nReservado IS NULL OR nReservado!=-1)");
+        FillComboBox(m_CBTipoR, "SELECT * FROM varios WHERE tipo=34 AND (nReservado IS NULL OR nReservado!=-1)");
         FillComboBox(m_CBEstadoSaldo, "SELECT * FROM varios WHERE tipo=57 AND (nReservado IS NULL OR nReservado!=-1)");
 
         if (!IsPostBack)
@@ -813,11 +813,11 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_EInterventor.Text = row[26].ToString();
         m_ECargo.Text = row[27].ToString();
         m_EObservacionesContrato.Text = row[28].ToString();
-        m_EFechaRegistro.Text = GetFechaCorta(row[29].ToString());
         m_EContratoI.Text = row[30].ToString();
         m_EFechaAI.Text = GetFechaCorta(row[31].ToString());
         m_EPlazoI.Text = row[32].ToString();
         m_SFechaVI.Text = GetFechaCorta(row[33].ToString());
+        SelectInComboValue(m_CBTipoR, row[34].ToString());
 
         m_nIdContrato.UpdateAfterCallBack = true;
         m_EContrato.UpdateAfterCallBack = true;
@@ -840,6 +840,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_EFechaRegistro.UpdateAfterCallBack = true;
         m_EInterventor.UpdateAfterCallBack = true;
         m_ECargo.UpdateAfterCallBack = true;
+        m_CBEstadoContrato.UpdateAfterCallBack = true;
 
         m_EContratoI.UpdateAfterCallBack = true;
         m_EFechaAI.UpdateAfterCallBack = true;
@@ -865,6 +866,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
 
         m_STitulo.Text = "Proyecto " + m_LCProyecto.SelectedItem.Text + " - Contrato " + m_EContrato.Text;
         m_STitulo.UpdateAfterCallBack = true;
+        m_LCContratos.UpdateAfterCallBack = true;
     }
     protected void m_LCContratos_RowDataBound(object sender, GridViewRowEventArgs e)
     {

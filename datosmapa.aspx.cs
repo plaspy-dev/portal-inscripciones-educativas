@@ -37,7 +37,7 @@ public partial class datosmapa : System.Web.UI.Page
         CMapaDepartamentos dep;
         decimal valorp = 0, valorc = 0;
         int totalp = 0, totalc = 0;
-        int benef = 0,aulas=0;
+        int benef = 0,aulas=0, dotacion=0;
             
         XmlWriter xw = new XmlTextWriter(Response.OutputStream, System.Text.Encoding.UTF8);
         xw.WriteStartDocument(true);
@@ -55,6 +55,7 @@ public partial class datosmapa : System.Web.UI.Page
                 valorp += dep.GetValorProyectos();
                 aulas += dep.GetAulasNuevas();
                 benef += dep.GetEstudiantesBeneficiados();
+                dotacion += dep.GetDotacion();
             }
             xw.WriteStartElement("departamento");
             xw.WriteAttributeString("name", "colombia");
@@ -78,6 +79,7 @@ public partial class datosmapa : System.Web.UI.Page
                 comentarios = "\t\t\tNumero\tValor\n" + comentarios;
                 comentarios += "Estudiantes Beneficiados\t" + benef.ToString() + "\r";
                 comentarios += "Aulas Construidas\t\t\t" + aulas.ToString() + "\r";
+                comentarios += "Dotaciones\t\t\t" + dotacion.ToString() + "\r";
             }
 
             xw.WriteStartElement("comentarios");
@@ -96,6 +98,7 @@ public partial class datosmapa : System.Web.UI.Page
                 valorp = dep.GetValorProyectos();
                 benef = dep.GetEstudiantesBeneficiados();
                 aulas = dep.GetAulasNuevas();
+                dotacion = dep.GetDotacion();
 
                 xw.WriteStartElement("departamento");
                 xw.WriteAttributeString("name", dep.m_szMapa);
@@ -119,6 +122,7 @@ public partial class datosmapa : System.Web.UI.Page
                     comentarios = "\t\t\tNumero\tValor\n" + comentarios;
                     comentarios += "Estudiantes Beneficiados\t" + benef.ToString() +"\r";
                     comentarios += "Aulas Construidas\t\t\t"+aulas.ToString() + "\r";
+                    comentarios += "Dotaciones\t\t\t" + dotacion.ToString() + "\r";
                 }
 
                 xw.WriteStartElement("comentarios");

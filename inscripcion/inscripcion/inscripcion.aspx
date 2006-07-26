@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="inscripcion.aspx.cs" Inherits="inscripcion_inscripcion_inscripcion" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="inscripcion.aspx.cs" Inherits="inscripcion_inscripcion_inscripcion"  EnableEventValidation="false"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>
@@ -14,7 +14,7 @@
 		<style type="text/css">body { background-color: #E3E4EA; };</style>
 		<script type="text/javascript" language="JavaScript" src="../../scripts/comun.js"></script>
 </head>
-<body>
+<body onload="vermenu();">
     <form id="form1" runat="server">
     <table width="100%" align="center" border="0">
 	<tr>
@@ -26,8 +26,8 @@
 		<td>
 		<table width="100%" border="1">
 		<tr valign="top">
-			<td width="150" height="280" align="center" valign="top">
-			    <span class="Titulos">VIGENCIA <asp:DropDownList ID="m_CBVigenciasCombo" runat="server" AutoPostBack="True" OnSelectedIndexChanged="m_CBVigenciasCombo_SelectedIndexChanged">
+			<td id="leftmenu"  width="150" height="280" align="center" valign="top">
+			    <span id="lefttitulo"  class="Titulos">VIGENCIA <asp:DropDownList ID="m_CBVigenciasCombo" runat="server" AutoPostBack="True" OnSelectedIndexChanged="m_CBVigenciasCombo_SelectedIndexChanged">
                                 </asp:DropDownList></span>
 			    <div id="menu"><%GetMenu();%></div>
 			</td>
@@ -368,7 +368,7 @@
                                             </td>
                                             <td>
                                             <anthem:GridView ID="m_LCObjetos" runat="server" EmptyDataText="No hay objetos"
-                                                Width="100%" UpdateAfterCallBack="False" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" DataKeyNames="id" DataSourceID="ObjectDataSource2" OnSelectedIndexChanged="m_LCObjetos_SelectedIndexChanged" OnRowDataBound="m_LCObjetos_RowDataBound">
+                                                Width="100%" UpdateAfterCallBack="False"  AutoUpdateAfterCallBack="true" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" DataKeyNames="id" DataSourceID="ObjectDataSource2" OnSelectedIndexChanged="m_LCObjetos_SelectedIndexChanged" OnRowDataBound="m_LCObjetos_RowDataBound">
                                                 <RowStyle CssClass="celda" BackColor="White" Wrap="True" />
                                                 <HeaderStyle CssClass="celdaTitulo" BackColor="#E3E4EA" />
                                                 <PagerStyle HorizontalAlign="Right" BackColor="#E3E4EA" />
@@ -454,7 +454,7 @@
                                             &nbsp;&nbsp;<asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="Select"
                                                 TypeName="CTablaEx"></asp:ObjectDataSource>
                                             <anthem:GridView ID="m_LCResultados" runat="server" AllowPaging="True" AllowSorting="True" EmptyDataText="No se encontraron resultados"
-                                                Width="100%" DataSourceID="ObjectDataSource1" UpdateAfterCallBack="False" OnSelectedIndexChanged="m_LCResultados_SelectedIndexChanged" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" OnPageIndexChanged="m_LCResultados_PageIndexChanged" OnSorted="m_LCResultados_PageIndexChanged" OnRowDataBound="m_LCResultados_RowDataBound">
+                                                Width="100%" DataSourceID="ObjectDataSource1" UpdateAfterCallBack="False" OnSelectedIndexChanged="m_LCResultados_SelectedIndexChanged"  AutoUpdateAfterCallBack="true" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" OnPageIndexChanged="m_LCResultados_PageIndexChanged" OnSorted="m_LCResultados_PageIndexChanged" OnRowDataBound="m_LCResultados_RowDataBound">
                                                 <PagerSettings Mode="NextPreviousFirstLast" Position="Top" FirstPageImageUrl="~/imagenes/inicio.gif" LastPageImageUrl="~/imagenes/final.gif" NextPageImageUrl="~/imagenes/adelante.gif" PreviousPageImageUrl="~/imagenes/atras.gif" FirstPageText="Primera p&#225;gina" LastPageText="&#218;ltima p&#225;gina" NextPageText="P&#225;gina siguiente" PreviousPageText="P&#225;gina anterior"/>
                                                 <RowStyle CssClass="celda" BackColor="White" Wrap="True" />
                                                 <HeaderStyle CssClass="celdaTitulo" BackColor="#E3E4EA" />

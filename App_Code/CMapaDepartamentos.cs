@@ -165,6 +165,18 @@ public class CMapaDepartamentos
         }
         return total;
     }
+    public int GetMaxDotacion()
+    {
+        if (m_pProyectos == null)
+            return 0;
+        int total = 0;
+        for (int i = 0; i < m_pProyectos.Count; i++)
+        {
+            if (total < ((CMapaProyectos)m_pProyectos[i]).m_nDotacion)
+                total = ((CMapaProyectos)m_pProyectos[i]).m_nDotacion;
+        }
+        return total;
+    }
     public int GetEstudiantesBeneficiados()
     {
         if (m_pProyectos == null)
@@ -184,6 +196,17 @@ public class CMapaDepartamentos
         for (int i = 0; i < m_pProyectos.Count; i++)
         {
             total += ((CMapaProyectos)m_pProyectos[i]).m_nAulas;
+        }
+        return total;
+    }
+    public int GetDotacion()
+    {
+        if (m_pProyectos == null)
+            return 0;
+        int total = 0;
+        for (int i = 0; i < m_pProyectos.Count; i++)
+        {
+            total += ((CMapaProyectos)m_pProyectos[i]).m_nDotacion;
         }
         return total;
     }

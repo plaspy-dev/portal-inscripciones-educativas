@@ -22,6 +22,7 @@ public class CMapaProyectos
     public string m_szEstado;
     public int m_nEstudiantesB;
     public int m_nAulas;
+    public int m_nDotacion;
 
 	public CMapaProyectos()
 	{
@@ -32,6 +33,7 @@ public class CMapaProyectos
         m_szEstado= m_szInstitucion = m_szMunicipio = m_szObjeto = "";
         m_nEjecucion = 0;
         m_nAulas = 0;
+        m_nDotacion = 0;
 	}
     public CMapaProyectos(string id, string codigo, string valor)
     {
@@ -42,6 +44,7 @@ public class CMapaProyectos
         m_nEjecucion = 0;
         m_nEstudiantesB = 0;
         m_nAulas = 0;
+        m_nDotacion = 0;
     }
     public static CMapaProyectos ParseQuery(SqlDataReader reader)
     {
@@ -54,6 +57,8 @@ public class CMapaProyectos
         proy.m_nEstudiantesB = Convert.ToInt32(reader[7].ToString());
         if(reader[8].ToString()!="")
             proy.m_nAulas = Convert.ToInt32(reader[8].ToString());
+        if (reader[9].ToString() != "")
+            proy.m_nDotacion = Convert.ToInt32(reader[9].ToString());
         return proy;
     }
     public static string GetQuery(string vigencia)
@@ -61,6 +66,7 @@ public class CMapaProyectos
         return "SELECT municipios.departamento,proyectos.id,proyectos.codigo,SUM(objeto.valor),municipios.nombre "
             + ",dbo.fn_GetObjetos(proyectos.id),insteducativas.nombre,ISNULL(proyectosi.estudiantesb,0)+ISNULL(proyectosi.estudiantesd,0) "
             + ",(SELECT SUM(objeto.cantidad) FROM objeto LEFT JOIN varios ON (varios.id=objeto.concepto) WHERE objeto.proyecto=proyectos.id AND varios.nombre LIKE '%const%aulas%') "
+             + ",(SELECT SUM(objeto.cantidad) FROM objeto LEFT JOIN varios ON (varios.id=objeto.concepto) WHERE objeto.proyecto=proyectos.id AND varios.nombre NOT LIKE '%const%aulas%') "
         +" FROM proyectos "
         +" LEFT JOIN objeto ON (objeto.proyecto=proyectos.id) "
         +" LEFT JOIN municipios ON (municipios.id=proyectos.municipio)"

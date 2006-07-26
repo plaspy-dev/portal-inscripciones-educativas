@@ -14,7 +14,7 @@ using System.Web.UI.HtmlControls;
 /// </summary>
 public class CContratos : CTablaItems
 {
-	public CContratos() : base(34)
+	public CContratos() : base(35)
 	{
         m_szId = "idproyecto";
 
@@ -53,6 +53,7 @@ public class CContratos : CTablaItems
         m_szTitulos[31] = m_szCampos[31] = "reporte.acta";
         m_szTitulos[32] = m_szCampos[32] = "reporte.plazo";
         m_szTitulos[33] = m_szCampos[33] = "DATEADD(dd,reporte.plazo-1,reporte.acta)";
+        m_szTitulos[34] = m_szCampos[34] = "reporte.tipo";
 
         m_szCampos[0]="contratos.id";
         m_szCampos[1]="grupos.nombre";
@@ -74,7 +75,7 @@ public class CContratos : CTablaItems
         m_szCampos[17] = "contratos.valor-(contratos.valor*(presupuesto.valormen/SUM(objeto.valor)))";
         m_szCampos[18] = "reporte.valoravance";
         m_szCampos[19] = "reporte.fecha";
-        m_szCampos[20] = "(contratos.valor/reporte.valoravance)*100";
+        m_szCampos[20] = "CASE WHEN reporte.valoravance=0 THEN 0 WHEN reporte.valoravance IS NULL THEN 0 ELSE (contratos.valor/reporte.valoravance)*100 END";
         m_szCampos[21] = "estados.nombre";
         m_szCampos[22] = "reporte.observaciones";
         m_szCampos[23] = "contratos.historial";

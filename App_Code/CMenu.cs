@@ -79,6 +79,11 @@ public class CMenu
         // listo
         resultado += "cmDraw ('menu', menuItems, 'vbr', cmThemeMiniBlack, 'ThemeMiniBlack');\n";
         resultado += "</script>\n";
+
+        resultado += "</DIV>\n";
+        resultado += "<div id='dfinmenu'>\n";
+        resultado += "<a href='javascript:hidemenu(false);'>&lt;&lt;</a>\n";
+
         return resultado;
     }
     public string GetFullPath(string url)

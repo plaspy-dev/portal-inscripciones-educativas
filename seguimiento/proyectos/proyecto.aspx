@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="proyecto.aspx.cs" Inherits="seguimiento_proyectos_proyecto" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="proyecto.aspx.cs" Inherits="seguimiento_proyectos_proyecto"  EnableEventValidation="false"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>
@@ -14,7 +14,7 @@
 		<style type="text/css">body { background-color: #E3E4EA; };</style>
 		<script type="text/javascript" language="JavaScript" src="../../scripts/comun.js"></script>
 </head>
-<body>
+<body onload="vermenu();">
     <form id="form1" runat="server">
     <table width="100%" align="center" border="0">
 	<tr>
@@ -26,8 +26,8 @@
 		<td>
 		<table width="100%" border="1">
 		<tr valign="top">
-			<td width="150" height="280" align="center" valign="top">
-			    <span class="Titulos">VIGENCIA <asp:DropDownList ID="m_CBVigenciasCombo" runat="server" AutoPostBack="True" OnSelectedIndexChanged="m_CBVigenciasCombo_SelectedIndexChanged">
+			<td id="leftmenu"  width="150" height="280" align="center" valign="top">
+			    <span id="lefttitulo"  class="Titulos">VIGENCIA <asp:DropDownList ID="m_CBVigenciasCombo" runat="server" AutoPostBack="True" OnSelectedIndexChanged="m_CBVigenciasCombo_SelectedIndexChanged">
                                 </asp:DropDownList></span>
 			    <div id="menu"><%GetMenu();%></div>
 			</td>
@@ -288,7 +288,7 @@
                                         <td>
                                             Contratista</td>
                                         <td>
-                                            <anthem:TextBox ID="m_EContratista" runat="server" CssClass="editcomun"></anthem:TextBox></td>
+                                            <anthem:TextBox ID="m_EContratista" runat="server" CssClass="editcomun" Width="250px"></anthem:TextBox></td>
                                         <td>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="m_EContratista" Display="Dynamic"
                                                 ErrorMessage="Por favor ingrese un contratista" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
@@ -299,7 +299,7 @@
                                         <td>
                                             Representante legal</td>
                                         <td>
-                                            <anthem:TextBox ID="m_ERepresentante" runat="server" CssClass="editcomun"></anthem:TextBox></td>
+                                            <anthem:TextBox ID="m_ERepresentante" runat="server" CssClass="editcomun" Width="250px"></anthem:TextBox></td>
                                         <td>
                                         </td>
                                     </tr>
@@ -679,7 +679,7 @@
                                     <tr>
                                         <td>
                                             &nbsp;&nbsp;<anthem:GridView id="m_LCContratos" runat="server" AutoGenerateColumns="False" CellPadding="1"
-                                        CellSpacing="1" DataKeyNames="id" DataSourceID="ObjectDataSource2" EmptyDataText="No hay Contratos"
+                                        CellSpacing="1" DataKeyNames="id" DataSourceID="ObjectDataSource2" EmptyDataText="No hay Contratos"  AutoUpdateAfterCallBack="true" 
                                         UpdateAfterCallBack="False" OnRowDataBound="m_LCContratos_RowDataBound" OnSelectedIndexChanged="m_LCContratos_SelectedIndexChanged">
                                         <columns>
 <asp:CommandField SelectImageUrl="../../imagenes/edit.gif" ButtonType="Image" ShowSelectButton="True"></asp:CommandField>
@@ -700,7 +700,7 @@
                                     <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="Select"
                                                 TypeName="CTablaEx"></asp:ObjectDataSource>
                                             <anthem:GridView ID="m_LCResultados" runat="server" AllowPaging="True" AllowSorting="True" EmptyDataText="No se encontraron resultados"
-                                                Width="100%" DataSourceID="ObjectDataSource1" UpdateAfterCallBack="False" OnSelectedIndexChanged="m_LCResultados_SelectedIndexChanged" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" OnPageIndexChanged="m_LCResultados_PageIndexChanged" OnSorted="m_LCResultados_PageIndexChanged" OnRowDataBound="m_LCResultados_RowDataBound">
+                                                Width="100%" DataSourceID="ObjectDataSource1" UpdateAfterCallBack="False" OnSelectedIndexChanged="m_LCResultados_SelectedIndexChanged"  AutoUpdateAfterCallBack="true" AutoGenerateColumns="False" CellPadding="1" CellSpacing="1" OnPageIndexChanged="m_LCResultados_PageIndexChanged" OnSorted="m_LCResultados_PageIndexChanged" OnRowDataBound="m_LCResultados_RowDataBound">
                                                 <PagerSettings Mode="NextPreviousFirstLast" Position="Top" FirstPageImageUrl="~/imagenes/inicio.gif" LastPageImageUrl="~/imagenes/final.gif" NextPageImageUrl="~/imagenes/adelante.gif" PreviousPageImageUrl="~/imagenes/atras.gif" FirstPageText="Primera p&#225;gina" LastPageText="&#218;ltima p&#225;gina" NextPageText="P&#225;gina siguiente" PreviousPageText="P&#225;gina anterior"/>
                                                 <RowStyle CssClass="celda" BackColor="White" Wrap="True" />
                                                 <HeaderStyle CssClass="celdaTitulo" BackColor="#E3E4EA" />

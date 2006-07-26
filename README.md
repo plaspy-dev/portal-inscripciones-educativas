@@ -27,7 +27,7 @@ The portal stores forms and reference lists for education applications. Operator
 | ASP.NET precompiler | 4.8.10001.0 | Compiles the Web Forms pages |
 | IIS Express | 10.0.26013.1000 | Runs the verification site |
 | SQL Server Developer | 2022 | Stores the fictional catalogue |
-| Anthem.NET | 1.1.0.0 | Supports the original page controls |
+| Anthem.NET | 1.3.1.0 | Supports the original page controls |
 
 ### Getting started
 
@@ -51,7 +51,7 @@ Copy `demo/CatalogProbe.aspx.example` into the test site as `prueba-catalogo.asp
 - `inscripcion/` · Application forms
 - `menu/`. JSCookMenu.js and the visual theme for the menu.
 - `seguimiento/`. Follow-up pages for projects and agreements, including proyectos/proyecto.aspx.
-- `sistema/` · Administrative catalogues
+- `sistema/`. Administrative catalogues and user groups. Start at `sistema/parametros/miscelaneos.aspx`.
 - `viabilizacion/`. Project feasibility entry in proyectos/viabilizacion.aspx.
 
 ### Verification
@@ -64,9 +64,7 @@ Verified on 20 November 2026. The portal was built in Windows and tested with II
 
 ### History
 
-The 2026 reconstruction fills the original paging image references with the earliest surviving copies, dated July 26, 2006.
-
-The source edition keeps its recorded date of 2006-05-26. The 2026 reconstruction includes recovered components, setup instructions and local checks.
+The source edition keeps its recorded date of 2006-07-26. The 2026 reconstruction includes recovered components, setup instructions and local checks.
 
 ### Support
 
@@ -108,7 +106,7 @@ El portal reúne formularios y catálogos para gestionar inscripciones educativa
 | Precompilador ASP.NET | 4.8.10001.0 | Compila las páginas Web Forms |
 | IIS Express | 10.0.26013.1000 | Ejecuta el sitio de prueba |
 | SQL Server Developer | 2022 | Guarda el catálogo ficticio |
-| Anthem.NET | 1.1.0.0 | Permite usar los controles originales de las páginas |
+| Anthem.NET | 1.3.1.0 | Permite usar los controles originales de las páginas |
 
 ### Cómo empezar
 
@@ -132,7 +130,7 @@ Copia `demo/CatalogProbe.aspx.example` al sitio de prueba como `prueba-catalogo.
 - `inscripcion/` · Formularios de inscripción
 - `menu/`. JSCookMenu.js y el tema visual del menú.
 - `seguimiento/`. Seguimiento de proyectos y convenios, incluido proyectos/proyecto.aspx.
-- `sistema/` · Catálogos de administración
+- `sistema/`. Catálogos administrativos y grupos de usuarios. Empieza en `sistema/parametros/miscelaneos.aspx`.
 - `viabilizacion/`. Ficha de viabilidad de proyectos en proyectos/viabilizacion.aspx.
 
 ### Verificación
@@ -145,9 +143,7 @@ Verificado el 20 de noviembre de 2026. El portal se compiló en Windows y se pro
 
 ### Historia
 
-La reconstrucción de 2026 completa las referencias originales a imágenes de paginación con las copias más antiguas conservadas, del 26 de julio de 2006.
-
-La edición conserva su fecha registrada del 2006-05-26. La reconstrucción de 2026 incorpora componentes recuperados, instrucciones y comprobaciones locales.
+La edición conserva su fecha registrada del 2006-07-26. La reconstrucción de 2026 incorpora componentes recuperados, instrucciones y comprobaciones locales.
 
 ### Soporte
 
