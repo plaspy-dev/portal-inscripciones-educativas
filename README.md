@@ -48,6 +48,7 @@ Copy `demo/CatalogProbe.aspx.example` into the test site as `prueba-catalogo.asp
 - `demo/` · Build and fictional SQL scenario
 - `fotos/`. Project photos and gallery entry points under proyectos/.
 - `imagenes/`. Menu banners, navigation icons and LogoEntidad.aspx.
+- `informes/` · Report pages
 - `inscripcion/` · Application forms
 - `menu/`. JSCookMenu.js and the visual theme for the menu.
 - `seguimiento/`. Follow-up pages for projects and agreements, including proyectos/proyecto.aspx.
@@ -64,7 +65,7 @@ Verified on 20 November 2026. The portal was built in Windows and tested with II
 
 ### History
 
-The source edition keeps its recorded date of 2006-07-26. The 2026 reconstruction includes recovered components, setup instructions and local checks.
+The source edition keeps its recorded date of 2006-08-11. The 2026 reconstruction includes recovered components, setup instructions and local checks.
 
 ### Support
 
@@ -127,6 +128,7 @@ Copia `demo/CatalogProbe.aspx.example` al sitio de prueba como `prueba-catalogo.
 - `demo/` · Compilación y escenario ficticio en SQL
 - `fotos/`. Fotos y páginas de galería de proyectos en proyectos/.
 - `imagenes/`. Encabezados del menú, iconos y LogoEntidad.aspx.
+- `informes/` · Páginas de informes
 - `inscripcion/` · Formularios de inscripción
 - `menu/`. JSCookMenu.js y el tema visual del menú.
 - `seguimiento/`. Seguimiento de proyectos y convenios, incluido proyectos/proyecto.aspx.
@@ -143,7 +145,7 @@ Verificado el 20 de noviembre de 2026. El portal se compiló en Windows y se pro
 
 ### Historia
 
-La edición conserva su fecha registrada del 2006-07-26. La reconstrucción de 2026 incorpora componentes recuperados, instrucciones y comprobaciones locales.
+La edición conserva su fecha registrada del 2006-08-11. La reconstrucción de 2026 incorpora componentes recuperados, instrucciones y comprobaciones locales.
 
 ### Soporte
 

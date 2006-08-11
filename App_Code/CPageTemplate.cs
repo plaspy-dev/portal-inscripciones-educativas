@@ -54,8 +54,8 @@ public class CPageTemplate : System.Web.UI.Page
 
     void Page_Error()
     {
-        Exception mierror=HttpContext.Current.Server.GetLastError();
-        Session["lasterror"] = mierror==null ? "" : mierror.ToString();
+        Exception mierror = HttpContext.Current.Server.GetLastError();
+        Session["lasterror"] = mierror == null ? "" : mierror.ToString();
         // Anthem.Manager.AddScriptForClientSideEval("window.location = '" + HttpContext.Current.Request.ApplicationPath + "/error.aspx'");
     }
 
@@ -98,7 +98,7 @@ public class CPageTemplate : System.Web.UI.Page
         m_saTitulos = new string[campos];
         m_saCamposAlias = new string[campos];
         m_baHidden = new bool[campos];
-        m_saDatos= new string[campos];
+        m_saDatos = new string[campos];
 
         for (int i = 0; i < campos; i++)
         {
@@ -109,7 +109,7 @@ public class CPageTemplate : System.Web.UI.Page
             m_baHidden[i] = false;
         }
         DropDownList combo = (DropDownList)FindControl("m_CBVigenciasCombo");
-        if( combo!=null)
+        if (combo != null)
             m_pUsuario.GetVigencias(combo);
         if (!IsPostBack)
         {
@@ -131,7 +131,7 @@ public class CPageTemplate : System.Web.UI.Page
 
     virtual public void CleanQuery()
     {
-        if(m_szCondicion.Length>0)
+        if (m_szCondicion.Length > 0)
             m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion);
         else m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin);
         Session["query"] = m_szQuery;
@@ -171,7 +171,7 @@ public class CPageTemplate : System.Web.UI.Page
             }
             if ((m_nPermisos & 4) == 0 && (boton = (ImageButton)FindControl("m_BInsertar")) != null)
             {
-                boton.Style["display"]="none";
+                boton.Style["display"] = "none";
             }
             if ((m_nPermisos & 2) == 0 && (boton = (ImageButton)FindControl("m_BImprimir")) != null)
             {
@@ -199,7 +199,7 @@ public class CPageTemplate : System.Web.UI.Page
         {
             if (grid.Columns.Count == 1)
             {
-                grid.Columns[0].ItemStyle.Width= new Unit(16, UnitType.Pixel);
+                grid.Columns[0].ItemStyle.Width = new Unit(16, UnitType.Pixel);
                 for (int i = 0; i < m_saTitulos.Length; i++)
                 {
                     BoundField data = new BoundField();
@@ -208,7 +208,7 @@ public class CPageTemplate : System.Web.UI.Page
                     data.DataField = data.SortExpression = m_saTitulos[i];
                     grid.Columns.Add(data);
                 }
-                grid.DataKeyNames = new string[] { m_szIndice }; 
+                grid.DataKeyNames = new string[] { m_szIndice };
             }
             grid.EmptyDataText = m_szMensaje;
             grid.PageSize = CConector.GetCookie("pager", 20);
@@ -281,12 +281,12 @@ public class CPageTemplate : System.Web.UI.Page
         }
 
         Anthem.ImageButton boton = (Anthem.ImageButton)FindControl("m_BImprimir");
-        if ((m_nPermisos&2)== 2 && boton != null)
+        if ((m_nPermisos & 2) == 2 && boton != null)
         {
-            boton.Style["display"] = show ? "none" :"";
+            boton.Style["display"] = show ? "none" : "";
             boton.UpdateAfterCallBack = true;
         }
-        if ((boton = (Anthem.ImageButton)FindControl("m_BCancelar"))!=null)
+        if ((boton = (Anthem.ImageButton)FindControl("m_BCancelar")) != null)
         {
             boton.Style["display"] = show ? "none" : "";
             boton.UpdateAfterCallBack = true;
@@ -307,7 +307,7 @@ public class CPageTemplate : System.Web.UI.Page
             boton.UpdateAfterCallBack = true;
         }
         Anthem.LinkButton lboton = (Anthem.LinkButton)FindControl("m_LBTodos");
-        if (lboton!=null)
+        if (lboton != null)
         {
             lboton.Style["display"] = show ? "" : "none";
             lboton.UpdateAfterCallBack = true;
@@ -349,7 +349,7 @@ public class CPageTemplate : System.Web.UI.Page
     {
         int desde, hasta;
         int total = CTablaEx.GetCount();
-        Anthem.Label label = (Anthem.Label) FindControl("m_SResumen");
+        Anthem.Label label = (Anthem.Label)FindControl("m_SResumen");
         Anthem.GridView grid = (Anthem.GridView)sender;
         if (grid == null)
             return;
@@ -364,11 +364,11 @@ public class CPageTemplate : System.Web.UI.Page
         }
 
         desde = grid.PageSize * grid.PageIndex + 1;
-        hasta = desde + grid.PageSize-1;
+        hasta = desde + grid.PageSize - 1;
         if (hasta > total)
             hasta = total;
 
-        if (label!=null)
+        if (label != null)
         {
             label.Text = "Resultados del " + desde + " al " + hasta + ", de " + total + " Resultados";
             label.UpdateAfterCallBack = true;
@@ -393,11 +393,11 @@ public class CPageTemplate : System.Web.UI.Page
         return GetDataRow(grid, CTablaEx.GetTabla());
     }
 
-    protected void ShowEdicion(bool show,string mensaje)
+    protected void ShowEdicion(bool show, string mensaje)
     {
 
         Anthem.ImageButton boton;
-        if ((m_nPermisos&8)==8  && (boton = (Anthem.ImageButton)FindControl("m_BAceptar")) != null)
+        if ((m_nPermisos & 8) == 8 && (boton = (Anthem.ImageButton)FindControl("m_BAceptar")) != null)
         {
             boton.Style["display"] = show ? "" : "none";
             boton.UpdateAfterCallBack = true;
@@ -423,7 +423,8 @@ public class CPageTemplate : System.Web.UI.Page
             label.Text = mensaje;
             label.UpdateAfterCallBack = true;
         }
-        if (!show) {
+        if (!show)
+        {
             Anthem.GridView grid = (Anthem.GridView)FindControl("m_LCResultados");
             if (grid != null)
             {
@@ -462,7 +463,8 @@ public class CPageTemplate : System.Web.UI.Page
         if (label != null)
             label.Text = texto;
         Anthem.GridView grid = (Anthem.GridView)FindControl("m_LCResultados");
-        if(grid!=null) {
+        if (grid != null)
+        {
             grid.DataBind();
             grid.UpdateAfterCallBack = true;
         }
@@ -470,8 +472,8 @@ public class CPageTemplate : System.Web.UI.Page
     virtual protected void SetView(int index)
     {
         Button boton;
-        int i=1;
-        while ((boton =(Button) FindControl("m_BTab" +i.ToString())) != null)
+        int i = 1;
+        while ((boton = (Button)FindControl("m_BTab" + i.ToString())) != null)
         {
             boton.CssClass = (i - 1) == index ? "cselected" : "cinftab";
             i++;
@@ -502,10 +504,10 @@ public class CPageTemplate : System.Web.UI.Page
     {
         Button boton = (Button)sender;
         MultiView view = (MultiView)FindControl("MultiView1");
-        int vista=0;
-        if (boton!=null && view!=null)
+        int vista = 0;
+        if (boton != null && view != null)
         {
-            vista= Convert.ToInt32(boton.ID[boton.ID.Length-1].ToString());
+            vista = Convert.ToInt32(boton.ID[boton.ID.Length - 1].ToString());
             vista--;
             view.ActiveViewIndex = vista;
             SetView(vista);
@@ -516,7 +518,7 @@ public class CPageTemplate : System.Web.UI.Page
         if (valor.Length == 0)
             return "";
         valor = valor.Replace(".", "");
-        valor= valor.Replace(",", ".");
+        valor = valor.Replace(",", ".");
         return "%" + valor;
     }
     static protected string GetString(string valor)
@@ -559,7 +561,7 @@ public class CPageTemplate : System.Web.UI.Page
         lista.SelectedIndex = item == null ? 0 : lista.Items.IndexOf(item);
     }
 
-    static public void FillComboBox(DropDownList lista, string query,CConector conector)
+    static public void FillComboBox(DropDownList lista, string query, CConector conector)
     {
         if (lista.Items.Count > 0)
             return;
@@ -582,9 +584,10 @@ public class CPageTemplate : System.Web.UI.Page
             if (force)
             {
                 if (Session[lista.ID] != null && Session[lista.ID].ToString() == query)
-                   return;
+                    return;
                 lista.Items.Clear();
-            } else return;
+            }
+            else return;
         lista.Items.Add(new ListItem("(Ninguno)", "-1"));
         if (query == null || query.Length == 0)
             return;
@@ -598,7 +601,7 @@ public class CPageTemplate : System.Web.UI.Page
         }
         if (force)
         {
-            Session[lista.ID]=query;
+            Session[lista.ID] = query;
         }
         // lista.SelectedIndex = selectedindex;
     }
@@ -609,11 +612,11 @@ public class CPageTemplate : System.Web.UI.Page
 
     static protected string GetFormatDouble(string valor, int decimales, bool showceros)
     {
-        if (valor.Length == 0 || valor=="&nbsp;")
+        if (valor.Length == 0 || valor == "&nbsp;")
             return valor;
 
         string texto = valor;
-        texto= texto.Replace(".", ",");
+        texto = texto.Replace(".", ",");
 
         int pos = texto.IndexOf(',');
         string dec = "";
@@ -623,7 +626,7 @@ public class CPageTemplate : System.Web.UI.Page
             texto = texto.Substring(0, pos);
             if (!showceros)
             {
-                while (dec.Length>0 && dec[dec.Length - 1] == '0')
+                while (dec.Length > 0 && dec[dec.Length - 1] == '0')
                     dec = dec.Remove(dec.Length - 1, 1);
             }
         }
@@ -662,14 +665,54 @@ public class CPageTemplate : System.Web.UI.Page
     {
         if (e.Row.RowIndex != -1)
         {
-            int realindex = grid.PageIndex * grid.PageSize;
-            realindex += e.Row.RowIndex;
-
-            for (int i = 0; i < grid.Columns.Count; i++)
+            if (grid.Columns.Count > 0)
             {
-                if (grid.Columns[i].GetType() == typeof(BoundField))
+                int realindex = grid.PageIndex * grid.PageSize;
+                realindex += e.Row.RowIndex;
+
+                for (int i = 0; i < grid.Columns.Count; i++)
                 {
-                    Type tipodato = tabla.Rows[realindex][((BoundField)grid.Columns[i]).DataField].GetType();
+                    if (grid.Columns[i].GetType() == typeof(BoundField))
+                    {
+                        Type tipodato = tabla.Rows[realindex][((BoundField)grid.Columns[i]).DataField].GetType();
+                        if (tipodato == typeof(double) || tipodato == typeof(decimal) || tipodato == typeof(float))
+                        {
+                            e.Row.Cells[i].Text = GetFormatDouble(e.Row.Cells[i].Text);
+                            e.Row.Cells[i].CssClass = "inputnumerico";
+                        }
+                        else if (tipodato == typeof(int) || tipodato == typeof(Int32))
+                        {
+                            e.Row.Cells[i].CssClass = "inputnumerico";
+                        }
+                        else if (tipodato == typeof(DateTime))
+                        {
+                            if (e.Row.Cells[i].Text.Length > 10)
+                                e.Row.Cells[i].Text = GetFecha(Convert.ToDateTime(e.Row.Cells[i].Text));
+                            e.Row.Cells[i].CssClass = "inputnumerico";
+                        }
+                        if (trim)
+                        {
+                            e.Row.Cells[i].ToolTip = HttpUtility.HtmlDecode(grid.Columns[i].HeaderText) + " : " + HttpUtility.HtmlDecode(e.Row.Cells[i].Text);
+                            string texto = HttpUtility.HtmlDecode(e.Row.Cells[i].Text);
+                            int max = CConector.GetCookie("maxcelda", 25);
+                            if (max > 3 && texto.Length > max)
+                            {
+                                texto = texto.Substring(0, max - 3) + "...";
+                                e.Row.Cells[i].Text = HttpUtility.HtmlEncode(texto);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                int realindex = e.Row.RowIndex;
+                for (int i = 0; i < e.Row.Cells.Count; i++)
+                {
+                    DataRow datarow= tabla.Rows[realindex];
+                    if (datarow==null || datarow.ItemArray.Length<=i || datarow[i] == null)
+                        continue;
+                    Type tipodato = tabla.Rows[realindex][i].GetType();
                     if (tipodato == typeof(double) || tipodato == typeof(decimal) || tipodato == typeof(float))
                     {
                         e.Row.Cells[i].Text = GetFormatDouble(e.Row.Cells[i].Text);
@@ -685,9 +728,9 @@ public class CPageTemplate : System.Web.UI.Page
                             e.Row.Cells[i].Text = GetFecha(Convert.ToDateTime(e.Row.Cells[i].Text));
                         e.Row.Cells[i].CssClass = "inputnumerico";
                     }
-                    e.Row.Cells[i].ToolTip = HttpUtility.HtmlDecode(grid.Columns[i].HeaderText) + " : " + HttpUtility.HtmlDecode(e.Row.Cells[i].Text);
                     if (trim)
                     {
+                        e.Row.Cells[i].ToolTip = HttpUtility.HtmlDecode(grid.Columns[i].HeaderText) + " : " + HttpUtility.HtmlDecode(e.Row.Cells[i].Text);
                         string texto = HttpUtility.HtmlDecode(e.Row.Cells[i].Text);
                         int max = CConector.GetCookie("maxcelda", 25);
                         if (max > 3 && texto.Length > max)
