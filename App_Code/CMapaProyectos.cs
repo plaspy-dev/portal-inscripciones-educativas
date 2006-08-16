@@ -66,7 +66,7 @@ public class CMapaProyectos
         return "SELECT municipios.departamento,proyectos.id,proyectos.codigo,SUM(objeto.valor),municipios.nombre "
             + ",dbo.fn_GetObjetos(proyectos.id),insteducativas.nombre,ISNULL(proyectosi.estudiantesb,0)+ISNULL(proyectosi.estudiantesd,0) "
             + ",(SELECT SUM(objeto.cantidad) FROM objeto LEFT JOIN varios ON (varios.id=objeto.concepto) WHERE objeto.proyecto=proyectos.id AND varios.nombre LIKE '%const%aulas%') "
-             + ",(SELECT SUM(objeto.cantidad) FROM objeto LEFT JOIN varios ON (varios.id=objeto.concepto) WHERE objeto.proyecto=proyectos.id AND varios.nombre NOT LIKE '%const%aulas%') "
+             + ",(SELECT SUM(objeto.cantidad) FROM objeto LEFT JOIN varios ON (varios.id=objeto.concepto) WHERE objeto.proyecto=proyectos.id AND (varios.nombre LIKE '%sillas%' OR varios.nombre LIKE '%mesas%' OR varios.nombre LIKE '%pupitres%' OR varios.nombre LIKE '%tableros%')) "
         +" FROM proyectos "
         +" LEFT JOIN objeto ON (objeto.proyecto=proyectos.id) "
         +" LEFT JOIN municipios ON (municipios.id=proyectos.municipio)"

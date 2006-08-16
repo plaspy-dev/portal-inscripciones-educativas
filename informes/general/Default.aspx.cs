@@ -100,7 +100,7 @@ public partial class informes_general_Default : CPageTemplate
         m_saCampos[79] = "contratos.contratista";
         m_saCampos[80] = "reporte.valoravance";
         m_saCampos[81] = "reporte.fecha";
-        m_saCampos[82] = "CASE WHEN reporte.valoravance=0 THEN 0 WHEN reporte.valoravance IS NULL THEN 0 ELSE (contratos.valor/reporte.valoravance)*100 END";
+        m_saCampos[82] = "CASE WHEN contratos.valor=0 THEN 0 WHEN contratos.valor IS NULL THEN 0 ELSE (reporte.valoravance/contratos.valor)*100 END";
         m_saCampos[83] = "tiporeporte.nombre";
         m_saCampos[84] = "estadocontrato.nombre";
         m_saCampos[85] = "reporte.observaciones";

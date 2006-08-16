@@ -13,6 +13,11 @@
 		<link rel="stylesheet" href="../../menu/ThemeMiniBlack/theme.css" type="text/css" />
 		<style type="text/css">body { background-color: #E3E4EA; };</style>
 		<script type="text/javascript" language="JavaScript" src="../../scripts/comun.js"></script>
+		<script language="JavaScript" type="text/javascript" src="../../scripts/core.js"></script>
+        <script language="JavaScript" type="text/javascript" src="../../scripts/events.js"></script>
+        <script language="JavaScript" type="text/javascript" src="../../scripts/css.js"></script>
+        <script language="JavaScript" type="text/javascript" src="../../scripts/coordinates.js"></script>
+        <script language="JavaScript" type="text/javascript" src="../../scripts/drag.js"></script>
 </head>
 <body onload="vermenu();">
     <form id="form1" runat="server">
@@ -35,7 +40,7 @@
                                         <td>
                                             <table width="100%">
                                                 <tr>
-                                                    <td >
+                                                    <td ondblclick="OnAyuda('usuario');">
                                                         Usuario<anthem:HiddenField ID="m_nId" runat="server" />
                                                     </td>
                                                     <td >
@@ -45,7 +50,7 @@
                                                             ErrorMessage="Por favor ingrese un usuario" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
-                                                    <td >
+                                                    <td ondblclick="OnAyuda('grupo');">
                                                         Grupo</td>
                                                     <td >
                                                         <anthem:DropDownList ID="m_CBGrupo" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBGrupo_SelectedIndexChanged">
@@ -55,7 +60,7 @@
                                                             ErrorMessage="Por favor seleccione un grupo" InitialValue="-1" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
-                                                    <td >
+                                                    <td ondblclick="OnAyuda('nombre');">
                                                         Nombre</td>
                                                     <td >
                                                         <anthem:TextBox ID="m_ENombre" runat="server"></anthem:TextBox></td>
@@ -64,7 +69,7 @@
                                                             ErrorMessage="Por favor ingrese un nombre de usuario" SetFocusOnError="True"></asp:RequiredFieldValidator></td>
                                                 </tr>
                                                 <tr>
-                                                    <td >
+                                                    <td ondblclick="OnAyuda('contraseña');">
                                                         Contraseña</td>
                                                     <td >
                                                         <anthem:TextBox ID="m_EContrasena" runat="server" CausesValidation="True" TextMode="Password"></anthem:TextBox></td>
@@ -73,7 +78,7 @@
                                                             ControlToValidate="m_EContrasena" ErrorMessage="Las contraseñas no coinciden"></asp:CompareValidator></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>
+                                                    <td ondblclick="OnAyuda('confirmar');">
                                                         Contraseña (Confirmar)</td>
                                                     <td>
                                                         <anthem:TextBox ID="m_EConfirmar" runat="server" CausesValidation="True" TextMode="Password"></anthem:TextBox></td>
@@ -81,7 +86,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>
+                                                    <td ondblclick="OnAyuda('activo');">
                                                         Activo</td>
                                                     <td>
                                                         <anthem:CheckBox ID="m_CActivo" runat="server" Checked="True" /></td>
@@ -89,7 +94,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td >
+                                                    <td ondblclick="OnAyuda('vigencias');">
                                                         Vigencias</td>
                                                     <td >
                                                         <anthem:DataGrid ID="m_LBVigencias" Runat="server" AutoGenerateColumns=false DataSourceID="ObjectDataSource2">
@@ -112,7 +117,7 @@
                                                         <anthem:Label ID="m_SDVigencias" runat="server"></anthem:Label></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>
+                                                    <td ondblclick="OnAyuda('entes territoriales');">
                                                         Entes Territoriales</td>
                                                     <td>
                                                     <anthem:Panel ID="Panel1" runat="server" Height="150px" ScrollBars="Vertical" Width="100%">

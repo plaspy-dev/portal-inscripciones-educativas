@@ -52,6 +52,8 @@ public partial class sistema_usuarios_usuarios : CPageTemplate
         m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx);
         FillComboBox(m_CBGrupo, "SELECT id,nombre FROM varios WHERE tipo=1 AND (nReservado!=-1  OR nReservado IS NULL)  ORDER BY nombre");
         FillComboBox(m_CBVigencias, "SELECT nombre,nombre FROM vigencias");
+        if (m_CBVigencias.Items.Count > 0)
+            m_CBVigencias.Items[0].Text = "(Todas)";
 
         if (m_LBVigencias.Columns.Count == 0)
         {

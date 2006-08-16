@@ -113,4 +113,10 @@ public class CTablaItems
     {
         return GetDataTable();
     }
+
+    virtual public DataTable Select(int id)
+    {
+        HttpContext.Current.Session[m_szId] = id.ToString();
+        return GetDataTable();
+    }
 }

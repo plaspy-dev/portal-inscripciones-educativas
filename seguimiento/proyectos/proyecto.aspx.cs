@@ -103,7 +103,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_EValorAvance.Attributes["onfocus"] = "scomas(this);";
 
         m_EPlazoI.Attributes["onKeypress"] = "isnb();";
-        
+
         // 55 
         FillComboBox(m_CBClaseContrato, "SELECT * FROM varios WHERE tipo=55 AND (nReservado IS NULL OR nReservado!=-1)");
         FillComboBox(m_CBEstadoContrato, "SELECT * FROM varios WHERE tipo=32 AND (nReservado IS NULL OR nReservado!=-1)");
@@ -193,9 +193,9 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
             data.DataField = data.HeaderText = "Historial del proyecto";
             m_LCContratos.Columns.Add(data);
 
-            m_LCContratos.Style["display"]="none";
+            m_LCContratos.Style["display"] = "none";
 
-             // pestaña 3
+            // pestaña 3
             data = new BoundField();
             data.Visible = false;
             data.DataField = data.HeaderText = "id";
@@ -235,7 +235,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
             m_LCContratosSaldos.Style["display"] = "none";
         }
         m_szMensaje = "No se encontraron proyectos";
-        m_BSubir.Style["display"] = (m_nPermisosRegistro & 4)==4 ? "" : "none";
+        m_BSubir.Style["display"] = (m_nPermisosRegistro & 4) == 4 ? "" : "none";
 
         if ((m_nPermisos & 8) == 0)
         {
@@ -300,7 +300,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_EMunicipio.UpdateAfterCallBack = true;
         m_EObservacionesFinal.UpdateAfterCallBack = true;
     }
-    
+
 
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -317,17 +317,17 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         SelectInCombo(m_LCProyecto, row[2].ToString());
         m_SInstitucion.Text = row[6].ToString();
         m_SFechaAprobacion.Text = GetFechaCorta(row[15].ToString());
-        m_EObservaciones.Text= row[14].ToString();
+        m_EObservaciones.Text = row[14].ToString();
         m_STitulo.Text = "Proyecto " + m_LCProyecto.SelectedItem.Text;
 
         m_BTab3.CausesValidation = false;
         m_BTab4.CausesValidation = false;
 
-        m_BGaleria.Visible = m_nPermisosRegistro>0;
+        m_BGaleria.Visible = m_nPermisosRegistro > 0;
         m_BGaleria.UpdateAfterCallBack = true;
 
         // pestaña 2
-        Session["idproyecto"]=m_nId.Value;
+        Session["idproyecto"] = m_nId.Value;
         m_nIdContrato.Value = "";
         m_LCContratos.DataBind();
         m_BEliminarContrato.Style["display"] = "none";
@@ -340,6 +340,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         }
 
         // pestaña 3
+        m_BCancelarContrato_Click(sender, e);
         m_LCContratosSaldos.DataBind();
         CContratosSaldos saldos = new CContratosSaldos();
         DataTable tabla= saldos.GetTabla();
@@ -809,7 +810,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_SValorMun.Text= GetFormatDouble(row[17].ToString());
         m_EContratista.Text = row[24].ToString();
         m_ERepresentante.Text = row[25].ToString();
-        m_SPEjecucion.Text = row[20].ToString();
+        m_SPEjecucion.Text = row[20].ToString()+"%";
         m_EInterventor.Text = row[26].ToString();
         m_ECargo.Text = row[27].ToString();
         m_EObservacionesContrato.Text = row[28].ToString();

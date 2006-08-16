@@ -143,6 +143,12 @@ public class CPageTemplate : System.Web.UI.Page
         }
     }
 
+    public void SetQuery(string query)
+    {
+        m_szQuery = query;
+        Session["query"] = m_szQuery;
+    }
+
     public virtual void EndPageLoad()
     {
 
@@ -692,11 +698,11 @@ public class CPageTemplate : System.Web.UI.Page
                         }
                         if (trim)
                         {
-                            e.Row.Cells[i].ToolTip = HttpUtility.HtmlDecode(grid.Columns[i].HeaderText) + " : " + HttpUtility.HtmlDecode(e.Row.Cells[i].Text);
                             string texto = HttpUtility.HtmlDecode(e.Row.Cells[i].Text);
                             int max = CConector.GetCookie("maxcelda", 25);
                             if (max > 3 && texto.Length > max)
                             {
+                                e.Row.Cells[i].ToolTip = HttpUtility.HtmlDecode(grid.Columns[i].HeaderText) + " : " + HttpUtility.HtmlDecode(e.Row.Cells[i].Text);
                                 texto = texto.Substring(0, max - 3) + "...";
                                 e.Row.Cells[i].Text = HttpUtility.HtmlEncode(texto);
                             }
@@ -709,8 +715,8 @@ public class CPageTemplate : System.Web.UI.Page
                 int realindex = e.Row.RowIndex;
                 for (int i = 0; i < e.Row.Cells.Count; i++)
                 {
-                    DataRow datarow= tabla.Rows[realindex];
-                    if (datarow==null || datarow.ItemArray.Length<=i || datarow[i] == null)
+                    DataRow datarow = tabla.Rows[realindex];
+                    if (datarow == null || datarow.ItemArray.Length <= i || datarow[i] == null)
                         continue;
                     Type tipodato = tabla.Rows[realindex][i].GetType();
                     if (tipodato == typeof(double) || tipodato == typeof(decimal) || tipodato == typeof(float))
@@ -730,11 +736,11 @@ public class CPageTemplate : System.Web.UI.Page
                     }
                     if (trim)
                     {
-                        e.Row.Cells[i].ToolTip = HttpUtility.HtmlDecode(grid.Columns[i].HeaderText) + " : " + HttpUtility.HtmlDecode(e.Row.Cells[i].Text);
                         string texto = HttpUtility.HtmlDecode(e.Row.Cells[i].Text);
                         int max = CConector.GetCookie("maxcelda", 25);
                         if (max > 3 && texto.Length > max)
                         {
+                            e.Row.Cells[i].ToolTip = HttpUtility.HtmlDecode(grid.Columns[i].HeaderText) + " : " + HttpUtility.HtmlDecode(e.Row.Cells[i].Text);
                             texto = texto.Substring(0, max - 3) + "...";
                             e.Row.Cells[i].Text = HttpUtility.HtmlEncode(texto);
                         }

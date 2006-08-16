@@ -54,7 +54,8 @@ public class CTablaEx
                 total++;
             }
         }
-        m_pTabla.PrimaryKey = new DataColumn[] { m_pTabla.Columns[m_szID] };
+        if(m_szID.Length!=0)
+            m_pTabla.PrimaryKey = new DataColumn[] { m_pTabla.Columns[m_szID] };
         return total;
     }
 

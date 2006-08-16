@@ -184,6 +184,8 @@ public partial class inscripcion_priorizacion_priorizacion : CPageTemplate
     protected void m_EEntes_SelectedIndexChanged(object sender, EventArgs e)
     {
         Session["idente"] = m_EEntes.SelectedValue;
+        m_LCSinPriorizar.SelectedIndex = -1;
+        m_LCPriorizados.SelectedIndex = -1;
         m_LCSinPriorizar.DataBind();
         m_LCPriorizados.DataBind();
         m_LCPriorizados.UpdateAfterCallBack = true;
@@ -277,5 +279,13 @@ public partial class inscripcion_priorizacion_priorizacion : CPageTemplate
                 e.Row.ForeColor = System.Drawing.Color.White;
             }
         }
+    }
+    protected void m_LCSinPriorizar_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        m_LCSinPriorizar.UpdateAfterCallBack = true;
+    }
+    protected void m_LCPriorizados_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        m_LCPriorizados.UpdateAfterCallBack = true;
     }
 }

@@ -25,7 +25,7 @@
 			<tr>
 				<td><table width="100%" border="1">
 						<tr>
-							<td  id="leftmenu" width="150" height="280" align="center" valign="top"><span id="lefttitulo"  class="Titulos">VIGENCIA <asp:DropDownList ID="m_CBVigenciasCombo" runat="server" AutoPostBack="True" OnSelectedIndexChanged="m_CBVigenciasCombo_SelectedIndexChanged">
+							<td  id="leftmenu" height="280" align="center" valign="top" style="width: 150px"><span id="lefttitulo"  class="Titulos">VIGENCIA <asp:DropDownList ID="m_CBVigenciasCombo" runat="server" AutoPostBack="True" OnSelectedIndexChanged="m_CBVigenciasCombo_SelectedIndexChanged">
                                 </asp:DropDownList></span><br />
 								<div id="menu"><%GetMenu();%></div>
 							</td>
@@ -37,7 +37,7 @@
                                               <tr>
                                                 <td><table border="1">
                                                   <tr>
-                                                    <td style="background-color: red"><a href='javascript:hidetree(1);' style="font-weight: bold; color: white"> Entidades Bancarias</a></td>
+                                                    <td style="background-image: url(../../imagenes/fondo.jpg);"><a href='javascript:hidetree(1);' style="font-weight: bold; color: white"> Entidades Bancarias</a></td>
                                                   </tr>
                                                   <tr style='display:none' id='t1'>
                                                     <td><table border="0">
@@ -50,7 +50,7 @@
                                                     </table></td>
                                                   </tr>
                                                   <tr>
-                                                    <td style="background-color: red"><a href='javascript:hidetree(2);' style="font-weight: bold; color: white"> Instituciones educativas</a></td>
+                                                    <td style="background-image: url(../../imagenes/fondo.jpg);"><a href='javascript:hidetree(2);' style="font-weight: bold; color: white"> Instituciones educativas</a></td>
                                                   </tr>
                                                   <tr style='display:none' id='t2'>
                                                     <td><table border="0">
@@ -72,7 +72,7 @@
                                                     </table></td>
                                                   </tr>
                                                   <tr>
-                                                    <td style="background-color: red"><a href='javascript:hidetree(3);' style="font-weight: bold; color: white"> Entidades territoriales</a></td>
+                                                    <td style="background-image: url(../../imagenes/fondo.jpg);"><a href='javascript:hidetree(3);' style="font-weight: bold; color: white"> Entidades territoriales</a></td>
                                                   </tr>
                                                   <tr style='display:none' id='t3'>
                                                     <td><table border="0">
@@ -82,7 +82,7 @@
                                                     </table></td>
                                                   </tr>
                                                   <tr>
-                                                    <td style="background-color: red"><a href='javascript:hidetree(4);' style="font-weight: bold; color: white">Aportes programa de apoyo</a></td>
+                                                    <td style="background-image: url(../../imagenes/fondo.jpg);"><a href='javascript:hidetree(4);' style="font-weight: bold; color: white">Aportes programa de apoyo</a></td>
                                                   </tr>
                                                   <tr style='display:none' id='t4'>
                                                     <td><table border="0">
@@ -95,7 +95,7 @@
                                                     </table></td>
                                                   </tr>
                                                   <tr>
-                                                    <td style="background-color: red"><a href='javascript:hidetree(5);' style="font-weight: bold; color: white"> Asignaci&oacute;n presupuestal</a></td>
+                                                    <td style="background-image: url(../../imagenes/fondo.jpg);"><a href='javascript:hidetree(5);' style="font-weight: bold; color: white"> Asignaci&oacute;n presupuestal</a></td>
                                                   </tr>
                                                   <tr style='display:none' id='t5'>
                                                     <td><table border="0">
@@ -105,7 +105,7 @@
                                                     </table></td>
                                                   </tr>
                                                   <tr>
-                                                    <td style="background-color: red"><a href='javascript:hidetree(6);' style="font-weight: bold; color: white">Inscripci&oacute;n de convenios</a></td>
+                                                    <td style="background-image: url(../../imagenes/fondo.jpg);"><a href='javascript:hidetree(6);' style="font-weight: bold; color: white">Inscripci&oacute;n de convenios</a></td>
                                                   </tr>
                                                   <tr style='display:none' id='t6'>
                                                     <td><table border="0">
@@ -124,7 +124,7 @@
                                                     </table></td>
                                                   </tr>
                                                   <tr>
-                                                    <td style="background-color: red"><a href='javascript:hidetree(7);' style="font-weight: bold; color: white"> Ampliaci&oacute;n de matricula</a></td>
+                                                    <td style="background-image: url(../../imagenes/fondo.jpg);"><a href='javascript:hidetree(7);' style="font-weight: bold; color: white"> Ampliaci&oacute;n de matricula</a></td>
                                                   </tr>
                                                   <tr style='display:none' id='t7'>
                                                     <td><table border="0">
@@ -134,7 +134,7 @@
                                                     </table></td>
                                                   </tr>
                                                   <tr>
-                                                    <td style="background-color: red"><a href='javascript:hidetree(8);' style="font-weight: bold; color: white"> Aprobaci&oacute;n de proyectos</a></td>
+                                                    <td style="background-image: url(../../imagenes/fondo.jpg);"><a href='javascript:hidetree(8);' style="font-weight: bold; color: white"> Aprobaci&oacute;n de proyectos</a></td>
                                                   </tr>
                                                   <tr style='display:none' id='t8'>
                                                     <td><table border="0">
@@ -147,7 +147,7 @@
                                                     </table></td>
                                                   </tr>
                                                   <tr>
-                                                    <td style="background-color: red"><a href='javascript:hidetree(9);' style="font-weight: bold; color: white"> Inscripci&oacute;n de proyectos</a></td>
+                                                    <td style="background-image: url(../../imagenes/fondo.jpg);"><a href='javascript:hidetree(9);' style="font-weight: bold; color: white"> Inscripci&oacute;n de proyectos</a></td>
                                                   </tr>
                                                   <tr style='display:none' id='t9'>
                                                     <td><table border="0">
@@ -169,7 +169,7 @@
                                                     </table></td>
                                                   </tr>
                                                   <tr>
-                                                    <td style="background-color: red"><a href='javascript:hidetree(10);' style="font-weight: bold; color: white"> Seguimiento marco</a></td>
+                                                    <td style="background-image: url(../../imagenes/fondo.jpg);"><a href='javascript:hidetree(10);' style="font-weight: bold; color: white"> Seguimiento marco</a></td>
                                                   </tr>
                                                   <tr style='display:none' id='t10'>
                                                     <td><table border="0">
@@ -188,7 +188,7 @@
                                                     </table></td>
                                                   </tr>
                                                   <tr>
-                                                    <td style="background-color: red"><a href='javascript:hidetree(11);' style="font-weight: bold; color: white"> Seguimiento derivados</a></td>
+                                                    <td style="background-image: url(../../imagenes/fondo.jpg);"><a href='javascript:hidetree(11);' style="font-weight: bold; color: white"> Seguimiento derivados</a></td>
                                                   </tr>
                                                   <tr style='display:none' id='t11'>
                                                     <td><table border="0">
@@ -198,7 +198,7 @@
                                                     </table></td>
                                                   </tr>
                                                   <tr>
-                                                    <td style="background-color: red"><a href='javascript:hidetree(12);' style="font-weight: bold; color: white"> Seguimiento de los proyectos</a></td>
+                                                    <td style="background-image: url(../../imagenes/fondo.jpg);"><a href='javascript:hidetree(12);' style="font-weight: bold; color: white"> Seguimiento de los proyectos</a></td>
                                                   </tr>
                                                   <tr style='display:none' id='t12'>
                                                     <td><table border="0">
@@ -220,7 +220,7 @@
                                                     </table></td>
                                                   </tr>
                                                   <tr>
-                                                    <td style="background-color: red"><a href='javascript:hidetree(13);' style="font-weight: bold; color: white">Personas</a></td>
+                                                    <td style="background-image: url(../../imagenes/fondo.jpg);"><a href='javascript:hidetree(13);' style="font-weight: bold; color: white">Personas</a></td>
                                                   </tr>
                                                   <tr style='display:none' id='t13'>
                                                     <td><table border="0">
@@ -233,7 +233,7 @@
                                                     </table></td>
                                                   </tr>
                                                   <tr>
-                                                    <td style="background-color: red"><a href='javascript:hidetree(14);' style="font-weight: bold; color: white"> Viabilizaci&oacute;n</a></td>
+                                                    <td style="background-image: url(../../imagenes/fondo.jpg);"><a href='javascript:hidetree(14);' style="font-weight: bold; color: white"> Viabilizaci&oacute;n</a></td>
                                                   </tr>
                                                   <tr style='display:none' id='t14'>
                                                     <td><table border="0">
@@ -257,6 +257,19 @@
                                                       </tr>
                                                     </table></td>
                                                   </tr>
+                                                    <tr style="background-image: url(../../imagenes/fondo.jpg)">
+                                                        <td><a href='javascript:hidetree(15);' style="font-weight: bold; color: white"> 
+                                                            Sistema</a>
+                                                            </td>
+                                                    </tr>
+                                                    <tr style='display:none' id='t15'>
+                                                        <td><table border="0">
+                                                            <tr>
+                                                                <td><anthem:LinkButton ID="m_LBCopia" runat="server" CausesValidation="false" OnClick="LinkButton1_Click">Copia</anthem:LinkButton></td>
+                                                            </tr>
+                                                        </table>
+                                                        </td>
+                                                    </tr>
                                                 </table></td>
                                                 <td valign="top" style="text-align: center">
                                                     <anthem:Label ID="m_STitulo" runat="server" CssClass="Titulos" ForeColor="Red" Text="Por favor seleccione un tipo."></anthem:Label><br />

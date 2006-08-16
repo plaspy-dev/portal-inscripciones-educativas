@@ -403,9 +403,9 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         // pestaña2
         m_SValorTotal.Text = GetFormatDouble(row[8].ToString());
         m_EValorPartidaMEN.Text= GetFormatDouble(row[9].ToString());
-        m_SPorcentajeMEN.Text= GetFormatDouble(row[10].ToString());
+        m_SPorcentajeMEN.Text= GetFormatDouble(row[10].ToString()) +"%";
         m_SValorMun.Text = GetFormatDouble(row[11].ToString());
-        m_SPorcentajeMun.Text = GetFormatDouble(row[12].ToString());
+        m_SPorcentajeMun.Text = GetFormatDouble(row[12].ToString())+"%";
         SelectInCombo(m_CBConceptoViablizacion, row[13].ToString());
         m_EFechaAprobacion.Text = GetFechaCorta(row[17].ToString());
         m_EObservaciones.Text= row[16].ToString();

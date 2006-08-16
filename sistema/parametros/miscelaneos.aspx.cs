@@ -17,6 +17,25 @@ public partial class sistema_parametros_miscelaneos : CPageTemplate
         if (!PageLoad("varios", 4))
             return;
 
+        if (Request.QueryString["copia"] != null && Request.QueryString["copia"] == "1")
+        {
+            if (Session["copia"] != null && Session["copia"].ToString() == "1")
+            {
+                Response.ClearContent();
+                Response.ClearHeaders();
+                
+                Session["copia"] = null;
+                string archivo = System.IO.Path.GetTempPath() + "copia";
+                System.IO.File.Delete(archivo);
+                Response.ContentType = "application/copia";
+
+                Response.AddHeader("Content-Disposition", "inline;filename=copia");
+                m_pConector.QueryMod("BACKUP DATABASE OrganizationExample22 TO DISK  ='" + archivo + "'");
+                Response.WriteFile(archivo);
+                Response.End();
+            }
+        }
+
         m_saCampos[0] = "id";
         m_saCampos[1] = "tipo";
         m_saCampos[2] = "nombre";
@@ -40,13 +59,13 @@ public partial class sistema_parametros_miscelaneos : CPageTemplate
         {
             m_BInsertar.Style["display"] = "none";
             m_nTipo.Value = "-1";
-            m_szMensaje = "Por favorLinkButton53un tipo.";
+            m_szMensaje = "Por favor seleccione un tipo.";
         }
-        m_szCondicion+= " AND varios.tipo=" + m_nTipo.Value;
+        m_szCondicion += " AND varios.tipo=" + m_nTipo.Value;
 
         m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx);
         m_baHidden[0] = true;
-     
+
         EndPageLoad();
     }
 
@@ -73,7 +92,7 @@ public partial class sistema_parametros_miscelaneos : CPageTemplate
     override protected void m_BCancelarP_Click(object sender, EventArgs e)
     {
         // mostrar los campos los campos
-        
+
         m_ENombre.Visible = true;
         m_ENombre.UpdateAfterCallBack = true;
         m_EDescripcion.Visible = true;
@@ -106,7 +125,7 @@ public partial class sistema_parametros_miscelaneos : CPageTemplate
     override protected void m_BImprimir_Click(object sender, EventArgs e)
     {
         // ocultar los campos
-        
+
         m_ENombre.Visible = false;
         m_ENombre.UpdateAfterCallBack = true;
         m_EDescripcion.Visible = false;
@@ -121,15 +140,15 @@ public partial class sistema_parametros_miscelaneos : CPageTemplate
         m_saCampos[0] = "";
 
         // incializar los datos a insertar
-        m_saDatos[1]= m_nTipo.Value;
+        m_saDatos[1] = m_nTipo.Value;
         m_saDatos[2] = m_ENombre.Text;
         m_saDatos[3] = m_EDescripcion.Text;
-        
+
         int id = m_pConector.QueryMod(CConector.CrearInsercion(m_szTabla, m_saCampos, m_saDatos), true);
         if (id == -1)
         {
             m_SMensaje.Text = m_pConector.GetLastError();
-            m_SMensaje.UpdateAfterCallBack=true;
+            m_SMensaje.UpdateAfterCallBack = true;
             return;
         }
         string texto = "Objeto " + m_ENombre.Text + " Ingresado";
@@ -200,9 +219,15 @@ public partial class sistema_parametros_miscelaneos : CPageTemplate
         if (sender == null)
             return;
 
-        m_BCancelar_Click(sender, null);
-
         Anthem.LinkButton link = (Anthem.LinkButton)sender;
+
+        if ("m_LBCopia" == link.ID)
+        {
+            Session["copia"] = "1";
+            Anthem.Manager.AddScriptForClientSideEval("window.open('?copia=1')");
+            return;
+        }
+        m_BCancelar_Click(sender, null);
         m_STitulo.Text = link.Text;
 
         string tipo = link.ID;

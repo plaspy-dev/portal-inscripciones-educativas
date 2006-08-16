@@ -93,8 +93,8 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_szCondicion += " AND " + m_pUsuario.GetCondicion("conveniosm.eterritorial");
 
         m_pUsuario.FillComboBox(m_CBEnte);
-        FillComboBox(m_CBConvenio, "SELECT id,codigo FROM conveniosm WHERE vigencia='" + m_pUsuario.GetVigenciaActual() 
-            +"' AND eterritorial=" + m_CBEnte.SelectedValue, true);
+        FillComboBox(m_CBConvenio, "SELECT id,codigo FROM conveniosm WHERE vigencia='" + m_pUsuario.GetVigenciaActual()
+            + "' AND eterritorial=" + m_CBEnte.SelectedValue, true);
         FillComboBox(m_CBEstado, "SELECT id,nombre FROM varios WHERE tipo=53 AND (nReservado IS NULL OR nReservado!=-1)");
         FillComboBox(m_CBEstadoConvenio, "SELECT id,nombre FROM varios WHERE tipo=32 AND (nReservado IS NULL OR nReservado!=-1)");
         CFecha.FillMeses(m_CBMes);
@@ -107,10 +107,10 @@ public partial class seguimiento_convenios_control : CPageTemplate
             m_szCondicionEx += " AND conveniosm.estado=" + m_CBEstadoConvenio.SelectedValue;
         if (m_CBEnte.SelectedIndex > 0)
             m_szCondicionEx += " AND conveniosm.eterritorial=" + m_CBEnte.SelectedValue;
-        string grupo= " GROUP BY ";
-        for (int i = 0; i <5; i++)
+        string grupo = " GROUP BY ";
+        for (int i = 0; i < 5; i++)
         {
-            grupo+= m_saCamposAlias[i] + ",";
+            grupo += m_saCamposAlias[i] + ",";
         }
         for (int i = 14; i < m_saCamposAlias.Length; i++)
         {
@@ -144,7 +144,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
             data.DataField = data.HeaderText = "id";
             data.Visible = false;
             m_LCAdiciones.Columns.Add(data);
-            
+
             data = new BoundField();
             data.DataField = "Número";
             data.HeaderText = "Adicional no.";
@@ -209,7 +209,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_EValorDesembolso.Attributes["onblur"] = "tcomas(this);";
         m_EValorDesembolso.Attributes["onfocus"] = "scomas(this);";
 
-         if (!IsPostBack)
+        if (!IsPostBack)
         {
             m_BEliminarDesembolso.Style["display"] = "none";
             m_BAceptarDesembolso.Style["display"] = "none";
@@ -290,7 +290,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
             data.DataField = "observaciones";
             data.HeaderText = "Observaciones";
             m_LCRendimientos.Columns.Add(data);
-            m_LCRendimientos.Style["display"]="none";
+            m_LCRendimientos.Style["display"] = "none";
         }
 
         m_szMensaje = "No se encontraron convenios";
@@ -382,6 +382,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
             m_BInsertarObjeto.UpdateAfterCallBack = true;
         }
 
+        Session["idliquidacion"] = row[16].ToString();
         Session["idconvenio"] = m_nId.Value;
         m_nIdAdicion.Value = "";
         m_LCAdiciones.DataBind();
@@ -417,12 +418,12 @@ public partial class seguimiento_convenios_control : CPageTemplate
         }
         // pestaña 6
 
-        m_CInformeFinal.Checked = row[17].ToString()=="True";
-        m_EFechaInforme.Text= GetFechaCorta(row[18].ToString());
+        m_CInformeFinal.Checked = row[17].ToString() == "True";
+        m_EFechaInforme.Text = GetFechaCorta(row[18].ToString());
         m_CDocumentosCompletos.Checked = row[19].ToString() == "True";
         m_CActaLiquidacion.Checked = row[20].ToString() == "True";
         m_EFechaActa.Text = GetFechaCorta(row[21].ToString());
-        m_EObservacionesLiquidacion.Text= row[22].ToString();
+        m_EObservacionesLiquidacion.Text = row[22].ToString();
 
         base.m_LCResultados_SelectedIndexChanged(sender, e);
     }
@@ -432,7 +433,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         // limpiar los campos
         m_STitulo.Text = "Seleccione un convenio";
         m_nId.Value = "";
-        m_CBConvenio.SelectedIndex=0;
+        m_CBConvenio.SelectedIndex = 0;
         m_SValor.Text = "";
         m_EObservaciones.Text = "";
         // pestaña 2
@@ -450,7 +451,8 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_CBEnte.SelectedIndex = 0;
         m_CBConvenio.SelectedIndex = 0;
 
-        Session["idconvenio"]="";
+        Session["idconvenio"] = "";
+        Session["idliquidacion"] = "";
         m_nIdAdicion.Value = "";
         m_LCAdiciones.DataBind();
 
@@ -486,10 +488,10 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_BInsertarDesembolso.UpdateAfterCallBack = true;
         // pestaña 5
         m_EValorRendimiento.Text = "";
-        m_CBMes.SelectedIndex=0;
-        m_LCAno.SelectedIndex=0;
+        m_CBMes.SelectedIndex = 0;
+        m_LCAno.SelectedIndex = 0;
         m_EFechaComprobanteRendimiento.Text = "";
-        m_CBEstadoRendimiento.SelectedIndex=0;
+        m_CBEstadoRendimiento.SelectedIndex = 0;
         m_EObservacionesRendimiento.Text = "";
         m_nIdRendimiento.Value = "";
         m_LCRendimientos.DataBind();
@@ -499,10 +501,10 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_BInsertarRendimiento.Style["display"] = "none";
         m_BInsertarRendimiento.UpdateAfterCallBack = true;
 
-        m_CInformeFinal.Checked=false;
+        m_CInformeFinal.Checked = false;
         m_EFechaInforme.Text = "";
-        m_CDocumentosCompletos.Checked=false;
-        m_CActaLiquidacion.Checked=false;
+        m_CDocumentosCompletos.Checked = false;
+        m_CActaLiquidacion.Checked = false;
         m_EFechaActa.Text = "";
         m_EObservacionesLiquidacion.Text = "";
 
@@ -514,7 +516,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_szTabla = "liquidacionconvenio";
         for (int i = 0; i < m_saCampos.Length; i++)
             m_saCampos[i] = m_saDatos[i] = "";
-        
+
         m_saCampos[0] = "convenio";
         m_saCampos[1] = "informe";
         m_saCampos[2] = "fechainforme";
@@ -526,15 +528,14 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_saDatos[1] = m_CInformeFinal.Checked ? "1" : "0";
         m_saDatos[2] = GetDate(m_EFechaInforme.Text);
         m_saDatos[3] = m_CDocumentosCompletos.Checked ? "1" : "0";
-        m_saDatos[4] = m_CActaLiquidacion.Checked ? "1": "0";
+        m_saDatos[4] = m_CActaLiquidacion.Checked ? "1" : "0";
         m_saDatos[5] = GetDate(m_EFechaActa.Text);
         m_saDatos[6] = GetString(m_EObservacionesLiquidacion.Text);
 
-        DataRow row = GetDataRow(m_LCResultados);
-        if (row == null)
-            return false;
+        string liquidadcion = Session["idliquidacion"] == null ? "" : Session["idliquidacion"].ToString();
         string query = "";
-        if( row[16].ToString().Length==0) {
+        if (liquidadcion.Length == 0)
+        {
             query = CConector.CrearInsercion(m_szTabla, m_saCampos, m_saDatos);
         } else {
             m_saDatos[0] = "";

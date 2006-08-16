@@ -75,12 +75,12 @@ public class CContratos : CTablaItems
         m_szCampos[17] = "contratos.valor-(contratos.valor*(presupuesto.valormen/SUM(objeto.valor)))";
         m_szCampos[18] = "reporte.valoravance";
         m_szCampos[19] = "reporte.fecha";
-        m_szCampos[20] = "CASE WHEN reporte.valoravance=0 THEN 0 WHEN reporte.valoravance IS NULL THEN 0 ELSE (contratos.valor/reporte.valoravance)*100 END";
+        m_szCampos[20] = "CASE WHEN contratos.valor=0 THEN 0 WHEN contratos.valor IS NULL THEN 0 ELSE CONVERT(DECIMAL(20,2),(reporte.valoravance/contratos.valor)*100) END";
         m_szCampos[21] = "estados.nombre";
         m_szCampos[22] = "reporte.observaciones";
         m_szCampos[23] = "contratos.historial";
-        
-        string grupo=" GROUP BY ";
+
+        string grupo = " GROUP BY ";
         for (int i = 0; i < 14; i++)
             grupo += m_szCampos[i] + ",";
         for (int i = 21; i < m_szCampos.Length; i++)
