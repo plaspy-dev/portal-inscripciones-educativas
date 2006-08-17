@@ -12,7 +12,12 @@
 		<script type="text/javascript" language="JavaScript1.2" src="../../menu/ThemeMiniBlack/theme.js"></script>
 		<link rel="stylesheet" href="../../menu/ThemeMiniBlack/theme.css" type="text/css" />
 		<style type="text/css">body { background-color: #E3E4EA; };</style>
-		<script type="text/javascript" language="JavaScript" src="../../scripts/comun.js"></script>
+		<script language="JavaScript" type="text/javascript" src="../../scripts/core.js"></script>
+        <script language="JavaScript" type="text/javascript" src="../../scripts/events.js"></script>
+        <script language="JavaScript" type="text/javascript" src="../../scripts/css.js"></script>
+        <script language="JavaScript" type="text/javascript" src="../../scripts/coordinates.js"></script>
+        <script language="JavaScript" type="text/javascript" src="../../scripts/drag.js"></script>
+	<script type="text/javascript" language="JavaScript" src="../../scripts/comun.js"></script>
 </head>
 <body onload="vermenu();">
     <form id="form1" runat="server">
@@ -217,6 +222,9 @@
                                                       <tr>
                                                           <td><anthem:LinkButton ID="LinkButton57" runat="server" CausesValidation="false" OnClick="LinkButton1_Click">Estado de los saldos</anthem:LinkButton></td>
                                                       </tr>
+                                                      <tr>
+                                                          <td><anthem:LinkButton ID="LinkButton61" runat="server" CausesValidation="false" OnClick="LinkButton1_Click">Estado de los proyectos</anthem:LinkButton></td>
+                                                      </tr>
                                                     </table></td>
                                                   </tr>
                                                   <tr>
@@ -269,7 +277,7 @@
                                                             </tr>
                                                         </table>
                                                         </td>
-                                                    </tr>
+                                                    </tr>                                                    
                                                 </table></td>
                                                 <td valign="top" style="text-align: center">
                                                     <anthem:Label ID="m_STitulo" runat="server" CssClass="Titulos" ForeColor="Red" Text="Por favor seleccione un tipo."></anthem:Label><br />

@@ -12,7 +12,12 @@
 		<script type="text/javascript" language="JavaScript1.2" src="../../menu/ThemeMiniBlack/theme.js"></script>
 		<link rel="stylesheet" href="../../menu/ThemeMiniBlack/theme.css" type="text/css"/>
 		<style type="text/css">body { background-color: #E3E4EA; };</style>
-		<script type="text/javascript" language="JavaScript" src="../../scripts/comun.js"></script>
+		<script language="JavaScript" type="text/javascript" src="../../scripts/core.js"></script>
+        <script language="JavaScript" type="text/javascript" src="../../scripts/events.js"></script>
+        <script language="JavaScript" type="text/javascript" src="../../scripts/css.js"></script>
+        <script language="JavaScript" type="text/javascript" src="../../scripts/coordinates.js"></script>
+        <script language="JavaScript" type="text/javascript" src="../../scripts/drag.js"></script>
+	<script type="text/javascript" language="JavaScript" src="../../scripts/comun.js"></script>
 </head>
 <body onload="vermenu();">
     <form id="form1" runat="server">

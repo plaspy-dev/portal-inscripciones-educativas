@@ -15,7 +15,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
     public int m_nPermisosRegistro;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!PageLoad("proyectos", 16))
+        if (!PageLoad("proyectos", 17))
             return;
 
         m_nPermisosRegistro = m_pMenu.GetPermisos(HttpContext.Current.Request.ApplicationPath + "/fotos/proyectos/galeria.aspx");
@@ -38,6 +38,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_saTitulos[13] = "% aportes cofinanciación";
         m_saTitulos[14] = "Observaciones";
         m_saTitulos[15] = "fechadeaprobacion";
+        m_saTitulos[16]="Estado";
 
         for (int i = 0; i < m_saCampos.Length; i++)
             m_saCamposAlias[i] = m_szTabla + "." + m_saCampos[i];
@@ -56,6 +57,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_saCamposAlias[13] = "((SUM(objeto.valor)-presupuesto.valormen)*100)/SUM(objeto.valor)";
         m_saCamposAlias[14] = "proyectos.observaciones";
         m_saCamposAlias[15] = "proyectos.fechaaprobacion";
+        m_saCamposAlias[16] = "estadoproyecto.nombre";
 
         m_szIndice = m_saTitulos[0];
         m_szJoin = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=proyectos.eterritorial) "
@@ -67,11 +69,13 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
             + " LEFT JOIN insteducativas ON (insteducativas.id=proyectos.institucion)"
             + " LEFT JOIN objeto ON (objeto.proyecto=proyectos.id)"
             + " LEFT JOIN presupuesto ON (presupuesto.proyecto=proyectos.id)"
+            + " LEFT JOIN varios AS estadoproyecto ON (estadoproyecto.id=proyectos.estadoseg)"
             ;
         m_szCondicion = " proyectos.vigencia='" +m_pUsuario.GetVigenciaActual() + "' ";
         m_szCondicion += " AND " + m_pUsuario.GetCondicion("proyectos.eterritorial");
 
         m_pUsuario.FillComboBox(m_CBEnte);
+        FillComboBox(m_CBEstadoProyecto, "SELECT id,nombre FROM varios WHERE tipo=61 AND (nReservado IS NULL OR nReservado!=-1) ");
         FillComboBox(m_LCProyecto, "SELECT id,codigo FROM proyectos WHERE vigencia='" + m_pUsuario.GetVigenciaActual()
             + "' AND eterritorial=" + m_CBEnte.SelectedValue, true);
 
@@ -79,6 +83,8 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
             m_szCondicionEx+= " AND proyectos.id=" + m_LCProyecto.SelectedValue;
         if (m_CBEnte.SelectedIndex > 0)
             m_szCondicionEx += " AND proyectos.eterritorial=" + m_CBEnte.SelectedValue;
+        if (m_CBEstadoProyecto.SelectedIndex > 0)
+            m_szCondicionEx += " AND proyectos.estadoseg=" + m_CBEstadoProyecto.SelectedValue;
         
 
         string grupo= " GROUP BY ";
@@ -86,7 +92,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         {
             grupo += m_saCamposAlias[i] + ",";
         }
-        grupo += m_saCamposAlias[10] + "," + m_saCamposAlias[14] + "," + m_saCamposAlias[15];
+        grupo += m_saCamposAlias[10] + "," + m_saCamposAlias[14] + "," + m_saCamposAlias[15]+ "," + m_saCamposAlias[16];
 
         m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx + grupo);
         m_szCondicion += grupo;
@@ -253,6 +259,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_SInstitucion.UpdateAfterCallBack = true;
         m_SFechaAprobacion.UpdateAfterCallBack = true;
         m_EObservaciones.UpdateAfterCallBack = true;
+        m_CBEstadoProyecto.UpdateAfterCallBack = true;
         // pestaña 2
         m_EContrato.UpdateAfterCallBack = true;
         m_EFechaS.UpdateAfterCallBack = true;
@@ -318,6 +325,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_SInstitucion.Text = row[6].ToString();
         m_SFechaAprobacion.Text = GetFechaCorta(row[15].ToString());
         m_EObservaciones.Text = row[14].ToString();
+        SelectInCombo(m_CBEstadoProyecto, row[16].ToString());
         m_STitulo.Text = "Proyecto " + m_LCProyecto.SelectedItem.Text;
 
         m_BTab3.CausesValidation = false;
@@ -375,6 +383,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_SFechaAprobacion.Text = "";
         m_EObservaciones.Text = "";
         m_CBEnte.SelectedIndex = 0;
+        m_CBEstadoProyecto.SelectedIndex = 0;
 
         m_BGaleria.Visible = false;
         m_BGaleria.UpdateAfterCallBack = true;
@@ -517,6 +526,8 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         }
         else
         {
+            query = CConector.CreateUpdate(m_szTabla, "estadoseg", GetSeleccion(m_CBEstadoProyecto.SelectedValue)) + CConector.GetCondicion("id", m_nId.Value);
+            m_pConector.QueryMod(query);
             if (UpdateSaldos() && UpdateFechas())
             {
                 base.AfterUpdate("Proyecto " + m_LCProyecto.SelectedItem.Text + " Editado");
@@ -919,5 +930,10 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
         Anthem.Manager.AddScriptForClientSideEval("window.open('" + HttpContext.Current.Request.ApplicationPath + "/fotos/proyectos/galeria.aspx?id=" + m_nId.Value +"&proyecto=" + m_LCProyecto.SelectedItem.Text+ "')");
+    }
+    protected void m_CBEstadoProyecto_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        m_LCResultados.DataBind();
+        m_LCResultados.UpdateAfterCallBack = true;
     }
 }
