@@ -145,7 +145,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         FillComboBox(m_CBTipo, "SELECT id,nombre FROM varios WHERE tipo=13 AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre");
         FillComboBox(m_CBEstado, "SELECT id,nombre FROM varios WHERE tipo=60 AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre");
 
-        m_szJoin = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=proyectos.eterritorial) "
+        m_szJoin = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=proyectos.eterritorial) AND asignacionpresupuestal.vigencia='" + m_pUsuario.GetVigenciaActual() + "' "
             + " LEFT JOIN eterritoriales ON (eterritoriales.codigo=proyectos.eterritorial)"
             + " LEFT JOIN varios AS grupo ON (grupo.id=asignacionpresupuestal.grupo)"
             + " LEFT JOIN municipios ON (municipios.id=proyectos.municipio)"

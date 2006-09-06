@@ -161,7 +161,7 @@ public partial class datosdep : System.Web.UI.Page
                             xw.WriteStartElement("barra");
                             int por = maximo == 0 ? 0 : Convert.ToInt32(dep.GetAvance(proyecto) * 100 / maximo);
                             xw.WriteAttributeString("porcentaje", por.ToString());
-                            xw.WriteAttributeString("texto", proyecto.m_szCodigo);
+                            xw.WriteAttributeString("texto", proyecto.m_szInstitucion);
                             xw.WriteEndElement();
                         }
                         break;
@@ -172,7 +172,7 @@ public partial class datosdep : System.Web.UI.Page
                             xw.WriteStartElement("barra");
                             int por = maximo == 0 ? 0 : Convert.ToInt32(proyecto.m_nEstudiantesB * 100 / maximo);
                             xw.WriteAttributeString("porcentaje", por.ToString());
-                            xw.WriteAttributeString("texto", proyecto.m_szCodigo);
+                            xw.WriteAttributeString("texto", proyecto.m_szInstitucion);
                             xw.WriteEndElement();
                         }
                         break;
@@ -183,7 +183,7 @@ public partial class datosdep : System.Web.UI.Page
                             xw.WriteStartElement("barra");
                             int por = maximo == 0 ? 0 : Convert.ToInt32(proyecto.m_nAulas * 100 / maximo);
                             xw.WriteAttributeString("porcentaje", por.ToString());
-                            xw.WriteAttributeString("texto", proyecto.m_szCodigo);
+                            xw.WriteAttributeString("texto", proyecto.m_szInstitucion);
                             xw.WriteEndElement();
                         }
                         break;
@@ -196,7 +196,7 @@ public partial class datosdep : System.Web.UI.Page
                             if (proyecto.m_szValor.Length > 0)
                                 por = maximo == 0 ? 0 : Convert.ToInt32(Convert.ToDecimal(proyecto.m_szValor) * 100 / maximo);
                             xw.WriteAttributeString("porcentaje", por.ToString());
-                            xw.WriteAttributeString("texto", proyecto.m_szCodigo);
+                            xw.WriteAttributeString("texto", proyecto.m_szInstitucion);
                             xw.WriteEndElement();
                         }
                         break;
@@ -210,7 +210,7 @@ public partial class datosdep : System.Web.UI.Page
             xw.WriteStartElement("grilla");
             xw.WriteStartElement("titulocolumna");
             xw.WriteStartElement("valor");
-            xw.WriteString("Proyecto");
+            xw.WriteString("Institución");
             switch (tipo)
             {
                 case 1:
@@ -231,10 +231,10 @@ public partial class datosdep : System.Web.UI.Page
                 default:
                     xw.WriteEndElement();
                     xw.WriteStartElement("valor");
-                    xw.WriteString("Municipio");
+                    xw.WriteString("Entidad territorial");
                     xw.WriteEndElement();
                     xw.WriteStartElement("valor");
-                    xw.WriteString("Institucion");
+                    xw.WriteString("Municipio");
                     xw.WriteEndElement();
                     xw.WriteStartElement("valor");
                     xw.WriteString("Objeto");
@@ -260,7 +260,7 @@ public partial class datosdep : System.Web.UI.Page
                             {
                                 proyecto = (CMapaProyectos)proy[j];
                                 xw.WriteStartElement("valor");
-                                xw.WriteString(proyecto.m_szCodigo);
+                                xw.WriteString(proyecto.m_szInstitucion);
                                 xw.WriteEndElement();
 
                                 xw.WriteStartElement("valor");
@@ -276,7 +276,7 @@ public partial class datosdep : System.Web.UI.Page
                             {
                                 proyecto = (CMapaProyectos)proy[j];
                                 xw.WriteStartElement("valor");
-                                xw.WriteString(proyecto.m_szCodigo);
+                                xw.WriteString(proyecto.m_szInstitucion);
                                 xw.WriteEndElement();
 
                                 xw.WriteStartElement("valor");
@@ -292,7 +292,7 @@ public partial class datosdep : System.Web.UI.Page
                             {
                                 proyecto = (CMapaProyectos)proy[j];
                                 xw.WriteStartElement("valor");
-                                xw.WriteString(proyecto.m_szCodigo);
+                                xw.WriteString(proyecto.m_szInstitucion);
                                 xw.WriteEndElement();
 
                                 xw.WriteStartElement("valor");
@@ -308,14 +308,14 @@ public partial class datosdep : System.Web.UI.Page
                             {
                                 proyecto = (CMapaProyectos)proy[j];
                                 xw.WriteStartElement("valor");
-                                xw.WriteString(proyecto.m_szCodigo);
+                                xw.WriteString(proyecto.m_szInstitucion);
                                 xw.WriteEndElement();
 
                                 xw.WriteStartElement("valor");
-                                xw.WriteString(proyecto.m_szMunicipio);
+                                xw.WriteString(proyecto.m_szEntidadTerritorial);
                                 xw.WriteEndElement();
                                 xw.WriteStartElement("valor");
-                                xw.WriteString(proyecto.m_szInstitucion);
+                                xw.WriteString(proyecto.m_szMunicipio);
                                 xw.WriteEndElement();
                                 xw.WriteStartElement("valor");
                                 xw.WriteString(proyecto.m_szObjeto);
@@ -411,7 +411,7 @@ public partial class datosdep : System.Web.UI.Page
                         xw.WriteStartElement("barra");
                         int por = maximo == 0 ? 0 : Convert.ToInt32(dep.GetAvance(proyecto) * 100 / maximo);
                         xw.WriteAttributeString("porcentaje", por.ToString());
-                        xw.WriteAttributeString("texto", proyecto.m_szCodigo);
+                        xw.WriteAttributeString("texto", proyecto.m_szInstitucion);
                         xw.WriteEndElement();
                     }
                     break;
@@ -422,7 +422,7 @@ public partial class datosdep : System.Web.UI.Page
                         xw.WriteStartElement("barra");
                         int por = maximo == 0 ? 0 : Convert.ToInt32(proyecto.m_nEstudiantesB * 100 / maximo);
                         xw.WriteAttributeString("porcentaje", por.ToString());
-                        xw.WriteAttributeString("texto", proyecto.m_szCodigo);
+                        xw.WriteAttributeString("texto", proyecto.m_szInstitucion);
                         xw.WriteEndElement();
                     }
                     break;
@@ -433,7 +433,7 @@ public partial class datosdep : System.Web.UI.Page
                         xw.WriteStartElement("barra");
                         int por = maximo == 0 ? 0 : Convert.ToInt32(proyecto.m_nAulas * 100 / maximo);
                         xw.WriteAttributeString("porcentaje", por.ToString());
-                        xw.WriteAttributeString("texto", proyecto.m_szCodigo);
+                        xw.WriteAttributeString("texto", proyecto.m_szInstitucion);
                         xw.WriteEndElement();
                     }
                     break;
@@ -446,7 +446,7 @@ public partial class datosdep : System.Web.UI.Page
                         if (proyecto.m_szValor.Length > 0)
                             por = maximo == 0 ? 0 : Convert.ToInt32(Convert.ToDecimal(proyecto.m_szValor) * 100 / maximo);
                         xw.WriteAttributeString("porcentaje", por.ToString());
-                        xw.WriteAttributeString("texto", proyecto.m_szCodigo);
+                        xw.WriteAttributeString("texto", proyecto.m_szInstitucion);
                         xw.WriteEndElement();
                     }
                     break;
@@ -460,7 +460,7 @@ public partial class datosdep : System.Web.UI.Page
             xw.WriteStartElement("grilla");
             xw.WriteStartElement("titulocolumna");
             xw.WriteStartElement("valor");
-            xw.WriteString("Proyecto");
+            xw.WriteString("Institución");
             switch (tipo)
             {
                 case 1:
@@ -480,12 +480,15 @@ public partial class datosdep : System.Web.UI.Page
                     break;
                 default:
                     xw.WriteEndElement();
+
+                    xw.WriteStartElement("valor");
+                    xw.WriteString("Entidad Territorial");
+                    xw.WriteEndElement();
+
                     xw.WriteStartElement("valor");
                     xw.WriteString("Municipio");
                     xw.WriteEndElement();
-                    xw.WriteStartElement("valor");
-                    xw.WriteString("Institucion");
-                    xw.WriteEndElement();
+
                     xw.WriteStartElement("valor");
                     xw.WriteString("Objeto");
                     break;
@@ -507,7 +510,7 @@ public partial class datosdep : System.Web.UI.Page
                         {
                             proyecto = (CMapaProyectos)proy[j];
                             xw.WriteStartElement("valor");
-                            xw.WriteString(proyecto.m_szCodigo);
+                            xw.WriteString(proyecto.m_szInstitucion);
                             xw.WriteEndElement();
 
                             xw.WriteStartElement("valor");
@@ -523,7 +526,7 @@ public partial class datosdep : System.Web.UI.Page
                         {
                             proyecto = (CMapaProyectos)proy[j];
                             xw.WriteStartElement("valor");
-                            xw.WriteString(proyecto.m_szCodigo);
+                            xw.WriteString(proyecto.m_szInstitucion);
                             xw.WriteEndElement();
 
                             xw.WriteStartElement("valor");
@@ -539,7 +542,7 @@ public partial class datosdep : System.Web.UI.Page
                         {
                             proyecto = (CMapaProyectos)proy[j];
                             xw.WriteStartElement("valor");
-                            xw.WriteString(proyecto.m_szCodigo);
+                            xw.WriteString(proyecto.m_szInstitucion);
                             xw.WriteEndElement();
 
                             xw.WriteStartElement("valor");
@@ -555,14 +558,14 @@ public partial class datosdep : System.Web.UI.Page
                         {
                             proyecto = (CMapaProyectos)proy[j];
                             xw.WriteStartElement("valor");
-                            xw.WriteString(proyecto.m_szCodigo);
+                            xw.WriteString(proyecto.m_szInstitucion);
                             xw.WriteEndElement();
 
                             xw.WriteStartElement("valor");
-                            xw.WriteString(proyecto.m_szMunicipio);
+                            xw.WriteString(proyecto.m_szEntidadTerritorial);
                             xw.WriteEndElement();
                             xw.WriteStartElement("valor");
-                            xw.WriteString(proyecto.m_szInstitucion);
+                            xw.WriteString(proyecto.m_szMunicipio);
                             xw.WriteEndElement();
                             xw.WriteStartElement("valor");
                             xw.WriteString(proyecto.m_szObjeto);

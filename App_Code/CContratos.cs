@@ -91,7 +91,9 @@ public class CContratos : CTablaItems
         }
         grupo += m_szCampos[15] + "," + m_szCampos[18] + "," + m_szCampos[19] + ",presupuesto.valormen";
 
-        string join = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=proyectos.eterritorial) "
+        CUsuarioDatos m_pUsuario = (CUsuarioDatos)HttpContext.Current.Session["usuario"];
+
+        string join = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=proyectos.eterritorial AND asignacionpresupuestal.vigencia='" +m_pUsuario.GetVigenciaActual() + "') "
             + " LEFT JOIN varios AS grupos ON (grupos.id=asignacionpresupuestal.grupo)"
             + " LEFT JOIN eterritoriales ON (eterritoriales.codigo=proyectos.eterritorial)"
             + " LEFT JOIN municipios ON (municipios.id=proyectos.municipio)"

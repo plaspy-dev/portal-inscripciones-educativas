@@ -35,6 +35,7 @@ public class CPageTemplate : System.Web.UI.Page
     protected string m_szTipoIndice;
     protected int m_nPermisos;
     protected string m_szMensaje;
+    protected bool m_bClean;
 
     public CPageTemplate()
     {
@@ -44,6 +45,7 @@ public class CPageTemplate : System.Web.UI.Page
         m_szTipoIndice = "INT";
         m_nPermisos = 0;
         m_szCondicionEx = "";
+        m_bClean = false;
         m_szMensaje = "No se encontraron resultados";
     }
 
@@ -155,6 +157,7 @@ public class CPageTemplate : System.Web.UI.Page
         Session["query"] = m_szQuery;
         Session["indice"] = m_szIndice;
         Session["hiddencols"] = m_baHidden;
+        Session["cleanprint"]= m_bClean;
 
         if (!IsPostBack)
         {
@@ -664,10 +667,10 @@ public class CPageTemplate : System.Web.UI.Page
 
     static public void ParseRow(GridView grid, DataTable tabla, GridViewRowEventArgs e)
     {
-        ParseRow(grid, tabla, e, true);
+        ParseRow(grid, tabla, e, true, false);
     }
 
-    static public void ParseRow(GridView grid, DataTable tabla, GridViewRowEventArgs e, bool trim)
+    static public void ParseRow(GridView grid, DataTable tabla, GridViewRowEventArgs e, bool trim, bool clean)
     {
         if (e.Row.RowIndex != -1)
         {
@@ -733,6 +736,13 @@ public class CPageTemplate : System.Web.UI.Page
                         if (e.Row.Cells[i].Text.Length > 10)
                             e.Row.Cells[i].Text = GetFecha(Convert.ToDateTime(e.Row.Cells[i].Text));
                         e.Row.Cells[i].CssClass = "inputnumerico";
+                    }
+                    if (clean && realindex > 0 && i<2)
+                    {
+                        if (tabla.Rows[realindex][i].ToString() == tabla.Rows[realindex - 1][i].ToString())
+                        {
+                            e.Row.Cells[i].Text = "";
+                        }
                     }
                     if (trim)
                     {

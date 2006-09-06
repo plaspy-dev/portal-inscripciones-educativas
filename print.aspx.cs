@@ -11,6 +11,8 @@ using System.Web.UI.HtmlControls;
 
 public partial class print : System.Web.UI.Page
 {
+    protected bool m_bClean=false;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         Title = Request.QueryString["titulo"];
@@ -27,9 +29,12 @@ public partial class print : System.Web.UI.Page
         tipo = Request.QueryString["campos"] == null ? 0 : Convert.ToInt32(Request.QueryString["campos"]);
         bool[] hidden = (bool []) Session["hiddencols"];
         Session["hiddencolsprint"] = hidden;
+        if (Session["cleanprint"] != null)
+            m_bClean = (bool)Session["cleanprint"];
     }
+
     protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-        CPageTemplate.ParseRow((GridView)sender,CTablaEx.GetTabla(),e,false);
+        CPageTemplate.ParseRow((GridView)sender,CTablaEx.GetTabla(),e,false, m_bClean);
     }
 }

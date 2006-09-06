@@ -23,12 +23,14 @@ public class CMapaProyectos
     public int m_nEstudiantesB;
     public int m_nAulas;
     public int m_nDotacion;
+    public string m_szEntidadTerritorial;
 
 	public CMapaProyectos()
 	{
         m_szCodigo = "";
         m_nID = "";
         m_szValor = "";
+        m_szEntidadTerritorial = "";
         m_nEstudiantesB = 0;
         m_szEstado= m_szInstitucion = m_szMunicipio = m_szObjeto = "";
         m_nEjecucion = 0;
@@ -45,6 +47,7 @@ public class CMapaProyectos
         m_nEstudiantesB = 0;
         m_nAulas = 0;
         m_nDotacion = 0;
+        m_szEntidadTerritorial = "";
     }
     public static CMapaProyectos ParseQuery(SqlDataReader reader)
     {
@@ -59,6 +62,7 @@ public class CMapaProyectos
             proy.m_nAulas = Convert.ToInt32(reader[8].ToString());
         if (reader[9].ToString() != "")
             proy.m_nDotacion = Convert.ToInt32(reader[9].ToString());
+        proy.m_szEntidadTerritorial = reader[10].ToString();
         return proy;
     }
     public static string GetQuery(string vigencia)
@@ -67,12 +71,14 @@ public class CMapaProyectos
             + ",dbo.fn_GetObjetos(proyectos.id),insteducativas.nombre,ISNULL(proyectosi.estudiantesb,0)+ISNULL(proyectosi.estudiantesd,0) "
             + ",(SELECT SUM(objeto.cantidad) FROM objeto LEFT JOIN varios ON (varios.id=objeto.concepto) WHERE objeto.proyecto=proyectos.id AND varios.nombre LIKE '%const%aulas%') "
              + ",(SELECT SUM(objeto.cantidad) FROM objeto LEFT JOIN varios ON (varios.id=objeto.concepto) WHERE objeto.proyecto=proyectos.id AND (varios.nombre LIKE '%sillas%' OR varios.nombre LIKE '%mesas%' OR varios.nombre LIKE '%pupitres%' OR varios.nombre LIKE '%tableros%')) "
+             + ",eterritoriales.nombre"
         +" FROM proyectos "
         +" LEFT JOIN objeto ON (objeto.proyecto=proyectos.id) "
         +" LEFT JOIN municipios ON (municipios.id=proyectos.municipio)"
         + " LEFT JOIN insteducativas ON (insteducativas.id=proyectos.institucion)"
         + " LEFT JOIN proyectosi ON (proyectosi.id=proyectos.proyectoi)"
+        + " LEFT JOIN eterritoriales ON (eterritoriales.codigo=proyectos.eterritorial)"
         + " WHERE proyectos.vigencia='" + vigencia + "'"
-        + " GROUP BY proyectos.id,proyectos.codigo,municipios.departamento,municipios.nombre,insteducativas.nombre,proyectosi.estudiantesb,proyectosi.estudiantesd";
+        + " GROUP BY proyectos.id,proyectos.codigo,municipios.departamento,municipios.nombre,insteducativas.nombre,proyectosi.estudiantesb,proyectosi.estudiantesd,eterritoriales.nombre";
     }
 }

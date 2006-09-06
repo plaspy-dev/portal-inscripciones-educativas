@@ -70,7 +70,7 @@ public partial class aprobacion_proyectos_aprobacion : CPageTemplate
         m_saCamposAlias[16] = "concepto.nombre";
 
         m_szIndice = m_saTitulos[0];
-        m_szJoin = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=proyectosi.eterritorial) "
+        m_szJoin = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=proyectosi.eterritorial) AND asignacionpresupuestal.vigencia='" + m_pUsuario.GetVigenciaActual() + "' "
             + " LEFT JOIN eterritoriales ON (eterritoriales.codigo=proyectosi.eterritorial)"
             + " LEFT JOIN municipios ON (municipios.id=proyectosi.municipio)"
             + " LEFT JOIN departamentos ON (departamentos.codigo=municipios.departamento)"

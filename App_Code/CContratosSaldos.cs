@@ -41,7 +41,7 @@ public class CContratosSaldos : CTablaItems
         m_szCampos[9]="estados.nombre";
         m_szCampos[10] = "saldosp.observaciones";
 
-        string join = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=proyectos.eterritorial) "
+        string join = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=proyectos.eterritorial AND asignacionpresupuestal.vigencia='" + m_pUsuario.GetVigenciaActual() + "') "
             + " LEFT JOIN varios AS grupos ON (grupos.id=asignacionpresupuestal.grupo)"
             + " LEFT JOIN eterritoriales ON (eterritoriales.codigo=proyectos.eterritorial)"
             + " LEFT JOIN municipios ON (municipios.id=proyectos.municipio)"

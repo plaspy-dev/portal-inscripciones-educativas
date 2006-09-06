@@ -200,7 +200,7 @@ public partial class informes_general_Default : CPageTemplate
         for (int i = 0; i < m_saCampos.Length; i++)
             m_saCamposAlias[i] = m_saCampos[i];
 
-        m_szJoin = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=conveniosm.eterritorial) "
+        m_szJoin = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=conveniosm.eterritorial) AND asignacionpresupuestal.vigencia='" + m_pUsuario.GetVigenciaActual() + "' "
             + " LEFT JOIN varios AS grupos ON (grupos.id=asignacionpresupuestal.grupo)"
             + " LEFT JOIN eterritoriales ON (eterritoriales.codigo=conveniosm.eterritorial)"
             + " LEFT JOIN proyectos ON (proyectos.eterritorial=conveniosm.eterritorial AND proyectos.vigencia='" + m_pUsuario.GetVigenciaActual() + "')"

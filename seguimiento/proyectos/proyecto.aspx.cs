@@ -60,7 +60,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_saCamposAlias[16] = "estadoproyecto.nombre";
 
         m_szIndice = m_saTitulos[0];
-        m_szJoin = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=proyectos.eterritorial) "
+        m_szJoin = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=proyectos.eterritorial) AND asignacionpresupuestal.vigencia='" + m_pUsuario.GetVigenciaActual() + "' "
             + " LEFT JOIN varios AS grupos ON (grupos.id=asignacionpresupuestal.grupo)"
             + " LEFT JOIN eterritoriales ON (eterritoriales.codigo=proyectos.eterritorial)"
             + " LEFT JOIN municipios ON (municipios.id=proyectos.municipio)"
@@ -335,9 +335,18 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_BGaleria.UpdateAfterCallBack = true;
 
         // pestaña 2
+
+        m_BCancelarContrato_Click(sender, e);
+
         Session["idproyecto"] = m_nId.Value;
         m_nIdContrato.Value = "";
         m_LCContratos.DataBind();
+
+        if (m_LCContratos.Rows.Count > 0)
+        {
+            m_LCContratos.SelectedIndex = 0;
+            m_LCContratos_SelectedIndexChanged((object)m_LCContratos, null);
+        }
         m_BEliminarContrato.Style["display"] = "none";
         m_BAceptarContrato.Style["display"] = "none";
         m_BCancelarContrato.Style["display"] = "none";
@@ -346,9 +355,10 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
             m_BInsertarContrato.Style["display"] = "";
             m_BInsertarContrato.UpdateAfterCallBack = true;
         }
+        
 
         // pestaña 3
-        m_BCancelarContrato_Click(sender, e);
+
         m_LCContratosSaldos.DataBind();
         CContratosSaldos saldos = new CContratosSaldos();
         DataTable tabla= saldos.GetTabla();

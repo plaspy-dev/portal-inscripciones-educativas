@@ -46,7 +46,7 @@ public partial class aprobacion_proyectos_ampliacion : CPageTemplate
 
         m_szIndice = m_saTitulos[10];
         m_szJoin = " LEFT JOIN insteducativas ON (insteducativas.id=proyectosi.institucion) "
-            +" LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=proyectosi.eterritorial) "
+            + " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=proyectosi.eterritorial) AND asignacionpresupuestal.vigencia='" + m_pUsuario.GetVigenciaActual() + "' "
             +" LEFT JOIN varios AS grupo ON (grupo.id=asignacionpresupuestal.grupo) "
             +" LEFT JOIN eterritoriales ON (eterritoriales.codigo=proyectosi.eterritorial) "
             +" LEFT JOIN institucionesvariacion ON (institucionesvariacion.institucion=proyectosi.institucion AND institucionesvariacion.anolectivo=" + ano.ToString() + ") "

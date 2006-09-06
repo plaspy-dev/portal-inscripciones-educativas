@@ -80,7 +80,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_saCamposAlias[22] = "liquidacionconvenio.observaciones";
 
         m_szIndice = m_saTitulos[0];
-        m_szJoin = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=conveniosm.eterritorial) "
+        m_szJoin = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=conveniosm.eterritorial) AND asignacionpresupuestal.vigencia='" + m_pUsuario.GetVigenciaActual() + "' "
             +" LEFT JOIN varios AS grupos ON (grupos.id=asignacionpresupuestal.grupo)"
             + " LEFT JOIN eterritoriales ON (eterritoriales.codigo=conveniosm.eterritorial)"
             + " LEFT JOIN varios AS tipos ON (tipos.id=conveniosm.tipo)"

@@ -62,7 +62,7 @@ public partial class aprobacion_convenios_inscripcion : CPageTemplate
         
         m_szIndice = m_saTitulos[0];
         m_szJoin = " LEFT JOIN eterritoriales ON (eterritoriales.codigo=conveniosm.eterritorial) "
-            +" LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=conveniosm.eterritorial) "
+            + " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=conveniosm.eterritorial) AND asignacionpresupuestal.vigencia='" + m_pUsuario.GetVigenciaActual() + "' "
             +" LEFT JOIN varios ON (varios.id=asignacionpresupuestal.grupo) "
             +" LEFT JOIN varios AS varios1 ON (varios1.id=conveniosm.tipo) "
             +" LEFT JOIN varios AS varios2 ON (varios2.id=conveniosm.estado) "
