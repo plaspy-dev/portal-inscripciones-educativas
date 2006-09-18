@@ -1,5 +1,4 @@
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>
-<anthem:Timer ID="timerapp" runat="server" Enabled="true" Interval="60000" OnTick="timer_Tick" />
 <table width="100%"  border="0" cellpadding="0" cellspacing="0" background="../../imagenes/fondo.jpg">
   <tr>
     <td><table width="100%"  border="0" cellspacing="0" cellpadding="0">
@@ -23,15 +22,10 @@
     <td><div align="center" class="Estilo1">Portal de proyectos educativos</div></td>
   </tr>
 </table>
+<img src="../../renewSes.aspx" name="renewSession" id="renewSession">
 <div id="boxHandle" class="box">
 	<div id="handle" class="handle">Ayuda<span class="spantitle"><img src="../../imagenes/close.gif" border="0" title="Close" align="right" WIDTH="11" HEIGHT="11" onclick="hideMe(true)">&nbsp;</b></span></div>
 	<iframe id="myhelpframe" src="" width="100%" height="100%" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="auto" bordercolor="#000000"></iframe>
 </div>
-<script runat="server">
-    virtual public void timer_Tick(object sender, EventArgs e)
-    {
-        m_SFechaActual.Text = CPageTemplate.GetFechaHora(DateTime.Now);
-        m_SFechaActual.UpdateAfterCallBack = true;
-    }
-</script>
+
 

@@ -92,7 +92,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_szCondicion = " (conveniosm.vigencia='" + m_pUsuario.GetVigenciaActual() + "' ) ";
         m_szCondicion += " AND " + m_pUsuario.GetCondicion("conveniosm.eterritorial");
 
-        m_pUsuario.FillComboBox(m_CBEnte);
+        m_pUsuario.FillComboBoxConvenios(m_CBEnte);
         FillComboBox(m_CBConvenio, "SELECT id,codigo FROM conveniosm WHERE vigencia='" + m_pUsuario.GetVigenciaActual()
             + "' AND eterritorial=" + m_CBEnte.SelectedValue, true);
         FillComboBox(m_CBEstado, "SELECT id,nombre FROM varios WHERE tipo=53 AND (nReservado IS NULL OR nReservado!=-1)");

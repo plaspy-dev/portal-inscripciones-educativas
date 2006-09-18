@@ -83,7 +83,7 @@ public partial class aprobacion_proyectos_aprobacion : CPageTemplate
             + " LEFT JOIN varios AS concepto ON (concepto.id=proyectosi.conceptomen)"
             ;
 
-        m_pUsuario.FillComboBox(m_CBEnte);
+        m_pUsuario.FillComboBoxInscritos(m_CBEnte);
         FillComboBox(m_CBEstado, "SELECT id,nombre FROM varios WHERE tipo=48 AND (nReservado IS NULL OR nReservado!=-1)");
         FillComboBox(m_CBProyecto, "SELECT id,codigo FROM proyectosi WHERE priorizacion>=0 AND eterritorial=" + m_CBEnte.SelectedValue
             + " AND proyectosi.vigencia='" + m_pUsuario.GetVigenciaActual() + "'", true);

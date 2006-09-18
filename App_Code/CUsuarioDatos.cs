@@ -44,11 +44,11 @@ public class CUsuarioDatos
         m_pEntes = null;
     }
 
-    public void AddEnte(string nombre, int id, string vigencia)
+    public void AddEnte(string nombre, int id, string vigencia, int proyectosi, int proyectos, int convenios)
     {
         if (m_pEntes == null)
             m_pEntes = new CEntesTerritoriales();
-        m_pEntes.Add(nombre, id, vigencia);
+        m_pEntes.Add(nombre, id, vigencia, proyectosi, proyectos, convenios);
     }
 
     public void SetVigencias(ArrayList lista)
@@ -135,6 +135,23 @@ public class CUsuarioDatos
     {
         if (m_pEntes != null)
             m_pEntes.FillComboBox(lista, m_szVigencia);
+    }
+
+    public void FillComboBoxInscritos(Anthem.DropDownList lista)
+    {
+        if (m_pEntes != null)
+            m_pEntes.FillComboBoxInscritos(lista, false, m_szVigencia);
+    }
+
+    public void FillComboBoxProyectos(Anthem.DropDownList lista)
+    {
+        if (m_pEntes != null)
+            m_pEntes.FillComboBoxProyectos(lista,false, m_szVigencia);
+    }
+    public void FillComboBoxConvenios(Anthem.DropDownList lista)
+    {
+        if (m_pEntes != null)
+            m_pEntes.FillComboBoxConvenios(lista,false, m_szVigencia);
     }
 
     public string GetCondicion(string nombrecampoente)

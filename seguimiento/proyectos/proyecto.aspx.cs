@@ -74,7 +74,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_szCondicion = " proyectos.vigencia='" +m_pUsuario.GetVigenciaActual() + "' ";
         m_szCondicion += " AND " + m_pUsuario.GetCondicion("proyectos.eterritorial");
 
-        m_pUsuario.FillComboBox(m_CBEnte);
+        m_pUsuario.FillComboBoxProyectos(m_CBEnte);
         FillComboBox(m_CBEstadoProyecto, "SELECT id,nombre FROM varios WHERE tipo=61 AND (nReservado IS NULL OR nReservado!=-1) ");
         FillComboBox(m_LCProyecto, "SELECT id,codigo FROM proyectos WHERE vigencia='" + m_pUsuario.GetVigenciaActual()
             + "' AND eterritorial=" + m_CBEnte.SelectedValue, true);
@@ -342,11 +342,6 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_nIdContrato.Value = "";
         m_LCContratos.DataBind();
 
-        if (m_LCContratos.Rows.Count > 0)
-        {
-            m_LCContratos.SelectedIndex = 0;
-            m_LCContratos_SelectedIndexChanged((object)m_LCContratos, null);
-        }
         m_BEliminarContrato.Style["display"] = "none";
         m_BAceptarContrato.Style["display"] = "none";
         m_BCancelarContrato.Style["display"] = "none";
@@ -354,6 +349,12 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         {
             m_BInsertarContrato.Style["display"] = "";
             m_BInsertarContrato.UpdateAfterCallBack = true;
+        }
+
+        if (m_LCContratos.Rows.Count > 0)
+        {
+            m_LCContratos.SelectedIndex = 0;
+            m_LCContratos_SelectedIndexChanged((object)m_LCContratos, null);
         }
         
 

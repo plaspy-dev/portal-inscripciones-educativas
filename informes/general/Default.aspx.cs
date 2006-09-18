@@ -224,7 +224,7 @@ public partial class informes_general_Default : CPageTemplate
         m_szCondicion = " conveniosm.vigencia='" + m_pUsuario.GetVigenciaActual() + "' ";
         m_szCondicion += " AND " + m_pUsuario.GetCondicion("conveniosm.eterritorial");
 
-        m_pUsuario.FillComboBox(m_CBEntidad);
+        m_pUsuario.FillComboBoxProyectos(m_CBEntidad);
         if (m_CBEntidad.Items.Count > 0)
             m_CBEntidad.Items[0].Text = "(Todos)";
         if (m_CBEntidad.SelectedIndex > 0)
@@ -238,7 +238,7 @@ public partial class informes_general_Default : CPageTemplate
         m_CBImprimir.Style["display"] = "";
     }
 
-    virtual protected void m_BAceptarP_Click(object sender, EventArgs e)
+    override protected void m_BAceptarP_Click(object sender, EventArgs e)
     {
         CTablaEx tabla= new CTablaEx();
         tabla.Select();

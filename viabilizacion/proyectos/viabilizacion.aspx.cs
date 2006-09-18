@@ -136,7 +136,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_saCamposAlias[48] = "observacionesproyecto.tecnicas";
         
         m_szIndice = m_saTitulos[0];
-        m_pUsuario.FillComboBox(m_CBEnte);
+        m_pUsuario.FillComboBoxInscritos(m_CBEnte);
         FillComboBox(m_CBMunicipio, "SELECT id,nombre FROM municipios WHERE eterritorial=" + m_CBEnte.SelectedValue, true);
         FillComboBox(m_CBProyecto, "SELECT proyectosi.id,proyectosi.codigo FROM proyectosi LEFT JOIN varios ON varios.id=proyectosi.estado WHERE varios.nReservado=1 AND proyectosi.vigencia='" 
             +m_pUsuario.GetVigenciaActual() +"' AND proyectosi.eterritorial=" + m_CBEnte.SelectedValue + (m_CBMunicipio.SelectedIndex>0 ? (" AND proyectosi.municipio=" + m_CBMunicipio.SelectedValue) : "" ) , true);
@@ -845,6 +845,13 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_saDatos[6]=GetString(m_EFax.Text);
         m_saDatos[7] = GetString(m_EMail.Text);
         string query = "";
+        if (!insertar)
+        {
+            query = m_pConector.QueryString("SELECT proyecto FROM responsableviabilizacion WHERE proyecto=" + m_nId.Value);
+            if (query == "")
+                insertar = true;
+        }
+
         if (insertar)
         {
             query = CConector.CrearInsercion(szTabla, m_saCampos, m_saDatos);

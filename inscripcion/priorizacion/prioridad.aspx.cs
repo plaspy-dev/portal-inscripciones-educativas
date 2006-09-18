@@ -55,7 +55,7 @@ public partial class inscripcion_priorizacion_prioridad : CPageTemplate
         m_szCondicion = " proyectosi.vigencia='" + m_pUsuario.GetVigenciaActual() + "' AND (proyectosi.estudiantesb IS NULL OR proyectosi.estudiantesb!=-1) ";
         m_szCondicion += " AND " + m_pUsuario.GetCondicion("proyectosi.eterritorial");
 
-        m_pUsuario.FillComboBox(m_CBEnte);
+        m_pUsuario.FillComboBoxInscritos(m_CBEnte);
         FillComboBox(m_CBMunicipio, "SELECT id,nombre FROM municipios WHERE eterritorial=" + m_CBEnte.SelectedValue + " AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre", true);
         FillComboBox(m_CBProyecto, "SELECT id,codigo FROM proyectosi WHERE municipio=" + m_CBMunicipio.SelectedValue, true);
         if (!IsPostBack)

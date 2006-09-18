@@ -38,7 +38,7 @@ public partial class informes_institucion_Default : CPageTemplate
         FillComboBox(m_CBEnte, "SELECT codigo,nombre FROM eterritoriales ORDER BY nombre");
         FillComboBox(m_CBMunicipio, "SELECT id,nombre FROM municipios WHERE eterritorial=" + m_CBEnte.SelectedValue + " AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre", true);
         
-        if (Session["busqueda"] == null || Session["busqueda"] == "")
+        if (Session["busqueda"] == null || Session["busqueda"].ToString() == "")
         {
             if (m_CBEnte.SelectedIndex > 0)
                 m_szCondicion = "municipios.eterritorial=" + m_CBEnte.SelectedValue;
@@ -47,7 +47,7 @@ public partial class informes_institucion_Default : CPageTemplate
         }
         else
         {
-            if (Session["busqueda"] == "insteducativas.nombre")
+            if (Session["busqueda"].ToString() == "insteducativas.nombre")
             {
                 m_szCondicion = "insteducativas.nombre LIKE '%" + m_ENombre.Text + "%'";
             }

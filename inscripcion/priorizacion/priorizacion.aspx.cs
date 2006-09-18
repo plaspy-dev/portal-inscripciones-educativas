@@ -19,7 +19,7 @@ public partial class inscripcion_priorizacion_priorizacion : CPageTemplate
         m_saCampos[0] = "priorizacion";
         m_saCampos[1] = "eterritorial";
 
-        m_pUsuario.FillComboBox(m_EEntes);
+        m_pUsuario.FillComboBoxInscritos(m_EEntes);
         if (!IsPostBack)
         {
             BoundField data = new BoundField();

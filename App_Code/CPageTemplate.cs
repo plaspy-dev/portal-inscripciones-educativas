@@ -774,16 +774,6 @@ public class CPageTemplate : System.Web.UI.Page
             Response.End();
         }
     }
-    virtual protected void timer_Tick(object sender, EventArgs e)
-    {
-        Anthem.Label lab;
-        if ((lab = (Anthem.Label)FindControl("m_SFechaActual")) != null)
-        {
-            lab.Text = GetFechaHora(DateTime.Now);
-            lab.UpdateAfterCallBack = true;
-        }
-    }
-
     static public string GetFecha(DateTime tiempo)
     {
         return CDateFormat.GetDate(tiempo);

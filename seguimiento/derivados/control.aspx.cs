@@ -66,7 +66,7 @@ public partial class seguimiento_derivados_control : CPageTemplate
         m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx);
         m_baHidden[0] = true;
 
-        m_pUsuario.FillComboBox(m_CBEnte);
+        m_pUsuario.FillComboBoxConvenios(m_CBEnte);
         FillComboBox(m_CBEstado, "SELECT id,nombre FROM varios WHERE tipo=59 AND (nReservado IS NULL OR nReservado!=-1)");
         FillComboBox(m_CBProyecto, "SELECT id,codigo FROM proyectos WHERE vigencia='"+m_pUsuario.GetVigenciaActual() + "' AND eterritorial=" + m_CBEnte.SelectedValue, true);
         m_szMensaje = "No se encontraron convenios";
