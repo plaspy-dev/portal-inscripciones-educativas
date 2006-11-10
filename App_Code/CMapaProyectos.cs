@@ -21,9 +21,11 @@ public class CMapaProyectos
     public int m_nEjecucion;
     public string m_szEstado;
     public int m_nEstudiantesB;
+    public int m_nEstudiantesD;
     public int m_nAulas;
     public int m_nDotacion;
     public string m_szEntidadTerritorial;
+    public int m_nAulasR;
 
 	public CMapaProyectos()
 	{
@@ -36,6 +38,8 @@ public class CMapaProyectos
         m_nEjecucion = 0;
         m_nAulas = 0;
         m_nDotacion = 0;
+        m_nAulasR = 0;
+        m_nEstudiantesD = 0;
 	}
     public CMapaProyectos(string id, string codigo, string valor)
     {
@@ -48,6 +52,8 @@ public class CMapaProyectos
         m_nAulas = 0;
         m_nDotacion = 0;
         m_szEntidadTerritorial = "";
+        m_nAulasR = 0;
+        m_nEstudiantesD = 0;
     }
     public static CMapaProyectos ParseQuery(SqlDataReader reader)
     {
@@ -63,15 +69,19 @@ public class CMapaProyectos
         if (reader[9].ToString() != "")
             proy.m_nDotacion = Convert.ToInt32(reader[9].ToString());
         proy.m_szEntidadTerritorial = reader[10].ToString();
+        proy.m_nAulasR = Convert.ToInt32(reader[11].ToString());
+        proy.m_nEstudiantesD = Convert.ToInt32(reader[12].ToString());
         return proy;
     }
     public static string GetQuery(string vigencia)
     {
         return "SELECT municipios.departamento,proyectos.id,proyectos.codigo,SUM(objeto.valor),municipios.nombre "
-            + ",dbo.fn_GetObjetos(proyectos.id),insteducativas.nombre,ISNULL(proyectosi.estudiantesb,0)+ISNULL(proyectosi.estudiantesd,0) "
+            + ",dbo.fn_GetObjetos(proyectos.id),insteducativas.nombre,ISNULL(proyectosi.estudiantesb,0)"
             + ",(SELECT SUM(objeto.cantidad) FROM objeto LEFT JOIN varios ON (varios.id=objeto.concepto) WHERE objeto.proyecto=proyectos.id AND varios.nombre LIKE '%const%aulas%') "
              + ",(SELECT SUM(objeto.cantidad) FROM objeto LEFT JOIN varios ON (varios.id=objeto.concepto) WHERE objeto.proyecto=proyectos.id AND (varios.nombre LIKE '%sillas%' OR varios.nombre LIKE '%mesas%' OR varios.nombre LIKE '%pupitres%' OR varios.nombre LIKE '%tableros%')) "
              + ",eterritoriales.nombre"
+             + ",(SELECT ISNULL(SUM(objeto.cantidad),0) FROM objeto LEFT JOIN varios ON (varios.id=objeto.concepto) WHERE objeto.proyecto=proyectos.id AND varios.nombre LIKE '%repos%aulas%') "
+             + ", ISNULL(proyectosi.estudiantesd,0)"
         +" FROM proyectos "
         +" LEFT JOIN objeto ON (objeto.proyecto=proyectos.id) "
         +" LEFT JOIN municipios ON (municipios.id=proyectos.municipio)"

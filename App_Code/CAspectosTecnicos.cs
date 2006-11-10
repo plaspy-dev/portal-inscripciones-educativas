@@ -8,10 +8,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using System.Collections;
 
-/// <summary>
-/// Summary description for CAspectosTecnicos
-/// </summary>
 public class CAspectosTecnicos
 {
 	CConector m_pConector;
@@ -68,6 +66,31 @@ public class CAspectosTecnicos
         if (m_szCurrentID == null || m_szCurrentID=="")
         {
             m_szCurrentID = "0";
+        }
+
+        // buscamos entradas repetidas para todos los elementos y los eliminamos
+        string eliminar = "SELECT varios.id AS id,COUNT(*) FROM varios LEFT JOIN aspectostecnicos ON (aspectostecnicos.aspecto=varios.id AND aspectostecnicos.proyecto=%d) WHERE varios.tipo=52 AND (varios.nReservado IS NULL OR varios.nReservado!=-1) GROUP BY varios.id HAVING COUNT(*)>1;";
+        SqlDataReader temp = m_pConector.Query(eliminar.Replace("%d", m_szCurrentID));
+        if(temp!=null) {
+            ArrayList lista = new ArrayList();
+            while(temp.Read()) 
+                lista.Add(temp[0].ToString());
+            for(int i=0; i<lista.Count; i++) {
+
+                ArrayList ids = new ArrayList();
+                temp= m_pConector.Query("SELECT id FROM aspectostecnicos WHERE aspecto=" + lista[i].ToString() + " AND proyecto=" + m_szCurrentID);
+                if (temp != null)
+                {
+                    while (temp.Read())
+                    {
+                        ids.Add(temp[0].ToString());
+                    }
+                }
+                for(int j=1; j<ids.Count; j++) {
+
+                    m_pConector.QueryMod("DELETE FROM aspectostecnicos WHERE id=" + ids[j].ToString());
+                }
+            }
         }
 
         m_pTabla = new DataTable();

@@ -37,7 +37,7 @@ public partial class datosmapa : System.Web.UI.Page
         CMapaDepartamentos dep;
         decimal valorp = 0, valorc = 0;
         int totalp = 0, totalc = 0;
-        int benef = 0,aulas=0, dotacion=0;
+        int benef = 0,aulas=0, dotacion=0, aulasr=0, benefd=0;
             
         XmlWriter xw = new XmlTextWriter(Response.OutputStream, System.Text.Encoding.UTF8);
         xw.WriteStartDocument(true);
@@ -56,6 +56,8 @@ public partial class datosmapa : System.Web.UI.Page
                 aulas += dep.GetAulasNuevas();
                 benef += dep.GetEstudiantesBeneficiados();
                 dotacion += dep.GetDotacion();
+                aulasr += dep.GetAulasR();
+                benefd += dep.GetEstudiantesBeneficiadosDot();
             }
             xw.WriteStartElement("departamento");
             xw.WriteAttributeString("name", "colombia");
@@ -67,19 +69,32 @@ public partial class datosmapa : System.Web.UI.Page
 
             string comentarios = "";
             if (totalc > 0)
-                comentarios += "Convenios\t" + totalc.ToString() + "\t\t$" + CPageTemplate.GetFormatDouble(valorc.ToString()) + "\r";
+            {
+                comentarios += totalc.ToString() + " convenios por valor de $" + CPageTemplate.GetFormatDouble(valorc.ToString()) + "\r";
+                // comentarios += "Convenios\t" + totalc.ToString() + "\t\t$" + CPageTemplate.GetFormatDouble(valorc.ToString()) + "\r";
+            }
             if (totalp > 0)
-                comentarios += "Proyectos\t" + totalp.ToString() + "\t\t$" + CPageTemplate.GetFormatDouble(valorp.ToString()) + "\r";
+            {
+                comentarios += totalp.ToString() + " proyectos por valor de $" + CPageTemplate.GetFormatDouble(valorp.ToString()) + "\r";
+                // comentarios += "Proyectos\t" + totalp.ToString() + "\t\t$" + CPageTemplate.GetFormatDouble(valorp.ToString()) + "\r";
+            }
             if (comentarios.Length == 0)
             {
                 comentarios = "No hay proyectos";
             }
             else
             {
-                comentarios = "\t\t\tNumero\tValor\n" + comentarios;
-                comentarios += "Estudiantes Beneficiados\t" + benef.ToString() + "\r";
-                comentarios += "Aulas Construidas\t\t\t" + aulas.ToString() + "\r";
-                comentarios += "Dotaciones\t\t\t" + dotacion.ToString() + "\r";
+                // comentarios = "\t\t\tNumero\tValor\n" + comentarios;
+                if (benef > 0)
+                    comentarios += benef.ToString() + " Estudiantes beneficiados por aulas nuevas\r";
+                if (benefd > 0)
+                    comentarios += benefd.ToString() + " Estudiantes beneficiados por dotaciones\r";
+                if (dotacion > 0)
+                    comentarios += dotacion.ToString() + " Dotaciones\r";
+                if (aulas > 0)
+                    comentarios += aulas.ToString() + " Aulas nuevas\r";
+                if (aulasr > 0)
+                    comentarios += aulasr.ToString() + " Aulas de reposicion\r";
             }
 
             xw.WriteStartElement("comentarios");
@@ -99,6 +114,8 @@ public partial class datosmapa : System.Web.UI.Page
                 benef = dep.GetEstudiantesBeneficiados();
                 aulas = dep.GetAulasNuevas();
                 dotacion = dep.GetDotacion();
+                aulasr = dep.GetAulasR();
+                benefd = dep.GetEstudiantesBeneficiadosDot();
 
                 xw.WriteStartElement("departamento");
                 xw.WriteAttributeString("name", dep.m_szMapa);
@@ -110,19 +127,32 @@ public partial class datosmapa : System.Web.UI.Page
 
                 string comentarios = "";
                 if (totalc > 0)
-                    comentarios += "Convenios\t" + totalc.ToString() + "\t\t$" + CPageTemplate.GetFormatDouble(valorc.ToString()) + "\r";
-                if(totalp>0)
-                    comentarios += "Proyectos\t" + totalp.ToString() + "\t\t$" + CPageTemplate.GetFormatDouble(valorp.ToString()) + "\r";
+                {
+                    comentarios += totalc.ToString() + " convenios por valor de $" + CPageTemplate.GetFormatDouble(valorc.ToString()) + "\r";
+                    // comentarios += "Convenios\t" + totalc.ToString() + "\t\t$" + CPageTemplate.GetFormatDouble(valorc.ToString()) + "\r";
+                }
+                if (totalp > 0)
+                {
+                    comentarios += totalp.ToString() + " proyectos por valor de $" + CPageTemplate.GetFormatDouble(valorp.ToString()) + "\r";
+                    // comentarios += "Proyectos\t" + totalp.ToString() + "\t\t$" + CPageTemplate.GetFormatDouble(valorp.ToString()) + "\r";
+                }
                 if (comentarios.Length == 0)
                 {
                     comentarios = "No hay proyectos";
                 }
                 else
                 {
-                    comentarios = "\t\t\tNumero\tValor\n" + comentarios;
-                    comentarios += "Estudiantes Beneficiados\t" + benef.ToString() +"\r";
-                    comentarios += "Aulas Construidas\t\t\t"+aulas.ToString() + "\r";
-                    comentarios += "Dotaciones\t\t\t" + dotacion.ToString() + "\r";
+                    // comentarios = "\t\t\tNumero\tValor\n" + comentarios;
+                    if(benef>0)
+                        comentarios += benef.ToString() + " Estudiantes beneficiados por aulas nuevas\r";
+                    if (benefd > 0)
+                        comentarios += benefd.ToString() + " Estudiantes beneficiados por dotaciones\r";
+                    if (dotacion > 0)
+                        comentarios += dotacion.ToString() + " Dotaciones\r";
+                    if (aulas > 0)
+                        comentarios += aulas.ToString() + " Aulas nuevas\r";
+                    if (aulasr > 0) 
+                        comentarios += aulasr.ToString() + " Aulas de reposicion\r";
                 }
 
                 xw.WriteStartElement("comentarios");

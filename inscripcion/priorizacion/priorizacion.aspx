@@ -111,7 +111,7 @@
                                             <anthem:Label ID="m_SMensaje" runat="server"></anthem:Label><br />
                                             <anthem:ImageButton ID="m_BAceptar" runat="server" ToolTip="Guardar" ImageUrl="~/imagenes/save.gif" OnClick="m_BAceptar_Click" PreCallBackFunction="Priorizar_Precallback"/><anthem:ImageButton ID="m_BCancelar" runat="server" ToolTip="Cancelar" ImageUrl="~/imagenes/stop.gif" OnClick="m_BCancelar_Click" CausesValidation="False" /><anthem:ImageButton ID="m_BImprimir" runat="server" ToolTip="Imprimir" ImageUrl="~/imagenes/print.gif" OnClick="m_BImprimir_Click" CausesValidation="False" />
                                             <anthem:DropDownList ID="m_CBImprimir" runat="server">
-                                                <asp:ListItem Value="1">Microsoft Excel</asp:ListItem>
+                                                <asp:ListItem Value="1">Hoja de Cálculo</asp:ListItem>
                                                 <asp:ListItem Value="0">En Pantalla</asp:ListItem>
                                             </anthem:DropDownList>&nbsp;
                                             <anthem:ImageButton ID="m_BAceptarP" runat="server" ImageUrl="~/imagenes/print.gif" ToolTip="Imprimir" CausesValidation="False" OnClick="m_BAceptarP_Click" /><anthem:ImageButton ID="m_BCancelarP" runat="server" ToolTip="Cancelar" ImageUrl="~/imagenes/stop.gif" CausesValidation="False" OnClick="m_BCancelarP_Click" />
@@ -126,7 +126,9 @@
 			</tr>
 		</table>
 		<div align="right">
-            <asp:Label ID="m_SVersion" runat="server" Font-Bold="True"></asp:Label>&nbsp;</div>
+            <asp:Label ID="m_SVersion" runat="server" Font-Bold="True"></asp:Label><br />
+            <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" Font-Size="Smaller"
+                PostBackUrl="~/about.aspx">Desarrollado por SDG.</asp:LinkButton></div>
     </form>
 </body>
 </html>

@@ -137,7 +137,7 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         FillComboBox(m_CBJornadas, "SELECT nombre,nombre FROM varios WHERE tipo=41 AND (nReservado IS NULL OR nReservado!=-1) ");
         FillComboBox(m_CBCriticidad, "SELECT id,nombre FROM varios WHERE tipo=35 AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre");
         FillComboBox(m_CBTipo, "SELECT id,nombre FROM varios WHERE tipo=13 AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre");
-        FillComboBox(m_CBConcepto, "SELECT id,nombre FROM varios WHERE tipo=15 AND (nReservado IS NULL OR nReservado!=-1)");
+        FillComboBox(m_CBConcepto, "SELECT varios.id,varios.nombre FROM varios LEFT JOIN varios AS misma ON (misma.id=" + m_CBTipo.SelectedValue + ") WHERE varios.tipo=15 AND (varios.nReservado IS NULL OR varios.nReservado!=-1) AND CHARINDEX(CONVERT(VARCHAR,misma.id),varios.szReservado)>0", true);
         FillComboBox(m_CBPorcentaje, "SELECT nombre,nombre FROM varios WHERE tipo=43 AND (nReservado IS NULL OR nReservado!=-1)");
 
         // autofiltro
@@ -788,5 +788,9 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
     protected void m_LCObjetos_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         ParseRow(m_LCObjetos, CTablaObjeto.GetTabla(), e);
+    }
+    protected void m_CBTipo_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        m_CBConcepto.UpdateAfterCallBack = true;
     }
 }

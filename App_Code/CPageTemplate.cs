@@ -719,9 +719,20 @@ public class CPageTemplate : System.Web.UI.Page
                 for (int i = 0; i < e.Row.Cells.Count; i++)
                 {
                     DataRow datarow = tabla.Rows[realindex];
+
+                    string columna=null;
+                    if(e.Row.Cells[i].GetType()== typeof(DataControlFieldCell)) {
+                        DataControlFieldCell campo= (DataControlFieldCell )e.Row.Cells[i];
+                        columna = campo.ContainingField.HeaderText;
+                    }
+                                        
                     if (datarow == null || datarow.ItemArray.Length <= i || datarow[i] == null)
                         continue;
-                    Type tipodato = tabla.Rows[realindex][i].GetType();
+
+                    Type tipodato = null;
+                    if (columna == null)
+                        tipodato= datarow[i].GetType();
+                    else tipodato = datarow[columna].GetType();
                     if (tipodato == typeof(double) || tipodato == typeof(decimal) || tipodato == typeof(float))
                     {
                         e.Row.Cells[i].Text = GetFormatDouble(e.Row.Cells[i].Text);

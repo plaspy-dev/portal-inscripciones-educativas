@@ -19,6 +19,7 @@ The portal stores forms and reference lists for education applications. Operator
 - Review project applications and record the approval decision in [Aprobación](aprobacion/proyectos/aprobacion.aspx).
 - Review the feasibility information for a project in [Viabilización](viabilizacion/proyectos/viabilizacion.aspx).
 - Look up a project for follow-up in [Seguimiento](seguimiento/proyectos/proyecto.aspx).
+- Open the project photo gallery in [Galería](fotos/proyectos/galeria.aspx).
 
 ### Requirements
 
@@ -67,7 +68,7 @@ Verified on 20 November 2026. The portal was built in Windows and tested with II
 
 ### History
 
-The source edition keeps its recorded date of 2006-09-18. The 2026 reconstruction includes recovered components, setup instructions and local checks.
+The source edition keeps its recorded date of 2006-11-10. The 2026 reconstruction includes recovered components, setup instructions and local checks.
 
 ### Support
 
@@ -101,6 +102,7 @@ El portal reúne formularios y catálogos para gestionar inscripciones educativa
 - Revisa las solicitudes y registra la aprobación en [Aprobación](aprobacion/proyectos/aprobacion.aspx).
 - Revisa la viabilidad de un proyecto en [Viabilización](viabilizacion/proyectos/viabilizacion.aspx).
 - Consulta un proyecto para hacer seguimiento en [Seguimiento](seguimiento/proyectos/proyecto.aspx).
+- Abre la galería fotográfica del proyecto en [Galería](fotos/proyectos/galeria.aspx).
 
 ### Requisitos
 
@@ -149,7 +151,7 @@ Verificado el 20 de noviembre de 2026. El portal se compiló en Windows y se pro
 
 ### Historia
 
-La edición conserva su fecha registrada del 2006-09-18. La reconstrucción de 2026 incorpora componentes recuperados, instrucciones y comprobaciones locales.
+La edición conserva su fecha registrada del 2006-11-10. La reconstrucción de 2026 incorpora componentes recuperados, instrucciones y comprobaciones locales.
 
 ### Soporte
 

@@ -107,7 +107,7 @@ public class CMapaDepartamentos
         }
         return total;
     }
-    public decimal GetAvance(string proyectoid)
+    protected decimal GetAvance(string proyectoid)
     {
         if (m_pContratos == null)
             return 0;
@@ -119,14 +119,30 @@ public class CMapaDepartamentos
         }
         return total;
     }
-    public int GetAvance(CMapaProyectos proyecto)
+
+    protected decimal GetTotalContratos(string proyectoid)
+    {
+        if (m_pContratos == null)
+            return 0;
+        decimal total = 0;
+        for (int i = 0; i < m_pContratos.Count; i++)
+        {
+            if (((CMapaContratos)m_pContratos[i]).m_szIDProyecto == proyectoid && ((CMapaContratos)m_pContratos[i]).m_szValor.Length > 0)
+                total += Convert.ToDecimal(((CMapaContratos)m_pContratos[i]).m_szValor);
+        }
+        return total;
+    }
+
+    public decimal GetAvance(CMapaProyectos proyecto)
     {
         decimal avance = GetAvance(proyecto.m_nID.ToString());
+        decimal totalc = GetTotalContratos(proyecto.m_nID.ToString());
         avance *= 100;
-        if(proyecto.m_szValor.Length>0)
-            return Convert.ToInt32(avance / Convert.ToDecimal(proyecto.m_szValor));
+        if (totalc > 0)
+            return avance / totalc;
         return 0;
     }
+
     public int GetMaximoAvance()
     {
         if (m_pProyectos == null)
@@ -135,7 +151,7 @@ public class CMapaDepartamentos
         int temp;
         for (int i = 0; i < m_pProyectos.Count; i++)
         {
-            temp = GetAvance((CMapaProyectos)m_pProyectos[i]);
+            temp = Convert.ToInt32(GetAvance((CMapaProyectos)m_pProyectos[i]));
             if (total < temp)
                 total = temp;
         }
@@ -185,6 +201,27 @@ public class CMapaDepartamentos
         for (int i = 0; i < m_pProyectos.Count; i++)
         {
             total += ((CMapaProyectos)m_pProyectos[i]).m_nEstudiantesB;
+        }
+        return total;
+    }
+    public int GetEstudiantesBeneficiadosDot()
+    {
+        if (m_pProyectos == null)
+            return 0;
+        int total = 0;
+        for (int i = 0; i < m_pProyectos.Count; i++)
+        {
+            total += ((CMapaProyectos)m_pProyectos[i]).m_nEstudiantesD;
+        }
+        return total;
+    }
+    public int GetAulasR() {
+        if (m_pProyectos == null)
+            return 0;
+        int total = 0;
+        for (int i = 0; i < m_pProyectos.Count; i++)
+        {
+            total += ((CMapaProyectos)m_pProyectos[i]).m_nAulasR;
         }
         return total;
     }

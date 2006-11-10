@@ -46,7 +46,7 @@
                                 <asp:Button ID="m_BTab1" runat="server" Text="Datos Generales" CssClass="cselected" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="130px"/>
                             </td>
                             <td >
-                                <asp:Button ID="m_BTab2" runat="server" Text="Aspectos Juridicos y formulación" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="200px"/>
+                                <asp:Button ID="m_BTab2" runat="server" Text="Aspectos Juridicos y formulación" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="210px"/>
                             </td>
                             <td >
                                 <asp:Button ID="m_BTab3" runat="server" Text="Aspectos técnicos" CssClass="cinftab" OnClick="OnTabsClick" UseSubmitBehavior="False" Width="120px"/>
@@ -110,6 +110,14 @@
                                         <td >
                                             <anthem:Label id="m_SInstitucion" runat="server" Text="">
                                             </anthem:Label></td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Tipo</td>
+                                        <td>
+                                            <anthem:DropDownList ID="m_CBTipo" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBTipo_SelectedIndexChanged"></anthem:DropDownList></td>
                                         <td>
                                         </td>
                                     </tr>
@@ -295,49 +303,50 @@
                                     <tr>
                                         <td>
                                             NIT de la firma</td>
-                                        <td><anthem:TextBox ID="m_ENITFirma" runat="server" CssClass="editcomun"></anthem:TextBox></td>
+                                        <td><anthem:TextBox ID="m_ENITFirma" runat="server" CssClass="editcomun"></anthem:TextBox>
+                                            <anthem:Button ID="m_BBuscarNIT" runat="server" OnClick="m_BBuscarNIT_Click" Text="Buscar" EnabledDuringCallBack="False" /></td>
                                         <td>
-                                        </td>
+                                            <anthem:Label ID="m_SBuscarNIT" runat="server"></anthem:Label></td>
                                     </tr>
                                     <tr>
                                         <td>
                                             Nombre de la firma</td>
-                                        <td><anthem:TextBox ID="m_ENombreFirma" runat="server" CssClass="editcomun"></anthem:TextBox></td>
+                                        <td><anthem:TextBox ID="m_ENombreFirma" runat="server" CssClass="editcomun" Width="200px"></anthem:TextBox></td>
                                         <td>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             Representante legal</td>
-                                        <td><anthem:TextBox ID="m_ERepresentante" runat="server" CssClass="editcomun"></anthem:TextBox></td>
+                                        <td><anthem:TextBox ID="m_ERepresentante" runat="server" CssClass="editcomun" Width="200px"></anthem:TextBox></td>
                                         <td>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             Dirección</td>
-                                        <td><anthem:TextBox ID="m_EDireccion" runat="server" CssClass="editcomun"></anthem:TextBox></td>
+                                        <td><anthem:TextBox ID="m_EDireccion" runat="server" CssClass="editcomun" Width="200px"></anthem:TextBox></td>
                                         <td>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             Telefono</td>
-                                        <td><anthem:TextBox ID="m_ETelefono" runat="server" CssClass="editcomun"></anthem:TextBox></td>
+                                        <td><anthem:TextBox ID="m_ETelefono" runat="server" CssClass="editcomun" Width="200px"></anthem:TextBox></td>
                                         <td>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             Fax</td>
-                                        <td><anthem:TextBox ID="m_EFax" runat="server" CssClass="editcomun"></anthem:TextBox></td>
+                                        <td><anthem:TextBox ID="m_EFax" runat="server" CssClass="editcomun" Width="200px"></anthem:TextBox></td>
                                         <td>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             E-Mail</td>
-                                        <td><anthem:TextBox ID="m_EMail" runat="server" CssClass="editcomun"></anthem:TextBox></td>
+                                        <td><anthem:TextBox ID="m_EMail" runat="server" CssClass="editcomun" Width="200px"></anthem:TextBox></td>
                                         <td>
                                         </td>
                                     </tr>
@@ -354,7 +363,7 @@
                                             <anthem:Label ID="m_SMensaje" runat="server"></anthem:Label><br />
                                             <anthem:ImageButton ID="m_BInsertar" ToolTip="Insertar" runat="server" ImageUrl="~/imagenes/save.gif" OnClick="m_BInsertar_Click" ValidationGroup="normal" /><anthem:ImageButton ID="m_BImprimir" runat="server" ToolTip="Imprimir" ImageUrl="~/imagenes/print.gif" OnClick="m_BImprimir_Click" CausesValidation="False" />
                                             <anthem:DropDownList ID="m_CBImprimir" runat="server">
-                                                <asp:ListItem Value="1">Microsoft Excel</asp:ListItem>
+                                                <asp:ListItem Value="1">Hoja de Cálculo</asp:ListItem>
                                                 <asp:ListItem Value="0">En Pantalla</asp:ListItem>
                                             </anthem:DropDownList>
                                             <anthem:ImageButton ID="m_BAceptar" runat="server" ImageUrl="~/imagenes/save.gif" ToolTip="Guardar" OnClick="m_BAceptar_Click" ValidationGroup="normal" /><anthem:ImageButton ID="m_BCancelar" ToolTip="Cancelar" runat="server" ImageUrl="~/imagenes/stop.gif" OnClick="m_BCancelar_Click" CausesValidation="False" /><anthem:ImageButton ID="m_BEliminar" runat="server" ImageUrl="~/imagenes/trash.gif" ToolTip="Eliminar" CausesValidation="False" OnClick="m_BEliminar_Click" PreCallBackFunction="Eliminar_PreCallBack"/>
@@ -410,8 +419,8 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                            </td>
+                                            <td><asp:ImageButton ImageUrl="~/imagenes/save.gif" ID="m_BFinalizarE3" runat="server" ToolTip="Finalizar" OnClick="m_BAceptar_Click" ValidationGroup="tab" />
+                                                <asp:ImageButton ImageUrl="~/imagenes/save.gif" ID="m_BFinalizar3" runat="server" ToolTip="Finalizar" OnClick="m_BInsertar_Click" ValidationGroup="tab" /></td>
                                             <td>
                                             </td>
                                             <td>
@@ -462,8 +471,8 @@
                                                 &nbsp;</td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                            </td>
+                                            <td><asp:ImageButton ImageUrl="~/imagenes/save.gif" ID="m_BFinalizarE2" runat="server" ToolTip="Finalizar" OnClick="m_BAceptar_Click" ValidationGroup="tab" />
+                                                <asp:ImageButton ImageUrl="~/imagenes/save.gif" ID="m_BFinalizar2" runat="server" ToolTip="Finalizar" OnClick="m_BInsertar_Click" ValidationGroup="tab" /></td>
                                             <td>
                                             </td>
                                             <td>
@@ -474,14 +483,6 @@
                                 </asp:View>
                                 <asp:View ID="View4" runat="server">
                                     <table cellspacing="0">
-                                    <tr>
-                                        <td>
-                                            Tipo</td>
-                                        <td><anthem:DropDownList ID="m_CBTipo" runat="server">
-                                        </anthem:DropDownList>
-                                        <td>
-                                        </td>
-                                    </tr>
                                     <tr>
                                         <td>
                                             <strong>Infraestructura</strong></td>
@@ -544,23 +545,27 @@
                                             <td>
                                                 Total estudiantes beneficiados aulas nuevas</td>
                                             <td>
-                                                <anthem:Label ID="m_STotalBeneficiados" runat="server">
-                                                </anthem:Label></td>
+                                                <anthem:textbox id="m_ETotalBeneficiados" runat="server" cssclass="inputnumerico"></anthem:textbox>
+                                            </td>
                                             <td>
-                                                &nbsp;</td>
+                                                <asp:RangeValidator ID="RangeValidator10" runat="server" ControlToValidate="m_ETotalBeneficiados"
+                                                    Display="Dynamic" ErrorMessage="Por favor ingrese un número aqui" MaximumValue="10000000"
+                                                    MinimumValue="1" Type="integer"></asp:RangeValidator></td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 Total estudiantes beneficiados aulas reposición</td>
                                             <td>
-                                                <anthem:Label ID="m_SBeneficiadosReposicion" runat="server">
-                                                </anthem:Label></td>
+                                                <anthem:textbox id="m_EBeneficiadosReposicion" runat="server" cssclass="inputnumerico"></anthem:textbox>
+                                            </td>
                                             <td>
-                                                &nbsp;</td>
+                                                <asp:RangeValidator ID="RangeValidator21" runat="server" ControlToValidate="m_EBeneficiadosReposicion"
+                                                    Display="Dynamic" ErrorMessage="Por favor ingrese un número aqui" MaximumValue="10000000"
+                                                    MinimumValue="1" Type="integer"></asp:RangeValidator></td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                Numero de baños</td>
+                                                Numero de Baterías Sanitarias</td>
                                             <td>
                                                 <anthem:TextBox ID="m_EBanos" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
@@ -571,7 +576,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                Aparatos sanitarios</td>
+                                                Baterías sanitarias</td>
                                             <td>
                                                 <anthem:TextBox ID="m_EAparatosS" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
@@ -628,8 +633,8 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                            </td>
+                                            <td><asp:ImageButton ImageUrl="~/imagenes/save.gif" ID="m_BFinalizarE1" runat="server" ToolTip="Finalizar" OnClick="m_BAceptar_Click" ValidationGroup="tab" />
+                                                <asp:ImageButton ImageUrl="~/imagenes/save.gif" ID="m_BFinalizar1" runat="server" ToolTip="Finalizar" OnClick="m_BInsertar_Click" ValidationGroup="tab" /></td>
                                             <td>
                                             </td>
                                             <td>
@@ -660,23 +665,13 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            Baños</td>
+                                            Baterías Sanitarias</td>
                                         <td><anthem:TextBox ID="m_EBanosV" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
                                         <asp:RangeValidator ID="RangeValidator9" Display="Dynamic" ControlToValidate="m_EBanosV" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
 
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Circulaciones y puntos fijos</td>
-                                        <td><anthem:TextBox ID="m_ECirculaciones" runat="server" CssClass="inputnumerico">
-                                        </anthem:TextBox>
-                                        <td>
-                                        <asp:RangeValidator ID="RangeValidator10" Display="Dynamic" ControlToValidate="m_ECirculaciones" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
-                                                </asp:RangeValidator>
                                         </td>
                                     </tr>
                                     <tr>
@@ -700,7 +695,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            M2 de baños</td>
+                                            M2 de Baterías Sanitarias</td>
                                         <td><anthem:TextBox ID="m_EM2Banos" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
@@ -738,7 +733,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            Valor/m2 baños</td>
+                                            Valor/m2 Baterías Sanitarias</td>
                                         <td><anthem:TextBox ID="m_EValorM2Banos" runat="server" CssClass="inputnumerico">
                                         </anthem:TextBox>
                                         <td>
@@ -754,28 +749,6 @@
                                                 </anthem:TextBox></td>
                                             <td>
                                             <asp:RangeValidator ID="RangeValidator20" Display="Dynamic" ControlToValidate="m_EValorM2Circulaciones" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
-                                                </asp:RangeValidator>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Índice de ocupación</td>
-                                            <td>
-                                                <anthem:TextBox ID="m_EIndiceOcupacion" runat="server" CssClass="inputnumerico">
-                                                </anthem:TextBox></td>
-                                            <td>
-                                            <asp:RangeValidator ID="RangeValidator21" Display="Dynamic" ControlToValidate="m_EIndiceOcupacion" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
-                                                </asp:RangeValidator>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Índice construcción</td>
-                                            <td>
-                                                <anthem:TextBox ID="m_EIndiceConstruccion2" runat="server" CssClass="inputnumerico">
-                                                </anthem:TextBox></td>
-                                            <td>
-                                            <asp:RangeValidator ID="RangeValidator22" Display="Dynamic" ControlToValidate="m_EIndiceConstruccion2" runat="server" ErrorMessage="Por favor ingrese un número aqui" Type="currency" MaximumValue="900000000000000" MinimumValue="1">
                                                 </asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -839,7 +812,9 @@
         </table>
         </td></tr></table>
 		<div align="right">
-            <asp:Label ID="m_SVersion" runat="server" Font-Bold="True"></asp:Label>&nbsp;</div>
+            <asp:Label ID="m_SVersion" runat="server" Font-Bold="True"></asp:Label><br />
+            <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" Font-Size="Smaller"
+                PostBackUrl="~/about.aspx">Desarrollado por SDG.</asp:LinkButton></div>
     </form>
 </body>
 </html>

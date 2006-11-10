@@ -23,7 +23,7 @@ public class CContratosSaldos : CTablaItems
         m_szTitulos[3] = "Entidad Territorial";
         m_szTitulos[4] = "Departamento";
         m_szTitulos[5] = "Municipio";
-        m_szTitulos[6] = "Diferencia valor aprobado proyecto y valor contratado ";
+        m_szTitulos[6] = "Diferencia valor aprobado proyecto y valor contratado";
         m_szTitulos[7] = "Diferencia valor aporte Entidad educativa y valor contratado Entidad";
         m_szTitulos[8] = "Diferencia valor aportes MUN y valor contratado municipio";
         m_szTitulos[9] = "Estado";
@@ -35,9 +35,9 @@ public class CContratosSaldos : CTablaItems
         m_szCampos[3]="eterritoriales.nombre";
         m_szCampos[4]="departamentos.nombre";
         m_szCampos[5]="municipios.nombre";
-        m_szCampos[6] = "SUM(objeto.valor)-SUM(contratos.valor)";
-        m_szCampos[7] = "presupuesto.valormen-(SUM(contratos.valor)*(presupuesto.valormen/SUM(objeto.valor)))";
-        m_szCampos[8] = "(SUM(objeto.valor)-presupuesto.valormen)-(SUM(contratos.valor)-(SUM(contratos.valor)*(presupuesto.valormen/SUM(objeto.valor))))";
+        m_szCampos[6] = "(SELECT SUM(objeto.valor)-SUM(contratos.valor) FROM contratos WHERE contratos.proyecto=proyectos.id)";
+        m_szCampos[7] = "''"; // "presupuesto.valormen-(SUM(contratos.valor)*(presupuesto.valormen/SUM(objeto.valor)))";
+        m_szCampos[8] = "''";// "(SUM(objeto.valor)-presupuesto.valormen)-(SUM(contratos.valor)-(SUM(contratos.valor)*(presupuesto.valormen/SUM(objeto.valor))))";
         m_szCampos[9]="estados.nombre";
         m_szCampos[10] = "saldosp.observaciones";
 
@@ -48,10 +48,9 @@ public class CContratosSaldos : CTablaItems
             + " LEFT JOIN departamentos ON (departamentos.codigo=municipios.departamento)"
             + " LEFT JOIN objeto ON (objeto.proyecto=proyectos.id)"
             + " LEFT JOIN presupuesto ON (presupuesto.proyecto=proyectos.id)"
-            + " LEFT JOIN contratos ON (contratos.proyecto= proyectos.id)"
             + " LEFT JOIN saldosp ON (saldosp.proyecto= proyectos.id)"
             + " LEFT JOIN varios AS estados ON (estados.id= saldosp.estado)"
-            + " WHERE proyectos.id=%d AND contratos.id IS NOT NULL"
+            + " WHERE proyectos.id=%d"
             ;
         string grupo = " GROUP BY ";
         for (int i = 0; i < 6; i++)

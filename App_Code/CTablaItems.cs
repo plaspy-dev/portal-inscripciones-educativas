@@ -13,9 +13,9 @@ using System.Web.UI.HtmlControls;
 public class CTablaItems
 {
     protected CConector m_pConector;
-    protected string m_szCurrentID;
+    public string m_szCurrentID;
     protected string m_szQuery;
-    protected DataTable m_pTabla;
+    public DataTable m_pTabla;
     protected string [] m_szCampos;
     protected string[] m_szTitulos;
     protected string m_szId;

@@ -14,7 +14,7 @@ public partial class sistema_parametros_miscelaneos : CPageTemplate
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!PageLoad("varios", 4))
+        if (!PageLoad("varios", 5))
             return;
 
         if (Request.QueryString["copia"] != null && Request.QueryString["copia"] == "1")
@@ -40,11 +40,13 @@ public partial class sistema_parametros_miscelaneos : CPageTemplate
         m_saCampos[1] = "tipo";
         m_saCampos[2] = "nombre";
         m_saCampos[3] = "descripcion";
+        m_saCampos[4] = "szReservado";
 
         m_saTitulos[0] = "id";
         m_saTitulos[1] = "Tipo";
         m_saTitulos[2] = "Nombre";
         m_saTitulos[3] = "Descripción";
+        m_saTitulos[4] = "szReservado";
 
         for (int i = 0; i < m_saCampos.Length; i++)
             m_saCamposAlias[i] = m_szTabla + "." + m_saCampos[i];
@@ -65,6 +67,32 @@ public partial class sistema_parametros_miscelaneos : CPageTemplate
 
         m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx);
         m_baHidden[0] = true;
+        m_baHidden[4] = true;
+
+        if (m_LBTipoProyectos.Columns.Count == 0)
+        {
+            CheckBoxColumn checkCol = new CheckBoxColumn("DGSelectOrUnselectAllTodos", "updateOtros", m_LBTipoProyectos.ID);
+            checkCol.HeaderText = "";
+            checkCol.DataField = "szReservado";
+            checkCol.SetCheckInHeader(0);
+            m_LBTipoProyectos.Columns.Add(checkCol);
+
+            BoundColumn data = new BoundColumn();
+            data.HeaderText = "id";
+            data.DataField = "id";
+            data.Visible = false;
+            m_LBTipoProyectos.Columns.Add(data);
+
+            data = new BoundColumn();
+            data.HeaderText = "Tipo Proyecto";
+            data.DataField = "nombre";
+            m_LBTipoProyectos.Columns.Add(data);
+
+            m_LBTipoProyectos.DataKeyField = "id";
+            m_LBTipoProyectos.DataBind();
+            if(!IsPostBack)
+                m_LBTipoProyectos.Visible = false;
+        }
 
         EndPageLoad();
     }
@@ -85,6 +113,11 @@ public partial class sistema_parametros_miscelaneos : CPageTemplate
 
         m_EDescripcion.Text = row[3].ToString();
         m_EDescripcion.UpdateAfterCallBack = true;
+
+        CTipoProyecto tipo = new CTipoProyecto();
+        tipo.Select(Convert.ToInt32(m_nId.Value));
+        m_LBTipoProyectos.DataBind();
+        m_LBTipoProyectos.UpdateAfterCallBack = true;
 
         base.m_LCResultados_SelectedIndexChanged(sender, e);
     }
@@ -115,6 +148,11 @@ public partial class sistema_parametros_miscelaneos : CPageTemplate
         m_ENombre.Text = "";
         m_ENombre.UpdateAfterCallBack = true;
 
+        CTipoProyecto tipo = new CTipoProyecto();
+        tipo.Select(0);
+        m_LBTipoProyectos.DataBind();
+        m_LBTipoProyectos.UpdateAfterCallBack = true;
+
         base.m_BCancelar_Click(sender, e);
         if (m_nTipo.Value == "-1")
         {
@@ -143,6 +181,15 @@ public partial class sistema_parametros_miscelaneos : CPageTemplate
         m_saDatos[1] = m_nTipo.Value;
         m_saDatos[2] = m_ENombre.Text;
         m_saDatos[3] = m_EDescripcion.Text;
+
+        if (m_nTipo.Value == "15")
+        {
+            for (int i = 0; i < m_LBTipoProyectos.Items.Count; i++)
+            {
+                if (((CheckBox)m_LBTipoProyectos.Items[i].Cells[0].Controls[0]).Checked)
+                    m_saDatos[4] += m_LBTipoProyectos.Items[i].Cells[1].Text + ",";
+            }
+        }
 
         int id = m_pConector.QueryMod(CConector.CrearInsercion(m_szTabla, m_saCampos, m_saDatos), true);
         if (id == -1)
@@ -177,6 +224,16 @@ public partial class sistema_parametros_miscelaneos : CPageTemplate
         m_saDatos[1] = m_nTipo.Value;
         m_saDatos[2] = m_ENombre.Text;
         m_saDatos[3] = m_EDescripcion.Text;
+
+
+        if (m_nTipo.Value == "15")
+        {
+            for (int i = 0; i < m_LBTipoProyectos.Items.Count; i++)
+            {
+                if (((CheckBox)m_LBTipoProyectos.Items[i].Cells[0].Controls[0]).Checked)
+                    m_saDatos[4] += m_LBTipoProyectos.Items[i].Cells[1].Text + ",";
+            }
+        }
 
         // editar
         string query = CConector.CreateUpdate(m_szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion(m_saCampos[0], m_nId.Value);
@@ -235,6 +292,9 @@ public partial class sistema_parametros_miscelaneos : CPageTemplate
         tipo = tipo.Replace("a", "");
         m_nTipo.Value = tipo;
         m_BInsertar.Style["display"] = "";
+
+        m_LBTipoProyectos.Visible = m_nTipo.Value=="15";
+        m_LBTipoProyectos.UpdateAfterCallBack = true;
 
         m_szCondicion = " (varios.nReservado IS NULL OR varios.nReservado!=-1) ";
         m_szCondicion+= " AND varios.tipo=" + tipo;

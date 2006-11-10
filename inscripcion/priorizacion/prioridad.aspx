@@ -106,7 +106,7 @@
                                             <anthem:Label ID="m_SMensaje" runat="server"></anthem:Label><br />
                                             <anthem:ImageButton ID="m_BImprimir" runat="server" ToolTip="Imprimir" ImageUrl="~/imagenes/print.gif" OnClick="m_BImprimir_Click" CausesValidation="False" />
                                             <anthem:DropDownList ID="m_CBImprimir" runat="server">
-                                                <asp:ListItem Value="1">Microsoft Excel</asp:ListItem>
+                                                <asp:ListItem Value="1">Hoja de Cálculo</asp:ListItem>
                                                 <asp:ListItem Value="0">En Pantalla</asp:ListItem>
                                             </anthem:DropDownList>
                                             <anthem:ImageButton ID="m_BAceptar" runat="server" ImageUrl="~/imagenes/save.gif" ToolTip="Guardar" OnClick="m_BAceptar_Click" /><anthem:ImageButton ID="m_BCancelar" ToolTip="Cancelar" runat="server" ImageUrl="~/imagenes/stop.gif" OnClick="m_BCancelar_Click" CausesValidation="False" />
@@ -142,7 +142,9 @@
 			</tr>
 		</table>
 		<div align="right">
-            <asp:Label ID="m_SVersion" runat="server" Font-Bold="True"></asp:Label>&nbsp;</div>
+            <asp:Label ID="m_SVersion" runat="server" Font-Bold="True"></asp:Label><br />
+            <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" Font-Size="Smaller"
+                PostBackUrl="~/about.aspx">Desarrollado por SDG.</asp:LinkButton></div>
     </form>
 </body>
 </html>

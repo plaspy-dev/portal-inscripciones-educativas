@@ -138,7 +138,9 @@
 			</tr>
 		</table>
 		<div align="right">
-            <asp:Label ID="m_SVersion" runat="server" Font-Bold="True"></asp:Label>&nbsp;</div>
+            <asp:Label ID="m_SVersion" runat="server" Font-Bold="True"></asp:Label><br />
+            <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" Font-Size="Smaller"
+                PostBackUrl="~/about.aspx">Desarrollado por SDG.</asp:LinkButton></div>
     </form>
 </body>
 </html>

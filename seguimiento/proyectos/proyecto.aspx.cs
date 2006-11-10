@@ -15,7 +15,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
     public int m_nPermisosRegistro;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!PageLoad("proyectos", 17))
+        if (!PageLoad("proyectos", 18))
             return;
 
         m_nPermisosRegistro = m_pMenu.GetPermisos(HttpContext.Current.Request.ApplicationPath + "/fotos/proyectos/galeria.aspx");
@@ -38,7 +38,8 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_saTitulos[13] = "% aportes cofinanciación";
         m_saTitulos[14] = "Observaciones";
         m_saTitulos[15] = "fechadeaprobacion";
-        m_saTitulos[16]="Estado";
+        m_saTitulos[16] = "Estado";
+        m_saTitulos[17] = "% de ejecución sobre valor contratado";
 
         for (int i = 0; i < m_saCampos.Length; i++)
             m_saCamposAlias[i] = m_szTabla + "." + m_saCampos[i];
@@ -58,6 +59,9 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_saCamposAlias[14] = "proyectos.observaciones";
         m_saCamposAlias[15] = "proyectos.fechaaprobacion";
         m_saCamposAlias[16] = "estadoproyecto.nombre";
+        m_saCamposAlias[17] = "SUM(reporte.valoravance)";
+        m_saCamposAlias[17] = "(SELECT CONVERT(DECIMAL(20,2),(SUM(reporte.valoravance)/SUM(objeto.valor))*100) FROM contratos LEFT JOIN reporte ON (reporte.contrato=contratos.id) WHERE contratos.proyecto=proyectos.id )";
+        // m_saCamposAlias[17] = "CONVERT(DECIMAL(20,2),(SUM(reporte.valoravance)/SUM(objeto.valor))*100)";
 
         m_szIndice = m_saTitulos[0];
         m_szJoin = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=proyectos.eterritorial) AND asignacionpresupuestal.vigencia='" + m_pUsuario.GetVigenciaActual() + "' "

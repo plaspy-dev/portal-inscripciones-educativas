@@ -167,7 +167,7 @@
                                             <anthem:Label ID="m_SMensaje" runat="server"></anthem:Label><br />
                                             <anthem:ImageButton ID="m_BImprimir" runat="server" ToolTip="Imprimir" ImageUrl="~/imagenes/print.gif" OnClick="m_BImprimir_Click" CausesValidation="False" />
                                             <anthem:DropDownList ID="m_CBImprimir" runat="server">
-                                                <asp:ListItem Value="1">Microsoft Excel</asp:ListItem>
+                                                <asp:ListItem Value="1">Hoja de Cálculo</asp:ListItem>
                                                 <asp:ListItem Value="0">En Pantalla</asp:ListItem>
                                             </anthem:DropDownList>
                                             <anthem:ImageButton ID="m_BAceptar" runat="server" ImageUrl="~/imagenes/save.gif" ToolTip="Guardar" OnClick="m_BAceptar_Click" /><anthem:ImageButton ID="m_BCancelar" ToolTip="Cancelar" runat="server" ImageUrl="~/imagenes/stop.gif" OnClick="m_BCancelar_Click" CausesValidation="False" />
@@ -242,7 +242,7 @@
                                             </anthem:TextBox></td>
                                         <td>
                                         <asp:RangeValidator ID="RangeValidator4" runat="server" ControlToValidate="m_EPlazoContrato" Display="Dynamic"
-                                                ErrorMessage="Por favor ingrese un número aqui" MaximumValue="1000000000" MinimumValue="1"
+                                                ErrorMessage="Por favor ingrese un número aqui" MaximumValue="1000000000" MinimumValue="0"
                                                 SetFocusOnError="True" Type="Integer"></asp:RangeValidator>
                                             </td>
                                     </tr>
@@ -481,20 +481,19 @@
                                             <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" SelectMethod="Select"
                                                 TypeName="CContratos"></asp:ObjectDataSource>
                                         </td>
-                                        <td>
-                                            <anthem:Button id="m_BInsertarContrato" runat="server" Text="Insertar" OnClick="m_BInsertarContrato_Click">
-                                            </anthem:Button><anthem:Button id="m_BAceptarContrato" runat="server" Text="Aceptar" OnClick="m_BAceptarContrato_Click"></anthem:Button><anthem:Button
-                                                    id="m_BCancelarContrato" runat="server" CausesValidation="false" Text="Cancelar" OnClick="m_BCancelarContrato_Click"></anthem:Button><anthem:Button id="m_BEliminarContrato" runat="server"
-                                                        CausesValidation="False" PreCallBackFunction="Eliminar_PreCallBack"
-                                                        Text="Eliminar" OnClick="m_BEliminarContrato_Click"></anthem:Button></td>
+                                        <td><anthem:ImageButton ID="m_BInsertarContrato" runat="server" ImageUrl="~/imagenes/save.gif" ToolTip="Guardar" OnClick="m_BInsertarContrato_Click" />
+                                            <anthem:ImageButton ID="m_BAceptarContrato" runat="server" ImageUrl="~/imagenes/save.gif" ToolTip="Guardar" OnClick="m_BAceptarContrato_Click" />
+                                            <anthem:ImageButton ID="m_BCancelarContrato" ToolTip="Cancelar" runat="server" ImageUrl="~/imagenes/stop.gif" OnClick="m_BCancelarContrato_Click" CausesValidation="False" />
+                                            <anthem:ImageButton ID="m_BEliminarContrato" runat="server" CausesValidation="False"
+                                                ImageUrl="~/imagenes/trash.gif" OnClick="m_BEliminarContrato_Click" PreCallBackFunction="Eliminar_PreCallBack"
+                                                ToolTip="Eliminar" /></td>
                                         <td>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                         </td>
-                                        <td>
-                                        </td>
+                                        <td></td>
                                         <td>
                                         </td>
                                         <td>
@@ -567,7 +566,7 @@
                                         </td>
                                         <td>
                                             <asp:ObjectDataSource ID="ObjectDataSource3" runat="server" SelectMethod="Select"
-                                                TypeName="CContratosSaldos"></asp:ObjectDataSource>
+                                                TypeName="CContratosSaldos"></asp:ObjectDataSource><anthem:ImageButton ID="ImageButton2" runat="server" ImageUrl="~/imagenes/save.gif" ToolTip="Guardar" OnClick="m_BAceptar_Click" />
                                         </td>
                                         <td>
                                         </td>
@@ -660,8 +659,7 @@
                                     <tr>
                                         <td>
                                         </td>
-                                        <td>
-                                        </td>
+                                        <td><anthem:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/imagenes/save.gif" ToolTip="Guardar" OnClick="m_BAceptar_Click" /></td>
                                         <td>
                                         </td>
                                         <td>
@@ -731,7 +729,9 @@
         </table>
         </td></tr></table>
 		<div align="right">
-            <asp:Label ID="m_SVersion" runat="server" Font-Bold="True"></asp:Label>&nbsp;</div>
+            <asp:Label ID="m_SVersion" runat="server" Font-Bold="True"></asp:Label><br />
+            <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" Font-Size="Smaller"
+                PostBackUrl="~/about.aspx">Desarrollado por SDG.</asp:LinkButton></div>
     </form>
 </body>
 </html>
