@@ -68,7 +68,7 @@ Verified on 20 November 2026. The portal was built in Windows and tested with II
 
 ### History
 
-The source edition keeps its recorded date of 2006-11-10. The 2026 reconstruction includes recovered components, setup instructions and local checks.
+The source edition keeps its recorded date of 2006-11-15. The 2026 reconstruction includes recovered components, setup instructions and local checks.
 
 ### Support
 
@@ -151,7 +151,7 @@ Verificado el 20 de noviembre de 2026. El portal se compiló en Windows y se pro
 
 ### Historia
 
-La edición conserva su fecha registrada del 2006-11-10. La reconstrucción de 2026 incorpora componentes recuperados, instrucciones y comprobaciones locales.
+La edición conserva su fecha registrada del 2006-11-15. La reconstrucción de 2026 incorpora componentes recuperados, instrucciones y comprobaciones locales.
 
 ### Soporte
 

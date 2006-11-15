@@ -134,7 +134,7 @@
                                                     </td>
                                                     <td>
                                                     <asp:RangeValidator ID="RangeValidator4" runat="server" ControlToValidate="m_EFechaAprobacion" Display="Dynamic"
-                                                            ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                            ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
                                                             SetFocusOnError="True" Type="Date"></asp:RangeValidator>
                                                     </td>
                                                 </tr>
@@ -232,7 +232,7 @@
                                                 </td>
                                             <td>
                                             <asp:RangeValidator ID="RangeValidator6" runat="server" ControlToValidate="m_EFechaRDP" Display="Dynamic"
-                                                            ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                            ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
                                                             SetFocusOnError="True" Type="Date"></asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -253,7 +253,7 @@
                                                 </td>
                                             <td>
                                             <asp:RangeValidator ID="RangeValidator5" runat="server" ControlToValidate="m_EFechaCDP" Display="Dynamic"
-                                                            ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                            ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
                                                             SetFocusOnError="True" Type="Date"></asp:RangeValidator>
                                             </td>
                                         </tr>

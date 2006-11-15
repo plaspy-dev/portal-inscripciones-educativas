@@ -176,7 +176,7 @@
                                             <td><anthem:TextBox ID="m_EFechaAdicion" runat="server" CssClass="editfecha"></anthem:TextBox><input id="botonfecha" name="botonfecha"  onclick="setFecha('m_EFechaAdicion')" type="button" value="..." /></td>
                                             <td>
                                             <asp:RangeValidator ID="RangeValidator3" runat="server" ControlToValidate="m_EFechaAdicion" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
                                                     SetFocusOnError="True" Type="Date" ValidationGroup="objeto"></asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -197,7 +197,7 @@
                                             <td><anthem:TextBox ID="m_EFechaCDP" runat="server" CssClass="editfecha"></anthem:TextBox><input id="Button5" name="botonfecha"  onclick="setFecha('m_EFechaCDP')" type="button" value="..." /></td>
                                             <td>
                                             <asp:RangeValidator ID="RangeValidator4" runat="server" ControlToValidate="m_EFechaCDP" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
                                                     SetFocusOnError="True" Type="Date" ValidationGroup="objeto"></asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -218,7 +218,7 @@
                                             <td><anthem:TextBox ID="m_EFechaRDP" runat="server" CssClass="editfecha"></anthem:TextBox><input id="Button6" name="botonfecha"  onclick="setFecha('m_EFechaRDP')" type="button" value="..." /></td>
                                             <td>
                                                 <asp:RangeValidator ID="RangeValidator5" runat="server" ControlToValidate="m_EFechaRDP" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
                                                     SetFocusOnError="True" Type="Date" ValidationGroup="objeto"></asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -241,7 +241,7 @@
                                             <td><anthem:TextBox ID="m_EFechaProrroga" runat="server" CssClass="editfecha"></anthem:TextBox><input id="Button7" name="botonfecha"  onclick="setFecha('m_EFechaProrroga')" type="button" value="..." /></td>
                                             <td>
                                             <asp:RangeValidator ID="RangeValidator6" runat="server" ControlToValidate="m_EFechaProrroga" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
                                                     SetFocusOnError="True" Type="Date" ValidationGroup="objeto"></asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -273,10 +273,11 @@
                                             </td>
                                             <td>
                                             </td>
-                                            <td><anthem:Button ID="m_BInsertarObjeto" runat="server" Text="Insertar" ValidationGroup="objeto" OnClick="m_BInsertarObjeto_Click" PreCallBackFunction="InsertarModificacion_Precalback"/>
-                                                <anthem:Button ID="m_BAceptarObjeto" runat="server" Text="Aceptar" ValidationGroup="objeto" OnClick="m_BAceptarObjeto_Click" PreCallBackFunction="InsertarModificacion_Precalback"/>
-                                                <anthem:Button ID="m_BCancelarObjeto" runat="server" Text="Cancelar" CausesValidation="false" OnClick="m_BCancelarObjeto_Click"/>
-                                                <anthem:Button ID="m_BEliminarObjeto" runat="server" Text="Eliminar" CausesValidation="False" PreCallBackFunction="Eliminar_PreCallBack" OnClick="m_BEliminarObjeto_Click"/></td>
+                                            <td>
+                                            <anthem:ImageButton ID="m_BInsertarObjeto" runat="server" ImageUrl="~/imagenes/save.gif" ToolTip="Guardar" OnClick="m_BInsertarObjeto_Click" PreCallBackFunction="InsertarModificacion_Precalback" />
+                                            <anthem:ImageButton ID="m_BAceptarObjeto" runat="server" ImageUrl="~/imagenes/save.gif" ToolTip="Guardar" OnClick="m_BAceptarObjeto_Click" PreCallBackFunction="InsertarModificacion_Precalback"/>
+                                            <anthem:ImageButton ID="m_BCancelarObjeto" ToolTip="Cancelar" runat="server" ImageUrl="~/imagenes/stop.gif" OnClick="m_BCancelarObjeto_Click" CausesValidation="False" />
+                                            <anthem:ImageButton ID="m_BEliminarObjeto" runat="server" CausesValidation="False" ImageUrl="~/imagenes/trash.gif" OnClick="m_BEliminarObjeto_Click" PreCallBackFunction="Eliminar_PreCallBack" ToolTip="Eliminar" />
                                             <td>
                                             </td>
                                         </tr>
@@ -358,7 +359,7 @@
 		                                    </td>
                                         </tr>
                                         <tr>
-                                            <td align="right">
+                                            <td align="right"><asp:ImageButton ImageUrl="~/imagenes/save.gif" ID="ImageButton2" runat="server" OnClick="m_BAceptar_Click" ToolTip="Finalizar"/>
                                                 <asp:ImageButton ImageUrl="~/imagenes/ant.gif" ID="m_BAnterior2" runat="server" ToolTip="Anterior" OnClick="OnPrev" CausesValidation="false" />
                                         <asp:ImageButton  ImageUrl="~/imagenes/sig.gif" ID="Button2" runat="server" ToolTip="Siguiente" OnClick="OnNext"/></td>
                                         </tr>
@@ -395,7 +396,7 @@
                                                 ErrorMessage="Por favor ingrese una fecha de desembolso" SetFocusOnError="True"
                                                 ValidationGroup="desembolso"></asp:RequiredFieldValidator>
                                         <asp:RangeValidator ID="RangeValidator8" runat="server" ControlToValidate="m_EFechaDesembolso" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
                                                     SetFocusOnError="True" Type="Date"></asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -418,7 +419,7 @@
                                             <anthem:TextBox ID="m_EFechaComprobanteDesembolso" runat="server" CssClass="editfecha"></anthem:TextBox><input id="Button9" name="botonfecha"  onclick="setFecha('m_EFechaComprobanteDesembolso')" type="button" value="..." /></td>
                                         <td>
                                         <asp:RangeValidator ID="RangeValidator9" runat="server" ControlToValidate="m_EFechaComprobanteDesembolso" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
                                                     SetFocusOnError="True" Type="Date"></asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -471,7 +472,12 @@
                                         <td><asp:ObjectDataSource ID="ObjectDataSource4" runat="server" SelectMethod="Select"
                                                     TypeName="CDesembolsosConvenio"></asp:ObjectDataSource>
                                         </td>
-                                        <td><anthem:Button ID="m_BInsertarDesembolso" runat="server" Text="Insertar" OnClick="m_BInsertarDesembolso_Click" ValidationGroup="desembolso" /><anthem:Button ID="m_BAceptarDesembolso" runat="server" Text="Aceptar" OnClick="m_BAceptarDesembolso_Click" ValidationGroup="desembolso" /><anthem:Button ID="m_BCancelarDesembolso" runat="server" Text="Cancelar" CausesValidation="false" OnClick="m_BCancelarDesembolso_Click"/><anthem:Button ID="m_BEliminarDesembolso" runat="server" Text="Eliminar" CausesValidation="False" PreCallBackFunction="Eliminar_PreCallBack" OnClick="m_BEliminarDesembolso_Click"/></td>
+                                        <td>
+                                        <anthem:ImageButton ID="m_BInsertarDesembolso" runat="server" ImageUrl="~/imagenes/save.gif" ToolTip="Guardar" OnClick="m_BInsertarDesembolso_Click" ValidationGroup="desembolso"/>
+                                            <anthem:ImageButton ID="m_BAceptarDesembolso" runat="server" ImageUrl="~/imagenes/save.gif" ToolTip="Guardar" OnClick="m_BAceptarDesembolso_Click" ValidationGroup="desembolso"/>
+                                            <anthem:ImageButton ID="m_BCancelarDesembolso" ToolTip="Cancelar" runat="server" ImageUrl="~/imagenes/stop.gif" OnClick="m_BCancelarDesembolso_Click" CausesValidation="False" />
+                                            <anthem:ImageButton ID="m_BEliminarDesembolso" runat="server" CausesValidation="False" ImageUrl="~/imagenes/trash.gif" OnClick="m_BEliminarDesembolso_Click" PreCallBackFunction="Eliminar_PreCallBack" ToolTip="Eliminar" />
+                                        </td>
                                         <td>
                                         </td>
                                     </tr>
@@ -552,7 +558,7 @@
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="m_EFechaComprobanteRendimiento" Display="Dynamic"
                                                 ErrorMessage="Por favor ingrese una fecha" SetFocusOnError="True" ValidationGroup="desembolso"></asp:RequiredFieldValidator>
                                         <asp:RangeValidator ID="RangeValidator11" runat="server" ControlToValidate="m_EFechaComprobanteRendimiento" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
                                                     SetFocusOnError="True" Type="Date"></asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -585,7 +591,12 @@
                                         <td><asp:ObjectDataSource ID="ObjectDataSource5" runat="server" SelectMethod="Select"
                                                     TypeName="CRendimientosConvenio"></asp:ObjectDataSource>
                                         </td>
-                                        <td><anthem:Button ID="m_BInsertarRendimiento" runat="server" Text="Insertar" ValidationGroup="rendimiento" OnClick="m_BInsertarRendimiento_Click" /><anthem:Button ID="m_BAceptarRendimiento" runat="server" Text="Aceptar" ValidationGroup="rendimiento" OnClick="m_CBAceptarRendimiento_Click" /><anthem:Button ID="m_BCancelarRendimiento" runat="server" Text="Cancelar" CausesValidation="false" OnClick="m_BCancelarRendimiento_Click" /><anthem:Button ID="m_BEliminarRendimiento" runat="server" Text="Eliminar" CausesValidation="False" PreCallBackFunction="Eliminar_PreCallBack" OnClick="m_BEliminarRendimiento_Click" /></td>
+                                        <td>
+                                        <anthem:ImageButton ID="m_BInsertarRendimiento" runat="server" ValidationGroup="rendimiento" ImageUrl="~/imagenes/save.gif" ToolTip="Guardar" OnClick="m_BInsertarRendimiento_Click" />
+                                            <anthem:ImageButton ID="m_BAceptarRendimiento" ValidationGroup="rendimiento" runat="server" ImageUrl="~/imagenes/save.gif" ToolTip="Guardar" OnClick="m_CBAceptarRendimiento_Click" />
+                                            <anthem:ImageButton ID="m_BCancelarRendimiento" ToolTip="Cancelar" runat="server" ImageUrl="~/imagenes/stop.gif" OnClick="m_BCancelarRendimiento_Click" CausesValidation="False" />
+                                            <anthem:ImageButton ID="m_BEliminarRendimiento" runat="server" CausesValidation="False" ImageUrl="~/imagenes/trash.gif" OnClick="m_BEliminarRendimiento_Click" PreCallBackFunction="Eliminar_PreCallBack" ToolTip="Eliminar" />
+                                        </td>
                                         <td>
                                         </td>
                                     </tr>
@@ -601,8 +612,7 @@
                                     <tr>
                                         <td>
                                         </td>
-                                        <td>
-                                        </td>
+                                        <td><asp:ImageButton ImageUrl="~/imagenes/save.gif" ID="ImageButton1" runat="server" OnClick="m_BAceptar_Click" ToolTip="Finalizar"/></td>
                                         <td>
                                         </td>
                                         <td>
@@ -632,7 +642,7 @@
                                             <anthem:TextBox ID="m_EFechaInforme" runat="server" CssClass="editfecha"></anthem:TextBox><input id="Button11" name="botonfecha"  onclick="setFecha('m_EFechaInforme')" type="button" value="..." /></td>
                                         <td>
                                         <asp:RangeValidator ID="RangeValidator12" runat="server" ControlToValidate="m_EFechaInforme" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
                                                     SetFocusOnError="True" Type="Date"></asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -665,7 +675,7 @@
                                             <anthem:TextBox ID="m_EFechaActa" runat="server" CssClass="editfecha"></anthem:TextBox><input id="Button12" name="botonfecha"  onclick="setFecha('m_EFechaActa')" type="button" value="..." /></td>
                                         <td>
                                         <asp:RangeValidator ID="RangeValidator13" runat="server" ControlToValidate="m_EFechaActa" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="2000/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
                                                     SetFocusOnError="True" Type="Date"></asp:RangeValidator>
                                         </td>
                                     </tr>

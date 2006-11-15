@@ -12,10 +12,13 @@ using System.Web.UI.HtmlControls;
 
 public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
 {
+    public int m_nPermisosRegistro;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!PageLoad("proyectos", 49))
             return;
+
+        m_nPermisosRegistro = m_pMenu.GetPermisos(HttpContext.Current.Request.ApplicationPath + "/fotos/proyectos/galeriav.aspx");
 
         m_saCampos[0] = "id";
         m_saCampos[2] = "codigo";
@@ -290,6 +293,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
 
         m_ENITFirma.Attributes["onblur"] = "VerificaNIT(this);";
 
+        m_BSubir.Style["display"] = (m_nPermisosRegistro & 4) == 4 ? "" : "none";
         m_szMensaje = "No se encontraron proyectos";
         EndPageLoad();
     }
@@ -381,6 +385,9 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         SelectInCombo(m_CBEstado, row[14].ToString());
         m_EObservaciones.Text = row[16].ToString();
         m_EFechaUltima.Text = row[15].ToString();
+
+        m_BGaleria.Visible = m_nPermisosRegistro > 0;
+        m_BGaleria.UpdateAfterCallBack = true;
 
         // responsable
         SqlDataReader reader = m_pConector.Query("SELECT nit,nombre,representante,direccion,telefono,fax,email FROM responsableviabilizacion WHERE proyecto=" + m_nId.Value);
@@ -494,6 +501,9 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_CBMunicipio.SelectedIndex = 0;
         m_EFechaUltima.Text = "";
         m_SBuscarNIT.Text = "";
+
+        m_BGaleria.Visible = false;
+        m_BGaleria.UpdateAfterCallBack = true;
 
         // pestaña 2
         m_SValorTotal.Text = "";
@@ -1266,5 +1276,39 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
     protected void m_CBTipo_SelectedIndexChanged(object sender, EventArgs e)
     {
         m_CBConcepto.UpdateAfterCallBack = true;
+    }
+    // fotos de la viabilizacion
+    protected void m_BSubir_Click(object sender, EventArgs e)
+    {
+        int len = m_ERegistro.PostedFile.ContentLength;
+        if (m_nId.Value == "")
+        {
+            m_SMensaje.Text = "Por favor seleccione un proyecto";
+            return;
+        }
+        if (len <= 0)
+        {
+            m_SMensaje.Text = "Por favor seleccione un archivo";
+            return;
+        }
+        if (m_ERegistro.PostedFile.ContentType.IndexOf("jpeg") < 0)
+        {
+            m_SMensaje.Text = "Por favor seleccione un archivo con formato JPEG";
+            return;
+        }
+        byte[] pic = new byte[len];
+        m_ERegistro.PostedFile.InputStream.Read(pic, 0, len);
+        CConector conector = new CConector();
+        SqlConnection connection = conector.GetConexion();
+        string query = "INSERT INTO fotosv (fecha,proyecto,foto) VALUES (" + (m_EFechaRegistro.Text.Length > 0 ? ("'" + m_EFechaRegistro.Text + "'") : "GETDATE()") + ",@proyecto,@foto)";
+        SqlCommand cmd = new SqlCommand(query, connection);
+        cmd.Parameters.AddWithValue("@proyecto", m_nId.Value);
+        cmd.Parameters.AddWithValue("@foto", pic);
+        cmd.ExecuteNonQuery();
+        m_SMensaje.Text = "Foto Agregada";
+    }
+    protected void LinkButton1_Click(object sender, EventArgs e)
+    {
+        Anthem.Manager.AddScriptForClientSideEval("window.open('" + HttpContext.Current.Request.ApplicationPath + "/fotos/proyectos/galeriav.aspx?id=" + m_nId.Value + "&proyecto=" + m_CBProyecto.SelectedItem.Text + "')");
     }
 }

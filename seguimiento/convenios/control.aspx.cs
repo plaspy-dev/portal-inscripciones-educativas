@@ -11,6 +11,8 @@ using System.Web.UI.HtmlControls;
 
 public partial class seguimiento_convenios_control : CPageTemplate
 {
+    protected int m_nPermisosReales=0;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!PageLoad("conveniosm", 23))
@@ -124,6 +126,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         for (int i = 16; i < m_saTitulos.Length; i++)
             m_baHidden[i] = true;
 
+        m_nPermisosReales = m_nPermisos;
         m_nPermisos &= ~4;
         m_nPermisos &= ~16;
 
@@ -138,7 +141,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
             m_BEliminarObjeto.Style["display"] = "none";
             m_BAceptarObjeto.Style["display"] = "none";
             m_BCancelarObjeto.Style["display"] = "none";
-            m_BInsertarObjeto.Style["display"] = "none";
+            m_BInsertarObjeto.Style["display"] = "";
 
             BoundField data = new BoundField();
             data.DataField = data.HeaderText = "id";
@@ -214,7 +217,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
             m_BEliminarDesembolso.Style["display"] = "none";
             m_BAceptarDesembolso.Style["display"] = "none";
             m_BCancelarDesembolso.Style["display"] = "none";
-            m_BInsertarDesembolso.Style["display"] = "none";
+            m_BInsertarDesembolso.Style["display"] = "";
 
             BoundField data = new BoundField();
             data.DataField = data.HeaderText = "id";
@@ -376,7 +379,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_BAceptarObjeto.Style["display"] = "none";
         m_BCancelarObjeto.Style["display"] = "none";
 
-        if ((m_nPermisos & 4) == 4)
+        if ((m_nPermisosReales & 4) == 4)
         {
             m_BInsertarObjeto.Style["display"] = "";
             m_BInsertarObjeto.UpdateAfterCallBack = true;
@@ -397,7 +400,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_BAceptarDesembolso.Style["display"] = "none";
         m_BCancelarDesembolso.Style["display"] = "none";
 
-        if ((m_nPermisos & 4) == 4)
+        if ((m_nPermisosReales & 4) == 4)
         {
             m_BInsertarDesembolso.Style["display"] = "";
             m_BInsertarDesembolso.UpdateAfterCallBack = true;
@@ -411,7 +414,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_BAceptarRendimiento.Style["display"] = "none";
         m_BCancelarRendimiento.Style["display"] = "none";
 
-        if ((m_nPermisos & 4) == 4)
+        if ((m_nPermisosReales & 4) == 4)
         {
             m_BInsertarRendimiento.Style["display"] = "";
             m_BInsertarRendimiento.UpdateAfterCallBack = true;
@@ -461,7 +464,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_BEliminarObjeto.Style["display"] = "none";
         m_BAceptarObjeto.Style["display"] = "none";
         m_BCancelarObjeto.Style["display"] = "none";
-        m_BInsertarObjeto.Style["display"] = "none";
+        m_BInsertarObjeto.Style["display"] = "";
 
         m_BInsertarObjeto.UpdateAfterCallBack = true;
 
@@ -483,7 +486,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_BEliminarDesembolso.Style["display"] = "none";
         m_BAceptarDesembolso.Style["display"] = "none";
         m_BCancelarDesembolso.Style["display"] = "none";
-        m_BInsertarDesembolso.Style["display"] = "none";
+        m_BInsertarDesembolso.Style["display"] = "";
 
         m_BInsertarDesembolso.UpdateAfterCallBack = true;
         // pestaña 5
@@ -731,7 +734,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_BAceptarObjeto.UpdateAfterCallBack = true;
         m_BCancelarObjeto.Style["display"] = "none";
         m_BCancelarObjeto.UpdateAfterCallBack = true;
-        if ((m_nPermisos & 4) == 4)
+        if ((m_nPermisosReales & 4) == 4)
         {
             m_BInsertarObjeto.Style["display"] = "";
             m_BInsertarObjeto.UpdateAfterCallBack = true;
@@ -808,13 +811,13 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_CBEstado.UpdateAfterCallBack = true;
         m_EObservacionesAdicion.UpdateAfterCallBack = true;
 
-        if ((m_nPermisos & 16) == 16)
+        if ((m_nPermisosReales & 16) == 16)
         {
             m_BEliminarObjeto.Style["display"] = "";
             m_BEliminarObjeto.UpdateAfterCallBack = true;
         }
 
-        if((m_nPermisos&8)==8) 
+        if ((m_nPermisosReales & 8) == 8) 
         {
             m_BAceptarObjeto.Style["display"] = "";
             m_BAceptarObjeto.UpdateAfterCallBack = true;
@@ -887,7 +890,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_BAceptarDesembolso.UpdateAfterCallBack = true;
         m_BCancelarDesembolso.Style["display"] = "none";
         m_BCancelarDesembolso.UpdateAfterCallBack = true;
-        if ((m_nPermisos & 4) == 4)
+        if ((m_nPermisosReales & 4) == 4)
         {
             m_BInsertarDesembolso.Style["display"] = "";
             m_BInsertarDesembolso.UpdateAfterCallBack = true;
@@ -938,12 +941,12 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_EFechaComprobanteDesembolso.UpdateAfterCallBack = true;
         m_EObservacionesDesembolso.UpdateAfterCallBack = true;
 
-        if ((m_nPermisos & 16) == 16)
+        if ((m_nPermisosReales & 16) == 16)
         {
             m_BEliminarDesembolso.Style["display"] = "";
             m_BEliminarDesembolso.UpdateAfterCallBack = true;
         }
-        if ((m_nPermisos & 8) == 8)
+        if ((m_nPermisosReales & 8) == 8)
         {
             m_BAceptarDesembolso.Style["display"] = "";
             m_BAceptarDesembolso.UpdateAfterCallBack = true;
@@ -1015,7 +1018,7 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_BAceptarRendimiento.UpdateAfterCallBack = true;
         m_BCancelarRendimiento.Style["display"] = "none";
         m_BCancelarRendimiento.UpdateAfterCallBack = true;
-        if ((m_nPermisos & 4) == 4)
+        if ((m_nPermisosReales & 4) == 4)
         {
             m_BInsertarRendimiento.Style["display"] = "";
             m_BInsertarRendimiento.UpdateAfterCallBack = true;
@@ -1070,12 +1073,12 @@ public partial class seguimiento_convenios_control : CPageTemplate
         m_CBEstadoRendimiento.UpdateAfterCallBack = true;
         m_EObservacionesRendimiento.UpdateAfterCallBack = true;
 
-        if ((m_nPermisos & 16) == 16)
+        if ((m_nPermisosReales & 16) == 16)
         {
             m_BEliminarRendimiento.Style["display"] = "";
             m_BEliminarRendimiento.UpdateAfterCallBack = true;
         }
-        if ((m_nPermisos & 8) == 8)
+        if ((m_nPermisosReales & 8) == 8)
         {
             m_BAceptarRendimiento.Style["display"] = "";
             m_BAceptarRendimiento.UpdateAfterCallBack = true;

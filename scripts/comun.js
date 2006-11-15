@@ -317,7 +317,7 @@ function vermenu() {
 
     if(bIniciando) {
         bIniciando=false;
-        window.setInterval("renewSession();", 180000);
+        window.setTimeout("renewSession();", 180000);
         if(ToolMan) {
             var drag = ToolMan.drag();
             if(drag) {
@@ -348,8 +348,9 @@ function renewSession()
     var img= document.getElementById("renewSession");
     if(img) {
         img.src= "../../renewSes.aspx?par=" + Math.random();
-    } else alert("false");
+        // alert(img.src);
+        window.setTimeout("renewSession();", 180000);
+    }
 }
-
 
 
