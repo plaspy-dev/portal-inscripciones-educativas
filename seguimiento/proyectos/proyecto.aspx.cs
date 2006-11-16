@@ -59,9 +59,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_saCamposAlias[14] = "proyectos.observaciones";
         m_saCamposAlias[15] = "proyectos.fechaaprobacion";
         m_saCamposAlias[16] = "estadoproyecto.nombre";
-        m_saCamposAlias[17] = "SUM(reporte.valoravance)";
-        m_saCamposAlias[17] = "(SELECT CONVERT(DECIMAL(20,2),(SUM(reporte.valoravance)/SUM(objeto.valor))*100) FROM contratos LEFT JOIN reporte ON (reporte.contrato=contratos.id) WHERE contratos.proyecto=proyectos.id )";
-        // m_saCamposAlias[17] = "CONVERT(DECIMAL(20,2),(SUM(reporte.valoravance)/SUM(objeto.valor))*100)";
+        m_saCamposAlias[17] = "(SELECT CONVERT(DECIMAL(20,2),(SUM(reporte.valoravance)/SUM(contratos.valor))*100) FROM contratos LEFT JOIN reporte ON (reporte.contrato=contratos.id) WHERE contratos.proyecto=proyectos.id )";
 
         m_szIndice = m_saTitulos[0];
         m_szJoin = " LEFT JOIN asignacionpresupuestal ON (asignacionpresupuestal.eterritorial=proyectos.eterritorial) AND asignacionpresupuestal.vigencia='" + m_pUsuario.GetVigenciaActual() + "' "

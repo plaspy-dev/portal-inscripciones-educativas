@@ -227,6 +227,9 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             m_BAceptarObjeto.Style["display"] = "none";
             m_BCancelarObjeto.Style["display"] = "none";
             m_BInsertarObjeto.Style["display"] = "none";
+            m_CBConcepto.Style["display"] = "none";
+            m_ECantidad.Style["display"] = "none";
+            m_EValor.Style["display"] = "none";
 
             BoundField data = new BoundField();
             data.DataField = data.HeaderText = "id";
@@ -433,6 +436,13 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         {
             m_BInsertarObjeto.Style["display"] = "";
             m_BInsertarObjeto.UpdateAfterCallBack = true;
+
+            m_CBConcepto.Style["display"] = "";
+            m_ECantidad.Style["display"] = "";
+            m_EValor.Style["display"] = "";
+            m_CBConcepto.UpdateAfterCallBack = true;
+            m_ECantidad.UpdateAfterCallBack = true;
+            m_EValor.UpdateAfterCallBack = true;
         }
 
         // pestaña 3
@@ -524,7 +534,15 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_BCancelarObjeto.Style["display"] = "none";
         m_BInsertarObjeto.Style["display"] = "none";
 
+        m_CBConcepto.Style["display"] = "none";
+        m_ECantidad.Style["display"] = "none";
+        m_EValor.Style["display"] = "none";
+
         m_BInsertarObjeto.UpdateAfterCallBack = true;
+
+        m_CBConcepto.UpdateAfterCallBack = true;
+        m_ECantidad.UpdateAfterCallBack = true;
+        m_EValor.UpdateAfterCallBack = true;
 
         // pestaña 3
         m_EObservacionesDocumentos.Text = "";

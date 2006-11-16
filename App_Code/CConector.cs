@@ -421,7 +421,7 @@ public class CConector
 
     static public string GetCurrentVersion()
     {
-        return "Versión 1.22";
+        return "Versión 1.221";
     }
 
     static public CConector GetConector() {
