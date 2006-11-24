@@ -58,7 +58,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_saCamposAlias[13] = "((SUM(objeto.valor)-presupuesto.valormen)*100)/SUM(objeto.valor)";
         m_saCamposAlias[14] = "proyectos.observaciones";
         m_saCamposAlias[15] = "proyectos.fechaaprobacion";
-        m_saCamposAlias[16] = "estadoproyecto.nombre";
+        m_saCamposAlias[16] = "ISNULL(estadoproyecto.nombre,(SELECT CASE WHEN (SUM(reporte.valoravance)/SUM(contratos.valor))*100>=100 THEN 'En proceso de cierre' WHEN (SUM(reporte.valoravance)/SUM(contratos.valor))*100>=70 THEN 'En proceso de terminación' WHEN (SUM(reporte.valoravance)/SUM(contratos.valor))*100>=35 THEN 'En Ejecución' WHEN (SUM(reporte.valoravance)/SUM(contratos.valor))*100>=0 THEN 'En Iniciación' ELSE '' END FROM contratos LEFT JOIN reporte ON (reporte.contrato=contratos.id) WHERE contratos.proyecto=proyectos.id))";
         m_saCamposAlias[17] = "(SELECT CONVERT(DECIMAL(20,2),(SUM(reporte.valoravance)/SUM(contratos.valor))*100) FROM contratos LEFT JOIN reporte ON (reporte.contrato=contratos.id) WHERE contratos.proyecto=proyectos.id )";
 
         m_szIndice = m_saTitulos[0];
@@ -94,7 +94,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         {
             grupo += m_saCamposAlias[i] + ",";
         }
-        grupo += m_saCamposAlias[10] + "," + m_saCamposAlias[14] + "," + m_saCamposAlias[15]+ "," + m_saCamposAlias[16];
+        grupo += m_saCamposAlias[10] + "," + m_saCamposAlias[14] + "," + m_saCamposAlias[15] + ",estadoproyecto.nombre";
 
         m_szQuery = CConector.CrearSelectT(m_szTabla, m_saCamposAlias, m_saTitulos, m_szJoin + " WHERE " + m_szCondicion + m_szCondicionEx + grupo);
         m_szCondicion += grupo;
@@ -262,6 +262,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_SFechaAprobacion.UpdateAfterCallBack = true;
         m_EObservaciones.UpdateAfterCallBack = true;
         m_CBEstadoProyecto.UpdateAfterCallBack = true;
+        m_SEstado.UpdateAfterCallBack = true;
         // pestaña 2
         m_EContrato.UpdateAfterCallBack = true;
         m_EFechaS.UpdateAfterCallBack = true;
@@ -327,6 +328,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_SInstitucion.Text = row[6].ToString();
         m_SFechaAprobacion.Text = GetFechaCorta(row[15].ToString());
         m_EObservaciones.Text = row[14].ToString();
+        m_SEstado.Text = row[16].ToString();
         SelectInCombo(m_CBEstadoProyecto, row[16].ToString());
         m_STitulo.Text = "Proyecto " + m_LCProyecto.SelectedItem.Text;
 
@@ -397,6 +399,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
         m_EObservaciones.Text = "";
         m_CBEnte.SelectedIndex = 0;
         m_CBEstadoProyecto.SelectedIndex = 0;
+        m_SEstado.Text = "";
 
         m_BGaleria.Visible = false;
         m_BGaleria.UpdateAfterCallBack = true;

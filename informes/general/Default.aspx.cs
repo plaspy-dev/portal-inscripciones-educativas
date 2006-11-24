@@ -245,5 +245,4 @@ public partial class informes_general_Default : CPageTemplate
         //imprimir
         base.m_BAceptarP_Click(sender, e);
     }
-
 }

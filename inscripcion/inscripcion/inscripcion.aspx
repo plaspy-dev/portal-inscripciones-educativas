@@ -398,10 +398,11 @@
                                             <td>
                                                 Porcentaje aportes Entidad educativa</td>
                                             <td>
-                                                <anthem:DropDownList ID="m_CBPorcentaje" runat="server" AutoCallBack="False">
-                                                </anthem:DropDownList></td>
+                                                <anthem:TextBox ID="m_EPorcentaje" runat="server" CssClass="inputnumerico"></anthem:TextBox></td>
                                             <td>
-                                                </td>
+                                                <asp:RangeValidator ID="RangeValidator7" runat="server" ControlToValidate="m_EPorcentaje"
+                                                    Display="Dynamic" ErrorMessage="Por favor ingrese un número aqui" MaximumValue="100"
+                                                    MinimumValue="0" SetFocusOnError="True" Type="Currency"></asp:RangeValidator></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -410,7 +411,9 @@
                                                 <anthem:TextBox ID="m_EEstudiantesBeneficiados" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
                                             <td>
-                                                </td>
+                                                <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="m_EEstudiantesBeneficiados"
+                                                    Display="Dynamic" ErrorMessage="Por favor ingrese un número aqui" MaximumValue="900000000000000"
+                                                    MinimumValue="0" SetFocusOnError="True" Type="Currency"></asp:RangeValidator></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -419,7 +422,9 @@
                                                 <anthem:TextBox ID="m_EDotacion" runat="server" CssClass="inputnumerico">
                                                 </anthem:TextBox></td>
                                             <td>
-                                                </td>
+                                                <asp:RangeValidator ID="RangeValidator6" runat="server" ControlToValidate="m_EDotacion"
+                                                    Display="Dynamic" ErrorMessage="Por favor ingrese un número aqui" MaximumValue="900000000000000"
+                                                    MinimumValue="0" SetFocusOnError="True" Type="Currency"></asp:RangeValidator></td>
                                         </tr>
                                         <tr>
                                             <td>

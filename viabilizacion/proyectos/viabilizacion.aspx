@@ -195,6 +195,24 @@
                                     </tr>
                                     <tr>
                                         <td>
+                                            <strong>Objeto Inscrito<asp:ObjectDataSource ID="ObjectDataSource5" runat="server" SelectMethod="Select"
+                                                    TypeName="CObjetoInscrito"></asp:ObjectDataSource>
+                                            </strong>
+                                        </td>
+                                        <td>
+                                            <anthem:GridView ID="m_LCObjetosInscritos" runat="server" EmptyDataText="No hay objetos Inscritos"
+                                                Width="100%" UpdateAfterCallBack="True" CellPadding="1" CellSpacing="1" DataSourceID="ObjectDataSource5" OnRowDataBound="m_LCObjetosInscritos_RowDataBound">
+                                                <PagerStyle HorizontalAlign="Right" BackColor="#E3E4EA" />
+                                                <HeaderStyle CssClass="celdaTitulo" BackColor="#E3E4EA" />
+                                                <SelectedRowStyle BackColor="#316AC5" CssClass="celdasel" />
+                                                <RowStyle CssClass="celda" BackColor="White" Wrap="True" />
+                                            </anthem:GridView>
+                                        </td>
+                                        <td>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
                                             <strong>Presupuesto Viabilizado</strong></td>
                                         <td>
                                         </td>
@@ -580,7 +598,7 @@
                                             <td>
                                                 <asp:RangeValidator ID="RangeValidator10" runat="server" ControlToValidate="m_ETotalBeneficiados"
                                                     Display="Dynamic" ErrorMessage="Por favor ingrese un número aqui" MaximumValue="10000000"
-                                                    MinimumValue="1" Type="integer"></asp:RangeValidator></td>
+                                                    MinimumValue="0" Type="integer"></asp:RangeValidator></td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -591,7 +609,7 @@
                                             <td>
                                                 <asp:RangeValidator ID="RangeValidator21" runat="server" ControlToValidate="m_EBeneficiadosReposicion"
                                                     Display="Dynamic" ErrorMessage="Por favor ingrese un número aqui" MaximumValue="10000000"
-                                                    MinimumValue="1" Type="integer"></asp:RangeValidator></td>
+                                                    MinimumValue="0" Type="integer"></asp:RangeValidator></td>
                                         </tr>
                                         <tr>
                                             <td>

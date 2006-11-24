@@ -116,7 +116,8 @@
                                             Estado</td>
                                         <td>
                                             <anthem:DropDownList ID="m_CBEstadoProyecto" runat="server" AutoCallBack="True" OnSelectedIndexChanged="m_CBEstadoProyecto_SelectedIndexChanged">
-                                            </anthem:DropDownList></td>
+                                            </anthem:DropDownList>
+                                            <anthem:Label ID="m_SEstado" runat="server"></anthem:Label></td>
                                         <td>
                                         </td>
                                     </tr>

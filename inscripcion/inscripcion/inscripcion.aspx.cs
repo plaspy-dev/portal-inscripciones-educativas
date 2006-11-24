@@ -138,7 +138,6 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         FillComboBox(m_CBCriticidad, "SELECT id,nombre FROM varios WHERE tipo=35 AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre");
         FillComboBox(m_CBTipo, "SELECT id,nombre FROM varios WHERE tipo=13 AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre");
         FillComboBox(m_CBConcepto, "SELECT varios.id,varios.nombre FROM varios LEFT JOIN varios AS misma ON (misma.id=" + m_CBTipo.SelectedValue + ") WHERE varios.tipo=15 AND (varios.nReservado IS NULL OR varios.nReservado!=-1) AND CHARINDEX(CONVERT(VARCHAR,misma.id),varios.szReservado)>0", true);
-        FillComboBox(m_CBPorcentaje, "SELECT nombre,nombre FROM varios WHERE tipo=43 AND (nReservado IS NULL OR nReservado!=-1)");
 
         // autofiltro
         if (m_EEnte.SelectedIndex > 0)
@@ -163,6 +162,19 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_EValor.Attributes["onKeypress"] = "isfloat(this);";
         m_EValor.Attributes["onblur"] = "tcomas(this);";
         m_EValor.Attributes["onfocus"] = "scomas(this);";
+
+        m_EEstudiantesBeneficiados.Attributes["onKeypress"] = "isfloat(this);";
+        m_EEstudiantesBeneficiados.Attributes["onblur"] = "tcomas(this);";
+        m_EEstudiantesBeneficiados.Attributes["onfocus"] = "scomas(this);";
+
+        m_EDotacion.Attributes["onKeypress"] = "isfloat(this);";
+        m_EDotacion.Attributes["onblur"] = "tcomas(this);";
+        m_EDotacion.Attributes["onfocus"] = "scomas(this);";
+
+        m_EPorcentaje.Attributes["onKeypress"] = "isfloat(this);";
+        m_EPorcentaje.Attributes["onblur"] = "tcomas(this);";
+        m_EPorcentaje.Attributes["onfocus"] = "scomas(this);";
+
         m_EInstitucion.Attributes["onblur"] = "Verificacodigo(this);";
 
         if (!IsPostBack)
@@ -227,7 +239,7 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_CBConcepto.UpdateAfterCallBack = true;
         m_ECantidad.UpdateAfterCallBack = true;
         m_EValor.UpdateAfterCallBack = true;
-        m_CBPorcentaje.UpdateAfterCallBack = true;
+        m_EPorcentaje.UpdateAfterCallBack = true;
         m_EEstudiantesBeneficiados.UpdateAfterCallBack = true;
         m_EDotacion.UpdateAfterCallBack = true;
         m_EObservaciones.UpdateAfterCallBack = true;
@@ -279,8 +291,8 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_EResolucionEmergencia.Text = row[30].ToString();
         m_EFechaEmergencia.Text = GetFechaCorta(row[31].ToString());
 
-        item = m_CBPorcentaje.Items.FindByText(row[11].ToString());
-        m_CBPorcentaje.SelectedIndex = item == null ? 0 : m_CBPorcentaje.Items.IndexOf(item);
+        m_EPorcentaje.Text = row[11].ToString();
+        
         m_EEstudiantesBeneficiados.Text = row[14].ToString();
         m_EDotacion.Text = row[15].ToString();
         m_EObservaciones.Text = row[16].ToString();
@@ -334,7 +346,7 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_EObservaciones.Text = "";
         m_CBCriticidad.SelectedIndex = 0;
         m_CBTipo.SelectedIndex = 0;
-        m_CBPorcentaje.SelectedIndex = 0;
+        m_EPorcentaje.Text="";
 
         m_BEliminarObjeto.Style["display"] = "none";
         m_BAceptarObjeto.Style["display"] = "none";
@@ -388,9 +400,9 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_saCampos[4] = "observaciones";
         m_saDatos[4] = GetString(m_EObservaciones.Text);
         m_saCampos[5] = "estudiantesb";
-        m_saDatos[5] = m_EEstudiantesBeneficiados.Text;
+        m_saDatos[5] = GetDouble(m_EEstudiantesBeneficiados.Text);
         m_saCampos[6] = "estudiantesd";
-        m_saDatos[6] = m_EDotacion.Text;
+        m_saDatos[6] = GetDouble(m_EDotacion.Text);
 
         return m_pConector.QueryMod(CConector.CreateUpdate(m_szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion("id", m_nId.Value)) != -1;
     }
@@ -466,9 +478,7 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_saCampos[0] = "proyecto";
         m_saDatos[0] = m_nId.Value;
         m_saCampos[1] = "porcentajeMEN";
-        m_saDatos[1] = GetSeleccion(m_CBPorcentaje.SelectedValue);
-        if (m_saDatos[1][0] != '%')
-            m_saDatos[1]= m_saDatos[1].Replace("%", "");
+        m_saDatos[1] = GetDouble(m_EPorcentaje.Text);
 
         SqlDataReader reader;
         reader = m_pConector.Query("SELECT id FROM presupuestoi WHERE proyecto=" + m_nId.Value);

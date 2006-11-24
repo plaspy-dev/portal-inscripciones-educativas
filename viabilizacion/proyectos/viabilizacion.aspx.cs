@@ -221,8 +221,11 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         if (!IsPostBack)
         {
             CTablaObjetoVia.RebuilTable();
-
             Session["idobjectos"] = "";
+
+            CObjetoInscrito obj = new CObjetoInscrito();
+            obj.RebuilTable();
+
             m_BEliminarObjeto.Style["display"] = "none";
             m_BAceptarObjeto.Style["display"] = "none";
             m_BCancelarObjeto.Style["display"] = "none";
@@ -428,6 +431,11 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_LCObjetos.DataBind();
         m_LCObjetos.UpdateAfterCallBack = true;
 
+        CObjetoInscrito obj = new CObjetoInscrito();
+        obj.Select(Convert.ToInt32(m_CBProyecto.SelectedValue));
+        m_LCObjetosInscritos.DataBind();
+        m_LCObjetosInscritos.UpdateAfterCallBack = true;
+
         m_BEliminarObjeto.Style["display"] = "none";
         m_BAceptarObjeto.Style["display"] = "none";
         m_BCancelarObjeto.Style["display"] = "none";
@@ -528,6 +536,11 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         Session["idobjectos"] = "0";
         m_LCObjetos.DataBind();
         m_nIdObjeto.Value = "";
+
+        CObjetoInscrito obj = new CObjetoInscrito();
+        obj.Select(0);
+        m_LCObjetosInscritos.DataBind();
+        m_LCObjetosInscritos.UpdateAfterCallBack = true;
 
         m_BEliminarObjeto.Style["display"] = "none";
         m_BAceptarObjeto.Style["display"] = "none";
@@ -688,10 +701,15 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
 
     protected bool InsertarObservaciones(bool insertar)
     {
-        string szTabla = "observacionesproyecto";
+        string szTabla = m_pConector.QueryString("SELECT id FROM observacionesproyecto WHERE id='" + m_nId.Value +"'");
+        if(szTabla.Length==0)
+            insertar=true;
+
+        szTabla = "observacionesproyecto";
         for (int i = 0; i < m_saCampos.Length; i++)
             m_saCampos[i] = m_saDatos[i] = "";
 
+        
         m_saCampos[0] = "proyecto";
         m_saCampos[1] = "documentos";
         m_saCampos[2] = "tecnicas";
@@ -923,6 +941,8 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
                 && InsertarInfraestructura(true) && InsertarValores(true) && InsertarAreas(true) && InsertarObservaciones(true)
                 )
             {
+                if (sender != m_BInsertar)
+                    return;
                 base.AfterUpdate("Proyecto " + m_CBProyecto.SelectedItem.Text + " Ingresado");
                 MultiView1.ActiveViewIndex = 0;
                 SetView(0);
@@ -959,6 +979,9 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             if (InsertarResponsable(false) && InsertarPresupuesto(false) && InsertarDocumentos() && InsertarTecnicos()
                 && InsertarInfraestructura(false) && InsertarValores(false) && InsertarAreas(false) && InsertarObservaciones(false))
             {
+                if (m_BAceptar != sender)
+                    return;
+
                 base.AfterUpdate("Proyecto " + m_CBProyecto.SelectedItem.Text + " Editado");
                 MultiView1.ActiveViewIndex = 0;
                 SetView(0);
@@ -1328,5 +1351,10 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
     protected void LinkButton1_Click(object sender, EventArgs e)
     {
         Anthem.Manager.AddScriptForClientSideEval("window.open('" + HttpContext.Current.Request.ApplicationPath + "/fotos/proyectos/galeriav.aspx?id=" + m_nId.Value + "&proyecto=" + m_CBProyecto.SelectedItem.Text + "')");
+    }
+    protected void m_LCObjetosInscritos_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        CObjetoInscrito obj = new CObjetoInscrito();
+        ParseRow((GridView)sender, obj.GetTabla(), e);
     }
 }
