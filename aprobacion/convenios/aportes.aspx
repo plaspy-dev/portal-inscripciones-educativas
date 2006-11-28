@@ -76,7 +76,7 @@
                                                         <input id="botonfecha" name="botonfecha" onclick="setFecha('m_EFecha')" type="button" value="..." /></td>
                                                     <td>
                                                     <asp:RangeValidator ID="RangeValidator3" runat="server" ControlToValidate="m_EFecha" Display="Dynamic"
-                                                            ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
+                                                            ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1960/01/01"
                                                             SetFocusOnError="True" Type="Date"></asp:RangeValidator>
                                                     </td>
                                                 </tr>

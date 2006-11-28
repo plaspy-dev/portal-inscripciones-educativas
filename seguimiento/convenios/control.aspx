@@ -176,7 +176,7 @@
                                             <td><anthem:TextBox ID="m_EFechaAdicion" runat="server" CssClass="editfecha"></anthem:TextBox><input id="botonfecha" name="botonfecha"  onclick="setFecha('m_EFechaAdicion')" type="button" value="..." /></td>
                                             <td>
                                             <asp:RangeValidator ID="RangeValidator3" runat="server" ControlToValidate="m_EFechaAdicion" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1960/01/01"
                                                     SetFocusOnError="True" Type="Date" ValidationGroup="objeto"></asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -197,7 +197,7 @@
                                             <td><anthem:TextBox ID="m_EFechaCDP" runat="server" CssClass="editfecha"></anthem:TextBox><input id="Button5" name="botonfecha"  onclick="setFecha('m_EFechaCDP')" type="button" value="..." /></td>
                                             <td>
                                             <asp:RangeValidator ID="RangeValidator4" runat="server" ControlToValidate="m_EFechaCDP" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1960/01/01"
                                                     SetFocusOnError="True" Type="Date" ValidationGroup="objeto"></asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -218,7 +218,7 @@
                                             <td><anthem:TextBox ID="m_EFechaRDP" runat="server" CssClass="editfecha"></anthem:TextBox><input id="Button6" name="botonfecha"  onclick="setFecha('m_EFechaRDP')" type="button" value="..." /></td>
                                             <td>
                                                 <asp:RangeValidator ID="RangeValidator5" runat="server" ControlToValidate="m_EFechaRDP" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1960/01/01"
                                                     SetFocusOnError="True" Type="Date" ValidationGroup="objeto"></asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -241,7 +241,7 @@
                                             <td><anthem:TextBox ID="m_EFechaProrroga" runat="server" CssClass="editfecha"></anthem:TextBox><input id="Button7" name="botonfecha"  onclick="setFecha('m_EFechaProrroga')" type="button" value="..." /></td>
                                             <td>
                                             <asp:RangeValidator ID="RangeValidator6" runat="server" ControlToValidate="m_EFechaProrroga" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1960/01/01"
                                                     SetFocusOnError="True" Type="Date" ValidationGroup="objeto"></asp:RangeValidator>
                                             </td>
                                         </tr>
@@ -396,7 +396,7 @@
                                                 ErrorMessage="Por favor ingrese una fecha de desembolso" SetFocusOnError="True"
                                                 ValidationGroup="desembolso"></asp:RequiredFieldValidator>
                                         <asp:RangeValidator ID="RangeValidator8" runat="server" ControlToValidate="m_EFechaDesembolso" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1960/01/01"
                                                     SetFocusOnError="True" Type="Date"></asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -419,7 +419,7 @@
                                             <anthem:TextBox ID="m_EFechaComprobanteDesembolso" runat="server" CssClass="editfecha"></anthem:TextBox><input id="Button9" name="botonfecha"  onclick="setFecha('m_EFechaComprobanteDesembolso')" type="button" value="..." /></td>
                                         <td>
                                         <asp:RangeValidator ID="RangeValidator9" runat="server" ControlToValidate="m_EFechaComprobanteDesembolso" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1960/01/01"
                                                     SetFocusOnError="True" Type="Date"></asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -558,7 +558,7 @@
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="m_EFechaComprobanteRendimiento" Display="Dynamic"
                                                 ErrorMessage="Por favor ingrese una fecha" SetFocusOnError="True" ValidationGroup="desembolso"></asp:RequiredFieldValidator>
                                         <asp:RangeValidator ID="RangeValidator11" runat="server" ControlToValidate="m_EFechaComprobanteRendimiento" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1960/01/01"
                                                     SetFocusOnError="True" Type="Date"></asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -612,7 +612,7 @@
                                     <tr>
                                         <td>
                                         </td>
-                                        <td><asp:ImageButton ImageUrl="~/imagenes/save.gif" ID="ImageButton1" runat="server" OnClick="m_BAceptar_Click" ToolTip="Finalizar"/></td>
+                                        <td></td>
                                         <td>
                                         </td>
                                         <td>
@@ -642,7 +642,7 @@
                                             <anthem:TextBox ID="m_EFechaInforme" runat="server" CssClass="editfecha"></anthem:TextBox><input id="Button11" name="botonfecha"  onclick="setFecha('m_EFechaInforme')" type="button" value="..." /></td>
                                         <td>
                                         <asp:RangeValidator ID="RangeValidator12" runat="server" ControlToValidate="m_EFechaInforme" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1960/01/01"
                                                     SetFocusOnError="True" Type="Date"></asp:RangeValidator>
                                         </td>
                                     </tr>
@@ -675,7 +675,7 @@
                                             <anthem:TextBox ID="m_EFechaActa" runat="server" CssClass="editfecha"></anthem:TextBox><input id="Button12" name="botonfecha"  onclick="setFecha('m_EFechaActa')" type="button" value="..." /></td>
                                         <td>
                                         <asp:RangeValidator ID="RangeValidator13" runat="server" ControlToValidate="m_EFechaActa" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1960/01/01"
                                                     SetFocusOnError="True" Type="Date"></asp:RangeValidator>
                                         </td>
                                     </tr>

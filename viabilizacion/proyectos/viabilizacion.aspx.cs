@@ -325,6 +325,9 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_EFechaUltima.UpdateAfterCallBack = true;
         m_SBuscarNIT.UpdateAfterCallBack = true;
 
+        m_EResponsableRevision.UpdateAfterCallBack = true;
+        m_EFechaRevision.UpdateAfterCallBack = true;
+
         // pestana 2
         m_SValorTotal.UpdateAfterCallBack = true;
         m_EValorPartidaMEN.UpdateAfterCallBack = true;
@@ -415,6 +418,11 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             m_EFax.Text = "";
             m_EMail.Text = "";
         }
+        reader = m_pConector.Query("SELECT nombre,fecha FROM revisorvia WHERE proyecto=" + m_nId.Value);
+        if(reader!=null && reader.Read()) {
+            m_EResponsableRevision.Text=reader[0].ToString();
+            m_EFechaRevision.Text = GetFechaCorta(reader[1].ToString());
+        }
 
         // pestaña2
         m_SValorTotal.Text = GetFormatDouble(row[8].ToString());
@@ -463,6 +471,10 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         // pestaña 5
 
         SelectInCombo(m_CBTipo, row[18].ToString());
+        FillComboBox(m_CBConcepto, "SELECT varios.id,varios.nombre FROM varios LEFT JOIN varios AS misma ON (misma.id=" + m_CBTipo.SelectedValue + ") WHERE varios.tipo=15 AND (varios.nReservado IS NULL OR varios.nReservado!=-1) AND CHARINDEX(CONVERT(VARCHAR,misma.id),varios.szReservado)>0", true);
+
+
+
         m_EAulasN.Text = row[19].ToString();
         m_EAulasR.Text = row[20].ToString();
         m_EEstudiantesP.Text = row[21].ToString();
@@ -519,6 +531,8 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_CBMunicipio.SelectedIndex = 0;
         m_EFechaUltima.Text = "";
         m_SBuscarNIT.Text = "";
+        m_EResponsableRevision.Text="";
+        m_EFechaRevision.Text = "";
 
         m_BGaleria.Visible = false;
         m_BGaleria.UpdateAfterCallBack = true;
@@ -699,9 +713,40 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         return true;
     }
 
+    protected bool InsertarRevisor(bool insertar) {
+
+        string szTabla = m_pConector.QueryString("SELECT proyecto FROM revisorvia WHERE proyecto='" + m_nId.Value + "'");
+        if (szTabla.Length == 0)
+            insertar = true;
+
+        szTabla = "revisorvia";
+        for (int i = 0; i < m_saCampos.Length; i++)
+            m_saCampos[i] = m_saDatos[i] = "";
+        
+        m_saCampos[0] = "proyecto";
+        m_saCampos[1] = "nombre";
+        m_saCampos[2] = "fecha";
+
+        m_saDatos[0] = m_nId.Value;
+        m_saDatos[1] = GetString(m_EResponsableRevision.Text);
+        m_saDatos[2] = m_EFechaRevision.Text;
+
+        string query = "";
+        if (insertar)
+        {
+            query = CConector.CrearInsercion(szTabla, m_saCampos, m_saDatos);
+        }
+        else
+        {
+            m_saDatos[0] = "";
+            query = CConector.CreateUpdate(szTabla, m_saCampos, m_saDatos) + CConector.GetCondicion(m_saCampos[0], m_nId.Value);
+        }
+        return m_pConector.QueryMod(query) != -1;
+    }
+
     protected bool InsertarObservaciones(bool insertar)
     {
-        string szTabla = m_pConector.QueryString("SELECT id FROM observacionesproyecto WHERE id='" + m_nId.Value +"'");
+        string szTabla = m_pConector.QueryString("SELECT proyecto FROM observacionesproyecto WHERE proyecto='" + m_nId.Value +"'");
         if(szTabla.Length==0)
             insertar=true;
 
@@ -823,7 +868,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_saDatos[0] = m_nId.Value;
         m_saDatos[1] = m_EAulasN.Text;
         m_saDatos[2] = m_EAulasR.Text;
-        m_saDatos[3] = m_EEstudiantesP.Text;
+        m_saDatos[3] = GetDouble(m_EEstudiantesP.Text);
         m_saDatos[4] = m_EJornadas.Text;
         m_saDatos[5] = m_EBanos.Text;
         m_saDatos[6] = m_EAparatosS.Text;
@@ -939,6 +984,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             m_nId.Value = id.ToString();
             if (InsertarResponsable(true) && InsertarPresupuesto(true) && InsertarDocumentos() && InsertarTecnicos()
                 && InsertarInfraestructura(true) && InsertarValores(true) && InsertarAreas(true) && InsertarObservaciones(true)
+                && InsertarRevisor(true)
                 )
             {
                 if (sender != m_BInsertar)
@@ -977,7 +1023,9 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         else
         {
             if (InsertarResponsable(false) && InsertarPresupuesto(false) && InsertarDocumentos() && InsertarTecnicos()
-                && InsertarInfraestructura(false) && InsertarValores(false) && InsertarAreas(false) && InsertarObservaciones(false))
+                && InsertarInfraestructura(false) && InsertarValores(false) && InsertarAreas(false) && InsertarObservaciones(false)
+                && InsertarRevisor(false)
+                )
             {
                 if (m_BAceptar != sender)
                     return;
@@ -1005,6 +1053,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             m_pConector.QueryMod("DELETE FROM documentoproyecto WHERE proyecto=" + m_nId.Value) == -1 ||
             m_pConector.QueryMod("DELETE FROM presupuesto WHERE proyecto=" + m_nId.Value) == -1 ||
             m_pConector.QueryMod("DELETE FROM responsableviabilizacion WHERE proyecto=" + m_nId.Value) == -1 ||
+            m_pConector.QueryMod("DELETE FROM revisorvia WHERE proyecto="+m_nId.Value)==-1 || 
             m_pConector.QueryMod("DELETE FROM " + m_szTabla + " WHERE id=" + m_nId.Value) == -1)
         {
             m_SMensaje.Text = m_pConector.GetLastError();
@@ -1352,6 +1401,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
     {
         Anthem.Manager.AddScriptForClientSideEval("window.open('" + HttpContext.Current.Request.ApplicationPath + "/fotos/proyectos/galeriav.aspx?id=" + m_nId.Value + "&proyecto=" + m_CBProyecto.SelectedItem.Text + "')");
     }
+
     protected void m_LCObjetosInscritos_RowDataBound(object sender, GridViewRowEventArgs e)
     {
         CObjetoInscrito obj = new CObjetoInscrito();

@@ -291,7 +291,9 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_EResolucionEmergencia.Text = row[30].ToString();
         m_EFechaEmergencia.Text = GetFechaCorta(row[31].ToString());
 
-        m_EPorcentaje.Text = row[11].ToString();
+        String texto = row[11].ToString();
+        texto= texto.Replace("%", "");
+        m_EPorcentaje.Text = GetFormatDouble(texto);
         
         m_EEstudiantesBeneficiados.Text = row[14].ToString();
         m_EDotacion.Text = row[15].ToString();

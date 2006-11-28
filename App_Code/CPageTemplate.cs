@@ -481,6 +481,11 @@ public class CPageTemplate : System.Web.UI.Page
     virtual protected void SetView(int index)
     {
         Button boton;
+        Anthem.Label label = (Anthem.Label)FindControl("m_SResumen");
+        if(label!=null) {
+            label.Visible = index == 0;
+            label.UpdateAfterCallBack = true;
+        }
         int i = 1;
         while ((boton = (Button)FindControl("m_BTab" + i.ToString())) != null)
         {

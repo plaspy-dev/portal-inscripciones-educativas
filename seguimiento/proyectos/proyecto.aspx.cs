@@ -225,7 +225,7 @@ public partial class seguimiento_proyectos_proyecto : CPageTemplate
             data.DataField = data.HeaderText = "Municipio";
             m_LCContratosSaldos.Columns.Add(data);
             data = new BoundField();
-            data.DataField = data.HeaderText = "Diferencia valor aprobado proyecto y valor contratado ";
+            data.DataField = data.HeaderText = "Diferencia valor aprobado proyecto y valor contratado";
             m_LCContratosSaldos.Columns.Add(data);
             data = new BoundField();
             data.DataField = data.HeaderText = "Diferencia valor aporte Entidad educativa y valor contratado Entidad";

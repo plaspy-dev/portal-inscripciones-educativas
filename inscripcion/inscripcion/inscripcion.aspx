@@ -164,7 +164,7 @@
                                             Fecha de resolución</td>
                                         <td ><anthem:TextBox ID="m_EFechaResolucion" runat="server" CssClass="editfecha"></anthem:TextBox><input id="Button2" name="botonfecha"  onclick="setFecha('m_EFechaResolucion')" type="button" value="..." /></td>
                                         <td><asp:RangeValidator ID="RangeValidator5" runat="server" ControlToValidate="m_EFechaResolucion" Display="Dynamic"
-                                                            ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
+                                                            ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1960/01/01"
                                                             SetFocusOnError="True" Type="Date" ></asp:RangeValidator>
                                             </td>
                                     </tr>
@@ -307,7 +307,7 @@
                                                 <anthem:TextBox ID="m_EFechaEmergencia" runat="server" CssClass="editfecha"></anthem:TextBox><input id="botonfecha" name="botonfecha"  onclick="setFecha('m_EFechaEmergencia')" type="button" value="..." /></td>
                                             <td>
                                                 <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="m_EFechaEmergencia" Display="Dynamic"
-                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1995/01/01"
+                                                    ErrorMessage="Por favor ingrese una fecha" MaximumValue="2010/01/01" MinimumValue="1960/01/01"
                                                     SetFocusOnError="True" Type="Date" ValidationGroup="tab"></asp:RangeValidator></td>
                                         </tr>
                                         <tr>
@@ -395,14 +395,32 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                        <SCRIPT LANGUAGE="JavaScript">
+                                          function validatePorcentaje(oSrc, args){
+                                            args.IsValid=false;
+                                            if(args.Value.length == 0) {
+                                                args.IsValid=true;
+                                                return;
+                                            }
+                                            var i= parseInt(args.Value);
+                                            if(i>0 && i<=70) {
+                                                args.IsValid=true;
+                                                return;
+                                            }
+                                            if(i==90 || i==100) {
+                                                args.IsValid=true;
+                                                return;
+                                            }
+                                          }
+                                        </SCRIPT>
                                             <td>
                                                 Porcentaje aportes Entidad educativa</td>
                                             <td>
                                                 <anthem:TextBox ID="m_EPorcentaje" runat="server" CssClass="inputnumerico"></anthem:TextBox></td>
                                             <td>
-                                                <asp:RangeValidator ID="RangeValidator7" runat="server" ControlToValidate="m_EPorcentaje"
-                                                    Display="Dynamic" ErrorMessage="Por favor ingrese un número aqui" MaximumValue="100"
-                                                    MinimumValue="0" SetFocusOnError="True" Type="Currency"></asp:RangeValidator></td>
+                                                <asp:CustomValidator ID="CustomValidator1" runat="server" ClientValidationFunction="validatePorcentaje"
+                                                    ControlToValidate="m_EPorcentaje" Display="Dynamic" ErrorMessage="Por favor seleccione un porcentaje valido."
+                                                    SetFocusOnError="True" ></asp:CustomValidator></td>
                                         </tr>
                                         <tr>
                                             <td>
