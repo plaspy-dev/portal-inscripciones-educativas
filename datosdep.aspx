@@ -1,1 +1,1 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="datosdep.aspx.cs" Inherits="datosdep" %>
+<%@ page language="C#" autoeventwireup="true" inherits="datosdep, App_Web_zybv-ml_" %>

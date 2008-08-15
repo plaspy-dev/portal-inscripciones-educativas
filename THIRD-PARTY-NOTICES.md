@@ -1,8 +1,7 @@
 # Third-party notices · Avisos de terceros
 
-| Component | Author | Origin | Notice | Path | SHA-256 |
+| Component | Author | Origin | Notice / Aviso | Path | SHA-256 |
 | --- | --- | --- | --- | --- | --- |
-| Anthem.NET | Anthem.NET contributors | https://sourceforge.net/projects/anthem-dot-net/ and the dated archive | Public domain / dominio público | `bin/Anthem.dll` | 96e9cca855e41dc9011e165b382e367a1662e44f43cb7a1c9c88accbfa12acd4 |
 | JSCookMenu.js | Heng Yuan and credited contributors | Archived JSCookMenu and theme / JSCookMenu y tema archivados | Original MIT notice and credits / Aviso MIT y créditos originales | `menu/JSCookMenu.js` | `1dbb8ec528a6c00937023a88048c52ede2572872e3b14d8ececce071997ed269` |
 
 ## Archived browser resources / Recursos archivados del navegador
@@ -10,7 +9,6 @@
 | File / Archivo | Author / Autor | Archive / Respaldo | Notice / Aviso | SHA-256 |
 | --- | --- | --- | --- | --- |
 | `imagenes/ant.gif` | Author unrecorded / Autor sin registrar | Archived Web Forms release 1.31 / Respaldo Web Forms de la versión 1.31 | Original notices retained / Avisos originales conservados | `e0426b54cb9f25f32e52cd88a6acfb25a60b67391527e092b602c38816214748` |
-| `imagenes/close.gif` | Author unrecorded / Autor sin registrar | Archived Web Forms release 1.31 / Respaldo Web Forms de la versión 1.31 | Original notices retained / Avisos originales conservados | `25d05b499526d6cd093b6a4529ef5972b5365263704ae54a77ee0d4d312faa15` |
 | `imagenes/edit.gif` | Author unrecorded / Autor sin registrar | Archived Web Forms release 1.31 / Respaldo Web Forms de la versión 1.31 | Original notices retained / Avisos originales conservados | `5b5f3569e7f4194f90aab3780fa3e56b4d3788c72dd504322db44d1ef8866ff2` |
 | `imagenes/fondo.jpg` | Author unrecorded / Autor sin registrar | Archived Web Forms release 1.31 / Respaldo Web Forms de la versión 1.31 | Original notices retained / Avisos originales conservados | `d388cac4c119bbb2d0c2b93880cf0997367ecc3b0afc0454ecc5513342bf08d5` |
 | `imagenes/print.gif` | Author unrecorded / Autor sin registrar | Archived Web Forms release 1.31 / Respaldo Web Forms de la versión 1.31 | Original notices retained / Avisos originales conservados | `6d0ef5d04d86ef2beb78cdad7b1b9ab65327dd7a7f222b753c307ac7c6892ee7` |

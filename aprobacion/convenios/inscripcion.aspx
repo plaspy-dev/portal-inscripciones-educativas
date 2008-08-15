@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="inscripcion.aspx.cs" Inherits="aprobacion_convenios_inscripcion"  EnableEventValidation="false"%>
+<%@ page language="C#" autoeventwireup="true" inherits="aprobacion_convenios_inscripcion, App_Web_yguu4s7z" enableeventvalidation="false" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>
@@ -81,7 +81,9 @@
 						            <tr>
                                         <td >
                                             Numero de convenio</td>
-                                        <td ><anthem:TextBox ID="m_ENumero" runat="server" CssClass="inputnumerico" MaxLength="3">
+                                        <td ><anthem:TextBox ID="m_ENumero" runat="server" CssClass="inputnumerico" 
+                                                MaxLength="4">
+                                        &nbsp;
                                         </anthem:TextBox></td>
                                         <td>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="m_ENumero" Display="Dynamic"
@@ -92,6 +94,7 @@
                                         <td >
                                             Valor convenio</td>
                                         <td ><anthem:TextBox ID="m_EValor" runat="server" CssClass="inputnumerico">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
                                         </anthem:TextBox></td>
                                         <td>
                                         <asp:RangeValidator ID="RangeValidator3" runat="server" ControlToValidate="m_EValor" Display="Dynamic"
@@ -120,6 +123,7 @@
                                                     <td >
                                                         Plazo total en dias</td>
                                                     <td ><anthem:TextBox ID="m_EPlazo" runat="server" CssClass="inputnumerico" MaxLength="3">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;
                                                     </anthem:TextBox></td>
                                                     <td>
                                                     <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="m_EPlazo" Display="Dynamic"
@@ -142,6 +146,7 @@
                                                     <td >
                                                         Fecha de vencimiento</td>
                                                     <td ><anthem:Label ID="m_SFechaVencimiento" runat="server">
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;
                                                     </anthem:Label></td>
                                                     <td>
                                                     </td>
@@ -194,6 +199,7 @@
                                             <strong>
                                             NIT ente territorial</strong></td>
                                         <td style="font-weight: bold"><anthem:Label ID="m_SNIT" runat="server">
+                                        &nbsp;&nbsp;&nbsp;
                                         </anthem:Label></td>
                                         <td style="font-weight: bold">
                                         </td>
@@ -351,7 +357,7 @@
 		<div align="right">
             <asp:Label ID="m_SVersion" runat="server" Font-Bold="True"></asp:Label><br />
             <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" Font-Size="Smaller"
-                PostBackUrl="~/about.aspx">Desarrollado por SDG.</asp:LinkButton></div>
+                PostBackUrl="http://www.sdgltda.com">Desarrollado por SDG.</asp:LinkButton></div>
     </form>
 </body>
 </html>

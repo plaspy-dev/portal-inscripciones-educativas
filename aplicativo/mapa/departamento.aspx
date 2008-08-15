@@ -1,8 +1,6 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="departamento.aspx.cs" Inherits="aplicativo_mapa_departamento" EnableEventValidation="false" %>
+<%@ page language="C#" autoeventwireup="true" inherits="aplicativo_mapa_departamento, App_Web_j-a3n9ao" enableeventvalidation="false" %>
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="Head1" runat="server">
      <title>Portal de inscripciones e informes educativos</title>
@@ -139,7 +137,7 @@
 		<div align="right">
             <asp:Label ID="m_SVersion" runat="server" Font-Bold="True"></asp:Label><br />
             <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" Font-Size="Smaller"
-                PostBackUrl="~/about.aspx">Desarrollado por SDG.</asp:LinkButton></div>
+                PostBackUrl="http://www.sdgltda.com">Desarrollado por SDG.</asp:LinkButton></div>
     </form>
 </body>
 </html>

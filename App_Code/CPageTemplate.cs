@@ -564,10 +564,11 @@ public class CPageTemplate : System.Web.UI.Page
     {
         FillComboBox(lista, query, false);
     }
-    static public void SelectInCombo(Anthem.DropDownList lista, string value)
+    static public bool SelectInCombo(Anthem.DropDownList lista, string value)
     {
         ListItem item = lista.Items.FindByText(value);
         lista.SelectedIndex = item == null ? 0 : lista.Items.IndexOf(item);
+        return item!=null;
     }
     static public void SelectInComboValue(Anthem.DropDownList lista, string value)
     {

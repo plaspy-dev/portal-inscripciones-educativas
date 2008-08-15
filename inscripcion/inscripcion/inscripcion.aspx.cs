@@ -93,12 +93,12 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         m_saCamposAlias[21] = "institucionesvariacion.alumnos";
         m_saCamposAlias[22] = "last.alumnos";
         m_saCamposAlias[23] = "institucionesvariacion.alumnos-last.alumnos";
-        m_saCamposAlias[24] = "rectores.nombre";
-        m_saCamposAlias[25] = "rectores.direccion";
-        m_saCamposAlias[26] = "rectores.telefono";
-        m_saCamposAlias[27] = "rectores.celular";
-        m_saCamposAlias[28] = "rectores.fax";
-        m_saCamposAlias[29] = "rectores.email";
+        m_saCamposAlias[24] = "insteducativas.rector";
+        m_saCamposAlias[25] = "insteducativas.direccion";
+        m_saCamposAlias[26] = "insteducativas.telefonos";
+        m_saCamposAlias[27] = "insteducativas.web";
+        m_saCamposAlias[28] = "insteducativas.fax";
+        m_saCamposAlias[29] = "insteducativas.email";
         m_saCamposAlias[30] = "proyectosemergencia.numero";
         m_saCamposAlias[31] = "proyectosemergencia.fecha";
 
@@ -113,7 +113,6 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
             + " LEFT JOIN presupuestoi ON (presupuestoi.proyecto=proyectosi.id)"
             + " LEFT JOIN institucionesvariacion ON (institucionesvariacion.institucion=proyectosi.institucion AND institucionesvariacion.anolectivo=" + anoactual.ToString() + ")"
             + " LEFT JOIN institucionesvariacion AS last ON (last.institucion=proyectosi.institucion AND last.anolectivo=" + (anoactual + 1).ToString() + ")"
-            + " LEFT JOIN rectores ON (rectores.institucion=proyectosi.institucion AND rectores.ano=" + anoactual.ToString() + ")"
             + " LEFT JOIN proyectosemergencia ON (proyectosemergencia.proyecto=proyectosi.id)"
             ;
 
@@ -414,30 +413,21 @@ public partial class inscripcion_inscripcion_inscripcion : CPageTemplate
         for (int i = 0; i < m_saCampos.Length; i++)
             m_saDatos[i] = m_saCampos[i] = "";
 
-        m_saCampos[0] = "institucion";
-        m_saDatos[0] = m_nIdInstitucion.Value;
-        m_saCampos[1] = "ano";
-        m_saDatos[1] = m_pUsuario.GetVigenciaActual();
-        m_saCampos[2] = "nombre";
-        m_saDatos[2] = m_ENombre.Text;
-        m_saCampos[3] = "direccion";
-        m_saDatos[3] = m_EDireccion.Text;
-        m_saCampos[4] = "telefono";
-        m_saDatos[4] = m_ETelefono.Text;
-        m_saCampos[5] = "celular";
-        m_saDatos[5] = m_ECelular.Text;
-        m_saCampos[6] = "fax";
-        m_saDatos[6] = m_EFax.Text;
-        m_saCampos[7] = "email";
-        m_saDatos[7] = m_EEmail.Text;
+        // m_nIdInstitucion.Value;
+        m_saCampos[0] = "rector";
+        m_saDatos[0] = m_ENombre.Text;
+        m_saCampos[1] = "direccion";
+        m_saDatos[1] = m_EDireccion.Text;
+        m_saCampos[2] = "telefonos";
+        m_saDatos[2] = m_ETelefono.Text;
+        m_saCampos[3] = "web";
+        m_saDatos[3] = m_ECelular.Text;
+        m_saCampos[4] = "fax";
+        m_saDatos[4] = m_EFax.Text;
+        m_saCampos[5] = "email";
+        m_saDatos[5] = m_EEmail.Text;
 
-        SqlDataReader reader;
-        reader = m_pConector.Query("SELECT id FROM rectores WHERE institucion=" + m_nIdInstitucion.Value + " AND ano=" + m_pUsuario.GetVigenciaActual());
-        if (reader != null && reader.Read())
-        {
-            return m_pConector.QueryMod(CConector.CreateUpdate("rectores", m_saCampos, m_saDatos) + " WHERE id=" + reader[0].ToString()) != -1;
-        }
-        else return m_pConector.QueryMod(CConector.CrearInsercion("rectores", m_saCampos, m_saDatos)) != -1;
+        return m_pConector.QueryMod(CConector.CreateUpdate("insteducativas", m_saCampos, m_saDatos) + " WHERE id=" + m_nIdInstitucion.Value) != -1;
     }
 
     protected bool UpdateEmergencia()

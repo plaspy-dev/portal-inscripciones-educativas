@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="prioridad.aspx.cs" Inherits="inscripcion_priorizacion_prioridad"  EnableEventValidation="false"%>
+<%@ page language="C#" autoeventwireup="true" inherits="inscripcion_priorizacion_prioridad, App_Web_ewb1y755" enableeventvalidation="false" %>
 
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>
 
@@ -144,7 +144,7 @@
 		<div align="right">
             <asp:Label ID="m_SVersion" runat="server" Font-Bold="True"></asp:Label><br />
             <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" Font-Size="Smaller"
-                PostBackUrl="~/about.aspx">Desarrollado por SDG.</asp:LinkButton></div>
+                PostBackUrl="http://www.sdgltda.com">Desarrollado por SDG.</asp:LinkButton></div>
     </form>
 </body>
 </html>

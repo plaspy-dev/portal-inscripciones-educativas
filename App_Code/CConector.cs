@@ -223,7 +223,7 @@ public class CConector
 
 		public string GetLastError()
 		{
-			return m_szLastError+ "<br>"+ m_szQuery;
+            return m_szLastError.Length==0 ? "" : (m_szLastError + "<br>" + m_szQuery);
 		}
 
 		public static string GetCondicion(string campo, string dato) 
@@ -421,7 +421,7 @@ public class CConector
 
     static public string GetCurrentVersion()
     {
-        return "Versión 1.24";
+        return "Versión 1.3";
     }
 
     static public CConector GetConector() {

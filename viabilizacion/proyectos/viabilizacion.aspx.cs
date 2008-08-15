@@ -17,7 +17,14 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
     {
         if (!PageLoad("proyectos", 49))
             return;
-
+        if(!IsCallback) {
+            
+            Session["idobjectos"] = "0";
+            CObjetoInscrito obj = new CObjetoInscrito();
+            obj.Select(0);
+            obj.RebuilTable();
+            CTablaObjetoVia.RebuilTable();
+        }
         m_nPermisosRegistro = m_pMenu.GetPermisos(HttpContext.Current.Request.ApplicationPath + "/fotos/proyectos/galeriav.aspx");
 
         m_saCampos[0] = "id";
@@ -143,8 +150,9 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_szIndice = m_saTitulos[0];
         m_pUsuario.FillComboBoxInscritos(m_CBEnte);
         FillComboBox(m_CBMunicipio, "SELECT id,nombre FROM municipios WHERE eterritorial=" + m_CBEnte.SelectedValue, true);
-        FillComboBox(m_CBProyecto, "SELECT proyectosi.id,proyectosi.codigo FROM proyectosi LEFT JOIN varios ON varios.id=proyectosi.estado WHERE varios.nReservado=1 AND proyectosi.vigencia='"
-            + m_pUsuario.GetVigenciaActual() + "' AND proyectosi.eterritorial=" + m_CBEnte.SelectedValue + (m_CBMunicipio.SelectedIndex > 0 ? (" AND proyectosi.municipio=" + m_CBMunicipio.SelectedValue) : ""), true);
+        if(m_nId.Value.Length==0)
+            FillComboBox(m_CBProyecto, "SELECT proyectosi.id,proyectosi.codigo FROM proyectosi LEFT JOIN varios ON varios.id=proyectosi.estado WHERE varios.nReservado=1 AND proyectosi.vigencia='"
+                + m_pUsuario.GetVigenciaActual() + "' AND proyectosi.eterritorial=" + m_CBEnte.SelectedValue + (m_CBMunicipio.SelectedIndex > 0 ? (" AND proyectosi.municipio=" + m_CBMunicipio.SelectedValue) : ""), true);
 
         FillComboBox(m_CBTipo, "SELECT id,nombre FROM varios WHERE tipo=13 AND (nReservado IS NULL OR nReservado!=-1) ORDER BY nombre");
         FillComboBox(m_CBConcepto, "SELECT varios.id,varios.nombre FROM varios LEFT JOIN varios AS misma ON (misma.id=" + m_CBTipo.SelectedValue +") WHERE varios.tipo=15 AND (varios.nReservado IS NULL OR varios.nReservado!=-1) AND CHARINDEX(CONVERT(VARCHAR,misma.id),varios.szReservado)>0", true);
@@ -179,7 +187,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             m_szCondicionEx += " AND proyectos.proyectoi=" + m_CBProyecto.SelectedValue;
         if (m_CBEstado.SelectedIndex > 0)
             m_szCondicionEx += " AND proyectos.estado=" + m_CBEstado.SelectedValue;
-        if (m_CBConceptoViablizacion.SelectedIndex > 0)
+        if (m_nId.Value.Length==0 && m_CBConceptoViablizacion.SelectedIndex > 0)
             m_szCondicionEx += " AND proyectos.conceptoviabilizacion" + m_CBConceptoViablizacion.SelectedValue;
 
         string grupo = " GROUP BY ";
@@ -377,7 +385,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
     override protected void m_LCResultados_SelectedIndexChanged(object sender, EventArgs e)
     {
         Anthem.GridView gv = sender as Anthem.GridView;
-
+        m_LCResultados.UpdateAfterCallBack = true;
         DataRow row = GetDataRow(gv);
         if (row == null)
             return;
@@ -389,7 +397,10 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         SelectInCombo(m_CBMunicipio, row[5].ToString());
         FillComboBox(m_CBProyecto, "SELECT proyectosi.id,proyectosi.codigo FROM proyectosi LEFT JOIN varios ON varios.id=proyectosi.estado WHERE varios.nReservado=1 AND proyectosi.vigencia='"
             + m_pUsuario.GetVigenciaActual() + "' AND proyectosi.eterritorial=" + m_CBEnte.SelectedValue + (m_CBMunicipio.SelectedIndex > 0 ? (" AND proyectosi.municipio=" + m_CBMunicipio.SelectedValue) : ""), true);
-        SelectInCombo(m_CBProyecto, row[2].ToString());
+        if(!SelectInCombo(m_CBProyecto, row[2].ToString())) {
+            FillComboBox(m_CBProyecto, "SELECT id,codigo FROM proyectos WHERE vigencia='"+ m_pUsuario.GetVigenciaActual() + "' AND eterritorial=" + m_CBEnte.SelectedValue + (m_CBMunicipio.SelectedIndex > 0 ? (" AND municipio=" + m_CBMunicipio.SelectedValue) : ""), true);
+            SelectInCombo(m_CBProyecto, row[2].ToString());
+        }
         m_SInstitucion.Text = row[6].ToString();
         SelectInCombo(m_CBEstado, row[14].ToString());
         m_EObservaciones.Text = row[16].ToString();
@@ -432,6 +443,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_SPorcentajeMun.Text = GetFormatDouble(row[12].ToString()) + "%";
         SelectInCombo(m_CBConceptoViablizacion, row[13].ToString());
         m_EFechaAprobacion.Text = GetFechaCorta(row[17].ToString());
+        
         m_EObservaciones.Text = row[16].ToString();
 
         //objeto
@@ -1066,20 +1078,33 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
     }
     protected void m_CBEnte_SelectedIndexChanged(object sender, EventArgs e)
     {
+        int pos = m_CBEnte.SelectedIndex;
+        m_BCancelar_Click(sender, e);
+        m_CBEnte.SelectedIndex = pos;
         m_CBMunicipio.UpdateAfterCallBack = true;
         m_CBProyecto.UpdateAfterCallBack = true;
 
         m_LCResultados.DataBind();
         m_LCResultados_PageIndexChanged(m_LCResultados, e);
-        // m_LCResultados.Columns[].Visible = .SelectedIndex == 0;
         m_LCResultados.UpdateAfterCallBack = true;
         m_CBProyecto_SelectedIndexChanged(sender, e);
     }
+
     protected void m_CBMunicipio_SelectedIndexChanged(object sender, EventArgs e)
     {
+        int pos= m_CBEnte.SelectedIndex;
+        int mun = m_CBMunicipio.SelectedIndex;
+        m_BCancelar_Click(sender, e);
+        m_CBEnte.SelectedIndex = pos;
+        m_CBMunicipio.SelectedIndex = mun;
+
+        FillComboBox(m_CBProyecto, "SELECT proyectosi.id,proyectosi.codigo FROM proyectosi LEFT JOIN varios ON varios.id=proyectosi.estado WHERE varios.nReservado=1 AND proyectosi.vigencia='"
+                + m_pUsuario.GetVigenciaActual() + "' AND proyectosi.eterritorial=" + m_CBEnte.SelectedValue + (m_CBMunicipio.SelectedIndex > 0 ? (" AND proyectosi.municipio=" + m_CBMunicipio.SelectedValue) : ""), true);
+
         m_CBProyecto.UpdateAfterCallBack = true;
         m_CBProyecto_SelectedIndexChanged(sender, e);
     }
+
     protected void m_CBProyecto_SelectedIndexChanged(object sender, EventArgs e)
     {
         m_LCResultados.DataBind();
@@ -1312,7 +1337,6 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
     {
         m_LCResultados.DataBind();
         m_LCResultados_PageIndexChanged(m_LCResultados, e);
-        // m_LCResultados.Columns[].Visible = .SelectedIndex == 0;
         m_LCResultados.UpdateAfterCallBack = true;
     }
     protected void m_CBEstado_SelectedIndexChanged(object sender, EventArgs e)

@@ -1,1 +1,1 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="fotos.aspx.cs" Inherits="fotos_contratos_fotos"  EnableEventValidation="false"%>
+<%@ page language="C#" autoeventwireup="true" inherits="fotos_contratos_fotos, App_Web_byztolud" enableeventvalidation="false" %>

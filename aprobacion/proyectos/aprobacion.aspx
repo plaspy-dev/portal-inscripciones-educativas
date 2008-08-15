@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="aprobacion.aspx.cs" Inherits="aprobacion_proyectos_aprobacion"  EnableEventValidation="false"%>
+<%@ page language="C#" autoeventwireup="true" inherits="aprobacion_proyectos_aprobacion, App_Web_e96mg5-m" enableeventvalidation="false" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>
@@ -134,7 +134,7 @@
 		<div align="right">
             <asp:Label ID="m_SVersion" runat="server" Font-Bold="True"></asp:Label><br />
             <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" Font-Size="Smaller"
-                PostBackUrl="~/about.aspx">Desarrollado por SDG.</asp:LinkButton></div>
+                PostBackUrl="http://www.sdgltda.com">Desarrollado por SDG.</asp:LinkButton></div>
     </form>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="miscelaneos.aspx.cs" Inherits="sistema_parametros_miscelaneos"  EnableEventValidation="false"%>
+<%@ page language="C#" autoeventwireup="true" inherits="sistema_parametros_miscelaneos, App_Web_a1lfbcrq" enableeventvalidation="false" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>
@@ -265,19 +265,6 @@
                                                       </tr>
                                                     </table></td>
                                                   </tr>
-                                                    <tr style="background-image: url(../../imagenes/fondo.jpg)">
-                                                        <td><a href='javascript:hidetree(15);' style="font-weight: bold; color: white"> 
-                                                            Sistema</a>
-                                                            </td>
-                                                    </tr>
-                                                    <tr style='display:none' id='t15'>
-                                                        <td><table border="0">
-                                                            <tr>
-                                                                <td><anthem:LinkButton ID="m_LBCopia" runat="server" CausesValidation="false" OnClick="LinkButton1_Click">Copia</anthem:LinkButton></td>
-                                                            </tr>
-                                                        </table>
-                                                        </td>
-                                                    </tr>                                                    
                                                 </table></td>
                                                 <td valign="top" style="text-align: center">
                                                     <anthem:Label ID="m_STitulo" runat="server" CssClass="Titulos" ForeColor="Red" Text="Por favor seleccione un tipo."></anthem:Label><br />
@@ -363,7 +350,7 @@
 		<div align="right">
             <asp:Label ID="m_SVersion" runat="server" Font-Bold="True"></asp:Label><br />
             <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" Font-Size="Smaller"
-                PostBackUrl="~/about.aspx">Desarrollado por SDG.</asp:LinkButton></div>
+                PostBackUrl="http://www.sdgltda.com">Desarrollado por SDG.</asp:LinkButton></div>
     </form>
 </body>
 </html>

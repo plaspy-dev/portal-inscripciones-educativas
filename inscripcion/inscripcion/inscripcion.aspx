@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="inscripcion.aspx.cs" Inherits="inscripcion_inscripcion_inscripcion"  EnableEventValidation="false"%>
+<%@ page language="C#" autoeventwireup="true" inherits="inscripcion_inscripcion_inscripcion, App_Web_mje6-elk" enableeventvalidation="false" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>
@@ -234,14 +234,6 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                Celular</td>
-                                            <td>
-                                                <anthem:TextBox ID="m_ECelular" runat="server" CssClass="editcomun"></anthem:TextBox></td>
-                                            <td>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
                                                 Fax</td>
                                             <td>
                                                 <anthem:TextBox ID="m_EFax" runat="server" CssClass="editcomun"></anthem:TextBox></td>
@@ -253,6 +245,14 @@
                                                 E-mail</td>
                                             <td>
                                                 <anthem:TextBox ID="m_EEmail" runat="server" CssClass="editcomun"></anthem:TextBox></td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Web</td>
+                                            <td>
+                                                <anthem:TextBox ID="m_ECelular" runat="server" CssClass="editcomun"></anthem:TextBox></td>
                                             <td>
                                             </td>
                                         </tr>
@@ -507,7 +507,7 @@
 		<div align="right">
             <asp:Label ID="m_SVersion" runat="server" Font-Bold="True"></asp:Label><br />
             <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" Font-Size="Smaller"
-                PostBackUrl="~/about.aspx">Desarrollado por SDG.</asp:LinkButton></div>
+                PostBackUrl="http://www.sdgltda.com">Desarrollado por SDG.</asp:LinkButton></div>
     </form>
 </body>
 </html>
