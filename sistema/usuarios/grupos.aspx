@@ -1,4 +1,4 @@
-<%@ page language="C#" autoeventwireup="true" inherits="sistema_usuarios_grupos, App_Web_r1ane2j2" enableeventvalidation="false" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="grupos.aspx.cs" Inherits="sistema_usuarios_grupos" EnableEventValidation="false" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>

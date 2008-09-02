@@ -1,1 +1,1 @@
-<%@ page language="C#" autoeventwireup="true" inherits="renewSes, App_Web_zybv-ml_" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="renewSes.aspx.cs" Inherits="renewSes" %>

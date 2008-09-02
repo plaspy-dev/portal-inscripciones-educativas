@@ -1,4 +1,4 @@
-<%@ page language="C#" autoeventwireup="true" inherits="inscripcion_priorizacion_prioridad, App_Web_ewb1y755" enableeventvalidation="false" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="prioridad.aspx.cs" Inherits="inscripcion_priorizacion_prioridad"  EnableEventValidation="false"%>
 
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>
 

@@ -1,4 +1,4 @@
-<%@ page language="C#" autoeventwireup="true" inherits="aplicativo_bancos_cuentas, App_Web__wdqhzxz" enableeventvalidation="false" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="cuentas.aspx.cs" Inherits="aplicativo_bancos_cuentas"  EnableEventValidation="false"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>
 

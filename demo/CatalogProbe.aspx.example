@@ -1,0 +1,10 @@
+<%@ Page Language="C#" %>
+<script runat="server">
+protected void Page_Load(object sender, EventArgs e) {
+    CMapa snapshot = CMapa.GetMapa("2026");
+    if (snapshot == null || snapshot.GetDepartamentos() == null || snapshot.GetDepartamentos().Count != 1) {
+        throw new InvalidOperationException("The fictional department did not load.");
+    }
+    Response.Redirect("datosmapa.aspx");
+}
+</script>

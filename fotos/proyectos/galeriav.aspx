@@ -1,4 +1,4 @@
-<%@ page language="C#" autoeventwireup="true" inherits="fotos_proyectos_galeriav, App_Web_bvpuqhmy" enableeventvalidation="false" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="galeriav.aspx.cs" Inherits="fotos_proyectos_galeriav" EnableEventValidation="false" %>
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="Head1" runat="server">

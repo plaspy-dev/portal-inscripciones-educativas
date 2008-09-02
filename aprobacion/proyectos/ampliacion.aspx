@@ -1,4 +1,4 @@
-<%@ page language="C#" autoeventwireup="true" inherits="aprobacion_proyectos_ampliacion, App_Web_e96mg5-m" enableeventvalidation="false" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ampliacion.aspx.cs" Inherits="aprobacion_proyectos_ampliacion"  EnableEventValidation="false"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>

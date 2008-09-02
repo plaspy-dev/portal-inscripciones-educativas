@@ -1,4 +1,4 @@
-<%@ page language="C#" autoeventwireup="true" inherits="inscripcion_priorizacion_priorizacion, App_Web_ewb1y755" enableeventvalidation="false" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="priorizacion.aspx.cs" Inherits="inscripcion_priorizacion_priorizacion"  EnableEventValidation="false"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>

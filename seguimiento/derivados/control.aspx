@@ -1,4 +1,4 @@
-<%@ page language="C#" autoeventwireup="true" inherits="seguimiento_derivados_control, App_Web_wixyt8xg" enableeventvalidation="false" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="control.aspx.cs" Inherits="seguimiento_derivados_control"  EnableEventValidation="false"%>
 
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>
 

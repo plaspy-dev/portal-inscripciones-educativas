@@ -1,4 +1,4 @@
-<%@ page language="C#" autoeventwireup="true" inherits="viabilizacion_proyectos_viabilizacion, App_Web_qepj7eiz" enableeventvalidation="false" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="viabilizacion.aspx.cs" Inherits="viabilizacion_proyectos_viabilizacion"  EnableEventValidation="false"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>

@@ -1,4 +1,4 @@
-<%@ page language="C#" autoeventwireup="true" inherits="informes_institucion_Default, App_Web_ybqzq9rz" enableeventvalidation="false" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="informes_institucion_Default" EnableEventValidation="false"%>
 <%@ Register TagPrefix="anthem" Namespace="Anthem" Assembly="Anthem" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml" >

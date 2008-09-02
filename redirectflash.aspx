@@ -1,1 +1,1 @@
-<%@ page language="C#" autoeventwireup="true" inherits="redirectflash, App_Web_zybv-ml_" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="redirectflash.aspx.cs" Inherits="redirectflash" %>

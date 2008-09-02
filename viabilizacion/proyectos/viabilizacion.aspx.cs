@@ -17,7 +17,7 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
     {
         if (!PageLoad("proyectos", 49))
             return;
-        if(!IsCallback) {
+        if(!IsPostBack) {
             
             Session["idobjectos"] = "0";
             CObjetoInscrito obj = new CObjetoInscrito();
@@ -621,7 +621,8 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
         m_EValorM2Circulaciones.Text = "";
         m_EObservacionesValores.Text = "";
         if (sender == null || sender.ToString() != "1")
-            base.m_BCancelar_Click(sender, e);
+            if (sender != m_CBEnte && sender != m_CBMunicipio)
+                base.m_BCancelar_Click(sender, e);
     }
 
     protected bool InsertarTecnicos()
@@ -1058,6 +1059,8 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
     {
         // eliminar
         if (
+            m_pConector.QueryMod("DELETE FROM observacionesproyecto WHERE proyecto=" + m_nId.Value) == -1 ||
+            m_pConector.QueryMod("DELETE FROM objeto WHERE proyecto=" + m_nId.Value) == -1 ||
             m_pConector.QueryMod("DELETE FROM areas WHERE proyecto=" + m_nId.Value) == -1 ||
             m_pConector.QueryMod("DELETE FROM valor WHERE proyecto=" + m_nId.Value) == -1 ||
             m_pConector.QueryMod("DELETE FROM infraestructura WHERE proyecto=" + m_nId.Value) == -1 ||
@@ -1076,14 +1079,20 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             base.AfterUpdate("Proyecto " + m_CBProyecto.SelectedItem.Text + " Eliminado");
         }
     }
+
     protected void m_CBEnte_SelectedIndexChanged(object sender, EventArgs e)
     {
+        if (m_nId.Value != "")
+        {
+            m_BCancelar_Click(null, e);
+            return;
+        }
+
         int pos = m_CBEnte.SelectedIndex;
         m_BCancelar_Click(sender, e);
         m_CBEnte.SelectedIndex = pos;
         m_CBMunicipio.UpdateAfterCallBack = true;
         m_CBProyecto.UpdateAfterCallBack = true;
-
         m_LCResultados.DataBind();
         m_LCResultados_PageIndexChanged(m_LCResultados, e);
         m_LCResultados.UpdateAfterCallBack = true;
@@ -1092,6 +1101,11 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
 
     protected void m_CBMunicipio_SelectedIndexChanged(object sender, EventArgs e)
     {
+        if (m_nId.Value != "")
+        {
+            m_BCancelar_Click(null, e);
+            return;
+        }
         int pos= m_CBEnte.SelectedIndex;
         int mun = m_CBMunicipio.SelectedIndex;
         m_BCancelar_Click(sender, e);
@@ -1119,6 +1133,8 @@ public partial class viabilizacion_proyectos_viabilizacion : CPageTemplate
             if (m_LCResultados.SelectedIndex == 0)
             {
                 m_LCResultados_SelectedIndexChanged(m_LCResultados, e);
+                if (m_CBMunicipio.SelectedIndex!=-1)
+                    municipio = m_CBMunicipio.SelectedIndex;
             }
             else
             {
