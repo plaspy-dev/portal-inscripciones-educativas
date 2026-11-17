@@ -48,6 +48,7 @@ Copy `demo/CatalogProbe.aspx.example` into the test site as `prueba-catalogo.asp
 - `ayuda/`. Common help layout in ayuda.master.
 - `bin/` · Original Anthem.NET assembly
 - `demo/` · Build and fictional SQL scenario
+- `demos/`. Example catalogue query in ejemplo.json.
 - `fotos/`. Project photos and gallery entry points under proyectos/.
 - `imagenes/`. Menu banners, navigation icons and LogoEntidad.aspx.
 - `importar/`. File import handler in archivos/Default.aspx.cs.
@@ -69,7 +70,7 @@ Verified on 20 November 2026. The portal was built in Windows and tested with II
 
 ### History
 
-The source edition keeps its recorded date of 2008-09-02. The 2026 reconstruction includes recovered components, setup instructions and local checks.
+The archive follows portal development from 2006 to 2008, including applications, agreements and reports. The 2026 work adds the bilingual build guide, two separately recovered editions and a fictional local trial.
 
 ### Support
 
@@ -132,6 +133,7 @@ Copia `demo/CatalogProbe.aspx.example` al sitio de prueba como `prueba-catalogo.
 - `ayuda/`. Plantilla compartida de ayuda en ayuda.master.
 - `bin/` · Ensamblado original de Anthem.NET
 - `demo/` · Compilación y escenario ficticio en SQL
+- `demos/`. Consulta de catálogo de ejemplo en ejemplo.json.
 - `fotos/`. Fotos y páginas de galería de proyectos en proyectos/.
 - `imagenes/`. Encabezados del menú, iconos y LogoEntidad.aspx.
 - `importar/`. Manejador de importación en archivos/Default.aspx.cs.
@@ -153,7 +155,7 @@ Verificado el 20 de noviembre de 2026. El portal se compiló en Windows y se pro
 
 ### Historia
 
-La edición conserva su fecha registrada del 2008-09-02. La reconstrucción de 2026 incorpora componentes recuperados, instrucciones y comprobaciones locales.
+El archivo sigue el desarrollo del portal de 2006 a 2008, con inscripción, convenios e informes. En 2026 se agregaron la guía bilingüe, dos ediciones recuperadas por separado y una prueba local ficticia.
 
 ### Soporte
 

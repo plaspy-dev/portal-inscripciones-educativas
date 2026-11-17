@@ -1,0 +1,36 @@
+{
+  "lugares": [
+    {
+      "id": "DEMO-01",
+      "nombre": "Municipio de prueba",
+      "zona": "Norte"
+    },
+    {
+      "id": "DEMO-02",
+      "nombre": "Otro municipio de prueba",
+      "zona": "Sur"
+    }
+  ],
+  "instituciones": [
+    {
+      "id": "DEMO-IE-01",
+      "nombre": "Institución Aula de Muestra",
+      "municipio": "DEMO-01"
+    },
+    {
+      "id": "DEMO-IE-02",
+      "nombre": "Institución Taller de Muestra",
+      "municipio": "DEMO-02"
+    }
+  ],
+  "inscripcion": {
+    "institucion": "DEMO-IE-01",
+    "proyecto": "Biblioteca para el aula de muestra"
+  },
+  "consulta": {
+    "zona": "Norte",
+    "resultados_esperados": [
+      "DEMO-IE-01"
+    ]
+  }
+}
