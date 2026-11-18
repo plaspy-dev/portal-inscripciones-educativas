@@ -1,2 +1,4 @@
 
 bin/Anthem.dll -text
+menu/** -text
+estilos/** -text

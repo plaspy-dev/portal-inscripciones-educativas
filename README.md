@@ -38,10 +38,15 @@ From a Windows checkout, run `pwsh -NoProfile -File demo/Build.ps1 -Output <new-
 
 ### Usage
 
+To try the registration and institution report filters, start a fresh local SQL Server container. Run [the extended fictional data script](demo/PortalFlows.sql) with `sqlcmd` and set `FictionalSqlPassword` and `FictionalPortalPassword` to two new local test values. Use the first in `contrasena` in the generated site configuration. Sign in as `alicia_demo` with the second. In the registration form, verify institution `INST-EJEMPLO-701`. In the institution report, search using the same code.
+
+To reproduce sign-in, map a fictional SQL login to a database user named `portal_demo_user`. Run [the sign-in fixture](demo/PortalLogin.sql) with `sqlcmd` and the variable `FictionalPortalPassword` set to a new fictional password. Open `Default.aspx` and sign in as `alicia_demo` using that password. The application records the sign-in and opens an entry menu with the fictional catalogue link.
+
 Copy `demo/CatalogProbe.aspx.example` into the test site as `prueba-catalogo.aspx`. Open that page in the local site. The fictional record is Departamento Ejemplo. The initializer opens the original `datosmapa.aspx` page and that page returns the record as XML.
 
 ### Project structure
 
+- `estilos/` · Stylesheets and small image assets used by the restored pages.
 - `aplicativo/`. Institutional catalogues. Open the school list in `aplicativo/institucion/ieducativas.aspx`.
 - `App_Code/`. Shared record and data access classes. Start with `App_Code/CMapa.cs`.
 - `aprobacion/`. Agreement and project decisions, including proyectos/aprobacion.aspx.
@@ -59,14 +64,21 @@ Copy `demo/CatalogProbe.aspx.example` into the test site as `prueba-catalogo.asp
 - `seguimiento/`. Follow-up pages for projects and agreements, including proyectos/proyecto.aspx.
 - `sistema/`. Administrative catalogues and user groups. Start at `sistema/usuarios/grupos.aspx`.
 - `viabilizacion/`. Project feasibility entry in proyectos/viabilizacion.aspx.
+- `docs/` · Evidence from the fictional verification
 
 ### Verification
 
 Docker Compose 5.6.1 starts the disposable service in this verification.
 
+![The portal menu displays the fictional catalogue link](docs/media/catalogue-menu.png)
+
+![The fictional sign-in field followed by the catalogue link](docs/media/fictional-sign-in.gif)
+
 Windows build 10.0.26300, IIS Express 10.0.26013.1000 (WinBuild.160101.0800), SQL Server 16.0.4325.4 and .NET Framework ASP.NET Compiler 4.8.10001.0.
 
-Verified on 20 November 2026. The portal was built in Windows and tested with IIS Express and a disposable SQL Server instance. The catalogue query passed. Registration and reports require further functional verification.
+Verified on 20 November 2026. The portal was built in Windows and tested with IIS Express and a disposable SQL Server instance. The catalogue query and sign-in passed. SQL Server recorded the sign-in and the menu showed the fictional link. The registration institution lookup and institution report search returned the fictional row. Saving an entire application and generating the other reports remain to be exercised.
+
+![The original XML page contains Departamento Ejemplo](docs/media/xml-catalogue.png)
 
 ### History
 
@@ -123,10 +135,15 @@ Desde una copia en Windows, ejecuta `pwsh -NoProfile -File demo/Build.ps1 -Outpu
 
 ### Uso
 
+Para probar los filtros de inscripción e informes de instituciones, inicia un SQL Server local nuevo. Ejecuta [el escenario ficticio ampliado](demo/PortalFlows.sql) con `sqlcmd` y define `FictionalSqlPassword` y `FictionalPortalPassword` con dos valores nuevos de prueba. Usa el primero en `contrasena` en la configuración generada. Ingresa como `alicia_demo` con el segundo. En el formulario de inscripción, verifica la institución `INST-EJEMPLO-701`. En el informe, busca con el mismo código.
+
+Para reproducir el ingreso, asigna un login ficticio de SQL a un usuario de la base llamado `portal_demo_user`. Ejecuta [el escenario de ingreso](demo/PortalLogin.sql) con `sqlcmd` y define la variable `FictionalPortalPassword` con una contraseña ficticia nueva. Abre `Default.aspx` e ingresa como `alicia_demo` con esa contraseña. La aplicación registra el ingreso y abre el menú de entrada con el enlace al catálogo ficticio.
+
 Copia `demo/CatalogProbe.aspx.example` al sitio de prueba como `prueba-catalogo.aspx`. Abre esa página en el sitio local. El registro ficticio se llama Departamento Ejemplo. El inicializador abre la página original `datosmapa.aspx` y esa página devuelve el registro en XML.
 
 ### Estructura del proyecto
 
+- `estilos/` · Hojas de estilo y pequeños recursos gráficos de las páginas recuperadas.
 - `aplicativo/`. Catálogos institucionales. Abre la lista de escuelas en `aplicativo/institucion/ieducativas.aspx`.
 - `App_Code/`. Clases compartidas y de acceso a datos. Consulta `App_Code/CMapa.cs`.
 - `aprobacion/`. Decisiones de convenios y proyectos, incluida proyectos/aprobacion.aspx.
@@ -144,14 +161,21 @@ Copia `demo/CatalogProbe.aspx.example` al sitio de prueba como `prueba-catalogo.
 - `seguimiento/`. Seguimiento de proyectos y convenios, incluido proyectos/proyecto.aspx.
 - `sistema/`. Catálogos administrativos y grupos de usuarios. Empieza en `sistema/usuarios/grupos.aspx`.
 - `viabilizacion/`. Ficha de viabilidad de proyectos en proyectos/viabilizacion.aspx.
+- `docs/` · Evidencia de la comprobación ficticia
 
 ### Verificación
 
 Docker Compose 5.6.1 inicia el servicio desechable de esta verificación.
 
+![El menú del portal muestra el enlace al catálogo ficticio](docs/media/catalogue-menu.png)
+
+![El campo de ingreso ficticio seguido del enlace al catálogo](docs/media/fictional-sign-in.gif)
+
 Windows compilación 10.0.26300, IIS Express 10.0.26013.1000 (WinBuild.160101.0800), SQL Server 16.0.4325.4 y compilador ASP.NET de .NET Framework 4.8.10001.0.
 
-Verificado el 20 de noviembre de 2026. El portal se compiló en Windows y se probó con IIS Express y una instancia desechable de SQL Server. La consulta del catálogo pasó. Falta verificar el registro de solicitudes y los informes.
+Verificado el 20 de noviembre de 2026. El portal se compiló en Windows y se probó con IIS Express y una instancia desechable de SQL Server. Pasaron la consulta del catálogo y el ingreso. SQL Server registró el ingreso y el menú mostró el enlace ficticio. La búsqueda de la institución en la inscripción y el filtro del informe devolvieron el registro ficticio. Falta guardar una solicitud completa y probar los demás informes.
+
+![La página XML original contiene Departamento Ejemplo](docs/media/xml-catalogue.png)
 
 ### Historia
 
