@@ -521,6 +521,10 @@ SET IDENTITY_INSERT dbo.varios ON;
 INSERT INTO dbo.varios ([id], [nombre], [tipo]) VALUES (1, 'Región Ejemplo', 1),
 (2, 'Grupo Ejemplo', 2);
 SET IDENTITY_INSERT dbo.varios OFF;
+SET IDENTITY_INSERT dbo.varios ON;
+INSERT INTO dbo.varios ([id], [nombre], [tipo]) VALUES (351, 'Prioridad de ejemplo', 35),
+(131, 'Tipo de ejemplo', 13);
+SET IDENTITY_INSERT dbo.varios OFF;
 INSERT INTO dbo.vigencias ([nombre]) VALUES ('2008');
 SET IDENTITY_INSERT dbo.usuarios2 ON;
 INSERT INTO dbo.usuarios2 ([id], [login], [nombre], [grupo], [clave], [vigencias], [estado]) VALUES (501, 'alicia_demo', N'Alicia Ejemplo', 2, '$(FictionalPortalPassword)', '2008', 1);
@@ -534,7 +538,7 @@ INSERT INTO dbo.menus ([id], [nombre], [descripcion], [url], [padre], [orden]) V
 SET IDENTITY_INSERT dbo.menus OFF;
 SET IDENTITY_INSERT dbo.gruposupermisos ON;
 INSERT INTO dbo.gruposupermisos ([id], [grupo], [menu], [permisos]) VALUES (902, 2, 902, 7),
-(903, 2, 903, 7),
+(903, 2, 903, 15),
 (904, 2, 904, 7);
 SET IDENTITY_INSERT dbo.gruposupermisos OFF;
 SET IDENTITY_INSERT dbo.municipios ON;

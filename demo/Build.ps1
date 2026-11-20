@@ -8,7 +8,7 @@ if ($target -eq $root -or $target.StartsWith($root + [IO.Path]::DirectorySeparat
 if (Test-Path -LiteralPath $target) { throw 'Choose a new output folder.' }
 $site = Join-Path $target 'site'
 $null = New-Item -ItemType Directory -Path $site
-Get-ChildItem -LiteralPath $root | Where-Object { $_.Name -notin @('demo','docs','README.md','LICENSE','THIRD-PARTY-NOTICES.md','Web.config') } |
+Get-ChildItem -LiteralPath $root | Where-Object { $_.Name -notin @('demo','docs','ediciones','README.md','LICENSE','THIRD-PARTY-NOTICES.md','Web.config') } |
   Copy-Item -Destination $site -Recurse
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'Web.config.example') -Destination (Join-Path $site 'Web.config')
 $compiler = Join-Path $env:WINDIR 'Microsoft.NET/Framework64/v4.0.30319/aspnet_compiler.exe'

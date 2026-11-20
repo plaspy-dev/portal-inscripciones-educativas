@@ -1,0 +1,36 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="ayuda.master.cs" Inherits="ayuda_ayuda" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Ayuda</title>
+    <script type="text/javascript" language="JavaScript" src="../../scripts/comun.js"></script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <span></span><strong><asp:HyperLink ID="m_LTitulo" runat="server" ForeColor="Blue">Ayuda</asp:HyperLink><br />
+        </strong>
+        <asp:Label ID="m_SDescripcion" runat="server" Text="Descripcion"></asp:Label><br />
+        <asp:Repeater ID="Repeater1" runat="server">
+        <HeaderTemplate>
+             <table border="0">
+        </HeaderTemplate>
+        <ItemTemplate>
+                <tr <%# DataBinder.Eval(Container.DataItem, "Clase")%>>
+                  <td><a href='javascript:hidetree(<%#Container.ItemIndex+1%>);' style="font-weight: bold; color: blue"><%# DataBinder.Eval(Container.DataItem, "Index") %></a></td>
+                </tr>
+                <tr>
+                  <td <%# DataBinder.Eval(Container.DataItem, "Clase")%> id='t<%#Container.ItemIndex+1%>'> <%# DataBinder.Eval(Container.DataItem, "Help") %> </td>
+                </tr>
+        </ItemTemplate>
+         <FooterTemplate>
+                </table>
+         </FooterTemplate>
+        </asp:Repeater>
+        <asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
+        </asp:contentplaceholder>
+    </form>
+</body>
+</html>

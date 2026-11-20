@@ -1,0 +1,94 @@
+using System;
+using System.Data;
+using System.Configuration;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using System.Collections;
+using System.Data.SqlClient;
+
+public class CMapaProyectos
+{
+    public string m_szCodigo;
+    public string m_nID;
+    public string m_szValor;
+    public string m_szObjeto;
+    public string m_szMunicipio;
+    public string m_szInstitucion;
+    public int m_nEjecucion;
+    public string m_szEstado;
+    public int m_nEstudiantesB;
+    public int m_nEstudiantesD;
+    public int m_nAulas;
+    public int m_nDotacion;
+    public string m_szEntidadTerritorial;
+    public int m_nAulasR;
+
+	public CMapaProyectos()
+	{
+        m_szCodigo = "";
+        m_nID = "";
+        m_szValor = "";
+        m_szEntidadTerritorial = "";
+        m_nEstudiantesB = 0;
+        m_szEstado= m_szInstitucion = m_szMunicipio = m_szObjeto = "";
+        m_nEjecucion = 0;
+        m_nAulas = 0;
+        m_nDotacion = 0;
+        m_nAulasR = 0;
+        m_nEstudiantesD = 0;
+	}
+    public CMapaProyectos(string id, string codigo, string valor)
+    {
+        m_szCodigo = codigo;
+        m_nID = id;
+        m_szValor = valor;
+        m_szEstado = m_szInstitucion = m_szMunicipio = m_szObjeto = "";
+        m_nEjecucion = 0;
+        m_nEstudiantesB = 0;
+        m_nAulas = 0;
+        m_nDotacion = 0;
+        m_szEntidadTerritorial = "";
+        m_nAulasR = 0;
+        m_nEstudiantesD = 0;
+    }
+    public static CMapaProyectos ParseQuery(SqlDataReader reader)
+    {
+        CMapaProyectos proy= new CMapaProyectos(reader[1].ToString(),
+            reader[2].ToString(),
+            reader[3].ToString());
+        proy.m_szMunicipio = reader[4].ToString();
+        proy.m_szObjeto = reader[5].ToString();
+        proy.m_szInstitucion = reader[6].ToString();
+        proy.m_nEstudiantesB = Convert.ToInt32(reader[7].ToString());
+        if(reader[8].ToString()!="")
+            proy.m_nAulas = Convert.ToInt32(reader[8].ToString());
+        if (reader[9].ToString() != "")
+            proy.m_nDotacion = Convert.ToInt32(reader[9].ToString());
+        proy.m_szEntidadTerritorial = reader[10].ToString();
+        proy.m_nAulasR = Convert.ToInt32(reader[11].ToString());
+        proy.m_nEstudiantesD = Convert.ToInt32(reader[12].ToString());
+        return proy;
+    }
+    public static string GetQuery(string vigencia)
+    {
+        return "SELECT municipios.departamento,proyectos.id,proyectos.codigo,SUM(objeto.valor),municipios.nombre "
+            + ",dbo.fn_GetObjetos(proyectos.id),insteducativas.nombre,ISNULL(proyectosi.estudiantesb,0)"
+            + ",(SELECT SUM(objeto.cantidad) FROM objeto LEFT JOIN varios ON (varios.id=objeto.concepto) WHERE objeto.proyecto=proyectos.id AND varios.nombre LIKE '%const%aulas%') "
+             + ",(SELECT SUM(objeto.cantidad) FROM objeto LEFT JOIN varios ON (varios.id=objeto.concepto) WHERE objeto.proyecto=proyectos.id AND (varios.nombre LIKE '%sillas%' OR varios.nombre LIKE '%mesas%' OR varios.nombre LIKE '%pupitres%' OR varios.nombre LIKE '%tableros%')) "
+             + ",eterritoriales.nombre"
+             + ",(SELECT ISNULL(SUM(objeto.cantidad),0) FROM objeto LEFT JOIN varios ON (varios.id=objeto.concepto) WHERE objeto.proyecto=proyectos.id AND varios.nombre LIKE '%repos%aulas%') "
+             + ", ISNULL(proyectosi.estudiantesd,0)"
+        +" FROM proyectos "
+        +" LEFT JOIN objeto ON (objeto.proyecto=proyectos.id) "
+        +" LEFT JOIN municipios ON (municipios.id=proyectos.municipio)"
+        + " LEFT JOIN insteducativas ON (insteducativas.id=proyectos.institucion)"
+        + " LEFT JOIN proyectosi ON (proyectosi.id=proyectos.proyectoi)"
+        + " LEFT JOIN eterritoriales ON (eterritoriales.codigo=proyectos.eterritorial)"
+        + " WHERE proyectos.vigencia='" + vigencia + "'"
+        + " GROUP BY proyectos.id,proyectos.codigo,municipios.departamento,municipios.nombre,insteducativas.nombre,proyectosi.estudiantesb,proyectosi.estudiantesd,eterritoriales.nombre";
+    }
+}
